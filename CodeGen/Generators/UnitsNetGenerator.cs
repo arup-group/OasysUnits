@@ -20,13 +20,13 @@ namespace CodeGen.Generators
         ///     Outputs files relative to the given root dir to these locations:
         ///     <list type="bullet">
         ///         <item>
-        ///             <description>OasysUnits/GeneratedCode (quantity and unit types, Quantity, UnitAbbreviationCache)</description>
+        ///             <description>UnitsNet/GeneratedCode (quantity and unit types, Quantity, UnitAbbreviationCache)</description>
         ///         </item>
         ///         <item>
-        ///             <description>OasysUnits.Tests/GeneratedCode (tests)</description>
+        ///             <description>UnitsNet.Tests/GeneratedCode (tests)</description>
         ///         </item>
         ///         <item>
-        ///             <description>OasysUnits.Tests/CustomCode (test stubs, one for each quantity if not already created)</description>
+        ///             <description>UnitsNet.Tests/CustomCode (test stubs, one for each quantity if not already created)</description>
         ///         </item>
         ///     </list>
         /// </summary>
@@ -35,10 +35,10 @@ namespace CodeGen.Generators
         /// <param name="quantityNameToUnitEnumValues">Allocated unit enum values for generating unit enum types.</param>
         public static void Generate(string rootDir, Quantity[] quantities, QuantityNameToUnitEnumValues quantityNameToUnitEnumValues)
         {
-            var outputDir = $"{rootDir}/OasysUnits/GeneratedCode";
-            var extensionsOutputDir = $"{rootDir}/OasysUnits.NumberExtensions/GeneratedCode";
-            var extensionsTestOutputDir = $"{rootDir}/OasysUnits.NumberExtensions.Tests/GeneratedCode";
-            var testProjectDir = $"{rootDir}/OasysUnits.Tests";
+            var outputDir = $"{rootDir}/UnitsNet/GeneratedCode";
+            var extensionsOutputDir = $"{rootDir}/UnitsNet.NumberExtensions/GeneratedCode";
+            var extensionsTestOutputDir = $"{rootDir}/UnitsNet.NumberExtensions.Tests/GeneratedCode";
+            var testProjectDir = $"{rootDir}/UnitsNet.Tests";
 
             // Ensure output directories exist
             Directory.CreateDirectory($"{outputDir}/Quantities");

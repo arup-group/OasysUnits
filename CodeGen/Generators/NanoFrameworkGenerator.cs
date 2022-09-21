@@ -52,7 +52,7 @@ namespace CodeGen.Generators
             logger.LogInformation($"Referencing nanoFramework.CoreLibrary {versions.MscorlibNugetVersion}");
             logger.LogInformation($"Referencing nanoFramework.System.Math {versions.MathNugetVersion}");
 
-            var outputDir = Path.Combine(rootDir, "OasysUnits.NanoFramework", "GeneratedCode");
+            var outputDir = Path.Combine(rootDir, "UnitsNet.NanoFramework", "GeneratedCode");
             var outputQuantities = Path.Combine(outputDir, "Quantities");
             var outputUnits = Path.Combine(outputDir, "Units");
             var outputProperties = Path.Combine(outputDir, "Properties");
@@ -128,7 +128,7 @@ namespace CodeGen.Generators
             Quantity[] quantities)
         {
             // working path
-            string path = Path.Combine(rootDir, "OasysUnits.NanoFramework\\GeneratedCode");
+            string path = Path.Combine(rootDir, "UnitsNet.NanoFramework\\GeneratedCode");
 
             Log.Information("");
             Log.Information("Restoring .NET nanoFramework projects");
@@ -272,7 +272,7 @@ namespace CodeGen.Generators
         private static NanoFrameworkVersions ParseCurrentNanoFrameworkVersions(string rootDir)
         {
             // Angle has both mscorlib and System.Math dependency
-            string generatedCodePath = Path.Combine(rootDir, "OasysUnits.NanoFramework", "GeneratedCode");
+            string generatedCodePath = Path.Combine(rootDir, "UnitsNet.NanoFramework", "GeneratedCode");
             var angleProjectFile = Path.Combine(generatedCodePath, "Angle", "Angle.nfproj");
             var projectFileContent = File.ReadAllText(angleProjectFile);
 

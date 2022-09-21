@@ -1,19 +1,10 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFrameworks>net5.0</TargetFrameworks>
-    <RootNamespace>OasysUnits.NumberExtensions.Tests</RootNamespace>
+    <RootNamespace>OasysUnits.Serialization.JsonNet.Tests</RootNamespace>
     <LangVersion>latest</LangVersion>
     <IsTestProject>true</IsTestProject>
-  </PropertyGroup>
-
-  <!-- Strong name signing -->
-  <PropertyGroup>
-    <AssemblyOriginatorKeyFile>../OasysUnits.snk</AssemblyOriginatorKeyFile>
-    <DelaySign>false</DelaySign>
-    <SignAssembly>true</SignAssembly>
-    <AssemblyName>OasysUnits.NumberExtensions.Tests</AssemblyName>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
 
   <ItemGroup>
@@ -23,7 +14,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="JetBrains.Annotations" Version="2022.1.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.2.0" />
     <PackageReference Include="xunit" Version="2.4.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5">
@@ -35,11 +25,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\OasysUnits.NumberExtensions\OasysUnits.NumberExtensions.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="GeneratedCode\" />
+    <ProjectReference Include="..\UnitsNet.Serialization.JsonNet\OasysUnits.Serialization.JsonNet.csproj" />
+    <ProjectReference Include="..\UnitsNet.Tests\OasysUnits.Tests.csproj" />
   </ItemGroup>
 
 </Project>

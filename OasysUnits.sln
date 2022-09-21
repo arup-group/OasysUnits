@@ -3,23 +3,23 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29609.76
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OasysUnits", "OasysUnits\OasysUnits.csproj", "{CBEAD842-07BC-4B08-9D9D-D6659813776F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OasysUnits", "UnitsNet\OasysUnits.csproj", "{CBEAD842-07BC-4B08-9D9D-D6659813776F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OasysUnits.Serialization.JsonNet", "OasysUnits.Serialization.JsonNet\OasysUnits.Serialization.JsonNet.csproj", "{FB696BFE-B303-4EBD-A0E6-4A7B19DE429B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OasysUnits.Serialization.JsonNet", "UnitsNet.Serialization.JsonNet\OasysUnits.Serialization.JsonNet.csproj", "{FB696BFE-B303-4EBD-A0E6-4A7B19DE429B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OasysUnits.Serialization.JsonNet.Tests", "OasysUnits.Serialization.JsonNet.Tests\OasysUnits.Serialization.JsonNet.Tests.csproj", "{FFEEDF44-F32D-4D92-A75E-487CB0582EB1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OasysUnits.Serialization.JsonNet.Tests", "UnitsNet.Serialization.JsonNet.Tests\OasysUnits.Serialization.JsonNet.Tests.csproj", "{FFEEDF44-F32D-4D92-A75E-487CB0582EB1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OasysUnits.Tests", "OasysUnits.Tests\OasysUnits.Tests.csproj", "{0E3B7567-5DF2-44BD-88DB-CCF050D3F943}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OasysUnits.Tests", "UnitsNet.Tests\OasysUnits.Tests.csproj", "{0E3B7567-5DF2-44BD-88DB-CCF050D3F943}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OasysUnits.Serialization.JsonNet.CompatibilityTests", "OasysUnits.Serialization.JsonNet.CompatibilityTests\OasysUnits.Serialization.JsonNet.CompatibilityTests.csproj", "{21F2FFAC-BF39-487F-9ADE-37100162F955}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OasysUnits.Serialization.JsonNet.CompatibilityTests", "UnitsNet.Serialization.JsonNet.CompatibilityTests\OasysUnits.Serialization.JsonNet.CompatibilityTests.csproj", "{21F2FFAC-BF39-487F-9ADE-37100162F955}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OasysUnits.Benchmark", "OasysUnits.Benchmark\OasysUnits.Benchmark.csproj", "{76B9C7C8-E3D3-4FA7-B782-78E4BA1D0AD8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OasysUnits.Benchmark", "UnitsNet.Benchmark\OasysUnits.Benchmark.csproj", "{76B9C7C8-E3D3-4FA7-B782-78E4BA1D0AD8}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeGen", "CodeGen\CodeGen.csproj", "{078E3D44-4F60-46B3-9099-91A7CBF0B213}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OasysUnits.NumberExtensions", "OasysUnits.NumberExtensions\OasysUnits.NumberExtensions.csproj", "{41763DBA-0F2D-40D2-853C-2CBF719C7208}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OasysUnits.NumberExtensions", "UnitsNet.NumberExtensions\OasysUnits.NumberExtensions.csproj", "{41763DBA-0F2D-40D2-853C-2CBF719C7208}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OasysUnits.NumberExtensions.Tests", "OasysUnits.NumberExtensions.Tests\OasysUnits.NumberExtensions.Tests.csproj", "{B4996AF5-9A8B-481A-9018-EC7F5B1605FF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OasysUnits.NumberExtensions.Tests", "UnitsNet.NumberExtensions.Tests\OasysUnits.NumberExtensions.Tests.csproj", "{B4996AF5-9A8B-481A-9018-EC7F5B1605FF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Files", "_Files", "{B92B01BE-243E-4CCB-B5E5-AF469ADB1F54}"
 ProjectSection(SolutionItems) = preProject

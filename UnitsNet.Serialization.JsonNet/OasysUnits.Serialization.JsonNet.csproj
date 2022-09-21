@@ -50,7 +50,7 @@
 
   <!-- Project references, will also generate the corresponding nuget dependencies -->
   <ItemGroup>
-    <ProjectReference Include="..\OasysUnits\OasysUnits.csproj" />
+    <ProjectReference Include="..\UnitsNet\OasysUnits.csproj" />
   </ItemGroup>
 
   <!-- Files to include in nuget package -->

@@ -39,7 +39,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\OasysUnits\OasysUnits.csproj" />
+    <ProjectReference Include="..\UnitsNet\OasysUnits.csproj" />
   </ItemGroup>
 
 </Project>

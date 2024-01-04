@@ -116,6 +116,7 @@ namespace OasysUnits
             { "Molarity", Molarity.Info },
             { "MolarMass", MolarMass.Info },
             { "Moment", Moment.Info },
+            { "MomentPerLength", MomentPerLength.Info },
             { "Permeability", Permeability.Info },
             { "Permittivity", Permittivity.Info },
             { "PorousMediumPermeability", PorousMediumPermeability.Info },
@@ -254,6 +255,7 @@ namespace OasysUnits
                 "Molarity" => Molarity.From(value, Molarity.BaseUnit),
                 "MolarMass" => MolarMass.From(value, MolarMass.BaseUnit),
                 "Moment" => Moment.From(value, Moment.BaseUnit),
+                "MomentPerLength" => MomentPerLength.From(value, MomentPerLength.BaseUnit),
                 "Permeability" => Permeability.From(value, Permeability.BaseUnit),
                 "Permittivity" => Permittivity.From(value, Permittivity.BaseUnit),
                 "PorousMediumPermeability" => PorousMediumPermeability.From(value, PorousMediumPermeability.BaseUnit),
@@ -553,6 +555,9 @@ namespace OasysUnits
                 case MomentUnit momentUnit:
                     quantity = Moment.From(value, momentUnit);
                     return true;
+                case MomentPerLengthUnit momentPerLengthUnit:
+                    quantity = MomentPerLength.From(value, momentPerLengthUnit);
+                    return true;
                 case PermeabilityUnit permeabilityUnit:
                     quantity = Permeability.From(value, permeabilityUnit);
                     return true;
@@ -800,6 +805,7 @@ namespace OasysUnits
                 Type _ when quantityType == typeof(Molarity) => parser.TryParse<Molarity, MolarityUnit>(quantityString, formatProvider, Molarity.From, out quantity),
                 Type _ when quantityType == typeof(MolarMass) => parser.TryParse<MolarMass, MolarMassUnit>(quantityString, formatProvider, MolarMass.From, out quantity),
                 Type _ when quantityType == typeof(Moment) => parser.TryParse<Moment, MomentUnit>(quantityString, formatProvider, Moment.From, out quantity),
+                Type _ when quantityType == typeof(MomentPerLength) => parser.TryParse<MomentPerLength, MomentPerLengthUnit>(quantityString, formatProvider, MomentPerLength.From, out quantity),
                 Type _ when quantityType == typeof(Permeability) => parser.TryParse<Permeability, PermeabilityUnit>(quantityString, formatProvider, Permeability.From, out quantity),
                 Type _ when quantityType == typeof(Permittivity) => parser.TryParse<Permittivity, PermittivityUnit>(quantityString, formatProvider, Permittivity.From, out quantity),
                 Type _ when quantityType == typeof(PorousMediumPermeability) => parser.TryParse<PorousMediumPermeability, PorousMediumPermeabilityUnit>(quantityString, formatProvider, PorousMediumPermeability.From, out quantity),
@@ -932,6 +938,7 @@ namespace OasysUnits
             yield return typeof(Molarity);
             yield return typeof(MolarMass);
             yield return typeof(Moment);
+            yield return typeof(MomentPerLength);
             yield return typeof(Permeability);
             yield return typeof(Permittivity);
             yield return typeof(PorousMediumPermeability);

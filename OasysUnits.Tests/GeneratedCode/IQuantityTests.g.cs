@@ -113,6 +113,7 @@ namespace OasysUnits.Tests
             Assertion(3, MolarityUnit.PoundMolePerCubicFoot, Quantity.From(3, MolarityUnit.PoundMolePerCubicFoot));
             Assertion(3, MolarMassUnit.PoundPerMole, Quantity.From(3, MolarMassUnit.PoundPerMole));
             Assertion(3, MomentUnit.TonneForceMillimeter, Quantity.From(3, MomentUnit.TonneForceMillimeter));
+            Assertion(3, MomentPerLengthUnit.TonneForceMillimeterPerMillimeter, Quantity.From(3, MomentPerLengthUnit.TonneForceMillimeterPerMillimeter));
             Assertion(3, PermeabilityUnit.HenryPerMeter, Quantity.From(3, PermeabilityUnit.HenryPerMeter));
             Assertion(3, PermittivityUnit.FaradPerMeter, Quantity.From(3, PermittivityUnit.FaradPerMeter));
             Assertion(3, PorousMediumPermeabilityUnit.SquareMeter, Quantity.From(3, PorousMediumPermeabilityUnit.SquareMeter));
@@ -246,6 +247,7 @@ namespace OasysUnits.Tests
             Assertion(Molarity.Info, Molarity.Zero);
             Assertion(MolarMass.Info, MolarMass.Zero);
             Assertion(Moment.Info, Moment.Zero);
+            Assertion(MomentPerLength.Info, MomentPerLength.Zero);
             Assertion(Permeability.Info, Permeability.Zero);
             Assertion(Permittivity.Info, Permittivity.Zero);
             Assertion(PorousMediumPermeability.Info, PorousMediumPermeability.Zero);
@@ -379,6 +381,7 @@ namespace OasysUnits.Tests
             Assertion(Molarity.BaseDimensions, Molarity.Zero);
             Assertion(MolarMass.BaseDimensions, MolarMass.Zero);
             Assertion(Moment.BaseDimensions, Moment.Zero);
+            Assertion(MomentPerLength.BaseDimensions, MomentPerLength.Zero);
             Assertion(Permeability.BaseDimensions, Permeability.Zero);
             Assertion(Permittivity.BaseDimensions, Permittivity.Zero);
             Assertion(PorousMediumPermeability.BaseDimensions, PorousMediumPermeability.Zero);

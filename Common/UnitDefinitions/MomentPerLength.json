@@ -12,7 +12,7 @@
       "PluralName": "NewtonMetersPerMeter",
       "FromUnitToBaseFunc": "{x}",
       "FromBaseToUnitFunc": "{x}",
-      "Prefixes": [ "Nano", "Micro", "Milli", "Centi", "Deci", "Deca", "Kilo", "Mega" ],
+      "Prefixes": [ "Kilo", "Mega" ],
       "Localization": [
         {
           "Culture": "en-US",
@@ -25,7 +25,7 @@
       "PluralName": "NewtonMetersPerCentimeter",
       "FromUnitToBaseFunc": "{x} * 1e2",
       "FromBaseToUnitFunc": "{x} / 1e2",
-      "Prefixes": [ "Nano", "Micro", "Milli", "Centi", "Deci", "Deca", "Kilo", "Mega" ],
+      "Prefixes": [ "Kilo", "Mega" ],
       "Localization": [
         {
           "Culture": "en-US",
@@ -38,7 +38,7 @@
       "PluralName": "NewtonMetersPerMillimeter",
       "FromUnitToBaseFunc": "{x} * 1e3",
       "FromBaseToUnitFunc": "{x} / 1e3",
-      "Prefixes": [ "Nano", "Micro", "Milli", "Centi", "Deci", "Deca", "Kilo", "Mega" ],
+      "Prefixes": [ "Kilo", "Mega" ],
       "Localization": [
         {
           "Culture": "en-US",
@@ -51,7 +51,7 @@
       "PluralName": "NewtonCentimetersPerCentimeter",
       "FromUnitToBaseFunc": "{x}",
       "FromBaseToUnitFunc": "{x}",
-      "Prefixes": [ "Nano", "Micro", "Milli", "Centi", "Deci", "Deca", "Kilo", "Mega" ],
+      "Prefixes": [ "Kilo", "Mega" ],
       "Localization": [
         {
           "Culture": "en-US",
@@ -64,7 +64,7 @@
       "PluralName": "NewtonMillimetersPerMillimeter",
       "FromUnitToBaseFunc": "{x}",
       "FromBaseToUnitFunc": "{x}",
-      "Prefixes": [ "Nano", "Micro", "Milli", "Centi", "Deci", "Deca", "Kilo", "Mega" ],
+      "Prefixes": [ "Kilo", "Mega" ],
       "Localization": [
         {
           "Culture": "en-US",
@@ -237,18 +237,6 @@
         {
           "Culture": "en-US",
           "Abbreviations": [ "lbf·in/in" ]
-        }
-      ]
-    },
-    {
-      "SingularName": "PoundForceYardPerYard",
-      "PluralName": "PoundForceYardsPerYard",
-      "FromUnitToBaseFunc": "{x} * 14.59390292",
-      "FromBaseToUnitFunc": "{x} / 14.59390292",
-      "Localization": [
-        {
-          "Culture": "en-US",
-          "Abbreviations": [ "lbf·yd/yd" ]
         }
       ]
     },

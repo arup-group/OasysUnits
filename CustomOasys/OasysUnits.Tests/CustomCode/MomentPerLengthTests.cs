@@ -18,6 +18,7 @@
 // Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
 
 using System;
+using Xunit;
 
 namespace OasysUnits.Tests.CustomCode
 {
@@ -56,5 +57,243 @@ namespace OasysUnits.Tests.CustomCode
         protected override double TonneForceMetersPerMeterInOneNewtonMeterPerMeter => 1.01972e-4;
         protected override double TonneForceMetersPerMillimeterInOneNewtonMeterPerMeter => 1.01972e-7;
         protected override double TonneForceMillimetersPerMillimeterInOneNewtonMeterPerMeter => 1.01972e-4;
+
+        // copied from ForceTests
+        private double KilogramsForceInOneNewton => 0.101972;
+        private double KilopoundsForceInOneNewton => 0.22481e-3;
+        private double MeganewtonsInOneNewton => 1E-6;
+        private double KilonewtonsInOneNewton => 1E-3;
+        private double NewtonsInOneNewton => 1;
+        private double PoundsForceInOneNewton => 0.22481;
+        private double TonnesForceInOneNewton => 1.019716212977928e-4;
+
+        //copied from LengthTests
+        private double FeetInOneMeter => 3.28084;
+        private double InchesInOneMeter => 39.37007874;
+        private double YardsInOneMeter => 1.09361;
+
+        [Fact]
+        public void KilogramForceCentimetersPerCentimeterInOneNewtonMeterPerMeterTest()
+        {
+            double expected = KilogramsForceInOneNewton;
+            Assert.Equal(expected, KilogramForceCentimetersPerCentimeterInOneNewtonMeterPerMeter, 6);
+        }
+
+        [Fact]
+        public void KilogramForceMetersPerCentimeterInOneNewtonMeterPerMeterTest()
+        {
+            double expected = KilogramsForceInOneNewton / 100.0;
+            Assert.Equal(expected, KilogramForceMetersPerCentimeterInOneNewtonMeterPerMeter, 6);
+        }
+
+        [Fact]
+        public void KilogramForceMetersPerMeterInOneNewtonMeterPerMeterTest()
+        {
+            double expected = KilogramsForceInOneNewton;
+            Assert.Equal(expected, KilogramForceMetersPerMeterInOneNewtonMeterPerMeter, 6);
+        }
+
+        [Fact]
+        public void KilogramForceMetersPerMillimeterInOneNewtonMeterPerMeterTest()
+        {
+            double expected = KilogramsForceInOneNewton / 1000.0;
+            Assert.Equal(expected, KilogramForceMetersPerMillimeterInOneNewtonMeterPerMeter, 6);
+        }
+
+        [Fact]
+        public void KilogramForceMillimetersPerMillimeterInOneNewtonMeterPerMeterTest()
+        {
+            double expected = KilogramsForceInOneNewton;
+            Assert.Equal(expected, KilogramForceMillimetersPerMillimeterInOneNewtonMeterPerMeter, 6);
+        }
+
+        [Fact]
+        public void KilonewtonCentimetersPerCentimeterInOneNewtonMeterPerMeterTest()
+        {
+            double expected = KilonewtonsInOneNewton;
+            Assert.Equal(expected, KilonewtonCentimetersPerCentimeterInOneNewtonMeterPerMeter, 6);
+        }
+
+        [Fact]
+        public void KilonewtonMetersPerCentimeterInOneNewtonMeterPerMeterTest()
+        {
+            double expected = KilonewtonsInOneNewton / 100.0;
+            Assert.Equal(expected, KilonewtonMetersPerCentimeterInOneNewtonMeterPerMeter, 6);
+        }
+
+        [Fact]
+        public void KilonewtonMetersPerMeterInOneNewtonMeterPerMeterTest()
+        {
+            double expected = KilonewtonsInOneNewton;
+            Assert.Equal(expected, KilonewtonMetersPerMeterInOneNewtonMeterPerMeter, 6);
+        }
+
+        [Fact]
+        public void KilonewtonMetersPerMillimeterInOneNewtonMeterPerMeterTest()
+        {
+            double expected = KilonewtonsInOneNewton / 1000.0;
+            Assert.Equal(expected, KilonewtonMetersPerMillimeterInOneNewtonMeterPerMeter, 6);
+        }
+
+        [Fact]
+        public void KilonewtonMillimetersPerMillimeterInOneNewtonMeterPerMeterTest()
+        {
+            double expected = KilonewtonsInOneNewton;
+            Assert.Equal(expected, KilonewtonMillimetersPerMillimeterInOneNewtonMeterPerMeter, 6);
+        }
+
+        [Fact]
+        public void KilopoundForceFeetPerFootInOneNewtonMeterPerMeterTest()
+        {
+            double expected = KilopoundsForceInOneNewton;
+            Assert.Equal(expected, KilopoundForceFeetPerFootInOneNewtonMeterPerMeter, 6);
+        }
+
+        [Fact]
+        public void KilopoundForceFeetPerInchInOneNewtonMeterPerMeterTest()
+        {
+            double expected = KilopoundsForceInOneNewton * FeetInOneMeter / InchesInOneMeter;
+            Assert.Equal(expected, KilopoundForceFeetPerInchInOneNewtonMeterPerMeter, 6);
+        }
+
+        [Fact]
+        public void KilopoundForceInchesPerInchInOneNewtonMeterPerMeterTest()
+        {
+            double expected = KilopoundsForceInOneNewton;
+            Assert.Equal(expected, KilopoundForceInchesPerInchInOneNewtonMeterPerMeter, 6);
+        }
+
+        [Fact]
+        public void MeganewtonCentimetersPerCentimeterInOneNewtonMeterPerMeterTest()
+        {
+            double expected = MeganewtonsInOneNewton;
+            Assert.Equal(expected, MeganewtonCentimetersPerCentimeterInOneNewtonMeterPerMeter, 6);
+        }
+
+        [Fact]
+        public void MeganewtonMetersPerCentimeterInOneNewtonMeterPerMeterTest()
+        {
+            double expected = MeganewtonsInOneNewton / 100.0;
+            Assert.Equal(expected, MeganewtonMetersPerCentimeterInOneNewtonMeterPerMeter, 6);
+        }
+
+        [Fact]
+        public void MeganewtonMetersPerMeterInOneNewtonMeterPerMeterTest()
+        {
+            double expected = MeganewtonsInOneNewton;
+            Assert.Equal(expected, MeganewtonMetersPerMeterInOneNewtonMeterPerMeter, 6);
+        }
+
+        [Fact]
+        public void MeganewtonMetersPerMillimeterInOneNewtonMeterPerMeterTest()
+        {
+            double expected = MeganewtonsInOneNewton / 1000.0;
+            Assert.Equal(expected, MeganewtonMetersPerMillimeterInOneNewtonMeterPerMeter, 6);
+        }
+
+        [Fact]
+        public void MeganewtonMillimetersPerMillimeterInOneNewtonMeterPerMeterTest()
+        {
+            double expected = MeganewtonsInOneNewton;
+            Assert.Equal(expected, MeganewtonMillimetersPerMillimeterInOneNewtonMeterPerMeter, 6);
+        }
+
+        [Fact]
+        public void NewtonCentimetersPerCentimeterInOneNewtonMeterPerMeterTest()
+        {
+            double expected = NewtonsInOneNewton;
+            Assert.Equal(expected, NewtonCentimetersPerCentimeterInOneNewtonMeterPerMeter, 6);
+        }
+
+        [Fact]
+        public void NewtonMetersPerCentimeterInOneNewtonMeterPerMeterTest()
+        {
+            double expected = NewtonsInOneNewton / 100.0;
+            Assert.Equal(expected, NewtonMetersPerCentimeterInOneNewtonMeterPerMeter, 6);
+        }
+
+        [Fact]
+        public void NewtonMetersPerMeterInOneNewtonMeterPerMeterTest()
+        {
+            double expected = NewtonsInOneNewton;
+            Assert.Equal(expected, NewtonMetersPerMeterInOneNewtonMeterPerMeter, 6);
+        }
+
+        [Fact]
+        public void NewtonMetersPerMillimeterInOneNewtonMeterPerMeterTest()
+        {
+            double expected = NewtonsInOneNewton / 1000.0;
+            Assert.Equal(expected, NewtonMetersPerMillimeterInOneNewtonMeterPerMeter, 6);
+        }
+
+        [Fact]
+        public void NewtonMillimetersPerMillimeterInOneNewtonMeterPerMeterTest()
+        {
+            double expected = NewtonsInOneNewton;
+            Assert.Equal(expected, NewtonMillimetersPerMillimeterInOneNewtonMeterPerMeter, 6);
+        }
+
+        [Fact]
+        public void PoundForceFeetPerFootInOneNewtonMeterPerMeterTest()
+        {
+            double expected = PoundsForceInOneNewton;
+            Assert.Equal(expected, PoundForceFeetPerFootInOneNewtonMeterPerMeter, 6);
+        }
+
+        [Fact]
+        public void PoundForceFeetPerInchInOneNewtonMeterPerMeterTest()
+        {
+            double expected = FeetInOneMeter / InchesInOneMeter * PoundsForceInOneNewton;
+            Assert.Equal(expected, PoundForceFeetPerInchInOneNewtonMeterPerMeter, 6);
+        }
+
+        [Fact]
+        public void PoundForceFeetPerYardInOneNewtonMeterPerMeterTest()
+        {
+            double expected = FeetInOneMeter / YardsInOneMeter * PoundsForceInOneNewton;
+            Assert.Equal(expected, PoundForceFeetPerYardInOneNewtonMeterPerMeter, 5);
+        }
+
+        [Fact]
+        public void PoundForceInchesPerInchInOneNewtonMeterPerMeterTest()
+        {
+            double expected = PoundsForceInOneNewton;
+            Assert.Equal(expected, PoundForceInchesPerInchInOneNewtonMeterPerMeter, 6);
+        }
+
+        [Fact]
+        public void TonneForceCentimetersPerCentimeterInOneNewtonMeterPerMeterTest()
+        {
+            double expected = TonnesForceInOneNewton;
+            Assert.Equal(expected, TonneForceCentimetersPerCentimeterInOneNewtonMeterPerMeter, 6);
+        }
+
+        [Fact]
+        public void TonneForceMetersPerCentimeterInOneNewtonMeterPerMeterTest()
+        {
+            double expected = TonnesForceInOneNewton / 100.0;
+            Assert.Equal(expected, TonneForceMetersPerCentimeterInOneNewtonMeterPerMeter, 6);
+        }
+
+        [Fact]
+        public void TonneForceMetersPerMeterInOneNewtonMeterPerMeterTest()
+        {
+            double expected = TonnesForceInOneNewton;
+            Assert.Equal(expected, TonneForceMetersPerMeterInOneNewtonMeterPerMeter, 6);
+        }
+
+        [Fact]
+        public void TonneForceMetersPerMillimeterInOneNewtonMeterPerMeterTest()
+        {
+            double expected = TonnesForceInOneNewton / 1000.0;
+            Assert.Equal(expected, TonneForceMetersPerMillimeterInOneNewtonMeterPerMeter, 6);
+        }
+
+        [Fact]
+        public void TonneForceMillimetersPerMillimeterInOneNewtonMeterPerMeterTest()
+        {
+            double expected = TonnesForceInOneNewton;
+            Assert.Equal(expected, TonneForceMillimetersPerMillimeterInOneNewtonMeterPerMeter, 6);
+        }
     }
 }

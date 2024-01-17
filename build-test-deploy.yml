@@ -9,7 +9,7 @@ variables:
   - name: configuration
     value: Release
 
-pool: 'vs17_2'
+pool: 'vs17_8'
 
 steps:
 - task: NuGetToolInstaller@1

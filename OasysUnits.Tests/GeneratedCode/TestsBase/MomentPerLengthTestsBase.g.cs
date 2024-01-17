@@ -552,30 +552,9 @@ namespace OasysUnits.Tests
 
             try
             {
-                var parsed = MomentPerLength.Parse("1 kipf·ft/ft", CultureInfo.GetCultureInfo("en-US"));
-                AssertEx.EqualTolerance(1, parsed.KilopoundForceFeetPerFoot, KilopoundForceFeetPerFootTolerance);
-                Assert.Equal(MomentPerLengthUnit.KilopoundForceFootPerFoot, parsed.Unit);
-            } catch (AmbiguousUnitParseException) { /* Some units have the same abbreviations */ }
-
-            try
-            {
                 var parsed = MomentPerLength.Parse("1 kip·ft/ft", CultureInfo.GetCultureInfo("en-US"));
                 AssertEx.EqualTolerance(1, parsed.KilopoundForceFeetPerFoot, KilopoundForceFeetPerFootTolerance);
                 Assert.Equal(MomentPerLengthUnit.KilopoundForceFootPerFoot, parsed.Unit);
-            } catch (AmbiguousUnitParseException) { /* Some units have the same abbreviations */ }
-
-            try
-            {
-                var parsed = MomentPerLength.Parse("1 k·ft/ft", CultureInfo.GetCultureInfo("en-US"));
-                AssertEx.EqualTolerance(1, parsed.KilopoundForceFeetPerFoot, KilopoundForceFeetPerFootTolerance);
-                Assert.Equal(MomentPerLengthUnit.KilopoundForceFootPerFoot, parsed.Unit);
-            } catch (AmbiguousUnitParseException) { /* Some units have the same abbreviations */ }
-
-            try
-            {
-                var parsed = MomentPerLength.Parse("1 kipf·ft/in", CultureInfo.GetCultureInfo("en-US"));
-                AssertEx.EqualTolerance(1, parsed.KilopoundForceFeetPerInch, KilopoundForceFeetPerInchTolerance);
-                Assert.Equal(MomentPerLengthUnit.KilopoundForceFootPerInch, parsed.Unit);
             } catch (AmbiguousUnitParseException) { /* Some units have the same abbreviations */ }
 
             try
@@ -587,28 +566,7 @@ namespace OasysUnits.Tests
 
             try
             {
-                var parsed = MomentPerLength.Parse("1 k·ft/in", CultureInfo.GetCultureInfo("en-US"));
-                AssertEx.EqualTolerance(1, parsed.KilopoundForceFeetPerInch, KilopoundForceFeetPerInchTolerance);
-                Assert.Equal(MomentPerLengthUnit.KilopoundForceFootPerInch, parsed.Unit);
-            } catch (AmbiguousUnitParseException) { /* Some units have the same abbreviations */ }
-
-            try
-            {
-                var parsed = MomentPerLength.Parse("1 kipf·in/in", CultureInfo.GetCultureInfo("en-US"));
-                AssertEx.EqualTolerance(1, parsed.KilopoundForceInchesPerInch, KilopoundForceInchesPerInchTolerance);
-                Assert.Equal(MomentPerLengthUnit.KilopoundForceInchPerInch, parsed.Unit);
-            } catch (AmbiguousUnitParseException) { /* Some units have the same abbreviations */ }
-
-            try
-            {
                 var parsed = MomentPerLength.Parse("1 kip·in/in", CultureInfo.GetCultureInfo("en-US"));
-                AssertEx.EqualTolerance(1, parsed.KilopoundForceInchesPerInch, KilopoundForceInchesPerInchTolerance);
-                Assert.Equal(MomentPerLengthUnit.KilopoundForceInchPerInch, parsed.Unit);
-            } catch (AmbiguousUnitParseException) { /* Some units have the same abbreviations */ }
-
-            try
-            {
-                var parsed = MomentPerLength.Parse("1 k·in/in", CultureInfo.GetCultureInfo("en-US"));
                 AssertEx.EqualTolerance(1, parsed.KilopoundForceInchesPerInch, KilopoundForceInchesPerInchTolerance);
                 Assert.Equal(MomentPerLengthUnit.KilopoundForceInchPerInch, parsed.Unit);
             } catch (AmbiguousUnitParseException) { /* Some units have the same abbreviations */ }
@@ -812,27 +770,9 @@ namespace OasysUnits.Tests
             }
 
             {
-                Assert.True(MomentPerLength.TryParse("1 kipf·ft/ft", CultureInfo.GetCultureInfo("en-US"), out var parsed));
-                AssertEx.EqualTolerance(1, parsed.KilopoundForceFeetPerFoot, KilopoundForceFeetPerFootTolerance);
-                Assert.Equal(MomentPerLengthUnit.KilopoundForceFootPerFoot, parsed.Unit);
-            }
-
-            {
                 Assert.True(MomentPerLength.TryParse("1 kip·ft/ft", CultureInfo.GetCultureInfo("en-US"), out var parsed));
                 AssertEx.EqualTolerance(1, parsed.KilopoundForceFeetPerFoot, KilopoundForceFeetPerFootTolerance);
                 Assert.Equal(MomentPerLengthUnit.KilopoundForceFootPerFoot, parsed.Unit);
-            }
-
-            {
-                Assert.True(MomentPerLength.TryParse("1 k·ft/ft", CultureInfo.GetCultureInfo("en-US"), out var parsed));
-                AssertEx.EqualTolerance(1, parsed.KilopoundForceFeetPerFoot, KilopoundForceFeetPerFootTolerance);
-                Assert.Equal(MomentPerLengthUnit.KilopoundForceFootPerFoot, parsed.Unit);
-            }
-
-            {
-                Assert.True(MomentPerLength.TryParse("1 kipf·ft/in", CultureInfo.GetCultureInfo("en-US"), out var parsed));
-                AssertEx.EqualTolerance(1, parsed.KilopoundForceFeetPerInch, KilopoundForceFeetPerInchTolerance);
-                Assert.Equal(MomentPerLengthUnit.KilopoundForceFootPerInch, parsed.Unit);
             }
 
             {
@@ -842,25 +782,7 @@ namespace OasysUnits.Tests
             }
 
             {
-                Assert.True(MomentPerLength.TryParse("1 k·ft/in", CultureInfo.GetCultureInfo("en-US"), out var parsed));
-                AssertEx.EqualTolerance(1, parsed.KilopoundForceFeetPerInch, KilopoundForceFeetPerInchTolerance);
-                Assert.Equal(MomentPerLengthUnit.KilopoundForceFootPerInch, parsed.Unit);
-            }
-
-            {
-                Assert.True(MomentPerLength.TryParse("1 kipf·in/in", CultureInfo.GetCultureInfo("en-US"), out var parsed));
-                AssertEx.EqualTolerance(1, parsed.KilopoundForceInchesPerInch, KilopoundForceInchesPerInchTolerance);
-                Assert.Equal(MomentPerLengthUnit.KilopoundForceInchPerInch, parsed.Unit);
-            }
-
-            {
                 Assert.True(MomentPerLength.TryParse("1 kip·in/in", CultureInfo.GetCultureInfo("en-US"), out var parsed));
-                AssertEx.EqualTolerance(1, parsed.KilopoundForceInchesPerInch, KilopoundForceInchesPerInchTolerance);
-                Assert.Equal(MomentPerLengthUnit.KilopoundForceInchPerInch, parsed.Unit);
-            }
-
-            {
-                Assert.True(MomentPerLength.TryParse("1 k·in/in", CultureInfo.GetCultureInfo("en-US"), out var parsed));
                 AssertEx.EqualTolerance(1, parsed.KilopoundForceInchesPerInch, KilopoundForceInchesPerInchTolerance);
                 Assert.Equal(MomentPerLengthUnit.KilopoundForceInchPerInch, parsed.Unit);
             }
@@ -1046,26 +968,8 @@ namespace OasysUnits.Tests
 
             try
             {
-                var parsedUnit = MomentPerLength.ParseUnit("kipf·ft/ft", CultureInfo.GetCultureInfo("en-US"));
-                Assert.Equal(MomentPerLengthUnit.KilopoundForceFootPerFoot, parsedUnit);
-            } catch (AmbiguousUnitParseException) { /* Some units have the same abbreviations */ }
-
-            try
-            {
                 var parsedUnit = MomentPerLength.ParseUnit("kip·ft/ft", CultureInfo.GetCultureInfo("en-US"));
                 Assert.Equal(MomentPerLengthUnit.KilopoundForceFootPerFoot, parsedUnit);
-            } catch (AmbiguousUnitParseException) { /* Some units have the same abbreviations */ }
-
-            try
-            {
-                var parsedUnit = MomentPerLength.ParseUnit("k·ft/ft", CultureInfo.GetCultureInfo("en-US"));
-                Assert.Equal(MomentPerLengthUnit.KilopoundForceFootPerFoot, parsedUnit);
-            } catch (AmbiguousUnitParseException) { /* Some units have the same abbreviations */ }
-
-            try
-            {
-                var parsedUnit = MomentPerLength.ParseUnit("kipf·ft/in", CultureInfo.GetCultureInfo("en-US"));
-                Assert.Equal(MomentPerLengthUnit.KilopoundForceFootPerInch, parsedUnit);
             } catch (AmbiguousUnitParseException) { /* Some units have the same abbreviations */ }
 
             try
@@ -1076,25 +980,7 @@ namespace OasysUnits.Tests
 
             try
             {
-                var parsedUnit = MomentPerLength.ParseUnit("k·ft/in", CultureInfo.GetCultureInfo("en-US"));
-                Assert.Equal(MomentPerLengthUnit.KilopoundForceFootPerInch, parsedUnit);
-            } catch (AmbiguousUnitParseException) { /* Some units have the same abbreviations */ }
-
-            try
-            {
-                var parsedUnit = MomentPerLength.ParseUnit("kipf·in/in", CultureInfo.GetCultureInfo("en-US"));
-                Assert.Equal(MomentPerLengthUnit.KilopoundForceInchPerInch, parsedUnit);
-            } catch (AmbiguousUnitParseException) { /* Some units have the same abbreviations */ }
-
-            try
-            {
                 var parsedUnit = MomentPerLength.ParseUnit("kip·in/in", CultureInfo.GetCultureInfo("en-US"));
-                Assert.Equal(MomentPerLengthUnit.KilopoundForceInchPerInch, parsedUnit);
-            } catch (AmbiguousUnitParseException) { /* Some units have the same abbreviations */ }
-
-            try
-            {
-                var parsedUnit = MomentPerLength.ParseUnit("k·in/in", CultureInfo.GetCultureInfo("en-US"));
                 Assert.Equal(MomentPerLengthUnit.KilopoundForceInchPerInch, parsedUnit);
             } catch (AmbiguousUnitParseException) { /* Some units have the same abbreviations */ }
 
@@ -1268,23 +1154,8 @@ namespace OasysUnits.Tests
             }
 
             {
-                Assert.True(MomentPerLength.TryParseUnit("kipf·ft/ft", CultureInfo.GetCultureInfo("en-US"), out var parsedUnit));
-                Assert.Equal(MomentPerLengthUnit.KilopoundForceFootPerFoot, parsedUnit);
-            }
-
-            {
                 Assert.True(MomentPerLength.TryParseUnit("kip·ft/ft", CultureInfo.GetCultureInfo("en-US"), out var parsedUnit));
                 Assert.Equal(MomentPerLengthUnit.KilopoundForceFootPerFoot, parsedUnit);
-            }
-
-            {
-                Assert.True(MomentPerLength.TryParseUnit("k·ft/ft", CultureInfo.GetCultureInfo("en-US"), out var parsedUnit));
-                Assert.Equal(MomentPerLengthUnit.KilopoundForceFootPerFoot, parsedUnit);
-            }
-
-            {
-                Assert.True(MomentPerLength.TryParseUnit("kipf·ft/in", CultureInfo.GetCultureInfo("en-US"), out var parsedUnit));
-                Assert.Equal(MomentPerLengthUnit.KilopoundForceFootPerInch, parsedUnit);
             }
 
             {
@@ -1293,22 +1164,7 @@ namespace OasysUnits.Tests
             }
 
             {
-                Assert.True(MomentPerLength.TryParseUnit("k·ft/in", CultureInfo.GetCultureInfo("en-US"), out var parsedUnit));
-                Assert.Equal(MomentPerLengthUnit.KilopoundForceFootPerInch, parsedUnit);
-            }
-
-            {
-                Assert.True(MomentPerLength.TryParseUnit("kipf·in/in", CultureInfo.GetCultureInfo("en-US"), out var parsedUnit));
-                Assert.Equal(MomentPerLengthUnit.KilopoundForceInchPerInch, parsedUnit);
-            }
-
-            {
                 Assert.True(MomentPerLength.TryParseUnit("kip·in/in", CultureInfo.GetCultureInfo("en-US"), out var parsedUnit));
-                Assert.Equal(MomentPerLengthUnit.KilopoundForceInchPerInch, parsedUnit);
-            }
-
-            {
-                Assert.True(MomentPerLength.TryParseUnit("k·in/in", CultureInfo.GetCultureInfo("en-US"), out var parsedUnit));
                 Assert.Equal(MomentPerLengthUnit.KilopoundForceInchPerInch, parsedUnit);
             }
 
@@ -1644,9 +1500,9 @@ namespace OasysUnits.Tests
                 Assert.Equal("1 kN·m/m", new MomentPerLength(1, MomentPerLengthUnit.KilonewtonMeterPerMeter).ToString());
                 Assert.Equal("1 kN·m/mm", new MomentPerLength(1, MomentPerLengthUnit.KilonewtonMeterPerMillimeter).ToString());
                 Assert.Equal("1 kN·mm/mm", new MomentPerLength(1, MomentPerLengthUnit.KilonewtonMillimeterPerMillimeter).ToString());
-                Assert.Equal("1 kipf·ft/ft", new MomentPerLength(1, MomentPerLengthUnit.KilopoundForceFootPerFoot).ToString());
-                Assert.Equal("1 kipf·ft/in", new MomentPerLength(1, MomentPerLengthUnit.KilopoundForceFootPerInch).ToString());
-                Assert.Equal("1 kipf·in/in", new MomentPerLength(1, MomentPerLengthUnit.KilopoundForceInchPerInch).ToString());
+                Assert.Equal("1 kip·ft/ft", new MomentPerLength(1, MomentPerLengthUnit.KilopoundForceFootPerFoot).ToString());
+                Assert.Equal("1 kip·ft/in", new MomentPerLength(1, MomentPerLengthUnit.KilopoundForceFootPerInch).ToString());
+                Assert.Equal("1 kip·in/in", new MomentPerLength(1, MomentPerLengthUnit.KilopoundForceInchPerInch).ToString());
                 Assert.Equal("1 MN·cm/cm", new MomentPerLength(1, MomentPerLengthUnit.MeganewtonCentimeterPerCentimeter).ToString());
                 Assert.Equal("1 MN·m/cm", new MomentPerLength(1, MomentPerLengthUnit.MeganewtonMeterPerCentimeter).ToString());
                 Assert.Equal("1 MN·m/m", new MomentPerLength(1, MomentPerLengthUnit.MeganewtonMeterPerMeter).ToString());
@@ -1689,9 +1545,9 @@ namespace OasysUnits.Tests
             Assert.Equal("1 kN·m/m", new MomentPerLength(1, MomentPerLengthUnit.KilonewtonMeterPerMeter).ToString(swedishCulture));
             Assert.Equal("1 kN·m/mm", new MomentPerLength(1, MomentPerLengthUnit.KilonewtonMeterPerMillimeter).ToString(swedishCulture));
             Assert.Equal("1 kN·mm/mm", new MomentPerLength(1, MomentPerLengthUnit.KilonewtonMillimeterPerMillimeter).ToString(swedishCulture));
-            Assert.Equal("1 kipf·ft/ft", new MomentPerLength(1, MomentPerLengthUnit.KilopoundForceFootPerFoot).ToString(swedishCulture));
-            Assert.Equal("1 kipf·ft/in", new MomentPerLength(1, MomentPerLengthUnit.KilopoundForceFootPerInch).ToString(swedishCulture));
-            Assert.Equal("1 kipf·in/in", new MomentPerLength(1, MomentPerLengthUnit.KilopoundForceInchPerInch).ToString(swedishCulture));
+            Assert.Equal("1 kip·ft/ft", new MomentPerLength(1, MomentPerLengthUnit.KilopoundForceFootPerFoot).ToString(swedishCulture));
+            Assert.Equal("1 kip·ft/in", new MomentPerLength(1, MomentPerLengthUnit.KilopoundForceFootPerInch).ToString(swedishCulture));
+            Assert.Equal("1 kip·in/in", new MomentPerLength(1, MomentPerLengthUnit.KilopoundForceInchPerInch).ToString(swedishCulture));
             Assert.Equal("1 MN·cm/cm", new MomentPerLength(1, MomentPerLengthUnit.MeganewtonCentimeterPerCentimeter).ToString(swedishCulture));
             Assert.Equal("1 MN·m/cm", new MomentPerLength(1, MomentPerLengthUnit.MeganewtonMeterPerCentimeter).ToString(swedishCulture));
             Assert.Equal("1 MN·m/m", new MomentPerLength(1, MomentPerLengthUnit.MeganewtonMeterPerMeter).ToString(swedishCulture));

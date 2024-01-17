@@ -249,7 +249,7 @@
       "Localization": [
         {
           "Culture": "en-US",
-          "Abbreviations": [ "kipf·ft/ft", "kip·ft/ft", "k·ft/ft" ]
+          "Abbreviations": [ "kip·ft/ft" ]
         }
       ]
     },
@@ -261,7 +261,7 @@
       "Localization": [
         {
           "Culture": "en-US",
-          "Abbreviations": [ "kipf·ft/in", "kip·ft/in", "k·ft/in" ]
+          "Abbreviations": [ "kip·ft/in" ]
         }
       ]
     },
@@ -273,7 +273,7 @@
       "Localization": [
         {
           "Culture": "en-US",
-          "Abbreviations": [ "kipf·in/in", "kip·in/in", "k·in/in" ]
+          "Abbreviations": [ "kip·in/in" ]
         }
       ]
     }

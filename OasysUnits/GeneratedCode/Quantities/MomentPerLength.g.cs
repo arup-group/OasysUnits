@@ -452,9 +452,9 @@ namespace OasysUnits
             unitAbbreviationsCache.PerformAbbreviationMapping(MomentPerLengthUnit.KilonewtonMeterPerMeter, new CultureInfo("en-US"), false, true, new string[]{"kN·m/m"});
             unitAbbreviationsCache.PerformAbbreviationMapping(MomentPerLengthUnit.KilonewtonMeterPerMillimeter, new CultureInfo("en-US"), false, true, new string[]{"kN·m/mm"});
             unitAbbreviationsCache.PerformAbbreviationMapping(MomentPerLengthUnit.KilonewtonMillimeterPerMillimeter, new CultureInfo("en-US"), false, true, new string[]{"kN·mm/mm"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MomentPerLengthUnit.KilopoundForceFootPerFoot, new CultureInfo("en-US"), false, true, new string[]{"kipf·ft/ft", "kip·ft/ft", "k·ft/ft"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MomentPerLengthUnit.KilopoundForceFootPerInch, new CultureInfo("en-US"), false, true, new string[]{"kipf·ft/in", "kip·ft/in", "k·ft/in"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MomentPerLengthUnit.KilopoundForceInchPerInch, new CultureInfo("en-US"), false, true, new string[]{"kipf·in/in", "kip·in/in", "k·in/in"});
+            unitAbbreviationsCache.PerformAbbreviationMapping(MomentPerLengthUnit.KilopoundForceFootPerFoot, new CultureInfo("en-US"), false, true, new string[]{"kip·ft/ft"});
+            unitAbbreviationsCache.PerformAbbreviationMapping(MomentPerLengthUnit.KilopoundForceFootPerInch, new CultureInfo("en-US"), false, true, new string[]{"kip·ft/in"});
+            unitAbbreviationsCache.PerformAbbreviationMapping(MomentPerLengthUnit.KilopoundForceInchPerInch, new CultureInfo("en-US"), false, true, new string[]{"kip·in/in"});
             unitAbbreviationsCache.PerformAbbreviationMapping(MomentPerLengthUnit.MeganewtonCentimeterPerCentimeter, new CultureInfo("en-US"), false, true, new string[]{"MN·cm/cm"});
             unitAbbreviationsCache.PerformAbbreviationMapping(MomentPerLengthUnit.MeganewtonMeterPerCentimeter, new CultureInfo("en-US"), false, true, new string[]{"MN·m/cm"});
             unitAbbreviationsCache.PerformAbbreviationMapping(MomentPerLengthUnit.MeganewtonMeterPerMeter, new CultureInfo("en-US"), false, true, new string[]{"MN·m/m"});

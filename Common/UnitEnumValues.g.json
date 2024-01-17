@@ -1877,6 +1877,8 @@
     "TonneForceMeterPerCentimeter": 60,
     "TonneForceMeterPerMeter": 62,
     "TonneForceMeterPerMillimeter": 63,
-    "TonneForceMillimeterPerMillimeter": 70
+    "TonneForceMillimeterPerMillimeter": 70,
+    "PoundForceInchPerFoot": 61,
+    "KilopoundForceInchPerFoot": 65
   }
 }

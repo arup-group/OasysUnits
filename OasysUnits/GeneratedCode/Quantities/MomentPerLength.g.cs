@@ -77,6 +77,7 @@ namespace OasysUnits
                     new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.KilonewtonMillimeterPerMillimeter, "KilonewtonMillimetersPerMillimeter", BaseUnits.Undefined),
                     new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.KilopoundForceFootPerFoot, "KilopoundForceFeetPerFoot", BaseUnits.Undefined),
                     new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.KilopoundForceFootPerInch, "KilopoundForceFeetPerInch", BaseUnits.Undefined),
+                    new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.KilopoundForceInchPerFoot, "KilopoundForceInchesPerFoot", BaseUnits.Undefined),
                     new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.KilopoundForceInchPerInch, "KilopoundForceInchesPerInch", BaseUnits.Undefined),
                     new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.MeganewtonCentimeterPerCentimeter, "MeganewtonCentimetersPerCentimeter", BaseUnits.Undefined),
                     new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.MeganewtonMeterPerCentimeter, "MeganewtonMetersPerCentimeter", BaseUnits.Undefined),
@@ -91,6 +92,7 @@ namespace OasysUnits
                     new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.PoundForceFootPerFoot, "PoundForceFeetPerFoot", BaseUnits.Undefined),
                     new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.PoundForceFootPerInch, "PoundForceFeetPerInch", BaseUnits.Undefined),
                     new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.PoundForceFootPerYard, "PoundForceFeetPerYard", BaseUnits.Undefined),
+                    new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.PoundForceInchPerFoot, "PoundForceInchesPerFoot", BaseUnits.Undefined),
                     new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.PoundForceInchPerInch, "PoundForceInchesPerInch", BaseUnits.Undefined),
                     new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.TonneForceCentimeterPerCentimeter, "TonneForceCentimetersPerCentimeter", BaseUnits.Undefined),
                     new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.TonneForceMeterPerCentimeter, "TonneForceMetersPerCentimeter", BaseUnits.Undefined),
@@ -261,6 +263,11 @@ namespace OasysUnits
         public double KilopoundForceFeetPerInch => As(MomentPerLengthUnit.KilopoundForceFootPerInch);
 
         /// <summary>
+        ///     Gets a <see cref="double"/> value of this quantity converted into <see cref="MomentPerLengthUnit.KilopoundForceInchPerFoot"/>
+        /// </summary>
+        public double KilopoundForceInchesPerFoot => As(MomentPerLengthUnit.KilopoundForceInchPerFoot);
+
+        /// <summary>
         ///     Gets a <see cref="double"/> value of this quantity converted into <see cref="MomentPerLengthUnit.KilopoundForceInchPerInch"/>
         /// </summary>
         public double KilopoundForceInchesPerInch => As(MomentPerLengthUnit.KilopoundForceInchPerInch);
@@ -331,6 +338,11 @@ namespace OasysUnits
         public double PoundForceFeetPerYard => As(MomentPerLengthUnit.PoundForceFootPerYard);
 
         /// <summary>
+        ///     Gets a <see cref="double"/> value of this quantity converted into <see cref="MomentPerLengthUnit.PoundForceInchPerFoot"/>
+        /// </summary>
+        public double PoundForceInchesPerFoot => As(MomentPerLengthUnit.PoundForceInchPerFoot);
+
+        /// <summary>
         ///     Gets a <see cref="double"/> value of this quantity converted into <see cref="MomentPerLengthUnit.PoundForceInchPerInch"/>
         /// </summary>
         public double PoundForceInchesPerInch => As(MomentPerLengthUnit.PoundForceInchPerInch);
@@ -383,6 +395,7 @@ namespace OasysUnits
             unitConverter.SetConversionFunction<MomentPerLength>(MomentPerLengthUnit.KilonewtonMillimeterPerMillimeter, MomentPerLengthUnit.NewtonMeterPerMeter, quantity => quantity.ToUnit(MomentPerLengthUnit.NewtonMeterPerMeter));
             unitConverter.SetConversionFunction<MomentPerLength>(MomentPerLengthUnit.KilopoundForceFootPerFoot, MomentPerLengthUnit.NewtonMeterPerMeter, quantity => quantity.ToUnit(MomentPerLengthUnit.NewtonMeterPerMeter));
             unitConverter.SetConversionFunction<MomentPerLength>(MomentPerLengthUnit.KilopoundForceFootPerInch, MomentPerLengthUnit.NewtonMeterPerMeter, quantity => quantity.ToUnit(MomentPerLengthUnit.NewtonMeterPerMeter));
+            unitConverter.SetConversionFunction<MomentPerLength>(MomentPerLengthUnit.KilopoundForceInchPerFoot, MomentPerLengthUnit.NewtonMeterPerMeter, quantity => quantity.ToUnit(MomentPerLengthUnit.NewtonMeterPerMeter));
             unitConverter.SetConversionFunction<MomentPerLength>(MomentPerLengthUnit.KilopoundForceInchPerInch, MomentPerLengthUnit.NewtonMeterPerMeter, quantity => quantity.ToUnit(MomentPerLengthUnit.NewtonMeterPerMeter));
             unitConverter.SetConversionFunction<MomentPerLength>(MomentPerLengthUnit.MeganewtonCentimeterPerCentimeter, MomentPerLengthUnit.NewtonMeterPerMeter, quantity => quantity.ToUnit(MomentPerLengthUnit.NewtonMeterPerMeter));
             unitConverter.SetConversionFunction<MomentPerLength>(MomentPerLengthUnit.MeganewtonMeterPerCentimeter, MomentPerLengthUnit.NewtonMeterPerMeter, quantity => quantity.ToUnit(MomentPerLengthUnit.NewtonMeterPerMeter));
@@ -396,6 +409,7 @@ namespace OasysUnits
             unitConverter.SetConversionFunction<MomentPerLength>(MomentPerLengthUnit.PoundForceFootPerFoot, MomentPerLengthUnit.NewtonMeterPerMeter, quantity => quantity.ToUnit(MomentPerLengthUnit.NewtonMeterPerMeter));
             unitConverter.SetConversionFunction<MomentPerLength>(MomentPerLengthUnit.PoundForceFootPerInch, MomentPerLengthUnit.NewtonMeterPerMeter, quantity => quantity.ToUnit(MomentPerLengthUnit.NewtonMeterPerMeter));
             unitConverter.SetConversionFunction<MomentPerLength>(MomentPerLengthUnit.PoundForceFootPerYard, MomentPerLengthUnit.NewtonMeterPerMeter, quantity => quantity.ToUnit(MomentPerLengthUnit.NewtonMeterPerMeter));
+            unitConverter.SetConversionFunction<MomentPerLength>(MomentPerLengthUnit.PoundForceInchPerFoot, MomentPerLengthUnit.NewtonMeterPerMeter, quantity => quantity.ToUnit(MomentPerLengthUnit.NewtonMeterPerMeter));
             unitConverter.SetConversionFunction<MomentPerLength>(MomentPerLengthUnit.PoundForceInchPerInch, MomentPerLengthUnit.NewtonMeterPerMeter, quantity => quantity.ToUnit(MomentPerLengthUnit.NewtonMeterPerMeter));
             unitConverter.SetConversionFunction<MomentPerLength>(MomentPerLengthUnit.TonneForceCentimeterPerCentimeter, MomentPerLengthUnit.NewtonMeterPerMeter, quantity => quantity.ToUnit(MomentPerLengthUnit.NewtonMeterPerMeter));
             unitConverter.SetConversionFunction<MomentPerLength>(MomentPerLengthUnit.TonneForceMeterPerCentimeter, MomentPerLengthUnit.NewtonMeterPerMeter, quantity => quantity.ToUnit(MomentPerLengthUnit.NewtonMeterPerMeter));
@@ -419,6 +433,7 @@ namespace OasysUnits
             unitConverter.SetConversionFunction<MomentPerLength>(MomentPerLengthUnit.NewtonMeterPerMeter, MomentPerLengthUnit.KilonewtonMillimeterPerMillimeter, quantity => quantity.ToUnit(MomentPerLengthUnit.KilonewtonMillimeterPerMillimeter));
             unitConverter.SetConversionFunction<MomentPerLength>(MomentPerLengthUnit.NewtonMeterPerMeter, MomentPerLengthUnit.KilopoundForceFootPerFoot, quantity => quantity.ToUnit(MomentPerLengthUnit.KilopoundForceFootPerFoot));
             unitConverter.SetConversionFunction<MomentPerLength>(MomentPerLengthUnit.NewtonMeterPerMeter, MomentPerLengthUnit.KilopoundForceFootPerInch, quantity => quantity.ToUnit(MomentPerLengthUnit.KilopoundForceFootPerInch));
+            unitConverter.SetConversionFunction<MomentPerLength>(MomentPerLengthUnit.NewtonMeterPerMeter, MomentPerLengthUnit.KilopoundForceInchPerFoot, quantity => quantity.ToUnit(MomentPerLengthUnit.KilopoundForceInchPerFoot));
             unitConverter.SetConversionFunction<MomentPerLength>(MomentPerLengthUnit.NewtonMeterPerMeter, MomentPerLengthUnit.KilopoundForceInchPerInch, quantity => quantity.ToUnit(MomentPerLengthUnit.KilopoundForceInchPerInch));
             unitConverter.SetConversionFunction<MomentPerLength>(MomentPerLengthUnit.NewtonMeterPerMeter, MomentPerLengthUnit.MeganewtonCentimeterPerCentimeter, quantity => quantity.ToUnit(MomentPerLengthUnit.MeganewtonCentimeterPerCentimeter));
             unitConverter.SetConversionFunction<MomentPerLength>(MomentPerLengthUnit.NewtonMeterPerMeter, MomentPerLengthUnit.MeganewtonMeterPerCentimeter, quantity => quantity.ToUnit(MomentPerLengthUnit.MeganewtonMeterPerCentimeter));
@@ -432,6 +447,7 @@ namespace OasysUnits
             unitConverter.SetConversionFunction<MomentPerLength>(MomentPerLengthUnit.NewtonMeterPerMeter, MomentPerLengthUnit.PoundForceFootPerFoot, quantity => quantity.ToUnit(MomentPerLengthUnit.PoundForceFootPerFoot));
             unitConverter.SetConversionFunction<MomentPerLength>(MomentPerLengthUnit.NewtonMeterPerMeter, MomentPerLengthUnit.PoundForceFootPerInch, quantity => quantity.ToUnit(MomentPerLengthUnit.PoundForceFootPerInch));
             unitConverter.SetConversionFunction<MomentPerLength>(MomentPerLengthUnit.NewtonMeterPerMeter, MomentPerLengthUnit.PoundForceFootPerYard, quantity => quantity.ToUnit(MomentPerLengthUnit.PoundForceFootPerYard));
+            unitConverter.SetConversionFunction<MomentPerLength>(MomentPerLengthUnit.NewtonMeterPerMeter, MomentPerLengthUnit.PoundForceInchPerFoot, quantity => quantity.ToUnit(MomentPerLengthUnit.PoundForceInchPerFoot));
             unitConverter.SetConversionFunction<MomentPerLength>(MomentPerLengthUnit.NewtonMeterPerMeter, MomentPerLengthUnit.PoundForceInchPerInch, quantity => quantity.ToUnit(MomentPerLengthUnit.PoundForceInchPerInch));
             unitConverter.SetConversionFunction<MomentPerLength>(MomentPerLengthUnit.NewtonMeterPerMeter, MomentPerLengthUnit.TonneForceCentimeterPerCentimeter, quantity => quantity.ToUnit(MomentPerLengthUnit.TonneForceCentimeterPerCentimeter));
             unitConverter.SetConversionFunction<MomentPerLength>(MomentPerLengthUnit.NewtonMeterPerMeter, MomentPerLengthUnit.TonneForceMeterPerCentimeter, quantity => quantity.ToUnit(MomentPerLengthUnit.TonneForceMeterPerCentimeter));
@@ -454,6 +470,7 @@ namespace OasysUnits
             unitAbbreviationsCache.PerformAbbreviationMapping(MomentPerLengthUnit.KilonewtonMillimeterPerMillimeter, new CultureInfo("en-US"), false, true, new string[]{"kN·mm/mm"});
             unitAbbreviationsCache.PerformAbbreviationMapping(MomentPerLengthUnit.KilopoundForceFootPerFoot, new CultureInfo("en-US"), false, true, new string[]{"kip·ft/ft"});
             unitAbbreviationsCache.PerformAbbreviationMapping(MomentPerLengthUnit.KilopoundForceFootPerInch, new CultureInfo("en-US"), false, true, new string[]{"kip·ft/in"});
+            unitAbbreviationsCache.PerformAbbreviationMapping(MomentPerLengthUnit.KilopoundForceInchPerFoot, new CultureInfo("en-US"), false, true, new string[]{"kip·in/ft"});
             unitAbbreviationsCache.PerformAbbreviationMapping(MomentPerLengthUnit.KilopoundForceInchPerInch, new CultureInfo("en-US"), false, true, new string[]{"kip·in/in"});
             unitAbbreviationsCache.PerformAbbreviationMapping(MomentPerLengthUnit.MeganewtonCentimeterPerCentimeter, new CultureInfo("en-US"), false, true, new string[]{"MN·cm/cm"});
             unitAbbreviationsCache.PerformAbbreviationMapping(MomentPerLengthUnit.MeganewtonMeterPerCentimeter, new CultureInfo("en-US"), false, true, new string[]{"MN·m/cm"});
@@ -468,6 +485,7 @@ namespace OasysUnits
             unitAbbreviationsCache.PerformAbbreviationMapping(MomentPerLengthUnit.PoundForceFootPerFoot, new CultureInfo("en-US"), false, true, new string[]{"lbf·ft/ft"});
             unitAbbreviationsCache.PerformAbbreviationMapping(MomentPerLengthUnit.PoundForceFootPerInch, new CultureInfo("en-US"), false, true, new string[]{"lbf·ft/in"});
             unitAbbreviationsCache.PerformAbbreviationMapping(MomentPerLengthUnit.PoundForceFootPerYard, new CultureInfo("en-US"), false, true, new string[]{"lbf·ft/yd"});
+            unitAbbreviationsCache.PerformAbbreviationMapping(MomentPerLengthUnit.PoundForceInchPerFoot, new CultureInfo("en-US"), false, true, new string[]{"lbf·in/ft"});
             unitAbbreviationsCache.PerformAbbreviationMapping(MomentPerLengthUnit.PoundForceInchPerInch, new CultureInfo("en-US"), false, true, new string[]{"lbf·in/in"});
             unitAbbreviationsCache.PerformAbbreviationMapping(MomentPerLengthUnit.TonneForceCentimeterPerCentimeter, new CultureInfo("en-US"), false, true, new string[]{"tf·cm/cm"});
             unitAbbreviationsCache.PerformAbbreviationMapping(MomentPerLengthUnit.TonneForceMeterPerCentimeter, new CultureInfo("en-US"), false, true, new string[]{"tf·m/cm"});
@@ -622,6 +640,16 @@ namespace OasysUnits
         }
 
         /// <summary>
+        ///     Creates a <see cref="MomentPerLength"/> from <see cref="MomentPerLengthUnit.KilopoundForceInchPerFoot"/>.
+        /// </summary>
+        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
+        public static MomentPerLength FromKilopoundForceInchesPerFoot(QuantityValue kilopoundforceinchesperfoot)
+        {
+            double value = (double) kilopoundforceinchesperfoot;
+            return new MomentPerLength(value, MomentPerLengthUnit.KilopoundForceInchPerFoot);
+        }
+
+        /// <summary>
         ///     Creates a <see cref="MomentPerLength"/> from <see cref="MomentPerLengthUnit.KilopoundForceInchPerInch"/>.
         /// </summary>
         /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
@@ -759,6 +787,16 @@ namespace OasysUnits
         {
             double value = (double) poundforcefeetperyard;
             return new MomentPerLength(value, MomentPerLengthUnit.PoundForceFootPerYard);
+        }
+
+        /// <summary>
+        ///     Creates a <see cref="MomentPerLength"/> from <see cref="MomentPerLengthUnit.PoundForceInchPerFoot"/>.
+        /// </summary>
+        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
+        public static MomentPerLength FromPoundForceInchesPerFoot(QuantityValue poundforceinchesperfoot)
+        {
+            double value = (double) poundforceinchesperfoot;
+            return new MomentPerLength(value, MomentPerLengthUnit.PoundForceInchPerFoot);
         }
 
         /// <summary>
@@ -1308,6 +1346,7 @@ namespace OasysUnits
                 (MomentPerLengthUnit.KilonewtonMillimeterPerMillimeter, MomentPerLengthUnit.NewtonMeterPerMeter) => new MomentPerLength((_value) * 1e3d, MomentPerLengthUnit.NewtonMeterPerMeter),
                 (MomentPerLengthUnit.KilopoundForceFootPerFoot, MomentPerLengthUnit.NewtonMeterPerMeter) => new MomentPerLength(_value * 4448.2216152605095551842641431421, MomentPerLengthUnit.NewtonMeterPerMeter),
                 (MomentPerLengthUnit.KilopoundForceFootPerInch, MomentPerLengthUnit.NewtonMeterPerMeter) => new MomentPerLength(_value * 53378.659383126, MomentPerLengthUnit.NewtonMeterPerMeter),
+                (MomentPerLengthUnit.KilopoundForceInchPerFoot, MomentPerLengthUnit.NewtonMeterPerMeter) => new MomentPerLength(_value * 370.6851346, MomentPerLengthUnit.NewtonMeterPerMeter),
                 (MomentPerLengthUnit.KilopoundForceInchPerInch, MomentPerLengthUnit.NewtonMeterPerMeter) => new MomentPerLength(_value * 4448.2216152605095551842641431421, MomentPerLengthUnit.NewtonMeterPerMeter),
                 (MomentPerLengthUnit.MeganewtonCentimeterPerCentimeter, MomentPerLengthUnit.NewtonMeterPerMeter) => new MomentPerLength((_value) * 1e6d, MomentPerLengthUnit.NewtonMeterPerMeter),
                 (MomentPerLengthUnit.MeganewtonMeterPerCentimeter, MomentPerLengthUnit.NewtonMeterPerMeter) => new MomentPerLength((_value * 1e2) * 1e6d, MomentPerLengthUnit.NewtonMeterPerMeter),
@@ -1321,6 +1360,7 @@ namespace OasysUnits
                 (MomentPerLengthUnit.PoundForceFootPerFoot, MomentPerLengthUnit.NewtonMeterPerMeter) => new MomentPerLength(_value * 4.4482216152605095551842641431421, MomentPerLengthUnit.NewtonMeterPerMeter),
                 (MomentPerLengthUnit.PoundForceFootPerInch, MomentPerLengthUnit.NewtonMeterPerMeter) => new MomentPerLength(_value * 53.378659383126, MomentPerLengthUnit.NewtonMeterPerMeter),
                 (MomentPerLengthUnit.PoundForceFootPerYard, MomentPerLengthUnit.NewtonMeterPerMeter) => new MomentPerLength(_value * 1.48274053842017, MomentPerLengthUnit.NewtonMeterPerMeter),
+                (MomentPerLengthUnit.PoundForceInchPerFoot, MomentPerLengthUnit.NewtonMeterPerMeter) => new MomentPerLength(_value * 0.370685135, MomentPerLengthUnit.NewtonMeterPerMeter),
                 (MomentPerLengthUnit.PoundForceInchPerInch, MomentPerLengthUnit.NewtonMeterPerMeter) => new MomentPerLength(_value * 4.4482216152605095551842641431421, MomentPerLengthUnit.NewtonMeterPerMeter),
                 (MomentPerLengthUnit.TonneForceCentimeterPerCentimeter, MomentPerLengthUnit.NewtonMeterPerMeter) => new MomentPerLength(_value * 9.80665002864e3, MomentPerLengthUnit.NewtonMeterPerMeter),
                 (MomentPerLengthUnit.TonneForceMeterPerCentimeter, MomentPerLengthUnit.NewtonMeterPerMeter) => new MomentPerLength(_value * 9.80665002864e5, MomentPerLengthUnit.NewtonMeterPerMeter),
@@ -1341,6 +1381,7 @@ namespace OasysUnits
                 (MomentPerLengthUnit.NewtonMeterPerMeter, MomentPerLengthUnit.KilonewtonMillimeterPerMillimeter) => new MomentPerLength((_value) / 1e3d, MomentPerLengthUnit.KilonewtonMillimeterPerMillimeter),
                 (MomentPerLengthUnit.NewtonMeterPerMeter, MomentPerLengthUnit.KilopoundForceFootPerFoot) => new MomentPerLength(_value / 4448.2216152605095551842641431421, MomentPerLengthUnit.KilopoundForceFootPerFoot),
                 (MomentPerLengthUnit.NewtonMeterPerMeter, MomentPerLengthUnit.KilopoundForceFootPerInch) => new MomentPerLength(_value / 53378.659383126, MomentPerLengthUnit.KilopoundForceFootPerInch),
+                (MomentPerLengthUnit.NewtonMeterPerMeter, MomentPerLengthUnit.KilopoundForceInchPerFoot) => new MomentPerLength(_value / 370.6851346, MomentPerLengthUnit.KilopoundForceInchPerFoot),
                 (MomentPerLengthUnit.NewtonMeterPerMeter, MomentPerLengthUnit.KilopoundForceInchPerInch) => new MomentPerLength(_value / 4448.2216152605095551842641431421, MomentPerLengthUnit.KilopoundForceInchPerInch),
                 (MomentPerLengthUnit.NewtonMeterPerMeter, MomentPerLengthUnit.MeganewtonCentimeterPerCentimeter) => new MomentPerLength((_value) / 1e6d, MomentPerLengthUnit.MeganewtonCentimeterPerCentimeter),
                 (MomentPerLengthUnit.NewtonMeterPerMeter, MomentPerLengthUnit.MeganewtonMeterPerCentimeter) => new MomentPerLength((_value / 1e2) / 1e6d, MomentPerLengthUnit.MeganewtonMeterPerCentimeter),
@@ -1354,6 +1395,7 @@ namespace OasysUnits
                 (MomentPerLengthUnit.NewtonMeterPerMeter, MomentPerLengthUnit.PoundForceFootPerFoot) => new MomentPerLength(_value / 4.4482216152605095551842641431421, MomentPerLengthUnit.PoundForceFootPerFoot),
                 (MomentPerLengthUnit.NewtonMeterPerMeter, MomentPerLengthUnit.PoundForceFootPerInch) => new MomentPerLength(_value / 53.378659383126, MomentPerLengthUnit.PoundForceFootPerInch),
                 (MomentPerLengthUnit.NewtonMeterPerMeter, MomentPerLengthUnit.PoundForceFootPerYard) => new MomentPerLength(_value / 1.48274053842017, MomentPerLengthUnit.PoundForceFootPerYard),
+                (MomentPerLengthUnit.NewtonMeterPerMeter, MomentPerLengthUnit.PoundForceInchPerFoot) => new MomentPerLength(_value / 0.370685135, MomentPerLengthUnit.PoundForceInchPerFoot),
                 (MomentPerLengthUnit.NewtonMeterPerMeter, MomentPerLengthUnit.PoundForceInchPerInch) => new MomentPerLength(_value / 4.4482216152605095551842641431421, MomentPerLengthUnit.PoundForceInchPerInch),
                 (MomentPerLengthUnit.NewtonMeterPerMeter, MomentPerLengthUnit.TonneForceCentimeterPerCentimeter) => new MomentPerLength(_value / 9.80665002864e3, MomentPerLengthUnit.TonneForceCentimeterPerCentimeter),
                 (MomentPerLengthUnit.NewtonMeterPerMeter, MomentPerLengthUnit.TonneForceMeterPerCentimeter) => new MomentPerLength(_value / 9.80665002864e5, MomentPerLengthUnit.TonneForceMeterPerCentimeter),

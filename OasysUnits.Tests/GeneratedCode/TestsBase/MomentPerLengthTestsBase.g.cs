@@ -50,6 +50,7 @@ namespace OasysUnits.Tests
         protected abstract double KilonewtonMillimetersPerMillimeterInOneNewtonMeterPerMeter { get; }
         protected abstract double KilopoundForceFeetPerFootInOneNewtonMeterPerMeter { get; }
         protected abstract double KilopoundForceFeetPerInchInOneNewtonMeterPerMeter { get; }
+        protected abstract double KilopoundForceInchesPerFootInOneNewtonMeterPerMeter { get; }
         protected abstract double KilopoundForceInchesPerInchInOneNewtonMeterPerMeter { get; }
         protected abstract double MeganewtonCentimetersPerCentimeterInOneNewtonMeterPerMeter { get; }
         protected abstract double MeganewtonMetersPerCentimeterInOneNewtonMeterPerMeter { get; }
@@ -64,6 +65,7 @@ namespace OasysUnits.Tests
         protected abstract double PoundForceFeetPerFootInOneNewtonMeterPerMeter { get; }
         protected abstract double PoundForceFeetPerInchInOneNewtonMeterPerMeter { get; }
         protected abstract double PoundForceFeetPerYardInOneNewtonMeterPerMeter { get; }
+        protected abstract double PoundForceInchesPerFootInOneNewtonMeterPerMeter { get; }
         protected abstract double PoundForceInchesPerInchInOneNewtonMeterPerMeter { get; }
         protected abstract double TonneForceCentimetersPerCentimeterInOneNewtonMeterPerMeter { get; }
         protected abstract double TonneForceMetersPerCentimeterInOneNewtonMeterPerMeter { get; }
@@ -84,6 +86,7 @@ namespace OasysUnits.Tests
         protected virtual double KilonewtonMillimetersPerMillimeterTolerance { get { return 1e-5; } }
         protected virtual double KilopoundForceFeetPerFootTolerance { get { return 1e-5; } }
         protected virtual double KilopoundForceFeetPerInchTolerance { get { return 1e-5; } }
+        protected virtual double KilopoundForceInchesPerFootTolerance { get { return 1e-5; } }
         protected virtual double KilopoundForceInchesPerInchTolerance { get { return 1e-5; } }
         protected virtual double MeganewtonCentimetersPerCentimeterTolerance { get { return 1e-5; } }
         protected virtual double MeganewtonMetersPerCentimeterTolerance { get { return 1e-5; } }
@@ -98,6 +101,7 @@ namespace OasysUnits.Tests
         protected virtual double PoundForceFeetPerFootTolerance { get { return 1e-5; } }
         protected virtual double PoundForceFeetPerInchTolerance { get { return 1e-5; } }
         protected virtual double PoundForceFeetPerYardTolerance { get { return 1e-5; } }
+        protected virtual double PoundForceInchesPerFootTolerance { get { return 1e-5; } }
         protected virtual double PoundForceInchesPerInchTolerance { get { return 1e-5; } }
         protected virtual double TonneForceCentimetersPerCentimeterTolerance { get { return 1e-5; } }
         protected virtual double TonneForceMetersPerCentimeterTolerance { get { return 1e-5; } }
@@ -122,6 +126,7 @@ namespace OasysUnits.Tests
                 MomentPerLengthUnit.KilonewtonMillimeterPerMillimeter => (KilonewtonMillimetersPerMillimeterInOneNewtonMeterPerMeter, KilonewtonMillimetersPerMillimeterTolerance),
                 MomentPerLengthUnit.KilopoundForceFootPerFoot => (KilopoundForceFeetPerFootInOneNewtonMeterPerMeter, KilopoundForceFeetPerFootTolerance),
                 MomentPerLengthUnit.KilopoundForceFootPerInch => (KilopoundForceFeetPerInchInOneNewtonMeterPerMeter, KilopoundForceFeetPerInchTolerance),
+                MomentPerLengthUnit.KilopoundForceInchPerFoot => (KilopoundForceInchesPerFootInOneNewtonMeterPerMeter, KilopoundForceInchesPerFootTolerance),
                 MomentPerLengthUnit.KilopoundForceInchPerInch => (KilopoundForceInchesPerInchInOneNewtonMeterPerMeter, KilopoundForceInchesPerInchTolerance),
                 MomentPerLengthUnit.MeganewtonCentimeterPerCentimeter => (MeganewtonCentimetersPerCentimeterInOneNewtonMeterPerMeter, MeganewtonCentimetersPerCentimeterTolerance),
                 MomentPerLengthUnit.MeganewtonMeterPerCentimeter => (MeganewtonMetersPerCentimeterInOneNewtonMeterPerMeter, MeganewtonMetersPerCentimeterTolerance),
@@ -136,6 +141,7 @@ namespace OasysUnits.Tests
                 MomentPerLengthUnit.PoundForceFootPerFoot => (PoundForceFeetPerFootInOneNewtonMeterPerMeter, PoundForceFeetPerFootTolerance),
                 MomentPerLengthUnit.PoundForceFootPerInch => (PoundForceFeetPerInchInOneNewtonMeterPerMeter, PoundForceFeetPerInchTolerance),
                 MomentPerLengthUnit.PoundForceFootPerYard => (PoundForceFeetPerYardInOneNewtonMeterPerMeter, PoundForceFeetPerYardTolerance),
+                MomentPerLengthUnit.PoundForceInchPerFoot => (PoundForceInchesPerFootInOneNewtonMeterPerMeter, PoundForceInchesPerFootTolerance),
                 MomentPerLengthUnit.PoundForceInchPerInch => (PoundForceInchesPerInchInOneNewtonMeterPerMeter, PoundForceInchesPerInchTolerance),
                 MomentPerLengthUnit.TonneForceCentimeterPerCentimeter => (TonneForceCentimetersPerCentimeterInOneNewtonMeterPerMeter, TonneForceCentimetersPerCentimeterTolerance),
                 MomentPerLengthUnit.TonneForceMeterPerCentimeter => (TonneForceMetersPerCentimeterInOneNewtonMeterPerMeter, TonneForceMetersPerCentimeterTolerance),
@@ -160,6 +166,7 @@ namespace OasysUnits.Tests
             new object[] { MomentPerLengthUnit.KilonewtonMillimeterPerMillimeter },
             new object[] { MomentPerLengthUnit.KilopoundForceFootPerFoot },
             new object[] { MomentPerLengthUnit.KilopoundForceFootPerInch },
+            new object[] { MomentPerLengthUnit.KilopoundForceInchPerFoot },
             new object[] { MomentPerLengthUnit.KilopoundForceInchPerInch },
             new object[] { MomentPerLengthUnit.MeganewtonCentimeterPerCentimeter },
             new object[] { MomentPerLengthUnit.MeganewtonMeterPerCentimeter },
@@ -174,6 +181,7 @@ namespace OasysUnits.Tests
             new object[] { MomentPerLengthUnit.PoundForceFootPerFoot },
             new object[] { MomentPerLengthUnit.PoundForceFootPerInch },
             new object[] { MomentPerLengthUnit.PoundForceFootPerYard },
+            new object[] { MomentPerLengthUnit.PoundForceInchPerFoot },
             new object[] { MomentPerLengthUnit.PoundForceInchPerInch },
             new object[] { MomentPerLengthUnit.TonneForceCentimeterPerCentimeter },
             new object[] { MomentPerLengthUnit.TonneForceMeterPerCentimeter },
@@ -254,6 +262,7 @@ namespace OasysUnits.Tests
             AssertEx.EqualTolerance(KilonewtonMillimetersPerMillimeterInOneNewtonMeterPerMeter, newtonmeterpermeter.KilonewtonMillimetersPerMillimeter, KilonewtonMillimetersPerMillimeterTolerance);
             AssertEx.EqualTolerance(KilopoundForceFeetPerFootInOneNewtonMeterPerMeter, newtonmeterpermeter.KilopoundForceFeetPerFoot, KilopoundForceFeetPerFootTolerance);
             AssertEx.EqualTolerance(KilopoundForceFeetPerInchInOneNewtonMeterPerMeter, newtonmeterpermeter.KilopoundForceFeetPerInch, KilopoundForceFeetPerInchTolerance);
+            AssertEx.EqualTolerance(KilopoundForceInchesPerFootInOneNewtonMeterPerMeter, newtonmeterpermeter.KilopoundForceInchesPerFoot, KilopoundForceInchesPerFootTolerance);
             AssertEx.EqualTolerance(KilopoundForceInchesPerInchInOneNewtonMeterPerMeter, newtonmeterpermeter.KilopoundForceInchesPerInch, KilopoundForceInchesPerInchTolerance);
             AssertEx.EqualTolerance(MeganewtonCentimetersPerCentimeterInOneNewtonMeterPerMeter, newtonmeterpermeter.MeganewtonCentimetersPerCentimeter, MeganewtonCentimetersPerCentimeterTolerance);
             AssertEx.EqualTolerance(MeganewtonMetersPerCentimeterInOneNewtonMeterPerMeter, newtonmeterpermeter.MeganewtonMetersPerCentimeter, MeganewtonMetersPerCentimeterTolerance);
@@ -268,6 +277,7 @@ namespace OasysUnits.Tests
             AssertEx.EqualTolerance(PoundForceFeetPerFootInOneNewtonMeterPerMeter, newtonmeterpermeter.PoundForceFeetPerFoot, PoundForceFeetPerFootTolerance);
             AssertEx.EqualTolerance(PoundForceFeetPerInchInOneNewtonMeterPerMeter, newtonmeterpermeter.PoundForceFeetPerInch, PoundForceFeetPerInchTolerance);
             AssertEx.EqualTolerance(PoundForceFeetPerYardInOneNewtonMeterPerMeter, newtonmeterpermeter.PoundForceFeetPerYard, PoundForceFeetPerYardTolerance);
+            AssertEx.EqualTolerance(PoundForceInchesPerFootInOneNewtonMeterPerMeter, newtonmeterpermeter.PoundForceInchesPerFoot, PoundForceInchesPerFootTolerance);
             AssertEx.EqualTolerance(PoundForceInchesPerInchInOneNewtonMeterPerMeter, newtonmeterpermeter.PoundForceInchesPerInch, PoundForceInchesPerInchTolerance);
             AssertEx.EqualTolerance(TonneForceCentimetersPerCentimeterInOneNewtonMeterPerMeter, newtonmeterpermeter.TonneForceCentimetersPerCentimeter, TonneForceCentimetersPerCentimeterTolerance);
             AssertEx.EqualTolerance(TonneForceMetersPerCentimeterInOneNewtonMeterPerMeter, newtonmeterpermeter.TonneForceMetersPerCentimeter, TonneForceMetersPerCentimeterTolerance);
@@ -327,85 +337,93 @@ namespace OasysUnits.Tests
             AssertEx.EqualTolerance(1, quantity11.KilopoundForceFeetPerInch, KilopoundForceFeetPerInchTolerance);
             Assert.Equal(MomentPerLengthUnit.KilopoundForceFootPerInch, quantity11.Unit);
 
-            var quantity12 = MomentPerLength.From(1, MomentPerLengthUnit.KilopoundForceInchPerInch);
-            AssertEx.EqualTolerance(1, quantity12.KilopoundForceInchesPerInch, KilopoundForceInchesPerInchTolerance);
-            Assert.Equal(MomentPerLengthUnit.KilopoundForceInchPerInch, quantity12.Unit);
+            var quantity12 = MomentPerLength.From(1, MomentPerLengthUnit.KilopoundForceInchPerFoot);
+            AssertEx.EqualTolerance(1, quantity12.KilopoundForceInchesPerFoot, KilopoundForceInchesPerFootTolerance);
+            Assert.Equal(MomentPerLengthUnit.KilopoundForceInchPerFoot, quantity12.Unit);
 
-            var quantity13 = MomentPerLength.From(1, MomentPerLengthUnit.MeganewtonCentimeterPerCentimeter);
-            AssertEx.EqualTolerance(1, quantity13.MeganewtonCentimetersPerCentimeter, MeganewtonCentimetersPerCentimeterTolerance);
-            Assert.Equal(MomentPerLengthUnit.MeganewtonCentimeterPerCentimeter, quantity13.Unit);
+            var quantity13 = MomentPerLength.From(1, MomentPerLengthUnit.KilopoundForceInchPerInch);
+            AssertEx.EqualTolerance(1, quantity13.KilopoundForceInchesPerInch, KilopoundForceInchesPerInchTolerance);
+            Assert.Equal(MomentPerLengthUnit.KilopoundForceInchPerInch, quantity13.Unit);
 
-            var quantity14 = MomentPerLength.From(1, MomentPerLengthUnit.MeganewtonMeterPerCentimeter);
-            AssertEx.EqualTolerance(1, quantity14.MeganewtonMetersPerCentimeter, MeganewtonMetersPerCentimeterTolerance);
-            Assert.Equal(MomentPerLengthUnit.MeganewtonMeterPerCentimeter, quantity14.Unit);
+            var quantity14 = MomentPerLength.From(1, MomentPerLengthUnit.MeganewtonCentimeterPerCentimeter);
+            AssertEx.EqualTolerance(1, quantity14.MeganewtonCentimetersPerCentimeter, MeganewtonCentimetersPerCentimeterTolerance);
+            Assert.Equal(MomentPerLengthUnit.MeganewtonCentimeterPerCentimeter, quantity14.Unit);
 
-            var quantity15 = MomentPerLength.From(1, MomentPerLengthUnit.MeganewtonMeterPerMeter);
-            AssertEx.EqualTolerance(1, quantity15.MeganewtonMetersPerMeter, MeganewtonMetersPerMeterTolerance);
-            Assert.Equal(MomentPerLengthUnit.MeganewtonMeterPerMeter, quantity15.Unit);
+            var quantity15 = MomentPerLength.From(1, MomentPerLengthUnit.MeganewtonMeterPerCentimeter);
+            AssertEx.EqualTolerance(1, quantity15.MeganewtonMetersPerCentimeter, MeganewtonMetersPerCentimeterTolerance);
+            Assert.Equal(MomentPerLengthUnit.MeganewtonMeterPerCentimeter, quantity15.Unit);
 
-            var quantity16 = MomentPerLength.From(1, MomentPerLengthUnit.MeganewtonMeterPerMillimeter);
-            AssertEx.EqualTolerance(1, quantity16.MeganewtonMetersPerMillimeter, MeganewtonMetersPerMillimeterTolerance);
-            Assert.Equal(MomentPerLengthUnit.MeganewtonMeterPerMillimeter, quantity16.Unit);
+            var quantity16 = MomentPerLength.From(1, MomentPerLengthUnit.MeganewtonMeterPerMeter);
+            AssertEx.EqualTolerance(1, quantity16.MeganewtonMetersPerMeter, MeganewtonMetersPerMeterTolerance);
+            Assert.Equal(MomentPerLengthUnit.MeganewtonMeterPerMeter, quantity16.Unit);
 
-            var quantity17 = MomentPerLength.From(1, MomentPerLengthUnit.MeganewtonMillimeterPerMillimeter);
-            AssertEx.EqualTolerance(1, quantity17.MeganewtonMillimetersPerMillimeter, MeganewtonMillimetersPerMillimeterTolerance);
-            Assert.Equal(MomentPerLengthUnit.MeganewtonMillimeterPerMillimeter, quantity17.Unit);
+            var quantity17 = MomentPerLength.From(1, MomentPerLengthUnit.MeganewtonMeterPerMillimeter);
+            AssertEx.EqualTolerance(1, quantity17.MeganewtonMetersPerMillimeter, MeganewtonMetersPerMillimeterTolerance);
+            Assert.Equal(MomentPerLengthUnit.MeganewtonMeterPerMillimeter, quantity17.Unit);
 
-            var quantity18 = MomentPerLength.From(1, MomentPerLengthUnit.NewtonCentimeterPerCentimeter);
-            AssertEx.EqualTolerance(1, quantity18.NewtonCentimetersPerCentimeter, NewtonCentimetersPerCentimeterTolerance);
-            Assert.Equal(MomentPerLengthUnit.NewtonCentimeterPerCentimeter, quantity18.Unit);
+            var quantity18 = MomentPerLength.From(1, MomentPerLengthUnit.MeganewtonMillimeterPerMillimeter);
+            AssertEx.EqualTolerance(1, quantity18.MeganewtonMillimetersPerMillimeter, MeganewtonMillimetersPerMillimeterTolerance);
+            Assert.Equal(MomentPerLengthUnit.MeganewtonMillimeterPerMillimeter, quantity18.Unit);
 
-            var quantity19 = MomentPerLength.From(1, MomentPerLengthUnit.NewtonMeterPerCentimeter);
-            AssertEx.EqualTolerance(1, quantity19.NewtonMetersPerCentimeter, NewtonMetersPerCentimeterTolerance);
-            Assert.Equal(MomentPerLengthUnit.NewtonMeterPerCentimeter, quantity19.Unit);
+            var quantity19 = MomentPerLength.From(1, MomentPerLengthUnit.NewtonCentimeterPerCentimeter);
+            AssertEx.EqualTolerance(1, quantity19.NewtonCentimetersPerCentimeter, NewtonCentimetersPerCentimeterTolerance);
+            Assert.Equal(MomentPerLengthUnit.NewtonCentimeterPerCentimeter, quantity19.Unit);
 
-            var quantity20 = MomentPerLength.From(1, MomentPerLengthUnit.NewtonMeterPerMeter);
-            AssertEx.EqualTolerance(1, quantity20.NewtonMetersPerMeter, NewtonMetersPerMeterTolerance);
-            Assert.Equal(MomentPerLengthUnit.NewtonMeterPerMeter, quantity20.Unit);
+            var quantity20 = MomentPerLength.From(1, MomentPerLengthUnit.NewtonMeterPerCentimeter);
+            AssertEx.EqualTolerance(1, quantity20.NewtonMetersPerCentimeter, NewtonMetersPerCentimeterTolerance);
+            Assert.Equal(MomentPerLengthUnit.NewtonMeterPerCentimeter, quantity20.Unit);
 
-            var quantity21 = MomentPerLength.From(1, MomentPerLengthUnit.NewtonMeterPerMillimeter);
-            AssertEx.EqualTolerance(1, quantity21.NewtonMetersPerMillimeter, NewtonMetersPerMillimeterTolerance);
-            Assert.Equal(MomentPerLengthUnit.NewtonMeterPerMillimeter, quantity21.Unit);
+            var quantity21 = MomentPerLength.From(1, MomentPerLengthUnit.NewtonMeterPerMeter);
+            AssertEx.EqualTolerance(1, quantity21.NewtonMetersPerMeter, NewtonMetersPerMeterTolerance);
+            Assert.Equal(MomentPerLengthUnit.NewtonMeterPerMeter, quantity21.Unit);
 
-            var quantity22 = MomentPerLength.From(1, MomentPerLengthUnit.NewtonMillimeterPerMillimeter);
-            AssertEx.EqualTolerance(1, quantity22.NewtonMillimetersPerMillimeter, NewtonMillimetersPerMillimeterTolerance);
-            Assert.Equal(MomentPerLengthUnit.NewtonMillimeterPerMillimeter, quantity22.Unit);
+            var quantity22 = MomentPerLength.From(1, MomentPerLengthUnit.NewtonMeterPerMillimeter);
+            AssertEx.EqualTolerance(1, quantity22.NewtonMetersPerMillimeter, NewtonMetersPerMillimeterTolerance);
+            Assert.Equal(MomentPerLengthUnit.NewtonMeterPerMillimeter, quantity22.Unit);
 
-            var quantity23 = MomentPerLength.From(1, MomentPerLengthUnit.PoundForceFootPerFoot);
-            AssertEx.EqualTolerance(1, quantity23.PoundForceFeetPerFoot, PoundForceFeetPerFootTolerance);
-            Assert.Equal(MomentPerLengthUnit.PoundForceFootPerFoot, quantity23.Unit);
+            var quantity23 = MomentPerLength.From(1, MomentPerLengthUnit.NewtonMillimeterPerMillimeter);
+            AssertEx.EqualTolerance(1, quantity23.NewtonMillimetersPerMillimeter, NewtonMillimetersPerMillimeterTolerance);
+            Assert.Equal(MomentPerLengthUnit.NewtonMillimeterPerMillimeter, quantity23.Unit);
 
-            var quantity24 = MomentPerLength.From(1, MomentPerLengthUnit.PoundForceFootPerInch);
-            AssertEx.EqualTolerance(1, quantity24.PoundForceFeetPerInch, PoundForceFeetPerInchTolerance);
-            Assert.Equal(MomentPerLengthUnit.PoundForceFootPerInch, quantity24.Unit);
+            var quantity24 = MomentPerLength.From(1, MomentPerLengthUnit.PoundForceFootPerFoot);
+            AssertEx.EqualTolerance(1, quantity24.PoundForceFeetPerFoot, PoundForceFeetPerFootTolerance);
+            Assert.Equal(MomentPerLengthUnit.PoundForceFootPerFoot, quantity24.Unit);
 
-            var quantity25 = MomentPerLength.From(1, MomentPerLengthUnit.PoundForceFootPerYard);
-            AssertEx.EqualTolerance(1, quantity25.PoundForceFeetPerYard, PoundForceFeetPerYardTolerance);
-            Assert.Equal(MomentPerLengthUnit.PoundForceFootPerYard, quantity25.Unit);
+            var quantity25 = MomentPerLength.From(1, MomentPerLengthUnit.PoundForceFootPerInch);
+            AssertEx.EqualTolerance(1, quantity25.PoundForceFeetPerInch, PoundForceFeetPerInchTolerance);
+            Assert.Equal(MomentPerLengthUnit.PoundForceFootPerInch, quantity25.Unit);
 
-            var quantity26 = MomentPerLength.From(1, MomentPerLengthUnit.PoundForceInchPerInch);
-            AssertEx.EqualTolerance(1, quantity26.PoundForceInchesPerInch, PoundForceInchesPerInchTolerance);
-            Assert.Equal(MomentPerLengthUnit.PoundForceInchPerInch, quantity26.Unit);
+            var quantity26 = MomentPerLength.From(1, MomentPerLengthUnit.PoundForceFootPerYard);
+            AssertEx.EqualTolerance(1, quantity26.PoundForceFeetPerYard, PoundForceFeetPerYardTolerance);
+            Assert.Equal(MomentPerLengthUnit.PoundForceFootPerYard, quantity26.Unit);
 
-            var quantity27 = MomentPerLength.From(1, MomentPerLengthUnit.TonneForceCentimeterPerCentimeter);
-            AssertEx.EqualTolerance(1, quantity27.TonneForceCentimetersPerCentimeter, TonneForceCentimetersPerCentimeterTolerance);
-            Assert.Equal(MomentPerLengthUnit.TonneForceCentimeterPerCentimeter, quantity27.Unit);
+            var quantity27 = MomentPerLength.From(1, MomentPerLengthUnit.PoundForceInchPerFoot);
+            AssertEx.EqualTolerance(1, quantity27.PoundForceInchesPerFoot, PoundForceInchesPerFootTolerance);
+            Assert.Equal(MomentPerLengthUnit.PoundForceInchPerFoot, quantity27.Unit);
 
-            var quantity28 = MomentPerLength.From(1, MomentPerLengthUnit.TonneForceMeterPerCentimeter);
-            AssertEx.EqualTolerance(1, quantity28.TonneForceMetersPerCentimeter, TonneForceMetersPerCentimeterTolerance);
-            Assert.Equal(MomentPerLengthUnit.TonneForceMeterPerCentimeter, quantity28.Unit);
+            var quantity28 = MomentPerLength.From(1, MomentPerLengthUnit.PoundForceInchPerInch);
+            AssertEx.EqualTolerance(1, quantity28.PoundForceInchesPerInch, PoundForceInchesPerInchTolerance);
+            Assert.Equal(MomentPerLengthUnit.PoundForceInchPerInch, quantity28.Unit);
 
-            var quantity29 = MomentPerLength.From(1, MomentPerLengthUnit.TonneForceMeterPerMeter);
-            AssertEx.EqualTolerance(1, quantity29.TonneForceMetersPerMeter, TonneForceMetersPerMeterTolerance);
-            Assert.Equal(MomentPerLengthUnit.TonneForceMeterPerMeter, quantity29.Unit);
+            var quantity29 = MomentPerLength.From(1, MomentPerLengthUnit.TonneForceCentimeterPerCentimeter);
+            AssertEx.EqualTolerance(1, quantity29.TonneForceCentimetersPerCentimeter, TonneForceCentimetersPerCentimeterTolerance);
+            Assert.Equal(MomentPerLengthUnit.TonneForceCentimeterPerCentimeter, quantity29.Unit);
 
-            var quantity30 = MomentPerLength.From(1, MomentPerLengthUnit.TonneForceMeterPerMillimeter);
-            AssertEx.EqualTolerance(1, quantity30.TonneForceMetersPerMillimeter, TonneForceMetersPerMillimeterTolerance);
-            Assert.Equal(MomentPerLengthUnit.TonneForceMeterPerMillimeter, quantity30.Unit);
+            var quantity30 = MomentPerLength.From(1, MomentPerLengthUnit.TonneForceMeterPerCentimeter);
+            AssertEx.EqualTolerance(1, quantity30.TonneForceMetersPerCentimeter, TonneForceMetersPerCentimeterTolerance);
+            Assert.Equal(MomentPerLengthUnit.TonneForceMeterPerCentimeter, quantity30.Unit);
 
-            var quantity31 = MomentPerLength.From(1, MomentPerLengthUnit.TonneForceMillimeterPerMillimeter);
-            AssertEx.EqualTolerance(1, quantity31.TonneForceMillimetersPerMillimeter, TonneForceMillimetersPerMillimeterTolerance);
-            Assert.Equal(MomentPerLengthUnit.TonneForceMillimeterPerMillimeter, quantity31.Unit);
+            var quantity31 = MomentPerLength.From(1, MomentPerLengthUnit.TonneForceMeterPerMeter);
+            AssertEx.EqualTolerance(1, quantity31.TonneForceMetersPerMeter, TonneForceMetersPerMeterTolerance);
+            Assert.Equal(MomentPerLengthUnit.TonneForceMeterPerMeter, quantity31.Unit);
+
+            var quantity32 = MomentPerLength.From(1, MomentPerLengthUnit.TonneForceMeterPerMillimeter);
+            AssertEx.EqualTolerance(1, quantity32.TonneForceMetersPerMillimeter, TonneForceMetersPerMillimeterTolerance);
+            Assert.Equal(MomentPerLengthUnit.TonneForceMeterPerMillimeter, quantity32.Unit);
+
+            var quantity33 = MomentPerLength.From(1, MomentPerLengthUnit.TonneForceMillimeterPerMillimeter);
+            AssertEx.EqualTolerance(1, quantity33.TonneForceMillimetersPerMillimeter, TonneForceMillimetersPerMillimeterTolerance);
+            Assert.Equal(MomentPerLengthUnit.TonneForceMillimeterPerMillimeter, quantity33.Unit);
 
         }
 
@@ -438,6 +456,7 @@ namespace OasysUnits.Tests
             AssertEx.EqualTolerance(KilonewtonMillimetersPerMillimeterInOneNewtonMeterPerMeter, newtonmeterpermeter.As(MomentPerLengthUnit.KilonewtonMillimeterPerMillimeter), KilonewtonMillimetersPerMillimeterTolerance);
             AssertEx.EqualTolerance(KilopoundForceFeetPerFootInOneNewtonMeterPerMeter, newtonmeterpermeter.As(MomentPerLengthUnit.KilopoundForceFootPerFoot), KilopoundForceFeetPerFootTolerance);
             AssertEx.EqualTolerance(KilopoundForceFeetPerInchInOneNewtonMeterPerMeter, newtonmeterpermeter.As(MomentPerLengthUnit.KilopoundForceFootPerInch), KilopoundForceFeetPerInchTolerance);
+            AssertEx.EqualTolerance(KilopoundForceInchesPerFootInOneNewtonMeterPerMeter, newtonmeterpermeter.As(MomentPerLengthUnit.KilopoundForceInchPerFoot), KilopoundForceInchesPerFootTolerance);
             AssertEx.EqualTolerance(KilopoundForceInchesPerInchInOneNewtonMeterPerMeter, newtonmeterpermeter.As(MomentPerLengthUnit.KilopoundForceInchPerInch), KilopoundForceInchesPerInchTolerance);
             AssertEx.EqualTolerance(MeganewtonCentimetersPerCentimeterInOneNewtonMeterPerMeter, newtonmeterpermeter.As(MomentPerLengthUnit.MeganewtonCentimeterPerCentimeter), MeganewtonCentimetersPerCentimeterTolerance);
             AssertEx.EqualTolerance(MeganewtonMetersPerCentimeterInOneNewtonMeterPerMeter, newtonmeterpermeter.As(MomentPerLengthUnit.MeganewtonMeterPerCentimeter), MeganewtonMetersPerCentimeterTolerance);
@@ -452,6 +471,7 @@ namespace OasysUnits.Tests
             AssertEx.EqualTolerance(PoundForceFeetPerFootInOneNewtonMeterPerMeter, newtonmeterpermeter.As(MomentPerLengthUnit.PoundForceFootPerFoot), PoundForceFeetPerFootTolerance);
             AssertEx.EqualTolerance(PoundForceFeetPerInchInOneNewtonMeterPerMeter, newtonmeterpermeter.As(MomentPerLengthUnit.PoundForceFootPerInch), PoundForceFeetPerInchTolerance);
             AssertEx.EqualTolerance(PoundForceFeetPerYardInOneNewtonMeterPerMeter, newtonmeterpermeter.As(MomentPerLengthUnit.PoundForceFootPerYard), PoundForceFeetPerYardTolerance);
+            AssertEx.EqualTolerance(PoundForceInchesPerFootInOneNewtonMeterPerMeter, newtonmeterpermeter.As(MomentPerLengthUnit.PoundForceInchPerFoot), PoundForceInchesPerFootTolerance);
             AssertEx.EqualTolerance(PoundForceInchesPerInchInOneNewtonMeterPerMeter, newtonmeterpermeter.As(MomentPerLengthUnit.PoundForceInchPerInch), PoundForceInchesPerInchTolerance);
             AssertEx.EqualTolerance(TonneForceCentimetersPerCentimeterInOneNewtonMeterPerMeter, newtonmeterpermeter.As(MomentPerLengthUnit.TonneForceCentimeterPerCentimeter), TonneForceCentimetersPerCentimeterTolerance);
             AssertEx.EqualTolerance(TonneForceMetersPerCentimeterInOneNewtonMeterPerMeter, newtonmeterpermeter.As(MomentPerLengthUnit.TonneForceMeterPerCentimeter), TonneForceMetersPerCentimeterTolerance);
@@ -566,6 +586,13 @@ namespace OasysUnits.Tests
 
             try
             {
+                var parsed = MomentPerLength.Parse("1 kip·in/ft", CultureInfo.GetCultureInfo("en-US"));
+                AssertEx.EqualTolerance(1, parsed.KilopoundForceInchesPerFoot, KilopoundForceInchesPerFootTolerance);
+                Assert.Equal(MomentPerLengthUnit.KilopoundForceInchPerFoot, parsed.Unit);
+            } catch (AmbiguousUnitParseException) { /* Some units have the same abbreviations */ }
+
+            try
+            {
                 var parsed = MomentPerLength.Parse("1 kip·in/in", CultureInfo.GetCultureInfo("en-US"));
                 AssertEx.EqualTolerance(1, parsed.KilopoundForceInchesPerInch, KilopoundForceInchesPerInchTolerance);
                 Assert.Equal(MomentPerLengthUnit.KilopoundForceInchPerInch, parsed.Unit);
@@ -660,6 +687,13 @@ namespace OasysUnits.Tests
                 var parsed = MomentPerLength.Parse("1 lbf·ft/yd", CultureInfo.GetCultureInfo("en-US"));
                 AssertEx.EqualTolerance(1, parsed.PoundForceFeetPerYard, PoundForceFeetPerYardTolerance);
                 Assert.Equal(MomentPerLengthUnit.PoundForceFootPerYard, parsed.Unit);
+            } catch (AmbiguousUnitParseException) { /* Some units have the same abbreviations */ }
+
+            try
+            {
+                var parsed = MomentPerLength.Parse("1 lbf·in/ft", CultureInfo.GetCultureInfo("en-US"));
+                AssertEx.EqualTolerance(1, parsed.PoundForceInchesPerFoot, PoundForceInchesPerFootTolerance);
+                Assert.Equal(MomentPerLengthUnit.PoundForceInchPerFoot, parsed.Unit);
             } catch (AmbiguousUnitParseException) { /* Some units have the same abbreviations */ }
 
             try
@@ -782,6 +816,12 @@ namespace OasysUnits.Tests
             }
 
             {
+                Assert.True(MomentPerLength.TryParse("1 kip·in/ft", CultureInfo.GetCultureInfo("en-US"), out var parsed));
+                AssertEx.EqualTolerance(1, parsed.KilopoundForceInchesPerFoot, KilopoundForceInchesPerFootTolerance);
+                Assert.Equal(MomentPerLengthUnit.KilopoundForceInchPerFoot, parsed.Unit);
+            }
+
+            {
                 Assert.True(MomentPerLength.TryParse("1 kip·in/in", CultureInfo.GetCultureInfo("en-US"), out var parsed));
                 AssertEx.EqualTolerance(1, parsed.KilopoundForceInchesPerInch, KilopoundForceInchesPerInchTolerance);
                 Assert.Equal(MomentPerLengthUnit.KilopoundForceInchPerInch, parsed.Unit);
@@ -863,6 +903,12 @@ namespace OasysUnits.Tests
                 Assert.True(MomentPerLength.TryParse("1 lbf·ft/yd", CultureInfo.GetCultureInfo("en-US"), out var parsed));
                 AssertEx.EqualTolerance(1, parsed.PoundForceFeetPerYard, PoundForceFeetPerYardTolerance);
                 Assert.Equal(MomentPerLengthUnit.PoundForceFootPerYard, parsed.Unit);
+            }
+
+            {
+                Assert.True(MomentPerLength.TryParse("1 lbf·in/ft", CultureInfo.GetCultureInfo("en-US"), out var parsed));
+                AssertEx.EqualTolerance(1, parsed.PoundForceInchesPerFoot, PoundForceInchesPerFootTolerance);
+                Assert.Equal(MomentPerLengthUnit.PoundForceInchPerFoot, parsed.Unit);
             }
 
             {
@@ -980,6 +1026,12 @@ namespace OasysUnits.Tests
 
             try
             {
+                var parsedUnit = MomentPerLength.ParseUnit("kip·in/ft", CultureInfo.GetCultureInfo("en-US"));
+                Assert.Equal(MomentPerLengthUnit.KilopoundForceInchPerFoot, parsedUnit);
+            } catch (AmbiguousUnitParseException) { /* Some units have the same abbreviations */ }
+
+            try
+            {
                 var parsedUnit = MomentPerLength.ParseUnit("kip·in/in", CultureInfo.GetCultureInfo("en-US"));
                 Assert.Equal(MomentPerLengthUnit.KilopoundForceInchPerInch, parsedUnit);
             } catch (AmbiguousUnitParseException) { /* Some units have the same abbreviations */ }
@@ -1060,6 +1112,12 @@ namespace OasysUnits.Tests
             {
                 var parsedUnit = MomentPerLength.ParseUnit("lbf·ft/yd", CultureInfo.GetCultureInfo("en-US"));
                 Assert.Equal(MomentPerLengthUnit.PoundForceFootPerYard, parsedUnit);
+            } catch (AmbiguousUnitParseException) { /* Some units have the same abbreviations */ }
+
+            try
+            {
+                var parsedUnit = MomentPerLength.ParseUnit("lbf·in/ft", CultureInfo.GetCultureInfo("en-US"));
+                Assert.Equal(MomentPerLengthUnit.PoundForceInchPerFoot, parsedUnit);
             } catch (AmbiguousUnitParseException) { /* Some units have the same abbreviations */ }
 
             try
@@ -1164,6 +1222,11 @@ namespace OasysUnits.Tests
             }
 
             {
+                Assert.True(MomentPerLength.TryParseUnit("kip·in/ft", CultureInfo.GetCultureInfo("en-US"), out var parsedUnit));
+                Assert.Equal(MomentPerLengthUnit.KilopoundForceInchPerFoot, parsedUnit);
+            }
+
+            {
                 Assert.True(MomentPerLength.TryParseUnit("kip·in/in", CultureInfo.GetCultureInfo("en-US"), out var parsedUnit));
                 Assert.Equal(MomentPerLengthUnit.KilopoundForceInchPerInch, parsedUnit);
             }
@@ -1231,6 +1294,11 @@ namespace OasysUnits.Tests
             {
                 Assert.True(MomentPerLength.TryParseUnit("lbf·ft/yd", CultureInfo.GetCultureInfo("en-US"), out var parsedUnit));
                 Assert.Equal(MomentPerLengthUnit.PoundForceFootPerYard, parsedUnit);
+            }
+
+            {
+                Assert.True(MomentPerLength.TryParseUnit("lbf·in/ft", CultureInfo.GetCultureInfo("en-US"), out var parsedUnit));
+                Assert.Equal(MomentPerLengthUnit.PoundForceInchPerFoot, parsedUnit);
             }
 
             {
@@ -1323,6 +1391,7 @@ namespace OasysUnits.Tests
             AssertEx.EqualTolerance(1, MomentPerLength.FromKilonewtonMillimetersPerMillimeter(newtonmeterpermeter.KilonewtonMillimetersPerMillimeter).NewtonMetersPerMeter, KilonewtonMillimetersPerMillimeterTolerance);
             AssertEx.EqualTolerance(1, MomentPerLength.FromKilopoundForceFeetPerFoot(newtonmeterpermeter.KilopoundForceFeetPerFoot).NewtonMetersPerMeter, KilopoundForceFeetPerFootTolerance);
             AssertEx.EqualTolerance(1, MomentPerLength.FromKilopoundForceFeetPerInch(newtonmeterpermeter.KilopoundForceFeetPerInch).NewtonMetersPerMeter, KilopoundForceFeetPerInchTolerance);
+            AssertEx.EqualTolerance(1, MomentPerLength.FromKilopoundForceInchesPerFoot(newtonmeterpermeter.KilopoundForceInchesPerFoot).NewtonMetersPerMeter, KilopoundForceInchesPerFootTolerance);
             AssertEx.EqualTolerance(1, MomentPerLength.FromKilopoundForceInchesPerInch(newtonmeterpermeter.KilopoundForceInchesPerInch).NewtonMetersPerMeter, KilopoundForceInchesPerInchTolerance);
             AssertEx.EqualTolerance(1, MomentPerLength.FromMeganewtonCentimetersPerCentimeter(newtonmeterpermeter.MeganewtonCentimetersPerCentimeter).NewtonMetersPerMeter, MeganewtonCentimetersPerCentimeterTolerance);
             AssertEx.EqualTolerance(1, MomentPerLength.FromMeganewtonMetersPerCentimeter(newtonmeterpermeter.MeganewtonMetersPerCentimeter).NewtonMetersPerMeter, MeganewtonMetersPerCentimeterTolerance);
@@ -1337,6 +1406,7 @@ namespace OasysUnits.Tests
             AssertEx.EqualTolerance(1, MomentPerLength.FromPoundForceFeetPerFoot(newtonmeterpermeter.PoundForceFeetPerFoot).NewtonMetersPerMeter, PoundForceFeetPerFootTolerance);
             AssertEx.EqualTolerance(1, MomentPerLength.FromPoundForceFeetPerInch(newtonmeterpermeter.PoundForceFeetPerInch).NewtonMetersPerMeter, PoundForceFeetPerInchTolerance);
             AssertEx.EqualTolerance(1, MomentPerLength.FromPoundForceFeetPerYard(newtonmeterpermeter.PoundForceFeetPerYard).NewtonMetersPerMeter, PoundForceFeetPerYardTolerance);
+            AssertEx.EqualTolerance(1, MomentPerLength.FromPoundForceInchesPerFoot(newtonmeterpermeter.PoundForceInchesPerFoot).NewtonMetersPerMeter, PoundForceInchesPerFootTolerance);
             AssertEx.EqualTolerance(1, MomentPerLength.FromPoundForceInchesPerInch(newtonmeterpermeter.PoundForceInchesPerInch).NewtonMetersPerMeter, PoundForceInchesPerInchTolerance);
             AssertEx.EqualTolerance(1, MomentPerLength.FromTonneForceCentimetersPerCentimeter(newtonmeterpermeter.TonneForceCentimetersPerCentimeter).NewtonMetersPerMeter, TonneForceCentimetersPerCentimeterTolerance);
             AssertEx.EqualTolerance(1, MomentPerLength.FromTonneForceMetersPerCentimeter(newtonmeterpermeter.TonneForceMetersPerCentimeter).NewtonMetersPerMeter, TonneForceMetersPerCentimeterTolerance);
@@ -1502,6 +1572,7 @@ namespace OasysUnits.Tests
                 Assert.Equal("1 kN·mm/mm", new MomentPerLength(1, MomentPerLengthUnit.KilonewtonMillimeterPerMillimeter).ToString());
                 Assert.Equal("1 kip·ft/ft", new MomentPerLength(1, MomentPerLengthUnit.KilopoundForceFootPerFoot).ToString());
                 Assert.Equal("1 kip·ft/in", new MomentPerLength(1, MomentPerLengthUnit.KilopoundForceFootPerInch).ToString());
+                Assert.Equal("1 kip·in/ft", new MomentPerLength(1, MomentPerLengthUnit.KilopoundForceInchPerFoot).ToString());
                 Assert.Equal("1 kip·in/in", new MomentPerLength(1, MomentPerLengthUnit.KilopoundForceInchPerInch).ToString());
                 Assert.Equal("1 MN·cm/cm", new MomentPerLength(1, MomentPerLengthUnit.MeganewtonCentimeterPerCentimeter).ToString());
                 Assert.Equal("1 MN·m/cm", new MomentPerLength(1, MomentPerLengthUnit.MeganewtonMeterPerCentimeter).ToString());
@@ -1516,6 +1587,7 @@ namespace OasysUnits.Tests
                 Assert.Equal("1 lbf·ft/ft", new MomentPerLength(1, MomentPerLengthUnit.PoundForceFootPerFoot).ToString());
                 Assert.Equal("1 lbf·ft/in", new MomentPerLength(1, MomentPerLengthUnit.PoundForceFootPerInch).ToString());
                 Assert.Equal("1 lbf·ft/yd", new MomentPerLength(1, MomentPerLengthUnit.PoundForceFootPerYard).ToString());
+                Assert.Equal("1 lbf·in/ft", new MomentPerLength(1, MomentPerLengthUnit.PoundForceInchPerFoot).ToString());
                 Assert.Equal("1 lbf·in/in", new MomentPerLength(1, MomentPerLengthUnit.PoundForceInchPerInch).ToString());
                 Assert.Equal("1 tf·cm/cm", new MomentPerLength(1, MomentPerLengthUnit.TonneForceCentimeterPerCentimeter).ToString());
                 Assert.Equal("1 tf·m/cm", new MomentPerLength(1, MomentPerLengthUnit.TonneForceMeterPerCentimeter).ToString());
@@ -1547,6 +1619,7 @@ namespace OasysUnits.Tests
             Assert.Equal("1 kN·mm/mm", new MomentPerLength(1, MomentPerLengthUnit.KilonewtonMillimeterPerMillimeter).ToString(swedishCulture));
             Assert.Equal("1 kip·ft/ft", new MomentPerLength(1, MomentPerLengthUnit.KilopoundForceFootPerFoot).ToString(swedishCulture));
             Assert.Equal("1 kip·ft/in", new MomentPerLength(1, MomentPerLengthUnit.KilopoundForceFootPerInch).ToString(swedishCulture));
+            Assert.Equal("1 kip·in/ft", new MomentPerLength(1, MomentPerLengthUnit.KilopoundForceInchPerFoot).ToString(swedishCulture));
             Assert.Equal("1 kip·in/in", new MomentPerLength(1, MomentPerLengthUnit.KilopoundForceInchPerInch).ToString(swedishCulture));
             Assert.Equal("1 MN·cm/cm", new MomentPerLength(1, MomentPerLengthUnit.MeganewtonCentimeterPerCentimeter).ToString(swedishCulture));
             Assert.Equal("1 MN·m/cm", new MomentPerLength(1, MomentPerLengthUnit.MeganewtonMeterPerCentimeter).ToString(swedishCulture));
@@ -1561,6 +1634,7 @@ namespace OasysUnits.Tests
             Assert.Equal("1 lbf·ft/ft", new MomentPerLength(1, MomentPerLengthUnit.PoundForceFootPerFoot).ToString(swedishCulture));
             Assert.Equal("1 lbf·ft/in", new MomentPerLength(1, MomentPerLengthUnit.PoundForceFootPerInch).ToString(swedishCulture));
             Assert.Equal("1 lbf·ft/yd", new MomentPerLength(1, MomentPerLengthUnit.PoundForceFootPerYard).ToString(swedishCulture));
+            Assert.Equal("1 lbf·in/ft", new MomentPerLength(1, MomentPerLengthUnit.PoundForceInchPerFoot).ToString(swedishCulture));
             Assert.Equal("1 lbf·in/in", new MomentPerLength(1, MomentPerLengthUnit.PoundForceInchPerInch).ToString(swedishCulture));
             Assert.Equal("1 tf·cm/cm", new MomentPerLength(1, MomentPerLengthUnit.TonneForceCentimeterPerCentimeter).ToString(swedishCulture));
             Assert.Equal("1 tf·m/cm", new MomentPerLength(1, MomentPerLengthUnit.TonneForceMeterPerCentimeter).ToString(swedishCulture));

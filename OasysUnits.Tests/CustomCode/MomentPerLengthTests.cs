@@ -38,6 +38,7 @@ namespace OasysUnits.Tests.CustomCode
         protected override double KilopoundForceFeetPerFootInOneNewtonMeterPerMeter => 0.00022481;
         protected override double KilopoundForceFeetPerInchInOneNewtonMeterPerMeter => 0.000018734167;
         protected override double KilopoundForceInchesPerInchInOneNewtonMeterPerMeter => 0.00022481;
+        protected override double KilopoundForceInchesPerFootInOneNewtonMeterPerMeter => 0.00269772;
         protected override double MeganewtonCentimetersPerCentimeterInOneNewtonMeterPerMeter => 1E-6;
         protected override double MeganewtonMetersPerCentimeterInOneNewtonMeterPerMeter => 1E-8;
         protected override double MeganewtonMetersPerMeterInOneNewtonMeterPerMeter => 1E-6;
@@ -52,6 +53,7 @@ namespace OasysUnits.Tests.CustomCode
         protected override double PoundForceFeetPerInchInOneNewtonMeterPerMeter => 0.018734167;
         protected override double PoundForceFeetPerYardInOneNewtonMeterPerMeter => 0.67443;
         protected override double PoundForceInchesPerInchInOneNewtonMeterPerMeter => 0.22481;
+        protected override double PoundForceInchesPerFootInOneNewtonMeterPerMeter => 2.69772;
         protected override double TonneForceCentimetersPerCentimeterInOneNewtonMeterPerMeter => 1.01972e-4;
         protected override double TonneForceMetersPerCentimeterInOneNewtonMeterPerMeter => 1.01972e-6;
         protected override double TonneForceMetersPerMeterInOneNewtonMeterPerMeter => 1.01972e-4;
@@ -164,6 +166,13 @@ namespace OasysUnits.Tests.CustomCode
         }
 
         [Fact]
+        public void KilopoundForceInchesPerFootInOneNewtonMeterPerMeterTest()
+        {
+            double expected = InchesInOneMeter / FeetInOneMeter * KilopoundsForceInOneNewton;
+            Assert.Equal(expected, KilopoundForceInchesPerFootInOneNewtonMeterPerMeter, 6);
+        }
+
+        [Fact]
         public void MeganewtonCentimetersPerCentimeterInOneNewtonMeterPerMeterTest()
         {
             double expected = MeganewtonsInOneNewton;
@@ -259,6 +268,13 @@ namespace OasysUnits.Tests.CustomCode
         {
             double expected = PoundsForceInOneNewton;
             Assert.Equal(expected, PoundForceInchesPerInchInOneNewtonMeterPerMeter, 6);
+        }
+
+        [Fact]
+        public void PoundForceInchesPerFootInOneNewtonMeterPerMeterTest()
+        {
+            double expected = InchesInOneMeter / FeetInOneMeter * PoundsForceInOneNewton;
+            Assert.Equal(expected, PoundForceInchesPerFootInOneNewtonMeterPerMeter, 6);
         }
 
         [Fact]

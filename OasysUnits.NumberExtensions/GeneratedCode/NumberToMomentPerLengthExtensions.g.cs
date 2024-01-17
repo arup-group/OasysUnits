@@ -76,6 +76,10 @@ namespace OasysUnits.NumberExtensions.NumberToMomentPerLength
         public static MomentPerLength KilopoundForceFeetPerInch<T>(this T value) =>
             MomentPerLength.FromKilopoundForceFeetPerInch(Convert.ToDouble(value));
 
+        /// <inheritdoc cref="MomentPerLength.FromKilopoundForceInchesPerFoot(OasysUnits.QuantityValue)" />
+        public static MomentPerLength KilopoundForceInchesPerFoot<T>(this T value) =>
+            MomentPerLength.FromKilopoundForceInchesPerFoot(Convert.ToDouble(value));
+
         /// <inheritdoc cref="MomentPerLength.FromKilopoundForceInchesPerInch(OasysUnits.QuantityValue)" />
         public static MomentPerLength KilopoundForceInchesPerInch<T>(this T value) =>
             MomentPerLength.FromKilopoundForceInchesPerInch(Convert.ToDouble(value));
@@ -131,6 +135,10 @@ namespace OasysUnits.NumberExtensions.NumberToMomentPerLength
         /// <inheritdoc cref="MomentPerLength.FromPoundForceFeetPerYard(OasysUnits.QuantityValue)" />
         public static MomentPerLength PoundForceFeetPerYard<T>(this T value) =>
             MomentPerLength.FromPoundForceFeetPerYard(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="MomentPerLength.FromPoundForceInchesPerFoot(OasysUnits.QuantityValue)" />
+        public static MomentPerLength PoundForceInchesPerFoot<T>(this T value) =>
+            MomentPerLength.FromPoundForceInchesPerFoot(Convert.ToDouble(value));
 
         /// <inheritdoc cref="MomentPerLength.FromPoundForceInchesPerInch(OasysUnits.QuantityValue)" />
         public static MomentPerLength PoundForceInchesPerInch<T>(this T value) =>

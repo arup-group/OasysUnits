@@ -242,6 +242,18 @@
       ]
     },
     {
+      "SingularName": "PoundForceInchPerFoot",
+      "PluralName": "PoundForceInchesPerFoot",
+      "FromUnitToBaseFunc": "{x} * 0.370685135",
+      "FromBaseToUnitFunc": "{x} / 0.370685135",
+      "Localization": [
+        {
+          "Culture": "en-US",
+          "Abbreviations": [ "lbf·in/ft" ]
+        }
+      ]
+    },
+    {
       "SingularName": "KilopoundForceFootPerFoot",
       "PluralName": "KilopoundForceFeetPerFoot",
       "FromUnitToBaseFunc": "{x} * 4448.2216152605095551842641431421",
@@ -274,6 +286,18 @@
         {
           "Culture": "en-US",
           "Abbreviations": [ "kip·in/in" ]
+        }
+      ]
+    },
+    {
+      "SingularName": "KilopoundForceInchPerFoot",
+      "PluralName": "KilopoundForceInchesPerFoot",
+      "FromUnitToBaseFunc": "{x} * 370.6851346",
+      "FromBaseToUnitFunc": "{x} / 370.6851346",
+      "Localization": [
+        {
+          "Culture": "en-US",
+          "Abbreviations": [ "kip·in/ft" ]
         }
       ]
     }

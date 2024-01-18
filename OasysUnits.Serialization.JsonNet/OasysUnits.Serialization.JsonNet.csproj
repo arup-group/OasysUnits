@@ -2,7 +2,7 @@
   <!-- NuGet properties -->
   <PropertyGroup>
     <PackageId>OasysUnits.Serialization.JsonNet</PackageId>
-    <Version>1.1.0</Version>
+    <Version>1.1.1</Version>
     <Authors>Andreas Gullberg Larsen, Oasys</Authors>
     <Title>OasysUnits Serialization with Json.NET</Title>
     <Description>A helper library for serializing and deserializing types in OasysUnits using Json.NET.</Description>

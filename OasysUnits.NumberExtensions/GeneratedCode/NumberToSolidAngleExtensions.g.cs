@@ -19,6 +19,10 @@
 
 using System;
 
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
+
 #nullable enable
 
 namespace OasysUnits.NumberExtensions.NumberToSolidAngle
@@ -29,8 +33,12 @@ namespace OasysUnits.NumberExtensions.NumberToSolidAngle
     public static class NumberToSolidAngleExtensions
     {
         /// <inheritdoc cref="SolidAngle.FromSteradians(OasysUnits.QuantityValue)" />
-        public static SolidAngle Steradians<T>(this T value) =>
-            SolidAngle.FromSteradians(Convert.ToDouble(value));
+        public static SolidAngle Steradians<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => SolidAngle.FromSteradians(Convert.ToDouble(value));
 
     }
 }

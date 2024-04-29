@@ -59,17 +59,17 @@ namespace OasysUnits
         }
 
         /// <summary>
-        ///     The base unit of Duration, which is Second. All conversions go via this value.
+        ///     The base unit of ElectricCurrentGradient, which is Second. All conversions go via this value.
         /// </summary>
         public static ElectricCurrentGradientUnit BaseUnit { get; } = ElectricCurrentGradientUnit.AmperePerSecond;
 
         /// <summary>
-        /// Represents the largest possible value of Duration
+        /// Represents the largest possible value of ElectricCurrentGradient.
         /// </summary>
         public static ElectricCurrentGradient MaxValue { get; } = new ElectricCurrentGradient(double.MaxValue, BaseUnit);
 
         /// <summary>
-        /// Represents the smallest possible value of Duration
+        /// Represents the smallest possible value of ElectricCurrentGradient.
         /// </summary>
         public static ElectricCurrentGradient MinValue { get; } = new ElectricCurrentGradient(double.MinValue, BaseUnit);
 
@@ -90,6 +90,11 @@ namespace OasysUnits
         public double AmperesPerMillisecond => As(ElectricCurrentGradientUnit.AmperePerMillisecond);
 
         /// <summary>
+        ///     Gets a <see cref="double"/> value of this quantity converted into <see cref="ElectricCurrentGradientUnit.AmperePerMinute"/>
+        /// </summary>
+        public double AmperesPerMinute => As(ElectricCurrentGradientUnit.AmperePerMinute);
+
+        /// <summary>
         ///     Gets a <see cref="double"/> value of this quantity converted into <see cref="ElectricCurrentGradientUnit.AmperePerNanosecond"/>
         /// </summary>
         public double AmperesPerNanosecond => As(ElectricCurrentGradientUnit.AmperePerNanosecond);
@@ -98,6 +103,16 @@ namespace OasysUnits
         ///     Gets a <see cref="double"/> value of this quantity converted into <see cref="ElectricCurrentGradientUnit.AmperePerSecond"/>
         /// </summary>
         public double AmperesPerSecond => As(ElectricCurrentGradientUnit.AmperePerSecond);
+
+        /// <summary>
+        ///     Gets a <see cref="double"/> value of this quantity converted into <see cref="ElectricCurrentGradientUnit.MilliamperePerMinute"/>
+        /// </summary>
+        public double MilliamperesPerMinute => As(ElectricCurrentGradientUnit.MilliamperePerMinute);
+
+        /// <summary>
+        ///     Gets a <see cref="double"/> value of this quantity converted into <see cref="ElectricCurrentGradientUnit.MilliamperePerSecond"/>
+        /// </summary>
+        public double MilliamperesPerSecond => As(ElectricCurrentGradientUnit.MilliamperePerSecond);
 
         #endregion
 
@@ -116,6 +131,12 @@ namespace OasysUnits
         public static ElectricCurrentGradient FromAmperesPerMillisecond(double amperespermillisecond) => new ElectricCurrentGradient(amperespermillisecond, ElectricCurrentGradientUnit.AmperePerMillisecond);
 
         /// <summary>
+        ///     Creates a <see cref="ElectricCurrentGradient"/> from <see cref="ElectricCurrentGradientUnit.AmperePerMinute"/>.
+        /// </summary>
+        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
+        public static ElectricCurrentGradient FromAmperesPerMinute(double amperesperminute) => new ElectricCurrentGradient(amperesperminute, ElectricCurrentGradientUnit.AmperePerMinute);
+
+        /// <summary>
         ///     Creates a <see cref="ElectricCurrentGradient"/> from <see cref="ElectricCurrentGradientUnit.AmperePerNanosecond"/>.
         /// </summary>
         /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
@@ -126,6 +147,18 @@ namespace OasysUnits
         /// </summary>
         /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
         public static ElectricCurrentGradient FromAmperesPerSecond(double amperespersecond) => new ElectricCurrentGradient(amperespersecond, ElectricCurrentGradientUnit.AmperePerSecond);
+
+        /// <summary>
+        ///     Creates a <see cref="ElectricCurrentGradient"/> from <see cref="ElectricCurrentGradientUnit.MilliamperePerMinute"/>.
+        /// </summary>
+        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
+        public static ElectricCurrentGradient FromMilliamperesPerMinute(double milliamperesperminute) => new ElectricCurrentGradient(milliamperesperminute, ElectricCurrentGradientUnit.MilliamperePerMinute);
+
+        /// <summary>
+        ///     Creates a <see cref="ElectricCurrentGradient"/> from <see cref="ElectricCurrentGradientUnit.MilliamperePerSecond"/>.
+        /// </summary>
+        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
+        public static ElectricCurrentGradient FromMilliamperesPerSecond(double milliamperespersecond) => new ElectricCurrentGradient(milliamperespersecond, ElectricCurrentGradientUnit.MilliamperePerSecond);
 
         /// <summary>
         ///     Dynamically convert from value and unit enum <see cref="ElectricCurrentGradientUnit" /> to <see cref="ElectricCurrentGradient" />.
@@ -149,9 +182,9 @@ namespace OasysUnits
                 public double As(ElectricCurrentGradientUnit unit) => GetValueAs(unit);
 
                 /// <summary>
-                ///     Converts this Duration to another Duration with the unit representation <paramref name="unit" />.
+                ///     Converts this ElectricCurrentGradient to another ElectricCurrentGradient with the unit representation <paramref name="unit" />.
                 /// </summary>
-                /// <returns>A Duration with the specified unit.</returns>
+                /// <returns>A ElectricCurrentGradient with the specified unit.</returns>
                 public ElectricCurrentGradient ToUnit(ElectricCurrentGradientUnit unit)
                 {
                     var convertedValue = GetValueAs(unit);
@@ -169,8 +202,11 @@ namespace OasysUnits
                     {
                         ElectricCurrentGradientUnit.AmperePerMicrosecond => _value * 1E6,
                         ElectricCurrentGradientUnit.AmperePerMillisecond => _value * 1E3,
+                        ElectricCurrentGradientUnit.AmperePerMinute => _value / 60,
                         ElectricCurrentGradientUnit.AmperePerNanosecond => _value * 1E9,
                         ElectricCurrentGradientUnit.AmperePerSecond => _value,
+                        ElectricCurrentGradientUnit.MilliamperePerMinute => (_value / 60) * 1e-3d,
+                        ElectricCurrentGradientUnit.MilliamperePerSecond => (_value) * 1e-3d,
                         _ => throw new NotImplementedException($"Can not convert {Unit} to base units.")
                     };
                     }
@@ -186,8 +222,11 @@ namespace OasysUnits
                     {
                         ElectricCurrentGradientUnit.AmperePerMicrosecond => baseUnitValue / 1E6,
                         ElectricCurrentGradientUnit.AmperePerMillisecond => baseUnitValue / 1E3,
+                        ElectricCurrentGradientUnit.AmperePerMinute => baseUnitValue * 60,
                         ElectricCurrentGradientUnit.AmperePerNanosecond => baseUnitValue / 1E9,
                         ElectricCurrentGradientUnit.AmperePerSecond => baseUnitValue,
+                        ElectricCurrentGradientUnit.MilliamperePerMinute => (baseUnitValue * 60) / 1e-3d,
+                        ElectricCurrentGradientUnit.MilliamperePerSecond => (baseUnitValue) / 1e-3d,
                         _ => throw new NotImplementedException($"Can not convert {Unit} to {unit}.")
                     };
                     }

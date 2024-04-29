@@ -19,6 +19,10 @@
 
 using System;
 
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
+
 #nullable enable
 
 namespace OasysUnits.NumberExtensions.NumberToSpeed
@@ -29,136 +33,268 @@ namespace OasysUnits.NumberExtensions.NumberToSpeed
     public static class NumberToSpeedExtensions
     {
         /// <inheritdoc cref="Speed.FromCentimetersPerHour(OasysUnits.QuantityValue)" />
-        public static Speed CentimetersPerHour<T>(this T value) =>
-            Speed.FromCentimetersPerHour(Convert.ToDouble(value));
+        public static Speed CentimetersPerHour<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Speed.FromCentimetersPerHour(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Speed.FromCentimetersPerMinutes(OasysUnits.QuantityValue)" />
-        public static Speed CentimetersPerMinutes<T>(this T value) =>
-            Speed.FromCentimetersPerMinutes(Convert.ToDouble(value));
+        public static Speed CentimetersPerMinutes<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Speed.FromCentimetersPerMinutes(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Speed.FromCentimetersPerSecond(OasysUnits.QuantityValue)" />
-        public static Speed CentimetersPerSecond<T>(this T value) =>
-            Speed.FromCentimetersPerSecond(Convert.ToDouble(value));
+        public static Speed CentimetersPerSecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Speed.FromCentimetersPerSecond(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Speed.FromDecimetersPerMinutes(OasysUnits.QuantityValue)" />
-        public static Speed DecimetersPerMinutes<T>(this T value) =>
-            Speed.FromDecimetersPerMinutes(Convert.ToDouble(value));
+        public static Speed DecimetersPerMinutes<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Speed.FromDecimetersPerMinutes(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Speed.FromDecimetersPerSecond(OasysUnits.QuantityValue)" />
-        public static Speed DecimetersPerSecond<T>(this T value) =>
-            Speed.FromDecimetersPerSecond(Convert.ToDouble(value));
+        public static Speed DecimetersPerSecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Speed.FromDecimetersPerSecond(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Speed.FromFeetPerHour(OasysUnits.QuantityValue)" />
-        public static Speed FeetPerHour<T>(this T value) =>
-            Speed.FromFeetPerHour(Convert.ToDouble(value));
+        public static Speed FeetPerHour<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Speed.FromFeetPerHour(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Speed.FromFeetPerMinute(OasysUnits.QuantityValue)" />
-        public static Speed FeetPerMinute<T>(this T value) =>
-            Speed.FromFeetPerMinute(Convert.ToDouble(value));
+        public static Speed FeetPerMinute<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Speed.FromFeetPerMinute(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Speed.FromFeetPerSecond(OasysUnits.QuantityValue)" />
-        public static Speed FeetPerSecond<T>(this T value) =>
-            Speed.FromFeetPerSecond(Convert.ToDouble(value));
+        public static Speed FeetPerSecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Speed.FromFeetPerSecond(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Speed.FromInchesPerHour(OasysUnits.QuantityValue)" />
-        public static Speed InchesPerHour<T>(this T value) =>
-            Speed.FromInchesPerHour(Convert.ToDouble(value));
+        public static Speed InchesPerHour<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Speed.FromInchesPerHour(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Speed.FromInchesPerMinute(OasysUnits.QuantityValue)" />
-        public static Speed InchesPerMinute<T>(this T value) =>
-            Speed.FromInchesPerMinute(Convert.ToDouble(value));
+        public static Speed InchesPerMinute<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Speed.FromInchesPerMinute(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Speed.FromInchesPerSecond(OasysUnits.QuantityValue)" />
-        public static Speed InchesPerSecond<T>(this T value) =>
-            Speed.FromInchesPerSecond(Convert.ToDouble(value));
+        public static Speed InchesPerSecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Speed.FromInchesPerSecond(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Speed.FromKilometersPerHour(OasysUnits.QuantityValue)" />
-        public static Speed KilometersPerHour<T>(this T value) =>
-            Speed.FromKilometersPerHour(Convert.ToDouble(value));
+        public static Speed KilometersPerHour<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Speed.FromKilometersPerHour(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Speed.FromKilometersPerMinutes(OasysUnits.QuantityValue)" />
-        public static Speed KilometersPerMinutes<T>(this T value) =>
-            Speed.FromKilometersPerMinutes(Convert.ToDouble(value));
+        public static Speed KilometersPerMinutes<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Speed.FromKilometersPerMinutes(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Speed.FromKilometersPerSecond(OasysUnits.QuantityValue)" />
-        public static Speed KilometersPerSecond<T>(this T value) =>
-            Speed.FromKilometersPerSecond(Convert.ToDouble(value));
+        public static Speed KilometersPerSecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Speed.FromKilometersPerSecond(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Speed.FromKnots(OasysUnits.QuantityValue)" />
-        public static Speed Knots<T>(this T value) =>
-            Speed.FromKnots(Convert.ToDouble(value));
+        public static Speed Knots<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Speed.FromKnots(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Speed.FromMach(OasysUnits.QuantityValue)" />
-        public static Speed Mach<T>(this T value) =>
-            Speed.FromMach(Convert.ToDouble(value));
+        public static Speed Mach<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Speed.FromMach(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Speed.FromMetersPerHour(OasysUnits.QuantityValue)" />
-        public static Speed MetersPerHour<T>(this T value) =>
-            Speed.FromMetersPerHour(Convert.ToDouble(value));
+        public static Speed MetersPerHour<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Speed.FromMetersPerHour(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Speed.FromMetersPerMinutes(OasysUnits.QuantityValue)" />
-        public static Speed MetersPerMinutes<T>(this T value) =>
-            Speed.FromMetersPerMinutes(Convert.ToDouble(value));
+        public static Speed MetersPerMinutes<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Speed.FromMetersPerMinutes(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Speed.FromMetersPerSecond(OasysUnits.QuantityValue)" />
-        public static Speed MetersPerSecond<T>(this T value) =>
-            Speed.FromMetersPerSecond(Convert.ToDouble(value));
+        public static Speed MetersPerSecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Speed.FromMetersPerSecond(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Speed.FromMicrometersPerMinutes(OasysUnits.QuantityValue)" />
-        public static Speed MicrometersPerMinutes<T>(this T value) =>
-            Speed.FromMicrometersPerMinutes(Convert.ToDouble(value));
+        public static Speed MicrometersPerMinutes<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Speed.FromMicrometersPerMinutes(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Speed.FromMicrometersPerSecond(OasysUnits.QuantityValue)" />
-        public static Speed MicrometersPerSecond<T>(this T value) =>
-            Speed.FromMicrometersPerSecond(Convert.ToDouble(value));
+        public static Speed MicrometersPerSecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Speed.FromMicrometersPerSecond(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Speed.FromMilesPerHour(OasysUnits.QuantityValue)" />
-        public static Speed MilesPerHour<T>(this T value) =>
-            Speed.FromMilesPerHour(Convert.ToDouble(value));
+        public static Speed MilesPerHour<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Speed.FromMilesPerHour(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Speed.FromMillimetersPerHour(OasysUnits.QuantityValue)" />
-        public static Speed MillimetersPerHour<T>(this T value) =>
-            Speed.FromMillimetersPerHour(Convert.ToDouble(value));
+        public static Speed MillimetersPerHour<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Speed.FromMillimetersPerHour(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Speed.FromMillimetersPerMinutes(OasysUnits.QuantityValue)" />
-        public static Speed MillimetersPerMinutes<T>(this T value) =>
-            Speed.FromMillimetersPerMinutes(Convert.ToDouble(value));
+        public static Speed MillimetersPerMinutes<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Speed.FromMillimetersPerMinutes(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Speed.FromMillimetersPerSecond(OasysUnits.QuantityValue)" />
-        public static Speed MillimetersPerSecond<T>(this T value) =>
-            Speed.FromMillimetersPerSecond(Convert.ToDouble(value));
+        public static Speed MillimetersPerSecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Speed.FromMillimetersPerSecond(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Speed.FromNanometersPerMinutes(OasysUnits.QuantityValue)" />
-        public static Speed NanometersPerMinutes<T>(this T value) =>
-            Speed.FromNanometersPerMinutes(Convert.ToDouble(value));
+        public static Speed NanometersPerMinutes<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Speed.FromNanometersPerMinutes(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Speed.FromNanometersPerSecond(OasysUnits.QuantityValue)" />
-        public static Speed NanometersPerSecond<T>(this T value) =>
-            Speed.FromNanometersPerSecond(Convert.ToDouble(value));
+        public static Speed NanometersPerSecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Speed.FromNanometersPerSecond(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Speed.FromUsSurveyFeetPerHour(OasysUnits.QuantityValue)" />
-        public static Speed UsSurveyFeetPerHour<T>(this T value) =>
-            Speed.FromUsSurveyFeetPerHour(Convert.ToDouble(value));
+        public static Speed UsSurveyFeetPerHour<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Speed.FromUsSurveyFeetPerHour(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Speed.FromUsSurveyFeetPerMinute(OasysUnits.QuantityValue)" />
-        public static Speed UsSurveyFeetPerMinute<T>(this T value) =>
-            Speed.FromUsSurveyFeetPerMinute(Convert.ToDouble(value));
+        public static Speed UsSurveyFeetPerMinute<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Speed.FromUsSurveyFeetPerMinute(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Speed.FromUsSurveyFeetPerSecond(OasysUnits.QuantityValue)" />
-        public static Speed UsSurveyFeetPerSecond<T>(this T value) =>
-            Speed.FromUsSurveyFeetPerSecond(Convert.ToDouble(value));
+        public static Speed UsSurveyFeetPerSecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Speed.FromUsSurveyFeetPerSecond(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Speed.FromYardsPerHour(OasysUnits.QuantityValue)" />
-        public static Speed YardsPerHour<T>(this T value) =>
-            Speed.FromYardsPerHour(Convert.ToDouble(value));
+        public static Speed YardsPerHour<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Speed.FromYardsPerHour(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Speed.FromYardsPerMinute(OasysUnits.QuantityValue)" />
-        public static Speed YardsPerMinute<T>(this T value) =>
-            Speed.FromYardsPerMinute(Convert.ToDouble(value));
+        public static Speed YardsPerMinute<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Speed.FromYardsPerMinute(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Speed.FromYardsPerSecond(OasysUnits.QuantityValue)" />
-        public static Speed YardsPerSecond<T>(this T value) =>
-            Speed.FromYardsPerSecond(Convert.ToDouble(value));
+        public static Speed YardsPerSecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Speed.FromYardsPerSecond(Convert.ToDouble(value));
 
     }
 }

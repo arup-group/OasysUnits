@@ -19,6 +19,10 @@
 
 using System;
 
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
+
 #nullable enable
 
 namespace OasysUnits.NumberExtensions.NumberToIrradiance
@@ -29,60 +33,116 @@ namespace OasysUnits.NumberExtensions.NumberToIrradiance
     public static class NumberToIrradianceExtensions
     {
         /// <inheritdoc cref="Irradiance.FromKilowattsPerSquareCentimeter(OasysUnits.QuantityValue)" />
-        public static Irradiance KilowattsPerSquareCentimeter<T>(this T value) =>
-            Irradiance.FromKilowattsPerSquareCentimeter(Convert.ToDouble(value));
+        public static Irradiance KilowattsPerSquareCentimeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Irradiance.FromKilowattsPerSquareCentimeter(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Irradiance.FromKilowattsPerSquareMeter(OasysUnits.QuantityValue)" />
-        public static Irradiance KilowattsPerSquareMeter<T>(this T value) =>
-            Irradiance.FromKilowattsPerSquareMeter(Convert.ToDouble(value));
+        public static Irradiance KilowattsPerSquareMeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Irradiance.FromKilowattsPerSquareMeter(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Irradiance.FromMegawattsPerSquareCentimeter(OasysUnits.QuantityValue)" />
-        public static Irradiance MegawattsPerSquareCentimeter<T>(this T value) =>
-            Irradiance.FromMegawattsPerSquareCentimeter(Convert.ToDouble(value));
+        public static Irradiance MegawattsPerSquareCentimeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Irradiance.FromMegawattsPerSquareCentimeter(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Irradiance.FromMegawattsPerSquareMeter(OasysUnits.QuantityValue)" />
-        public static Irradiance MegawattsPerSquareMeter<T>(this T value) =>
-            Irradiance.FromMegawattsPerSquareMeter(Convert.ToDouble(value));
+        public static Irradiance MegawattsPerSquareMeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Irradiance.FromMegawattsPerSquareMeter(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Irradiance.FromMicrowattsPerSquareCentimeter(OasysUnits.QuantityValue)" />
-        public static Irradiance MicrowattsPerSquareCentimeter<T>(this T value) =>
-            Irradiance.FromMicrowattsPerSquareCentimeter(Convert.ToDouble(value));
+        public static Irradiance MicrowattsPerSquareCentimeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Irradiance.FromMicrowattsPerSquareCentimeter(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Irradiance.FromMicrowattsPerSquareMeter(OasysUnits.QuantityValue)" />
-        public static Irradiance MicrowattsPerSquareMeter<T>(this T value) =>
-            Irradiance.FromMicrowattsPerSquareMeter(Convert.ToDouble(value));
+        public static Irradiance MicrowattsPerSquareMeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Irradiance.FromMicrowattsPerSquareMeter(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Irradiance.FromMilliwattsPerSquareCentimeter(OasysUnits.QuantityValue)" />
-        public static Irradiance MilliwattsPerSquareCentimeter<T>(this T value) =>
-            Irradiance.FromMilliwattsPerSquareCentimeter(Convert.ToDouble(value));
+        public static Irradiance MilliwattsPerSquareCentimeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Irradiance.FromMilliwattsPerSquareCentimeter(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Irradiance.FromMilliwattsPerSquareMeter(OasysUnits.QuantityValue)" />
-        public static Irradiance MilliwattsPerSquareMeter<T>(this T value) =>
-            Irradiance.FromMilliwattsPerSquareMeter(Convert.ToDouble(value));
+        public static Irradiance MilliwattsPerSquareMeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Irradiance.FromMilliwattsPerSquareMeter(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Irradiance.FromNanowattsPerSquareCentimeter(OasysUnits.QuantityValue)" />
-        public static Irradiance NanowattsPerSquareCentimeter<T>(this T value) =>
-            Irradiance.FromNanowattsPerSquareCentimeter(Convert.ToDouble(value));
+        public static Irradiance NanowattsPerSquareCentimeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Irradiance.FromNanowattsPerSquareCentimeter(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Irradiance.FromNanowattsPerSquareMeter(OasysUnits.QuantityValue)" />
-        public static Irradiance NanowattsPerSquareMeter<T>(this T value) =>
-            Irradiance.FromNanowattsPerSquareMeter(Convert.ToDouble(value));
+        public static Irradiance NanowattsPerSquareMeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Irradiance.FromNanowattsPerSquareMeter(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Irradiance.FromPicowattsPerSquareCentimeter(OasysUnits.QuantityValue)" />
-        public static Irradiance PicowattsPerSquareCentimeter<T>(this T value) =>
-            Irradiance.FromPicowattsPerSquareCentimeter(Convert.ToDouble(value));
+        public static Irradiance PicowattsPerSquareCentimeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Irradiance.FromPicowattsPerSquareCentimeter(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Irradiance.FromPicowattsPerSquareMeter(OasysUnits.QuantityValue)" />
-        public static Irradiance PicowattsPerSquareMeter<T>(this T value) =>
-            Irradiance.FromPicowattsPerSquareMeter(Convert.ToDouble(value));
+        public static Irradiance PicowattsPerSquareMeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Irradiance.FromPicowattsPerSquareMeter(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Irradiance.FromWattsPerSquareCentimeter(OasysUnits.QuantityValue)" />
-        public static Irradiance WattsPerSquareCentimeter<T>(this T value) =>
-            Irradiance.FromWattsPerSquareCentimeter(Convert.ToDouble(value));
+        public static Irradiance WattsPerSquareCentimeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Irradiance.FromWattsPerSquareCentimeter(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Irradiance.FromWattsPerSquareMeter(OasysUnits.QuantityValue)" />
-        public static Irradiance WattsPerSquareMeter<T>(this T value) =>
-            Irradiance.FromWattsPerSquareMeter(Convert.ToDouble(value));
+        public static Irradiance WattsPerSquareMeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Irradiance.FromWattsPerSquareMeter(Convert.ToDouble(value));
 
     }
 }

@@ -19,6 +19,10 @@
 
 using System;
 
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
+
 #nullable enable
 
 namespace OasysUnits.NumberExtensions.NumberToDensity
@@ -29,208 +33,452 @@ namespace OasysUnits.NumberExtensions.NumberToDensity
     public static class NumberToDensityExtensions
     {
         /// <inheritdoc cref="Density.FromCentigramsPerDeciLiter(OasysUnits.QuantityValue)" />
-        public static Density CentigramsPerDeciLiter<T>(this T value) =>
-            Density.FromCentigramsPerDeciLiter(Convert.ToDouble(value));
+        public static Density CentigramsPerDeciLiter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Density.FromCentigramsPerDeciLiter(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Density.FromCentigramsPerLiter(OasysUnits.QuantityValue)" />
-        public static Density CentigramsPerLiter<T>(this T value) =>
-            Density.FromCentigramsPerLiter(Convert.ToDouble(value));
+        public static Density CentigramsPerLiter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Density.FromCentigramsPerLiter(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Density.FromCentigramsPerMilliliter(OasysUnits.QuantityValue)" />
-        public static Density CentigramsPerMilliliter<T>(this T value) =>
-            Density.FromCentigramsPerMilliliter(Convert.ToDouble(value));
+        public static Density CentigramsPerMilliliter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Density.FromCentigramsPerMilliliter(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Density.FromDecigramsPerDeciLiter(OasysUnits.QuantityValue)" />
-        public static Density DecigramsPerDeciLiter<T>(this T value) =>
-            Density.FromDecigramsPerDeciLiter(Convert.ToDouble(value));
+        public static Density DecigramsPerDeciLiter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Density.FromDecigramsPerDeciLiter(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Density.FromDecigramsPerLiter(OasysUnits.QuantityValue)" />
-        public static Density DecigramsPerLiter<T>(this T value) =>
-            Density.FromDecigramsPerLiter(Convert.ToDouble(value));
+        public static Density DecigramsPerLiter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Density.FromDecigramsPerLiter(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Density.FromDecigramsPerMilliliter(OasysUnits.QuantityValue)" />
-        public static Density DecigramsPerMilliliter<T>(this T value) =>
-            Density.FromDecigramsPerMilliliter(Convert.ToDouble(value));
+        public static Density DecigramsPerMilliliter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Density.FromDecigramsPerMilliliter(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="Density.FromFemtogramsPerDeciLiter(OasysUnits.QuantityValue)" />
+        public static Density FemtogramsPerDeciLiter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Density.FromFemtogramsPerDeciLiter(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="Density.FromFemtogramsPerLiter(OasysUnits.QuantityValue)" />
+        public static Density FemtogramsPerLiter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Density.FromFemtogramsPerLiter(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="Density.FromFemtogramsPerMilliliter(OasysUnits.QuantityValue)" />
+        public static Density FemtogramsPerMilliliter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Density.FromFemtogramsPerMilliliter(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Density.FromGramsPerCubicCentimeter(OasysUnits.QuantityValue)" />
-        public static Density GramsPerCubicCentimeter<T>(this T value) =>
-            Density.FromGramsPerCubicCentimeter(Convert.ToDouble(value));
+        public static Density GramsPerCubicCentimeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Density.FromGramsPerCubicCentimeter(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Density.FromGramsPerCubicFoot(OasysUnits.QuantityValue)" />
-        public static Density GramsPerCubicFoot<T>(this T value) =>
-            Density.FromGramsPerCubicFoot(Convert.ToDouble(value));
+        public static Density GramsPerCubicFoot<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Density.FromGramsPerCubicFoot(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Density.FromGramsPerCubicInch(OasysUnits.QuantityValue)" />
-        public static Density GramsPerCubicInch<T>(this T value) =>
-            Density.FromGramsPerCubicInch(Convert.ToDouble(value));
+        public static Density GramsPerCubicInch<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Density.FromGramsPerCubicInch(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Density.FromGramsPerCubicMeter(OasysUnits.QuantityValue)" />
-        public static Density GramsPerCubicMeter<T>(this T value) =>
-            Density.FromGramsPerCubicMeter(Convert.ToDouble(value));
+        public static Density GramsPerCubicMeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Density.FromGramsPerCubicMeter(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Density.FromGramsPerCubicMillimeter(OasysUnits.QuantityValue)" />
-        public static Density GramsPerCubicMillimeter<T>(this T value) =>
-            Density.FromGramsPerCubicMillimeter(Convert.ToDouble(value));
+        public static Density GramsPerCubicMillimeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Density.FromGramsPerCubicMillimeter(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Density.FromGramsPerDeciLiter(OasysUnits.QuantityValue)" />
-        public static Density GramsPerDeciLiter<T>(this T value) =>
-            Density.FromGramsPerDeciLiter(Convert.ToDouble(value));
+        public static Density GramsPerDeciLiter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Density.FromGramsPerDeciLiter(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Density.FromGramsPerLiter(OasysUnits.QuantityValue)" />
-        public static Density GramsPerLiter<T>(this T value) =>
-            Density.FromGramsPerLiter(Convert.ToDouble(value));
+        public static Density GramsPerLiter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Density.FromGramsPerLiter(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Density.FromGramsPerMilliliter(OasysUnits.QuantityValue)" />
-        public static Density GramsPerMilliliter<T>(this T value) =>
-            Density.FromGramsPerMilliliter(Convert.ToDouble(value));
+        public static Density GramsPerMilliliter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Density.FromGramsPerMilliliter(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Density.FromKilogramsPerCubicCentimeter(OasysUnits.QuantityValue)" />
-        public static Density KilogramsPerCubicCentimeter<T>(this T value) =>
-            Density.FromKilogramsPerCubicCentimeter(Convert.ToDouble(value));
+        public static Density KilogramsPerCubicCentimeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Density.FromKilogramsPerCubicCentimeter(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Density.FromKilogramsPerCubicMeter(OasysUnits.QuantityValue)" />
-        public static Density KilogramsPerCubicMeter<T>(this T value) =>
-            Density.FromKilogramsPerCubicMeter(Convert.ToDouble(value));
+        public static Density KilogramsPerCubicMeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Density.FromKilogramsPerCubicMeter(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Density.FromKilogramsPerCubicMillimeter(OasysUnits.QuantityValue)" />
-        public static Density KilogramsPerCubicMillimeter<T>(this T value) =>
-            Density.FromKilogramsPerCubicMillimeter(Convert.ToDouble(value));
+        public static Density KilogramsPerCubicMillimeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Density.FromKilogramsPerCubicMillimeter(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Density.FromKilogramsPerLiter(OasysUnits.QuantityValue)" />
-        public static Density KilogramsPerLiter<T>(this T value) =>
-            Density.FromKilogramsPerLiter(Convert.ToDouble(value));
+        public static Density KilogramsPerLiter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Density.FromKilogramsPerLiter(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Density.FromKilopoundsPerCubicFoot(OasysUnits.QuantityValue)" />
-        public static Density KilopoundsPerCubicFoot<T>(this T value) =>
-            Density.FromKilopoundsPerCubicFoot(Convert.ToDouble(value));
+        public static Density KilopoundsPerCubicFoot<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Density.FromKilopoundsPerCubicFoot(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Density.FromKilopoundsPerCubicInch(OasysUnits.QuantityValue)" />
-        public static Density KilopoundsPerCubicInch<T>(this T value) =>
-            Density.FromKilopoundsPerCubicInch(Convert.ToDouble(value));
+        public static Density KilopoundsPerCubicInch<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Density.FromKilopoundsPerCubicInch(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="Density.FromKilopoundsPerCubicYard(OasysUnits.QuantityValue)" />
+        public static Density KilopoundsPerCubicYard<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Density.FromKilopoundsPerCubicYard(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Density.FromMicrogramsPerCubicMeter(OasysUnits.QuantityValue)" />
-        public static Density MicrogramsPerCubicMeter<T>(this T value) =>
-            Density.FromMicrogramsPerCubicMeter(Convert.ToDouble(value));
+        public static Density MicrogramsPerCubicMeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Density.FromMicrogramsPerCubicMeter(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Density.FromMicrogramsPerDeciLiter(OasysUnits.QuantityValue)" />
-        public static Density MicrogramsPerDeciLiter<T>(this T value) =>
-            Density.FromMicrogramsPerDeciLiter(Convert.ToDouble(value));
+        public static Density MicrogramsPerDeciLiter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Density.FromMicrogramsPerDeciLiter(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Density.FromMicrogramsPerLiter(OasysUnits.QuantityValue)" />
-        public static Density MicrogramsPerLiter<T>(this T value) =>
-            Density.FromMicrogramsPerLiter(Convert.ToDouble(value));
+        public static Density MicrogramsPerLiter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Density.FromMicrogramsPerLiter(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Density.FromMicrogramsPerMilliliter(OasysUnits.QuantityValue)" />
-        public static Density MicrogramsPerMilliliter<T>(this T value) =>
-            Density.FromMicrogramsPerMilliliter(Convert.ToDouble(value));
+        public static Density MicrogramsPerMilliliter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Density.FromMicrogramsPerMilliliter(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Density.FromMilligramsPerCubicMeter(OasysUnits.QuantityValue)" />
-        public static Density MilligramsPerCubicMeter<T>(this T value) =>
-            Density.FromMilligramsPerCubicMeter(Convert.ToDouble(value));
+        public static Density MilligramsPerCubicMeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Density.FromMilligramsPerCubicMeter(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Density.FromMilligramsPerDeciLiter(OasysUnits.QuantityValue)" />
-        public static Density MilligramsPerDeciLiter<T>(this T value) =>
-            Density.FromMilligramsPerDeciLiter(Convert.ToDouble(value));
+        public static Density MilligramsPerDeciLiter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Density.FromMilligramsPerDeciLiter(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Density.FromMilligramsPerLiter(OasysUnits.QuantityValue)" />
-        public static Density MilligramsPerLiter<T>(this T value) =>
-            Density.FromMilligramsPerLiter(Convert.ToDouble(value));
+        public static Density MilligramsPerLiter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Density.FromMilligramsPerLiter(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Density.FromMilligramsPerMilliliter(OasysUnits.QuantityValue)" />
-        public static Density MilligramsPerMilliliter<T>(this T value) =>
-            Density.FromMilligramsPerMilliliter(Convert.ToDouble(value));
+        public static Density MilligramsPerMilliliter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Density.FromMilligramsPerMilliliter(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Density.FromNanogramsPerDeciLiter(OasysUnits.QuantityValue)" />
-        public static Density NanogramsPerDeciLiter<T>(this T value) =>
-            Density.FromNanogramsPerDeciLiter(Convert.ToDouble(value));
+        public static Density NanogramsPerDeciLiter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Density.FromNanogramsPerDeciLiter(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Density.FromNanogramsPerLiter(OasysUnits.QuantityValue)" />
-        public static Density NanogramsPerLiter<T>(this T value) =>
-            Density.FromNanogramsPerLiter(Convert.ToDouble(value));
+        public static Density NanogramsPerLiter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Density.FromNanogramsPerLiter(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Density.FromNanogramsPerMilliliter(OasysUnits.QuantityValue)" />
-        public static Density NanogramsPerMilliliter<T>(this T value) =>
-            Density.FromNanogramsPerMilliliter(Convert.ToDouble(value));
+        public static Density NanogramsPerMilliliter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Density.FromNanogramsPerMilliliter(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Density.FromPicogramsPerDeciLiter(OasysUnits.QuantityValue)" />
-        public static Density PicogramsPerDeciLiter<T>(this T value) =>
-            Density.FromPicogramsPerDeciLiter(Convert.ToDouble(value));
+        public static Density PicogramsPerDeciLiter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Density.FromPicogramsPerDeciLiter(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Density.FromPicogramsPerLiter(OasysUnits.QuantityValue)" />
-        public static Density PicogramsPerLiter<T>(this T value) =>
-            Density.FromPicogramsPerLiter(Convert.ToDouble(value));
+        public static Density PicogramsPerLiter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Density.FromPicogramsPerLiter(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Density.FromPicogramsPerMilliliter(OasysUnits.QuantityValue)" />
-        public static Density PicogramsPerMilliliter<T>(this T value) =>
-            Density.FromPicogramsPerMilliliter(Convert.ToDouble(value));
+        public static Density PicogramsPerMilliliter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Density.FromPicogramsPerMilliliter(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Density.FromPoundsPerCubicCentimeter(OasysUnits.QuantityValue)" />
-        public static Density PoundsPerCubicCentimeter<T>(this T value) =>
-            Density.FromPoundsPerCubicCentimeter(Convert.ToDouble(value));
+        public static Density PoundsPerCubicCentimeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Density.FromPoundsPerCubicCentimeter(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Density.FromPoundsPerCubicFoot(OasysUnits.QuantityValue)" />
-        public static Density PoundsPerCubicFoot<T>(this T value) =>
-            Density.FromPoundsPerCubicFoot(Convert.ToDouble(value));
+        public static Density PoundsPerCubicFoot<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Density.FromPoundsPerCubicFoot(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Density.FromPoundsPerCubicInch(OasysUnits.QuantityValue)" />
-        public static Density PoundsPerCubicInch<T>(this T value) =>
-            Density.FromPoundsPerCubicInch(Convert.ToDouble(value));
+        public static Density PoundsPerCubicInch<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Density.FromPoundsPerCubicInch(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Density.FromPoundsPerCubicMeter(OasysUnits.QuantityValue)" />
-        public static Density PoundsPerCubicMeter<T>(this T value) =>
-            Density.FromPoundsPerCubicMeter(Convert.ToDouble(value));
+        public static Density PoundsPerCubicMeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Density.FromPoundsPerCubicMeter(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Density.FromPoundsPerCubicMillimeter(OasysUnits.QuantityValue)" />
-        public static Density PoundsPerCubicMillimeter<T>(this T value) =>
-            Density.FromPoundsPerCubicMillimeter(Convert.ToDouble(value));
+        public static Density PoundsPerCubicMillimeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Density.FromPoundsPerCubicMillimeter(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="Density.FromPoundsPerCubicYard(OasysUnits.QuantityValue)" />
+        public static Density PoundsPerCubicYard<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Density.FromPoundsPerCubicYard(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Density.FromPoundsPerImperialGallon(OasysUnits.QuantityValue)" />
-        public static Density PoundsPerImperialGallon<T>(this T value) =>
-            Density.FromPoundsPerImperialGallon(Convert.ToDouble(value));
+        public static Density PoundsPerImperialGallon<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Density.FromPoundsPerImperialGallon(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Density.FromPoundsPerUSGallon(OasysUnits.QuantityValue)" />
-        public static Density PoundsPerUSGallon<T>(this T value) =>
-            Density.FromPoundsPerUSGallon(Convert.ToDouble(value));
+        public static Density PoundsPerUSGallon<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Density.FromPoundsPerUSGallon(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Density.FromSlugsPerCubicCentimeter(OasysUnits.QuantityValue)" />
-        public static Density SlugsPerCubicCentimeter<T>(this T value) =>
-            Density.FromSlugsPerCubicCentimeter(Convert.ToDouble(value));
+        public static Density SlugsPerCubicCentimeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Density.FromSlugsPerCubicCentimeter(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Density.FromSlugsPerCubicFoot(OasysUnits.QuantityValue)" />
-        public static Density SlugsPerCubicFoot<T>(this T value) =>
-            Density.FromSlugsPerCubicFoot(Convert.ToDouble(value));
+        public static Density SlugsPerCubicFoot<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Density.FromSlugsPerCubicFoot(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Density.FromSlugsPerCubicInch(OasysUnits.QuantityValue)" />
-        public static Density SlugsPerCubicInch<T>(this T value) =>
-            Density.FromSlugsPerCubicInch(Convert.ToDouble(value));
+        public static Density SlugsPerCubicInch<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Density.FromSlugsPerCubicInch(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Density.FromSlugsPerCubicMeter(OasysUnits.QuantityValue)" />
-        public static Density SlugsPerCubicMeter<T>(this T value) =>
-            Density.FromSlugsPerCubicMeter(Convert.ToDouble(value));
+        public static Density SlugsPerCubicMeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Density.FromSlugsPerCubicMeter(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Density.FromSlugsPerCubicMillimeter(OasysUnits.QuantityValue)" />
-        public static Density SlugsPerCubicMillimeter<T>(this T value) =>
-            Density.FromSlugsPerCubicMillimeter(Convert.ToDouble(value));
+        public static Density SlugsPerCubicMillimeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Density.FromSlugsPerCubicMillimeter(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Density.FromTonnesPerCubicCentimeter(OasysUnits.QuantityValue)" />
-        public static Density TonnesPerCubicCentimeter<T>(this T value) =>
-            Density.FromTonnesPerCubicCentimeter(Convert.ToDouble(value));
+        public static Density TonnesPerCubicCentimeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Density.FromTonnesPerCubicCentimeter(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Density.FromTonnesPerCubicFoot(OasysUnits.QuantityValue)" />
-        public static Density TonnesPerCubicFoot<T>(this T value) =>
-            Density.FromTonnesPerCubicFoot(Convert.ToDouble(value));
+        public static Density TonnesPerCubicFoot<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Density.FromTonnesPerCubicFoot(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Density.FromTonnesPerCubicInch(OasysUnits.QuantityValue)" />
-        public static Density TonnesPerCubicInch<T>(this T value) =>
-            Density.FromTonnesPerCubicInch(Convert.ToDouble(value));
+        public static Density TonnesPerCubicInch<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Density.FromTonnesPerCubicInch(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Density.FromTonnesPerCubicMeter(OasysUnits.QuantityValue)" />
-        public static Density TonnesPerCubicMeter<T>(this T value) =>
-            Density.FromTonnesPerCubicMeter(Convert.ToDouble(value));
+        public static Density TonnesPerCubicMeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Density.FromTonnesPerCubicMeter(Convert.ToDouble(value));
 
         /// <inheritdoc cref="Density.FromTonnesPerCubicMillimeter(OasysUnits.QuantityValue)" />
-        public static Density TonnesPerCubicMillimeter<T>(this T value) =>
-            Density.FromTonnesPerCubicMillimeter(Convert.ToDouble(value));
+        public static Density TonnesPerCubicMillimeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Density.FromTonnesPerCubicMillimeter(Convert.ToDouble(value));
 
     }
 }

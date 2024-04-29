@@ -47,13 +47,13 @@ namespace OasysUnits
         /// <summary>
         ///     The numeric value this quantity was constructed with.
         /// </summary>
-        [DataMember(Name = "Value", Order = 0)]
+        [DataMember(Name = "Value", Order = 1)]
         private readonly double _value;
 
         /// <summary>
         ///     The unit this quantity was constructed with.
         /// </summary>
-        [DataMember(Name = "Unit", Order = 1)]
+        [DataMember(Name = "Unit", Order = 2)]
         private readonly MomentUnit? _unit;
 
         static Moment()
@@ -65,28 +65,28 @@ namespace OasysUnits
             Info = new QuantityInfo<MomentUnit>("Moment",
                 new UnitInfo<MomentUnit>[]
                 {
-                    new UnitInfo<MomentUnit>(MomentUnit.KilogramForceCentimeter, "KilogramForceCentimeters", BaseUnits.Undefined),
-                    new UnitInfo<MomentUnit>(MomentUnit.KilogramForceMeter, "KilogramForceMeters", BaseUnits.Undefined),
-                    new UnitInfo<MomentUnit>(MomentUnit.KilogramForceMillimeter, "KilogramForceMillimeters", BaseUnits.Undefined),
-                    new UnitInfo<MomentUnit>(MomentUnit.KilonewtonCentimeter, "KilonewtonCentimeters", BaseUnits.Undefined),
-                    new UnitInfo<MomentUnit>(MomentUnit.KilonewtonMeter, "KilonewtonMeters", BaseUnits.Undefined),
-                    new UnitInfo<MomentUnit>(MomentUnit.KilonewtonMillimeter, "KilonewtonMillimeters", BaseUnits.Undefined),
-                    new UnitInfo<MomentUnit>(MomentUnit.KilopoundForceFoot, "KilopoundForceFeet", BaseUnits.Undefined),
-                    new UnitInfo<MomentUnit>(MomentUnit.KilopoundForceInch, "KilopoundForceInches", BaseUnits.Undefined),
-                    new UnitInfo<MomentUnit>(MomentUnit.MeganewtonCentimeter, "MeganewtonCentimeters", BaseUnits.Undefined),
-                    new UnitInfo<MomentUnit>(MomentUnit.MeganewtonMeter, "MeganewtonMeters", BaseUnits.Undefined),
-                    new UnitInfo<MomentUnit>(MomentUnit.MeganewtonMillimeter, "MeganewtonMillimeters", BaseUnits.Undefined),
-                    new UnitInfo<MomentUnit>(MomentUnit.MegapoundForceFoot, "MegapoundForceFeet", BaseUnits.Undefined),
-                    new UnitInfo<MomentUnit>(MomentUnit.MegapoundForceInch, "MegapoundForceInches", BaseUnits.Undefined),
-                    new UnitInfo<MomentUnit>(MomentUnit.NewtonCentimeter, "NewtonCentimeters", BaseUnits.Undefined),
-                    new UnitInfo<MomentUnit>(MomentUnit.NewtonMeter, "NewtonMeters", new BaseUnits(length: LengthUnit.Meter, mass: MassUnit.Kilogram, time: DurationUnit.Second)),
-                    new UnitInfo<MomentUnit>(MomentUnit.NewtonMillimeter, "NewtonMillimeters", BaseUnits.Undefined),
-                    new UnitInfo<MomentUnit>(MomentUnit.PoundalFoot, "PoundalFeet", BaseUnits.Undefined),
-                    new UnitInfo<MomentUnit>(MomentUnit.PoundForceFoot, "PoundForceFeet", BaseUnits.Undefined),
-                    new UnitInfo<MomentUnit>(MomentUnit.PoundForceInch, "PoundForceInches", BaseUnits.Undefined),
-                    new UnitInfo<MomentUnit>(MomentUnit.TonneForceCentimeter, "TonneForceCentimeters", BaseUnits.Undefined),
-                    new UnitInfo<MomentUnit>(MomentUnit.TonneForceMeter, "TonneForceMeters", BaseUnits.Undefined),
-                    new UnitInfo<MomentUnit>(MomentUnit.TonneForceMillimeter, "TonneForceMillimeters", BaseUnits.Undefined),
+                    new UnitInfo<MomentUnit>(MomentUnit.KilogramForceCentimeter, "KilogramForceCentimeters", BaseUnits.Undefined, "Moment"),
+                    new UnitInfo<MomentUnit>(MomentUnit.KilogramForceMeter, "KilogramForceMeters", BaseUnits.Undefined, "Moment"),
+                    new UnitInfo<MomentUnit>(MomentUnit.KilogramForceMillimeter, "KilogramForceMillimeters", BaseUnits.Undefined, "Moment"),
+                    new UnitInfo<MomentUnit>(MomentUnit.KilonewtonCentimeter, "KilonewtonCentimeters", BaseUnits.Undefined, "Moment"),
+                    new UnitInfo<MomentUnit>(MomentUnit.KilonewtonMeter, "KilonewtonMeters", BaseUnits.Undefined, "Moment"),
+                    new UnitInfo<MomentUnit>(MomentUnit.KilonewtonMillimeter, "KilonewtonMillimeters", BaseUnits.Undefined, "Moment"),
+                    new UnitInfo<MomentUnit>(MomentUnit.KilopoundForceFoot, "KilopoundForceFeet", BaseUnits.Undefined, "Moment"),
+                    new UnitInfo<MomentUnit>(MomentUnit.KilopoundForceInch, "KilopoundForceInches", BaseUnits.Undefined, "Moment"),
+                    new UnitInfo<MomentUnit>(MomentUnit.MeganewtonCentimeter, "MeganewtonCentimeters", BaseUnits.Undefined, "Moment"),
+                    new UnitInfo<MomentUnit>(MomentUnit.MeganewtonMeter, "MeganewtonMeters", BaseUnits.Undefined, "Moment"),
+                    new UnitInfo<MomentUnit>(MomentUnit.MeganewtonMillimeter, "MeganewtonMillimeters", BaseUnits.Undefined, "Moment"),
+                    new UnitInfo<MomentUnit>(MomentUnit.MegapoundForceFoot, "MegapoundForceFeet", BaseUnits.Undefined, "Moment"),
+                    new UnitInfo<MomentUnit>(MomentUnit.MegapoundForceInch, "MegapoundForceInches", BaseUnits.Undefined, "Moment"),
+                    new UnitInfo<MomentUnit>(MomentUnit.NewtonCentimeter, "NewtonCentimeters", BaseUnits.Undefined, "Moment"),
+                    new UnitInfo<MomentUnit>(MomentUnit.NewtonMeter, "NewtonMeters", new BaseUnits(length: LengthUnit.Meter, mass: MassUnit.Kilogram, time: DurationUnit.Second), "Moment"),
+                    new UnitInfo<MomentUnit>(MomentUnit.NewtonMillimeter, "NewtonMillimeters", BaseUnits.Undefined, "Moment"),
+                    new UnitInfo<MomentUnit>(MomentUnit.PoundalFoot, "PoundalFeet", BaseUnits.Undefined, "Moment"),
+                    new UnitInfo<MomentUnit>(MomentUnit.PoundForceFoot, "PoundForceFeet", BaseUnits.Undefined, "Moment"),
+                    new UnitInfo<MomentUnit>(MomentUnit.PoundForceInch, "PoundForceInches", BaseUnits.Undefined, "Moment"),
+                    new UnitInfo<MomentUnit>(MomentUnit.TonneForceCentimeter, "TonneForceCentimeters", BaseUnits.Undefined, "Moment"),
+                    new UnitInfo<MomentUnit>(MomentUnit.TonneForceMeter, "TonneForceMeters", BaseUnits.Undefined, "Moment"),
+                    new UnitInfo<MomentUnit>(MomentUnit.TonneForceMillimeter, "TonneForceMillimeters", BaseUnits.Undefined, "Moment"),
                 },
                 BaseUnit, Zero, BaseDimensions);
 
@@ -159,7 +159,7 @@ namespace OasysUnits
         public static Moment AdditiveIdentity => Zero;
 
         #endregion
- 
+
         #region Properties
 
         /// <summary>
@@ -358,32 +358,6 @@ namespace OasysUnits
             unitConverter.SetConversionFunction<Moment>(MomentUnit.NewtonMeter, MomentUnit.TonneForceCentimeter, quantity => quantity.ToUnit(MomentUnit.TonneForceCentimeter));
             unitConverter.SetConversionFunction<Moment>(MomentUnit.NewtonMeter, MomentUnit.TonneForceMeter, quantity => quantity.ToUnit(MomentUnit.TonneForceMeter));
             unitConverter.SetConversionFunction<Moment>(MomentUnit.NewtonMeter, MomentUnit.TonneForceMillimeter, quantity => quantity.ToUnit(MomentUnit.TonneForceMillimeter));
-        }
-
-        internal static void MapGeneratedLocalizations(UnitAbbreviationsCache unitAbbreviationsCache)
-        {
-            unitAbbreviationsCache.PerformAbbreviationMapping(MomentUnit.KilogramForceCentimeter, new CultureInfo("en-US"), false, true, new string[]{"kgf·cm"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MomentUnit.KilogramForceMeter, new CultureInfo("en-US"), false, true, new string[]{"kgf·m"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MomentUnit.KilogramForceMillimeter, new CultureInfo("en-US"), false, true, new string[]{"kgf·mm"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MomentUnit.KilonewtonCentimeter, new CultureInfo("en-US"), false, true, new string[]{"kN·cm"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MomentUnit.KilonewtonMeter, new CultureInfo("en-US"), false, true, new string[]{"kN·m"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MomentUnit.KilonewtonMillimeter, new CultureInfo("en-US"), false, true, new string[]{"kN·mm"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MomentUnit.KilopoundForceFoot, new CultureInfo("en-US"), false, true, new string[]{"kipf·ft"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MomentUnit.KilopoundForceInch, new CultureInfo("en-US"), false, true, new string[]{"kipf·in"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MomentUnit.MeganewtonCentimeter, new CultureInfo("en-US"), false, true, new string[]{"MN·cm"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MomentUnit.MeganewtonMeter, new CultureInfo("en-US"), false, true, new string[]{"MN·m"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MomentUnit.MeganewtonMillimeter, new CultureInfo("en-US"), false, true, new string[]{"MN·mm"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MomentUnit.MegapoundForceFoot, new CultureInfo("en-US"), false, true, new string[]{"Mlbf·ft"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MomentUnit.MegapoundForceInch, new CultureInfo("en-US"), false, true, new string[]{"Mlbf·in"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MomentUnit.NewtonCentimeter, new CultureInfo("en-US"), false, true, new string[]{"N·cm"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MomentUnit.NewtonMeter, new CultureInfo("en-US"), false, true, new string[]{"N·m"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MomentUnit.NewtonMillimeter, new CultureInfo("en-US"), false, true, new string[]{"N·mm"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MomentUnit.PoundalFoot, new CultureInfo("en-US"), false, true, new string[]{"pdl·ft"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MomentUnit.PoundForceFoot, new CultureInfo("en-US"), false, true, new string[]{"lbf·ft"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MomentUnit.PoundForceInch, new CultureInfo("en-US"), false, true, new string[]{"lbf·in"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MomentUnit.TonneForceCentimeter, new CultureInfo("en-US"), false, true, new string[]{"tf·cm"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MomentUnit.TonneForceMeter, new CultureInfo("en-US"), false, true, new string[]{"tf·m"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MomentUnit.TonneForceMillimeter, new CultureInfo("en-US"), false, true, new string[]{"tf·mm"});
         }
 
         /// <summary>
@@ -651,7 +625,7 @@ namespace OasysUnits
         /// </summary>
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <example>
-        ///     Length.Parse("5.5 m", new CultureInfo("en-US"));
+        ///     Length.Parse("5.5 m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <exception cref="ArgumentNullException">The value of 'str' cannot be null. </exception>
         /// <exception cref="ArgumentException">
@@ -678,7 +652,7 @@ namespace OasysUnits
         /// </summary>
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <example>
-        ///     Length.Parse("5.5 m", new CultureInfo("en-US"));
+        ///     Length.Parse("5.5 m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <exception cref="ArgumentNullException">The value of 'str' cannot be null. </exception>
         /// <exception cref="ArgumentException">
@@ -710,7 +684,7 @@ namespace OasysUnits
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <param name="result">Resulting unit quantity if successful.</param>
         /// <example>
-        ///     Length.Parse("5.5 m", new CultureInfo("en-US"));
+        ///     Length.Parse("5.5 m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         public static bool TryParse(string? str, out Moment result)
         {
@@ -724,7 +698,7 @@ namespace OasysUnits
         /// <param name="result">Resulting unit quantity if successful.</param>
         /// <returns>True if successful, otherwise false.</returns>
         /// <example>
-        ///     Length.Parse("5.5 m", new CultureInfo("en-US"));
+        ///     Length.Parse("5.5 m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <param name="provider">Format to use when parsing number and unit. Defaults to <see cref="CultureInfo.CurrentCulture" /> if null.</param>
         public static bool TryParse(string? str, IFormatProvider? provider, out Moment result)
@@ -741,7 +715,7 @@ namespace OasysUnits
         /// </summary>
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <example>
-        ///     Length.ParseUnit("m", new CultureInfo("en-US"));
+        ///     Length.ParseUnit("m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <exception cref="ArgumentNullException">The value of 'str' cannot be null. </exception>
         /// <exception cref="OasysUnitsException">Error parsing string.</exception>
@@ -756,7 +730,7 @@ namespace OasysUnits
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <param name="provider">Format to use when parsing number and unit. Defaults to <see cref="CultureInfo.CurrentCulture" /> if null.</param>
         /// <example>
-        ///     Length.ParseUnit("m", new CultureInfo("en-US"));
+        ///     Length.ParseUnit("m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <exception cref="ArgumentNullException">The value of 'str' cannot be null. </exception>
         /// <exception cref="OasysUnitsException">Error parsing string.</exception>
@@ -778,7 +752,7 @@ namespace OasysUnits
         /// <param name="unit">The parsed unit if successful.</param>
         /// <returns>True if successful, otherwise false.</returns>
         /// <example>
-        ///     Length.TryParseUnit("m", new CultureInfo("en-US"));
+        ///     Length.TryParseUnit("m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <param name="provider">Format to use when parsing number and unit. Defaults to <see cref="CultureInfo.CurrentCulture" /> if null.</param>
         public static bool TryParseUnit(string str, IFormatProvider? provider, out MomentUnit unit)
@@ -865,16 +839,14 @@ namespace OasysUnits
         #pragma warning disable CS0809
 
         /// <summary>Indicates strict equality of two <see cref="Moment"/> quantities, where both <see cref="Value" /> and <see cref="Unit" /> are exactly equal.</summary>
-        /// <remarks>Consider using <see cref="Equals(Moment, double, ComparisonType)"/> to check equality across different units and to specify a floating-point number error tolerance.</remarks>
-        [Obsolete("For null checks, use `x is null` syntax to not invoke overloads. For quantity comparisons, use Equals(Moment, double, ComparisonType) to check equality across different units and to specify a floating-point number error tolerance.")]
+        [Obsolete("For null checks, use `x is null` syntax to not invoke overloads. For equality checks, use Equals(Moment other, Moment tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public static bool operator ==(Moment left, Moment right)
         {
             return left.Equals(right);
         }
 
         /// <summary>Indicates strict inequality of two <see cref="Moment"/> quantities, where both <see cref="Value" /> and <see cref="Unit" /> are exactly equal.</summary>
-        /// <remarks>Consider using <see cref="Equals(Moment, double, ComparisonType)"/> to check equality across different units and to specify a floating-point number error tolerance.</remarks>
-        [Obsolete("For null checks, use `x is not null` syntax to not invoke overloads. For quantity comparisons, use Equals(Moment, double, ComparisonType) to check equality across different units and to specify a floating-point number error tolerance.")]
+        [Obsolete("For null checks, use `x is null` syntax to not invoke overloads. For equality checks, use Equals(Moment other, Moment tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public static bool operator !=(Moment left, Moment right)
         {
             return !(left == right);
@@ -882,8 +854,7 @@ namespace OasysUnits
 
         /// <inheritdoc />
         /// <summary>Indicates strict equality of two <see cref="Moment"/> quantities, where both <see cref="Value" /> and <see cref="Unit" /> are exactly equal.</summary>
-        /// <remarks>Consider using <see cref="Equals(Moment, double, ComparisonType)"/> to check equality across different units and to specify a floating-point number error tolerance.</remarks>
-        [Obsolete("Consider using Equals(Moment, double, ComparisonType) to check equality across different units and to specify a floating-point number error tolerance.")]
+        [Obsolete("Use Equals(Moment other, Moment tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public override bool Equals(object? obj)
         {
             if (obj is null || !(obj is Moment otherQuantity))
@@ -894,8 +865,7 @@ namespace OasysUnits
 
         /// <inheritdoc />
         /// <summary>Indicates strict equality of two <see cref="Moment"/> quantities, where both <see cref="Value" /> and <see cref="Unit" /> are exactly equal.</summary>
-        /// <remarks>Consider using <see cref="Equals(Moment, double, ComparisonType)"/> to check equality across different units and to specify a floating-point number error tolerance.</remarks>
-        [Obsolete("Consider using Equals(Moment, double, ComparisonType) to check equality across different units and to specify a floating-point number error tolerance.")]
+        [Obsolete("Use Equals(Moment other, Moment tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public bool Equals(Moment other)
         {
             return new { Value, Unit }.Equals(new { other.Value, other.Unit });
@@ -979,15 +949,37 @@ namespace OasysUnits
         /// <param name="tolerance">The absolute or relative tolerance value. Must be greater than or equal to 0.</param>
         /// <param name="comparisonType">The comparison type: either relative or absolute.</param>
         /// <returns>True if the absolute difference between the two values is not greater than the specified relative or absolute tolerance.</returns>
+        [Obsolete("Use Equals(Moment other, Moment tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public bool Equals(Moment other, double tolerance, ComparisonType comparisonType)
         {
             if (tolerance < 0)
-                throw new ArgumentOutOfRangeException("tolerance", "Tolerance must be greater than or equal to 0.");
+                throw new ArgumentOutOfRangeException(nameof(tolerance), "Tolerance must be greater than or equal to 0.");
 
-            double thisValue = this.Value;
-            double otherValueInThisUnits = other.As(this.Unit);
+            return OasysUnits.Comparison.Equals(
+                referenceValue: this.Value,
+                otherValue: other.As(this.Unit),
+                tolerance: tolerance,
+                comparisonType: ComparisonType.Absolute);
+        }
 
-            return OasysUnits.Comparison.Equals(thisValue, otherValueInThisUnits, tolerance, comparisonType);
+        /// <inheritdoc />
+        public bool Equals(IQuantity? other, IQuantity tolerance)
+        {
+            return other is Moment otherTyped
+                   && (tolerance is Moment toleranceTyped
+                       ? true
+                       : throw new ArgumentException($"Tolerance quantity ({tolerance.QuantityInfo.Name}) did not match the other quantities of type 'Moment'.", nameof(tolerance)))
+                   && Equals(otherTyped, toleranceTyped);
+        }
+
+        /// <inheritdoc />
+        public bool Equals(Moment other, Moment tolerance)
+        {
+            return OasysUnits.Comparison.Equals(
+                referenceValue: this.Value,
+                otherValue: other.As(this.Unit),
+                tolerance: tolerance.As(this.Unit),
+                comparisonType: ComparisonType.Absolute);
         }
 
         /// <summary>

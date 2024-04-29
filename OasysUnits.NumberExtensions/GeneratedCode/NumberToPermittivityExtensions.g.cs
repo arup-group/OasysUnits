@@ -19,6 +19,10 @@
 
 using System;
 
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
+
 #nullable enable
 
 namespace OasysUnits.NumberExtensions.NumberToPermittivity
@@ -29,8 +33,12 @@ namespace OasysUnits.NumberExtensions.NumberToPermittivity
     public static class NumberToPermittivityExtensions
     {
         /// <inheritdoc cref="Permittivity.FromFaradsPerMeter(OasysUnits.QuantityValue)" />
-        public static Permittivity FaradsPerMeter<T>(this T value) =>
-            Permittivity.FromFaradsPerMeter(Convert.ToDouble(value));
+        public static Permittivity FaradsPerMeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Permittivity.FromFaradsPerMeter(Convert.ToDouble(value));
 
     }
 }

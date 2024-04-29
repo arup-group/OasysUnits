@@ -19,6 +19,10 @@
 
 using System;
 
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
+
 #nullable enable
 
 namespace OasysUnits.NumberExtensions.NumberToVolumePerLength
@@ -29,40 +33,76 @@ namespace OasysUnits.NumberExtensions.NumberToVolumePerLength
     public static class NumberToVolumePerLengthExtensions
     {
         /// <inheritdoc cref="VolumePerLength.FromCubicMetersPerMeter(OasysUnits.QuantityValue)" />
-        public static VolumePerLength CubicMetersPerMeter<T>(this T value) =>
-            VolumePerLength.FromCubicMetersPerMeter(Convert.ToDouble(value));
+        public static VolumePerLength CubicMetersPerMeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumePerLength.FromCubicMetersPerMeter(Convert.ToDouble(value));
 
         /// <inheritdoc cref="VolumePerLength.FromCubicYardsPerFoot(OasysUnits.QuantityValue)" />
-        public static VolumePerLength CubicYardsPerFoot<T>(this T value) =>
-            VolumePerLength.FromCubicYardsPerFoot(Convert.ToDouble(value));
+        public static VolumePerLength CubicYardsPerFoot<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumePerLength.FromCubicYardsPerFoot(Convert.ToDouble(value));
 
         /// <inheritdoc cref="VolumePerLength.FromCubicYardsPerUsSurveyFoot(OasysUnits.QuantityValue)" />
-        public static VolumePerLength CubicYardsPerUsSurveyFoot<T>(this T value) =>
-            VolumePerLength.FromCubicYardsPerUsSurveyFoot(Convert.ToDouble(value));
+        public static VolumePerLength CubicYardsPerUsSurveyFoot<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumePerLength.FromCubicYardsPerUsSurveyFoot(Convert.ToDouble(value));
 
         /// <inheritdoc cref="VolumePerLength.FromImperialGallonsPerMile(OasysUnits.QuantityValue)" />
-        public static VolumePerLength ImperialGallonsPerMile<T>(this T value) =>
-            VolumePerLength.FromImperialGallonsPerMile(Convert.ToDouble(value));
+        public static VolumePerLength ImperialGallonsPerMile<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumePerLength.FromImperialGallonsPerMile(Convert.ToDouble(value));
 
         /// <inheritdoc cref="VolumePerLength.FromLitersPerKilometer(OasysUnits.QuantityValue)" />
-        public static VolumePerLength LitersPerKilometer<T>(this T value) =>
-            VolumePerLength.FromLitersPerKilometer(Convert.ToDouble(value));
+        public static VolumePerLength LitersPerKilometer<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumePerLength.FromLitersPerKilometer(Convert.ToDouble(value));
 
         /// <inheritdoc cref="VolumePerLength.FromLitersPerMeter(OasysUnits.QuantityValue)" />
-        public static VolumePerLength LitersPerMeter<T>(this T value) =>
-            VolumePerLength.FromLitersPerMeter(Convert.ToDouble(value));
+        public static VolumePerLength LitersPerMeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumePerLength.FromLitersPerMeter(Convert.ToDouble(value));
 
         /// <inheritdoc cref="VolumePerLength.FromLitersPerMillimeter(OasysUnits.QuantityValue)" />
-        public static VolumePerLength LitersPerMillimeter<T>(this T value) =>
-            VolumePerLength.FromLitersPerMillimeter(Convert.ToDouble(value));
+        public static VolumePerLength LitersPerMillimeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumePerLength.FromLitersPerMillimeter(Convert.ToDouble(value));
 
         /// <inheritdoc cref="VolumePerLength.FromOilBarrelsPerFoot(OasysUnits.QuantityValue)" />
-        public static VolumePerLength OilBarrelsPerFoot<T>(this T value) =>
-            VolumePerLength.FromOilBarrelsPerFoot(Convert.ToDouble(value));
+        public static VolumePerLength OilBarrelsPerFoot<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumePerLength.FromOilBarrelsPerFoot(Convert.ToDouble(value));
 
         /// <inheritdoc cref="VolumePerLength.FromUsGallonsPerMile(OasysUnits.QuantityValue)" />
-        public static VolumePerLength UsGallonsPerMile<T>(this T value) =>
-            VolumePerLength.FromUsGallonsPerMile(Convert.ToDouble(value));
+        public static VolumePerLength UsGallonsPerMile<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumePerLength.FromUsGallonsPerMile(Convert.ToDouble(value));
 
     }
 }

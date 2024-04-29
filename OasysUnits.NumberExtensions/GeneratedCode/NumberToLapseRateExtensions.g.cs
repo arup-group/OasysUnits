@@ -19,6 +19,10 @@
 
 using System;
 
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
+
 #nullable enable
 
 namespace OasysUnits.NumberExtensions.NumberToLapseRate
@@ -29,8 +33,12 @@ namespace OasysUnits.NumberExtensions.NumberToLapseRate
     public static class NumberToLapseRateExtensions
     {
         /// <inheritdoc cref="LapseRate.FromDegreesCelciusPerKilometer(OasysUnits.QuantityValue)" />
-        public static LapseRate DegreesCelciusPerKilometer<T>(this T value) =>
-            LapseRate.FromDegreesCelciusPerKilometer(Convert.ToDouble(value));
+        public static LapseRate DegreesCelciusPerKilometer<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => LapseRate.FromDegreesCelciusPerKilometer(Convert.ToDouble(value));
 
     }
 }

@@ -25,11 +25,11 @@ namespace CodeGen.Generators.NanoFrameworkGen
 <package xmlns=""http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd"">
   <metadata>
     <id>OasysUnits.nanoFramework.{_quantity.Name}</id>
-    <version>1.1.1</version>
+    <version>1.2.0</version>
     <title>Units.NET {_quantity.Name} - nanoFramework</title>
-    <authors>Andreas Gullberg Larsen,nanoFramework project contributors</authors>
+    <authors>Andreas Gullberg Larsen,nanoframework</authors>
     <owners>OasysUnits</owners>
-    <license type=""expression"">MIT</license>
+    <license type=""expression"">MIT-0</license>
     <projectUrl>https://github.com/angularsen/UnitsNet</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Adds {_quantity.Name} units for Units.NET on .NET nanoFramework. For .NET or .NET Core, use OasysUnits instead.</description>

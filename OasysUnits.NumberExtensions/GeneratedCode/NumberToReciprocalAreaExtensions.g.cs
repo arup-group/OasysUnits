@@ -19,6 +19,10 @@
 
 using System;
 
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
+
 #nullable enable
 
 namespace OasysUnits.NumberExtensions.NumberToReciprocalArea
@@ -29,48 +33,92 @@ namespace OasysUnits.NumberExtensions.NumberToReciprocalArea
     public static class NumberToReciprocalAreaExtensions
     {
         /// <inheritdoc cref="ReciprocalArea.FromInverseSquareCentimeters(OasysUnits.QuantityValue)" />
-        public static ReciprocalArea InverseSquareCentimeters<T>(this T value) =>
-            ReciprocalArea.FromInverseSquareCentimeters(Convert.ToDouble(value));
+        public static ReciprocalArea InverseSquareCentimeters<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ReciprocalArea.FromInverseSquareCentimeters(Convert.ToDouble(value));
 
         /// <inheritdoc cref="ReciprocalArea.FromInverseSquareDecimeters(OasysUnits.QuantityValue)" />
-        public static ReciprocalArea InverseSquareDecimeters<T>(this T value) =>
-            ReciprocalArea.FromInverseSquareDecimeters(Convert.ToDouble(value));
+        public static ReciprocalArea InverseSquareDecimeters<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ReciprocalArea.FromInverseSquareDecimeters(Convert.ToDouble(value));
 
         /// <inheritdoc cref="ReciprocalArea.FromInverseSquareFeet(OasysUnits.QuantityValue)" />
-        public static ReciprocalArea InverseSquareFeet<T>(this T value) =>
-            ReciprocalArea.FromInverseSquareFeet(Convert.ToDouble(value));
+        public static ReciprocalArea InverseSquareFeet<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ReciprocalArea.FromInverseSquareFeet(Convert.ToDouble(value));
 
         /// <inheritdoc cref="ReciprocalArea.FromInverseSquareInches(OasysUnits.QuantityValue)" />
-        public static ReciprocalArea InverseSquareInches<T>(this T value) =>
-            ReciprocalArea.FromInverseSquareInches(Convert.ToDouble(value));
+        public static ReciprocalArea InverseSquareInches<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ReciprocalArea.FromInverseSquareInches(Convert.ToDouble(value));
 
         /// <inheritdoc cref="ReciprocalArea.FromInverseSquareKilometers(OasysUnits.QuantityValue)" />
-        public static ReciprocalArea InverseSquareKilometers<T>(this T value) =>
-            ReciprocalArea.FromInverseSquareKilometers(Convert.ToDouble(value));
+        public static ReciprocalArea InverseSquareKilometers<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ReciprocalArea.FromInverseSquareKilometers(Convert.ToDouble(value));
 
         /// <inheritdoc cref="ReciprocalArea.FromInverseSquareMeters(OasysUnits.QuantityValue)" />
-        public static ReciprocalArea InverseSquareMeters<T>(this T value) =>
-            ReciprocalArea.FromInverseSquareMeters(Convert.ToDouble(value));
+        public static ReciprocalArea InverseSquareMeters<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ReciprocalArea.FromInverseSquareMeters(Convert.ToDouble(value));
 
         /// <inheritdoc cref="ReciprocalArea.FromInverseSquareMicrometers(OasysUnits.QuantityValue)" />
-        public static ReciprocalArea InverseSquareMicrometers<T>(this T value) =>
-            ReciprocalArea.FromInverseSquareMicrometers(Convert.ToDouble(value));
+        public static ReciprocalArea InverseSquareMicrometers<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ReciprocalArea.FromInverseSquareMicrometers(Convert.ToDouble(value));
 
         /// <inheritdoc cref="ReciprocalArea.FromInverseSquareMiles(OasysUnits.QuantityValue)" />
-        public static ReciprocalArea InverseSquareMiles<T>(this T value) =>
-            ReciprocalArea.FromInverseSquareMiles(Convert.ToDouble(value));
+        public static ReciprocalArea InverseSquareMiles<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ReciprocalArea.FromInverseSquareMiles(Convert.ToDouble(value));
 
         /// <inheritdoc cref="ReciprocalArea.FromInverseSquareMillimeters(OasysUnits.QuantityValue)" />
-        public static ReciprocalArea InverseSquareMillimeters<T>(this T value) =>
-            ReciprocalArea.FromInverseSquareMillimeters(Convert.ToDouble(value));
+        public static ReciprocalArea InverseSquareMillimeters<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ReciprocalArea.FromInverseSquareMillimeters(Convert.ToDouble(value));
 
         /// <inheritdoc cref="ReciprocalArea.FromInverseSquareYards(OasysUnits.QuantityValue)" />
-        public static ReciprocalArea InverseSquareYards<T>(this T value) =>
-            ReciprocalArea.FromInverseSquareYards(Convert.ToDouble(value));
+        public static ReciprocalArea InverseSquareYards<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ReciprocalArea.FromInverseSquareYards(Convert.ToDouble(value));
 
         /// <inheritdoc cref="ReciprocalArea.FromInverseUsSurveySquareFeet(OasysUnits.QuantityValue)" />
-        public static ReciprocalArea InverseUsSurveySquareFeet<T>(this T value) =>
-            ReciprocalArea.FromInverseUsSurveySquareFeet(Convert.ToDouble(value));
+        public static ReciprocalArea InverseUsSurveySquareFeet<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ReciprocalArea.FromInverseUsSurveySquareFeet(Convert.ToDouble(value));
 
     }
 }

@@ -19,6 +19,10 @@
 
 using System;
 
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
+
 #nullable enable
 
 namespace OasysUnits.NumberExtensions.NumberToMagnetization
@@ -29,8 +33,12 @@ namespace OasysUnits.NumberExtensions.NumberToMagnetization
     public static class NumberToMagnetizationExtensions
     {
         /// <inheritdoc cref="Magnetization.FromAmperesPerMeter(OasysUnits.QuantityValue)" />
-        public static Magnetization AmperesPerMeter<T>(this T value) =>
-            Magnetization.FromAmperesPerMeter(Convert.ToDouble(value));
+        public static Magnetization AmperesPerMeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Magnetization.FromAmperesPerMeter(Convert.ToDouble(value));
 
     }
 }

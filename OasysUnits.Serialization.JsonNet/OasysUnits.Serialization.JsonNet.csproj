@@ -2,7 +2,7 @@
   <!-- NuGet properties -->
   <PropertyGroup>
     <PackageId>OasysUnits.Serialization.JsonNet</PackageId>
-    <Version>1.1.1</Version>
+    <Version>1.2.0</Version>
     <Authors>Andreas Gullberg Larsen, Oasys</Authors>
     <Title>OasysUnits Serialization with Json.NET</Title>
     <Description>A helper library for serializing and deserializing types in OasysUnits using Json.NET.</Description>
@@ -12,10 +12,10 @@
     <PackageIcon>OasysUnits-32.png</PackageIcon>
     <PackageIconUrl>https://raw.githubusercontent.com/angularsen/UnitsNet/ce85185429be345d77eb2ce09c99d59cc9ab8aed/Docs/Images/logo-32.png</PackageIconUrl>
     <PackageProjectUrl>https://github.com/arup-group/OasysUnits</PackageProjectUrl>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageLicenseExpression>MIT-0</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageTags>unit units measurement json Json.NET Newtonsoft serialize deserialize serialization deserialization</PackageTags>
-    <PackageReleaseNotes>This is a release of UnitsNet.Serialization.JsonNet 4.6.0 with additional support for Oasys units.</PackageReleaseNotes>
+    <PackageReleaseNotes>This is a release of UnitsNet.Serialization.JsonNet 5.50.0 with additional support for Oasys units.</PackageReleaseNotes>
   </PropertyGroup>
 
   <!-- Assembly and msbuild properties -->
@@ -43,7 +43,7 @@
   <ItemGroup>
     <PackageReference Include="JetBrains.Annotations" Version="2022.1.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
   <!-- Project references, will also generate the corresponding nuget dependencies -->
@@ -53,7 +53,7 @@
 
   <!-- Files to include in nuget package -->
   <ItemGroup>
-<None Include="..\Docs\Images\OasysUnits-32.png" Pack="true" PackagePath="/" />
+    <None Include="..\Docs\Images\OasysUnits-32.png" Pack="true" PackagePath="/" />
   </ItemGroup>
 
 </Project>

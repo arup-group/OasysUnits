@@ -25,26 +25,26 @@ namespace OasysUnits.Units
 
     public enum AxialStiffnessUnit
     {
-        Decanewton = 3,
+        Decanewton = 4,
         Dyn = 2,
-        KilogramForce = 1,
-        Kilonewton = 7,
-        KiloPond = 10,
+        KilogramForce = 6,
+        Kilonewton = 5,
+        KiloPond = 3,
         KilopoundForce = 8,
         Meganewton = 9,
-        Micronewton = 6,
-        Millinewton = 5,
-        Newton = 4,
+        Micronewton = 1,
+        Millinewton = 10,
+        Newton = 7,
         OunceForce = 13,
-        Poundal = 12,
-        PoundForce = 18,
+        Poundal = 14,
+        PoundForce = 15,
 
         /// <summary>
         ///     The short ton-force is a unit of force equal to 2,000 pounds-force (907.18474 kgf), that is most commonly used in the United States – known there simply as the ton or US ton.
         /// </summary>
         /// <remarks>https://en.wikipedia.org/wiki/Ton-force#Short_ton-force</remarks>
-        ShortTonForce = 17,
-        TonneForce = 11,
+        ShortTonForce = 16,
+        TonneForce = 12,
     }
 
     #pragma warning restore 1591

@@ -45,7 +45,7 @@ namespace OasysUnits.Serialization.JsonNet
         /// </summary>
         /// <param name="comparer">The comparer used to compare the property/quantity names (e.g. StringComparer.OrdinalIgnoreCase) </param>
         public AbbreviatedUnitsConverter(IEqualityComparer<string?> comparer)
-            : this(new Dictionary<string, QuantityInfo>(Quantity.ByName, comparer), UnitAbbreviationsCache.Default, comparer)
+            : this(new Dictionary<string, QuantityInfo>(Quantity.ByName, comparer), OasysUnitsSetup.Default.UnitAbbreviations, comparer)
         {
         }
 

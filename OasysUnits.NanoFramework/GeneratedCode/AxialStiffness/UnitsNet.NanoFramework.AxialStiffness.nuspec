@@ -6,7 +6,7 @@
     <title>Units.NET AxialStiffness - nanoFramework</title>
     <authors>Andreas Gullberg Larsen,nanoFramework project contributors</authors>
     <owners>OasysUnits</owners>
-    <license type="expression">MIT</license>
+    <license type="expression">MIT-0</license>
     <projectUrl>https://github.com/angularsen/UnitsNet</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Adds AxialStiffness units for Units.NET on .NET nanoFramework. For .NET or .NET Core, use OasysUnits instead.</description>

@@ -25,11 +25,11 @@ namespace OasysUnits.Units
 
     public enum SectionModulusUnit
     {
-        CubicCentimeter = 6,
+        CubicCentimeter = 10,
         CubicFoot = 5,
-        CubicInch = 10,
-        CubicMeter = 2,
-        CubicMillimeter = 3,
+        CubicInch = 1,
+        CubicMeter = 4,
+        CubicMillimeter = 9,
     }
 
     #pragma warning restore 1591

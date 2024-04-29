@@ -47,13 +47,13 @@ namespace OasysUnits
         /// <summary>
         ///     The numeric value this quantity was constructed with.
         /// </summary>
-        [DataMember(Name = "Value", Order = 0)]
+        [DataMember(Name = "Value", Order = 1)]
         private readonly double _value;
 
         /// <summary>
         ///     The unit this quantity was constructed with.
         /// </summary>
-        [DataMember(Name = "Unit", Order = 1)]
+        [DataMember(Name = "Unit", Order = 2)]
         private readonly MomentPerLengthUnit? _unit;
 
         static MomentPerLength()
@@ -65,40 +65,40 @@ namespace OasysUnits
             Info = new QuantityInfo<MomentPerLengthUnit>("MomentPerLength",
                 new UnitInfo<MomentPerLengthUnit>[]
                 {
-                    new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.KilogramForceCentimeterPerCentimeter, "KilogramForceCentimetersPerCentimeter", BaseUnits.Undefined),
-                    new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.KilogramForceMeterPerCentimeter, "KilogramForceMetersPerCentimeter", BaseUnits.Undefined),
-                    new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.KilogramForceMeterPerMeter, "KilogramForceMetersPerMeter", BaseUnits.Undefined),
-                    new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.KilogramForceMeterPerMillimeter, "KilogramForceMetersPerMillimeter", BaseUnits.Undefined),
-                    new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.KilogramForceMillimeterPerMillimeter, "KilogramForceMillimetersPerMillimeter", BaseUnits.Undefined),
-                    new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.KilonewtonCentimeterPerCentimeter, "KilonewtonCentimetersPerCentimeter", BaseUnits.Undefined),
-                    new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.KilonewtonMeterPerCentimeter, "KilonewtonMetersPerCentimeter", BaseUnits.Undefined),
-                    new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.KilonewtonMeterPerMeter, "KilonewtonMetersPerMeter", BaseUnits.Undefined),
-                    new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.KilonewtonMeterPerMillimeter, "KilonewtonMetersPerMillimeter", BaseUnits.Undefined),
-                    new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.KilonewtonMillimeterPerMillimeter, "KilonewtonMillimetersPerMillimeter", BaseUnits.Undefined),
-                    new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.KilopoundForceFootPerFoot, "KilopoundForceFeetPerFoot", BaseUnits.Undefined),
-                    new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.KilopoundForceFootPerInch, "KilopoundForceFeetPerInch", BaseUnits.Undefined),
-                    new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.KilopoundForceInchPerFoot, "KilopoundForceInchesPerFoot", BaseUnits.Undefined),
-                    new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.KilopoundForceInchPerInch, "KilopoundForceInchesPerInch", BaseUnits.Undefined),
-                    new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.MeganewtonCentimeterPerCentimeter, "MeganewtonCentimetersPerCentimeter", BaseUnits.Undefined),
-                    new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.MeganewtonMeterPerCentimeter, "MeganewtonMetersPerCentimeter", BaseUnits.Undefined),
-                    new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.MeganewtonMeterPerMeter, "MeganewtonMetersPerMeter", BaseUnits.Undefined),
-                    new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.MeganewtonMeterPerMillimeter, "MeganewtonMetersPerMillimeter", BaseUnits.Undefined),
-                    new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.MeganewtonMillimeterPerMillimeter, "MeganewtonMillimetersPerMillimeter", BaseUnits.Undefined),
-                    new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.NewtonCentimeterPerCentimeter, "NewtonCentimetersPerCentimeter", BaseUnits.Undefined),
-                    new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.NewtonMeterPerCentimeter, "NewtonMetersPerCentimeter", BaseUnits.Undefined),
-                    new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.NewtonMeterPerMeter, "NewtonMetersPerMeter", BaseUnits.Undefined),
-                    new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.NewtonMeterPerMillimeter, "NewtonMetersPerMillimeter", BaseUnits.Undefined),
-                    new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.NewtonMillimeterPerMillimeter, "NewtonMillimetersPerMillimeter", BaseUnits.Undefined),
-                    new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.PoundForceFootPerFoot, "PoundForceFeetPerFoot", BaseUnits.Undefined),
-                    new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.PoundForceFootPerInch, "PoundForceFeetPerInch", BaseUnits.Undefined),
-                    new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.PoundForceFootPerYard, "PoundForceFeetPerYard", BaseUnits.Undefined),
-                    new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.PoundForceInchPerFoot, "PoundForceInchesPerFoot", BaseUnits.Undefined),
-                    new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.PoundForceInchPerInch, "PoundForceInchesPerInch", BaseUnits.Undefined),
-                    new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.TonneForceCentimeterPerCentimeter, "TonneForceCentimetersPerCentimeter", BaseUnits.Undefined),
-                    new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.TonneForceMeterPerCentimeter, "TonneForceMetersPerCentimeter", BaseUnits.Undefined),
-                    new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.TonneForceMeterPerMeter, "TonneForceMetersPerMeter", BaseUnits.Undefined),
-                    new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.TonneForceMeterPerMillimeter, "TonneForceMetersPerMillimeter", BaseUnits.Undefined),
-                    new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.TonneForceMillimeterPerMillimeter, "TonneForceMillimetersPerMillimeter", BaseUnits.Undefined),
+                    new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.KilogramForceCentimeterPerCentimeter, "KilogramForceCentimetersPerCentimeter", BaseUnits.Undefined, "MomentPerLength"),
+                    new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.KilogramForceMeterPerCentimeter, "KilogramForceMetersPerCentimeter", BaseUnits.Undefined, "MomentPerLength"),
+                    new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.KilogramForceMeterPerMeter, "KilogramForceMetersPerMeter", BaseUnits.Undefined, "MomentPerLength"),
+                    new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.KilogramForceMeterPerMillimeter, "KilogramForceMetersPerMillimeter", BaseUnits.Undefined, "MomentPerLength"),
+                    new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.KilogramForceMillimeterPerMillimeter, "KilogramForceMillimetersPerMillimeter", BaseUnits.Undefined, "MomentPerLength"),
+                    new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.KilonewtonCentimeterPerCentimeter, "KilonewtonCentimetersPerCentimeter", BaseUnits.Undefined, "MomentPerLength"),
+                    new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.KilonewtonMeterPerCentimeter, "KilonewtonMetersPerCentimeter", BaseUnits.Undefined, "MomentPerLength"),
+                    new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.KilonewtonMeterPerMeter, "KilonewtonMetersPerMeter", BaseUnits.Undefined, "MomentPerLength"),
+                    new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.KilonewtonMeterPerMillimeter, "KilonewtonMetersPerMillimeter", BaseUnits.Undefined, "MomentPerLength"),
+                    new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.KilonewtonMillimeterPerMillimeter, "KilonewtonMillimetersPerMillimeter", BaseUnits.Undefined, "MomentPerLength"),
+                    new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.KilopoundForceFootPerFoot, "KilopoundForceFeetPerFoot", BaseUnits.Undefined, "MomentPerLength"),
+                    new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.KilopoundForceFootPerInch, "KilopoundForceFeetPerInch", BaseUnits.Undefined, "MomentPerLength"),
+                    new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.KilopoundForceInchPerFoot, "KilopoundForceInchesPerFoot", BaseUnits.Undefined, "MomentPerLength"),
+                    new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.KilopoundForceInchPerInch, "KilopoundForceInchesPerInch", BaseUnits.Undefined, "MomentPerLength"),
+                    new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.MeganewtonCentimeterPerCentimeter, "MeganewtonCentimetersPerCentimeter", BaseUnits.Undefined, "MomentPerLength"),
+                    new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.MeganewtonMeterPerCentimeter, "MeganewtonMetersPerCentimeter", BaseUnits.Undefined, "MomentPerLength"),
+                    new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.MeganewtonMeterPerMeter, "MeganewtonMetersPerMeter", BaseUnits.Undefined, "MomentPerLength"),
+                    new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.MeganewtonMeterPerMillimeter, "MeganewtonMetersPerMillimeter", BaseUnits.Undefined, "MomentPerLength"),
+                    new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.MeganewtonMillimeterPerMillimeter, "MeganewtonMillimetersPerMillimeter", BaseUnits.Undefined, "MomentPerLength"),
+                    new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.NewtonCentimeterPerCentimeter, "NewtonCentimetersPerCentimeter", BaseUnits.Undefined, "MomentPerLength"),
+                    new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.NewtonMeterPerCentimeter, "NewtonMetersPerCentimeter", BaseUnits.Undefined, "MomentPerLength"),
+                    new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.NewtonMeterPerMeter, "NewtonMetersPerMeter", BaseUnits.Undefined, "MomentPerLength"),
+                    new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.NewtonMeterPerMillimeter, "NewtonMetersPerMillimeter", BaseUnits.Undefined, "MomentPerLength"),
+                    new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.NewtonMillimeterPerMillimeter, "NewtonMillimetersPerMillimeter", BaseUnits.Undefined, "MomentPerLength"),
+                    new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.PoundForceFootPerFoot, "PoundForceFeetPerFoot", BaseUnits.Undefined, "MomentPerLength"),
+                    new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.PoundForceFootPerInch, "PoundForceFeetPerInch", BaseUnits.Undefined, "MomentPerLength"),
+                    new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.PoundForceFootPerYard, "PoundForceFeetPerYard", BaseUnits.Undefined, "MomentPerLength"),
+                    new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.PoundForceInchPerFoot, "PoundForceInchesPerFoot", BaseUnits.Undefined, "MomentPerLength"),
+                    new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.PoundForceInchPerInch, "PoundForceInchesPerInch", BaseUnits.Undefined, "MomentPerLength"),
+                    new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.TonneForceCentimeterPerCentimeter, "TonneForceCentimetersPerCentimeter", BaseUnits.Undefined, "MomentPerLength"),
+                    new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.TonneForceMeterPerCentimeter, "TonneForceMetersPerCentimeter", BaseUnits.Undefined, "MomentPerLength"),
+                    new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.TonneForceMeterPerMeter, "TonneForceMetersPerMeter", BaseUnits.Undefined, "MomentPerLength"),
+                    new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.TonneForceMeterPerMillimeter, "TonneForceMetersPerMillimeter", BaseUnits.Undefined, "MomentPerLength"),
+                    new UnitInfo<MomentPerLengthUnit>(MomentPerLengthUnit.TonneForceMillimeterPerMillimeter, "TonneForceMillimetersPerMillimeter", BaseUnits.Undefined, "MomentPerLength"),
                 },
                 BaseUnit, Zero, BaseDimensions);
 
@@ -171,7 +171,7 @@ namespace OasysUnits
         public static MomentPerLength AdditiveIdentity => Zero;
 
         #endregion
- 
+
         #region Properties
 
         /// <summary>
@@ -454,44 +454,6 @@ namespace OasysUnits
             unitConverter.SetConversionFunction<MomentPerLength>(MomentPerLengthUnit.NewtonMeterPerMeter, MomentPerLengthUnit.TonneForceMeterPerMeter, quantity => quantity.ToUnit(MomentPerLengthUnit.TonneForceMeterPerMeter));
             unitConverter.SetConversionFunction<MomentPerLength>(MomentPerLengthUnit.NewtonMeterPerMeter, MomentPerLengthUnit.TonneForceMeterPerMillimeter, quantity => quantity.ToUnit(MomentPerLengthUnit.TonneForceMeterPerMillimeter));
             unitConverter.SetConversionFunction<MomentPerLength>(MomentPerLengthUnit.NewtonMeterPerMeter, MomentPerLengthUnit.TonneForceMillimeterPerMillimeter, quantity => quantity.ToUnit(MomentPerLengthUnit.TonneForceMillimeterPerMillimeter));
-        }
-
-        internal static void MapGeneratedLocalizations(UnitAbbreviationsCache unitAbbreviationsCache)
-        {
-            unitAbbreviationsCache.PerformAbbreviationMapping(MomentPerLengthUnit.KilogramForceCentimeterPerCentimeter, new CultureInfo("en-US"), false, true, new string[]{"kgf·cm/cm"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MomentPerLengthUnit.KilogramForceMeterPerCentimeter, new CultureInfo("en-US"), false, true, new string[]{"kgf·m/cm"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MomentPerLengthUnit.KilogramForceMeterPerMeter, new CultureInfo("en-US"), false, true, new string[]{"kgf·m/m"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MomentPerLengthUnit.KilogramForceMeterPerMillimeter, new CultureInfo("en-US"), false, true, new string[]{"kgf·m/mm"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MomentPerLengthUnit.KilogramForceMillimeterPerMillimeter, new CultureInfo("en-US"), false, true, new string[]{"kgf·mm/mm"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MomentPerLengthUnit.KilonewtonCentimeterPerCentimeter, new CultureInfo("en-US"), false, true, new string[]{"kN·cm/cm"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MomentPerLengthUnit.KilonewtonMeterPerCentimeter, new CultureInfo("en-US"), false, true, new string[]{"kN·m/cm"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MomentPerLengthUnit.KilonewtonMeterPerMeter, new CultureInfo("en-US"), false, true, new string[]{"kN·m/m"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MomentPerLengthUnit.KilonewtonMeterPerMillimeter, new CultureInfo("en-US"), false, true, new string[]{"kN·m/mm"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MomentPerLengthUnit.KilonewtonMillimeterPerMillimeter, new CultureInfo("en-US"), false, true, new string[]{"kN·mm/mm"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MomentPerLengthUnit.KilopoundForceFootPerFoot, new CultureInfo("en-US"), false, true, new string[]{"kip·ft/ft"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MomentPerLengthUnit.KilopoundForceFootPerInch, new CultureInfo("en-US"), false, true, new string[]{"kip·ft/in"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MomentPerLengthUnit.KilopoundForceInchPerFoot, new CultureInfo("en-US"), false, true, new string[]{"kip·in/ft"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MomentPerLengthUnit.KilopoundForceInchPerInch, new CultureInfo("en-US"), false, true, new string[]{"kip·in/in"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MomentPerLengthUnit.MeganewtonCentimeterPerCentimeter, new CultureInfo("en-US"), false, true, new string[]{"MN·cm/cm"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MomentPerLengthUnit.MeganewtonMeterPerCentimeter, new CultureInfo("en-US"), false, true, new string[]{"MN·m/cm"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MomentPerLengthUnit.MeganewtonMeterPerMeter, new CultureInfo("en-US"), false, true, new string[]{"MN·m/m"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MomentPerLengthUnit.MeganewtonMeterPerMillimeter, new CultureInfo("en-US"), false, true, new string[]{"MN·m/mm"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MomentPerLengthUnit.MeganewtonMillimeterPerMillimeter, new CultureInfo("en-US"), false, true, new string[]{"MN·mm/mm"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MomentPerLengthUnit.NewtonCentimeterPerCentimeter, new CultureInfo("en-US"), false, true, new string[]{"N·cm/cm"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MomentPerLengthUnit.NewtonMeterPerCentimeter, new CultureInfo("en-US"), false, true, new string[]{"N·m/cm"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MomentPerLengthUnit.NewtonMeterPerMeter, new CultureInfo("en-US"), false, true, new string[]{"N·m/m"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MomentPerLengthUnit.NewtonMeterPerMillimeter, new CultureInfo("en-US"), false, true, new string[]{"N·m/mm"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MomentPerLengthUnit.NewtonMillimeterPerMillimeter, new CultureInfo("en-US"), false, true, new string[]{"N·mm/mm"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MomentPerLengthUnit.PoundForceFootPerFoot, new CultureInfo("en-US"), false, true, new string[]{"lbf·ft/ft"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MomentPerLengthUnit.PoundForceFootPerInch, new CultureInfo("en-US"), false, true, new string[]{"lbf·ft/in"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MomentPerLengthUnit.PoundForceFootPerYard, new CultureInfo("en-US"), false, true, new string[]{"lbf·ft/yd"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MomentPerLengthUnit.PoundForceInchPerFoot, new CultureInfo("en-US"), false, true, new string[]{"lbf·in/ft"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MomentPerLengthUnit.PoundForceInchPerInch, new CultureInfo("en-US"), false, true, new string[]{"lbf·in/in"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MomentPerLengthUnit.TonneForceCentimeterPerCentimeter, new CultureInfo("en-US"), false, true, new string[]{"tf·cm/cm"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MomentPerLengthUnit.TonneForceMeterPerCentimeter, new CultureInfo("en-US"), false, true, new string[]{"tf·m/cm"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MomentPerLengthUnit.TonneForceMeterPerMeter, new CultureInfo("en-US"), false, true, new string[]{"tf·m/m"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MomentPerLengthUnit.TonneForceMeterPerMillimeter, new CultureInfo("en-US"), false, true, new string[]{"tf·m/mm"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MomentPerLengthUnit.TonneForceMillimeterPerMillimeter, new CultureInfo("en-US"), false, true, new string[]{"tf·mm/mm"});
         }
 
         /// <summary>
@@ -879,7 +841,7 @@ namespace OasysUnits
         /// </summary>
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <example>
-        ///     Length.Parse("5.5 m", new CultureInfo("en-US"));
+        ///     Length.Parse("5.5 m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <exception cref="ArgumentNullException">The value of 'str' cannot be null. </exception>
         /// <exception cref="ArgumentException">
@@ -906,7 +868,7 @@ namespace OasysUnits
         /// </summary>
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <example>
-        ///     Length.Parse("5.5 m", new CultureInfo("en-US"));
+        ///     Length.Parse("5.5 m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <exception cref="ArgumentNullException">The value of 'str' cannot be null. </exception>
         /// <exception cref="ArgumentException">
@@ -938,7 +900,7 @@ namespace OasysUnits
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <param name="result">Resulting unit quantity if successful.</param>
         /// <example>
-        ///     Length.Parse("5.5 m", new CultureInfo("en-US"));
+        ///     Length.Parse("5.5 m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         public static bool TryParse(string? str, out MomentPerLength result)
         {
@@ -952,7 +914,7 @@ namespace OasysUnits
         /// <param name="result">Resulting unit quantity if successful.</param>
         /// <returns>True if successful, otherwise false.</returns>
         /// <example>
-        ///     Length.Parse("5.5 m", new CultureInfo("en-US"));
+        ///     Length.Parse("5.5 m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <param name="provider">Format to use when parsing number and unit. Defaults to <see cref="CultureInfo.CurrentCulture" /> if null.</param>
         public static bool TryParse(string? str, IFormatProvider? provider, out MomentPerLength result)
@@ -969,7 +931,7 @@ namespace OasysUnits
         /// </summary>
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <example>
-        ///     Length.ParseUnit("m", new CultureInfo("en-US"));
+        ///     Length.ParseUnit("m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <exception cref="ArgumentNullException">The value of 'str' cannot be null. </exception>
         /// <exception cref="OasysUnitsException">Error parsing string.</exception>
@@ -984,7 +946,7 @@ namespace OasysUnits
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <param name="provider">Format to use when parsing number and unit. Defaults to <see cref="CultureInfo.CurrentCulture" /> if null.</param>
         /// <example>
-        ///     Length.ParseUnit("m", new CultureInfo("en-US"));
+        ///     Length.ParseUnit("m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <exception cref="ArgumentNullException">The value of 'str' cannot be null. </exception>
         /// <exception cref="OasysUnitsException">Error parsing string.</exception>
@@ -1006,7 +968,7 @@ namespace OasysUnits
         /// <param name="unit">The parsed unit if successful.</param>
         /// <returns>True if successful, otherwise false.</returns>
         /// <example>
-        ///     Length.TryParseUnit("m", new CultureInfo("en-US"));
+        ///     Length.TryParseUnit("m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <param name="provider">Format to use when parsing number and unit. Defaults to <see cref="CultureInfo.CurrentCulture" /> if null.</param>
         public static bool TryParseUnit(string str, IFormatProvider? provider, out MomentPerLengthUnit unit)
@@ -1093,16 +1055,14 @@ namespace OasysUnits
         #pragma warning disable CS0809
 
         /// <summary>Indicates strict equality of two <see cref="MomentPerLength"/> quantities, where both <see cref="Value" /> and <see cref="Unit" /> are exactly equal.</summary>
-        /// <remarks>Consider using <see cref="Equals(MomentPerLength, double, ComparisonType)"/> to check equality across different units and to specify a floating-point number error tolerance.</remarks>
-        [Obsolete("For null checks, use `x is null` syntax to not invoke overloads. For quantity comparisons, use Equals(MomentPerLength, double, ComparisonType) to check equality across different units and to specify a floating-point number error tolerance.")]
+        [Obsolete("For null checks, use `x is null` syntax to not invoke overloads. For equality checks, use Equals(MomentPerLength other, MomentPerLength tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public static bool operator ==(MomentPerLength left, MomentPerLength right)
         {
             return left.Equals(right);
         }
 
         /// <summary>Indicates strict inequality of two <see cref="MomentPerLength"/> quantities, where both <see cref="Value" /> and <see cref="Unit" /> are exactly equal.</summary>
-        /// <remarks>Consider using <see cref="Equals(MomentPerLength, double, ComparisonType)"/> to check equality across different units and to specify a floating-point number error tolerance.</remarks>
-        [Obsolete("For null checks, use `x is not null` syntax to not invoke overloads. For quantity comparisons, use Equals(MomentPerLength, double, ComparisonType) to check equality across different units and to specify a floating-point number error tolerance.")]
+        [Obsolete("For null checks, use `x is null` syntax to not invoke overloads. For equality checks, use Equals(MomentPerLength other, MomentPerLength tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public static bool operator !=(MomentPerLength left, MomentPerLength right)
         {
             return !(left == right);
@@ -1110,8 +1070,7 @@ namespace OasysUnits
 
         /// <inheritdoc />
         /// <summary>Indicates strict equality of two <see cref="MomentPerLength"/> quantities, where both <see cref="Value" /> and <see cref="Unit" /> are exactly equal.</summary>
-        /// <remarks>Consider using <see cref="Equals(MomentPerLength, double, ComparisonType)"/> to check equality across different units and to specify a floating-point number error tolerance.</remarks>
-        [Obsolete("Consider using Equals(MomentPerLength, double, ComparisonType) to check equality across different units and to specify a floating-point number error tolerance.")]
+        [Obsolete("Use Equals(MomentPerLength other, MomentPerLength tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public override bool Equals(object? obj)
         {
             if (obj is null || !(obj is MomentPerLength otherQuantity))
@@ -1122,8 +1081,7 @@ namespace OasysUnits
 
         /// <inheritdoc />
         /// <summary>Indicates strict equality of two <see cref="MomentPerLength"/> quantities, where both <see cref="Value" /> and <see cref="Unit" /> are exactly equal.</summary>
-        /// <remarks>Consider using <see cref="Equals(MomentPerLength, double, ComparisonType)"/> to check equality across different units and to specify a floating-point number error tolerance.</remarks>
-        [Obsolete("Consider using Equals(MomentPerLength, double, ComparisonType) to check equality across different units and to specify a floating-point number error tolerance.")]
+        [Obsolete("Use Equals(MomentPerLength other, MomentPerLength tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public bool Equals(MomentPerLength other)
         {
             return new { Value, Unit }.Equals(new { other.Value, other.Unit });
@@ -1207,15 +1165,37 @@ namespace OasysUnits
         /// <param name="tolerance">The absolute or relative tolerance value. Must be greater than or equal to 0.</param>
         /// <param name="comparisonType">The comparison type: either relative or absolute.</param>
         /// <returns>True if the absolute difference between the two values is not greater than the specified relative or absolute tolerance.</returns>
+        [Obsolete("Use Equals(MomentPerLength other, MomentPerLength tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public bool Equals(MomentPerLength other, double tolerance, ComparisonType comparisonType)
         {
             if (tolerance < 0)
-                throw new ArgumentOutOfRangeException("tolerance", "Tolerance must be greater than or equal to 0.");
+                throw new ArgumentOutOfRangeException(nameof(tolerance), "Tolerance must be greater than or equal to 0.");
 
-            double thisValue = this.Value;
-            double otherValueInThisUnits = other.As(this.Unit);
+            return OasysUnits.Comparison.Equals(
+                referenceValue: this.Value,
+                otherValue: other.As(this.Unit),
+                tolerance: tolerance,
+                comparisonType: ComparisonType.Absolute);
+        }
 
-            return OasysUnits.Comparison.Equals(thisValue, otherValueInThisUnits, tolerance, comparisonType);
+        /// <inheritdoc />
+        public bool Equals(IQuantity? other, IQuantity tolerance)
+        {
+            return other is MomentPerLength otherTyped
+                   && (tolerance is MomentPerLength toleranceTyped
+                       ? true
+                       : throw new ArgumentException($"Tolerance quantity ({tolerance.QuantityInfo.Name}) did not match the other quantities of type 'MomentPerLength'.", nameof(tolerance)))
+                   && Equals(otherTyped, toleranceTyped);
+        }
+
+        /// <inheritdoc />
+        public bool Equals(MomentPerLength other, MomentPerLength tolerance)
+        {
+            return OasysUnits.Comparison.Equals(
+                referenceValue: this.Value,
+                otherValue: other.As(this.Unit),
+                tolerance: tolerance.As(this.Unit),
+                comparisonType: ComparisonType.Absolute);
         }
 
         /// <summary>

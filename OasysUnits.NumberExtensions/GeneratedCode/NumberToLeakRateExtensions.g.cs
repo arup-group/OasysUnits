@@ -19,6 +19,10 @@
 
 using System;
 
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
+
 #nullable enable
 
 namespace OasysUnits.NumberExtensions.NumberToLeakRate
@@ -29,16 +33,28 @@ namespace OasysUnits.NumberExtensions.NumberToLeakRate
     public static class NumberToLeakRateExtensions
     {
         /// <inheritdoc cref="LeakRate.FromMillibarLitersPerSecond(OasysUnits.QuantityValue)" />
-        public static LeakRate MillibarLitersPerSecond<T>(this T value) =>
-            LeakRate.FromMillibarLitersPerSecond(Convert.ToDouble(value));
+        public static LeakRate MillibarLitersPerSecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => LeakRate.FromMillibarLitersPerSecond(Convert.ToDouble(value));
 
         /// <inheritdoc cref="LeakRate.FromPascalCubicMetersPerSecond(OasysUnits.QuantityValue)" />
-        public static LeakRate PascalCubicMetersPerSecond<T>(this T value) =>
-            LeakRate.FromPascalCubicMetersPerSecond(Convert.ToDouble(value));
+        public static LeakRate PascalCubicMetersPerSecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => LeakRate.FromPascalCubicMetersPerSecond(Convert.ToDouble(value));
 
         /// <inheritdoc cref="LeakRate.FromTorrLitersPerSecond(OasysUnits.QuantityValue)" />
-        public static LeakRate TorrLitersPerSecond<T>(this T value) =>
-            LeakRate.FromTorrLitersPerSecond(Convert.ToDouble(value));
+        public static LeakRate TorrLitersPerSecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => LeakRate.FromTorrLitersPerSecond(Convert.ToDouble(value));
 
     }
 }

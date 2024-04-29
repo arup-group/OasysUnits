@@ -19,6 +19,10 @@
 
 using System;
 
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
+
 #nullable enable
 
 namespace OasysUnits.NumberExtensions.NumberToLuminousFlux
@@ -29,8 +33,12 @@ namespace OasysUnits.NumberExtensions.NumberToLuminousFlux
     public static class NumberToLuminousFluxExtensions
     {
         /// <inheritdoc cref="LuminousFlux.FromLumens(OasysUnits.QuantityValue)" />
-        public static LuminousFlux Lumens<T>(this T value) =>
-            LuminousFlux.FromLumens(Convert.ToDouble(value));
+        public static LuminousFlux Lumens<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => LuminousFlux.FromLumens(Convert.ToDouble(value));
 
     }
 }

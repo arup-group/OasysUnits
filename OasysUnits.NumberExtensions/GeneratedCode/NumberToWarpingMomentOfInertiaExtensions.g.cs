@@ -19,6 +19,10 @@
 
 using System;
 
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
+
 #nullable enable
 
 namespace OasysUnits.NumberExtensions.NumberToWarpingMomentOfInertia
@@ -29,28 +33,52 @@ namespace OasysUnits.NumberExtensions.NumberToWarpingMomentOfInertia
     public static class NumberToWarpingMomentOfInertiaExtensions
     {
         /// <inheritdoc cref="WarpingMomentOfInertia.FromCentimetersToTheSixth(OasysUnits.QuantityValue)" />
-        public static WarpingMomentOfInertia CentimetersToTheSixth<T>(this T value) =>
-            WarpingMomentOfInertia.FromCentimetersToTheSixth(Convert.ToDouble(value));
+        public static WarpingMomentOfInertia CentimetersToTheSixth<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => WarpingMomentOfInertia.FromCentimetersToTheSixth(Convert.ToDouble(value));
 
         /// <inheritdoc cref="WarpingMomentOfInertia.FromDecimetersToTheSixth(OasysUnits.QuantityValue)" />
-        public static WarpingMomentOfInertia DecimetersToTheSixth<T>(this T value) =>
-            WarpingMomentOfInertia.FromDecimetersToTheSixth(Convert.ToDouble(value));
+        public static WarpingMomentOfInertia DecimetersToTheSixth<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => WarpingMomentOfInertia.FromDecimetersToTheSixth(Convert.ToDouble(value));
 
         /// <inheritdoc cref="WarpingMomentOfInertia.FromFeetToTheSixth(OasysUnits.QuantityValue)" />
-        public static WarpingMomentOfInertia FeetToTheSixth<T>(this T value) =>
-            WarpingMomentOfInertia.FromFeetToTheSixth(Convert.ToDouble(value));
+        public static WarpingMomentOfInertia FeetToTheSixth<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => WarpingMomentOfInertia.FromFeetToTheSixth(Convert.ToDouble(value));
 
         /// <inheritdoc cref="WarpingMomentOfInertia.FromInchesToTheSixth(OasysUnits.QuantityValue)" />
-        public static WarpingMomentOfInertia InchesToTheSixth<T>(this T value) =>
-            WarpingMomentOfInertia.FromInchesToTheSixth(Convert.ToDouble(value));
+        public static WarpingMomentOfInertia InchesToTheSixth<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => WarpingMomentOfInertia.FromInchesToTheSixth(Convert.ToDouble(value));
 
         /// <inheritdoc cref="WarpingMomentOfInertia.FromMetersToTheSixth(OasysUnits.QuantityValue)" />
-        public static WarpingMomentOfInertia MetersToTheSixth<T>(this T value) =>
-            WarpingMomentOfInertia.FromMetersToTheSixth(Convert.ToDouble(value));
+        public static WarpingMomentOfInertia MetersToTheSixth<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => WarpingMomentOfInertia.FromMetersToTheSixth(Convert.ToDouble(value));
 
         /// <inheritdoc cref="WarpingMomentOfInertia.FromMillimetersToTheSixth(OasysUnits.QuantityValue)" />
-        public static WarpingMomentOfInertia MillimetersToTheSixth<T>(this T value) =>
-            WarpingMomentOfInertia.FromMillimetersToTheSixth(Convert.ToDouble(value));
+        public static WarpingMomentOfInertia MillimetersToTheSixth<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => WarpingMomentOfInertia.FromMillimetersToTheSixth(Convert.ToDouble(value));
 
     }
 }

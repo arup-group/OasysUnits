@@ -99,6 +99,24 @@ namespace OasysUnits.Serialization.JsonNet.Tests
         }
 
         [Fact]
+        public void EmptyJsonValue_NullableType_ExpectJsonSerializationException()
+        {
+            var ex = Assert.Throws<JsonSerializationException>(() => DeserializeObject<Mass?>("{}"));
+            Assert.Equal("Failed to deserialize IQuantity for target type System.Nullable`1[OasysUnits.Mass] from JSON '{}', expected properties Unit and Value.", ex.Message);
+            Assert.Equal("https://github.com/angularsen/UnitsNet/wiki/Serializing-to-JSON,-XML-and-more#OasysUnitsserializationjsonnet-with-jsonnet-newtonsoft", ex.HelpLink);
+            Assert.Equal("{}", ex.Data["JsonToken"]);
+        }
+
+        [Fact]
+        public void EmptyJsonValue_NonNullableType_ExpectJsonSerializationException()
+        {
+            var ex = Assert.Throws<JsonSerializationException>(() => DeserializeObject<Mass>("{}"));
+            Assert.Equal("Failed to deserialize IQuantity for target type OasysUnits.Mass from JSON '{}', expected properties Unit and Value.", ex.Message);
+            Assert.Equal("https://github.com/angularsen/UnitsNet/wiki/Serializing-to-JSON,-XML-and-more#OasysUnitsserializationjsonnet-with-jsonnet-newtonsoft", ex.HelpLink);
+            Assert.Equal("{}", ex.Data["JsonToken"]);
+        }
+
+        [Fact]
         public void NullValueNestedInObject_ExpectValueDeserializedToNullCorrectly()
         {
             var testObj = new TestObject()

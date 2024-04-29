@@ -19,6 +19,10 @@
 
 using System;
 
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
+
 #nullable enable
 
 namespace OasysUnits.NumberExtensions.NumberToAxialStiffness
@@ -29,64 +33,124 @@ namespace OasysUnits.NumberExtensions.NumberToAxialStiffness
     public static class NumberToAxialStiffnessExtensions
     {
         /// <inheritdoc cref="AxialStiffness.FromDecanewtons(OasysUnits.QuantityValue)" />
-        public static AxialStiffness Decanewtons<T>(this T value) =>
-            AxialStiffness.FromDecanewtons(Convert.ToDouble(value));
+        public static AxialStiffness Decanewtons<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => AxialStiffness.FromDecanewtons(Convert.ToDouble(value));
 
         /// <inheritdoc cref="AxialStiffness.FromDyne(OasysUnits.QuantityValue)" />
-        public static AxialStiffness Dyne<T>(this T value) =>
-            AxialStiffness.FromDyne(Convert.ToDouble(value));
+        public static AxialStiffness Dyne<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => AxialStiffness.FromDyne(Convert.ToDouble(value));
 
         /// <inheritdoc cref="AxialStiffness.FromKilogramsForce(OasysUnits.QuantityValue)" />
-        public static AxialStiffness KilogramsForce<T>(this T value) =>
-            AxialStiffness.FromKilogramsForce(Convert.ToDouble(value));
+        public static AxialStiffness KilogramsForce<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => AxialStiffness.FromKilogramsForce(Convert.ToDouble(value));
 
         /// <inheritdoc cref="AxialStiffness.FromKilonewtons(OasysUnits.QuantityValue)" />
-        public static AxialStiffness Kilonewtons<T>(this T value) =>
-            AxialStiffness.FromKilonewtons(Convert.ToDouble(value));
+        public static AxialStiffness Kilonewtons<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => AxialStiffness.FromKilonewtons(Convert.ToDouble(value));
 
         /// <inheritdoc cref="AxialStiffness.FromKiloPonds(OasysUnits.QuantityValue)" />
-        public static AxialStiffness KiloPonds<T>(this T value) =>
-            AxialStiffness.FromKiloPonds(Convert.ToDouble(value));
+        public static AxialStiffness KiloPonds<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => AxialStiffness.FromKiloPonds(Convert.ToDouble(value));
 
         /// <inheritdoc cref="AxialStiffness.FromKilopoundsForce(OasysUnits.QuantityValue)" />
-        public static AxialStiffness KilopoundsForce<T>(this T value) =>
-            AxialStiffness.FromKilopoundsForce(Convert.ToDouble(value));
+        public static AxialStiffness KilopoundsForce<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => AxialStiffness.FromKilopoundsForce(Convert.ToDouble(value));
 
         /// <inheritdoc cref="AxialStiffness.FromMeganewtons(OasysUnits.QuantityValue)" />
-        public static AxialStiffness Meganewtons<T>(this T value) =>
-            AxialStiffness.FromMeganewtons(Convert.ToDouble(value));
+        public static AxialStiffness Meganewtons<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => AxialStiffness.FromMeganewtons(Convert.ToDouble(value));
 
         /// <inheritdoc cref="AxialStiffness.FromMicronewtons(OasysUnits.QuantityValue)" />
-        public static AxialStiffness Micronewtons<T>(this T value) =>
-            AxialStiffness.FromMicronewtons(Convert.ToDouble(value));
+        public static AxialStiffness Micronewtons<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => AxialStiffness.FromMicronewtons(Convert.ToDouble(value));
 
         /// <inheritdoc cref="AxialStiffness.FromMillinewtons(OasysUnits.QuantityValue)" />
-        public static AxialStiffness Millinewtons<T>(this T value) =>
-            AxialStiffness.FromMillinewtons(Convert.ToDouble(value));
+        public static AxialStiffness Millinewtons<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => AxialStiffness.FromMillinewtons(Convert.ToDouble(value));
 
         /// <inheritdoc cref="AxialStiffness.FromNewtons(OasysUnits.QuantityValue)" />
-        public static AxialStiffness Newtons<T>(this T value) =>
-            AxialStiffness.FromNewtons(Convert.ToDouble(value));
+        public static AxialStiffness Newtons<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => AxialStiffness.FromNewtons(Convert.ToDouble(value));
 
         /// <inheritdoc cref="AxialStiffness.FromOunceForce(OasysUnits.QuantityValue)" />
-        public static AxialStiffness OunceForce<T>(this T value) =>
-            AxialStiffness.FromOunceForce(Convert.ToDouble(value));
+        public static AxialStiffness OunceForce<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => AxialStiffness.FromOunceForce(Convert.ToDouble(value));
 
         /// <inheritdoc cref="AxialStiffness.FromPoundals(OasysUnits.QuantityValue)" />
-        public static AxialStiffness Poundals<T>(this T value) =>
-            AxialStiffness.FromPoundals(Convert.ToDouble(value));
+        public static AxialStiffness Poundals<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => AxialStiffness.FromPoundals(Convert.ToDouble(value));
 
         /// <inheritdoc cref="AxialStiffness.FromPoundsForce(OasysUnits.QuantityValue)" />
-        public static AxialStiffness PoundsForce<T>(this T value) =>
-            AxialStiffness.FromPoundsForce(Convert.ToDouble(value));
+        public static AxialStiffness PoundsForce<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => AxialStiffness.FromPoundsForce(Convert.ToDouble(value));
 
         /// <inheritdoc cref="AxialStiffness.FromShortTonsForce(OasysUnits.QuantityValue)" />
-        public static AxialStiffness ShortTonsForce<T>(this T value) =>
-            AxialStiffness.FromShortTonsForce(Convert.ToDouble(value));
+        public static AxialStiffness ShortTonsForce<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => AxialStiffness.FromShortTonsForce(Convert.ToDouble(value));
 
         /// <inheritdoc cref="AxialStiffness.FromTonnesForce(OasysUnits.QuantityValue)" />
-        public static AxialStiffness TonnesForce<T>(this T value) =>
-            AxialStiffness.FromTonnesForce(Convert.ToDouble(value));
+        public static AxialStiffness TonnesForce<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => AxialStiffness.FromTonnesForce(Convert.ToDouble(value));
 
     }
 }

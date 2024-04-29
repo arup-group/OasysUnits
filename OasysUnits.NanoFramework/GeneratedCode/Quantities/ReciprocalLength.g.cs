@@ -62,17 +62,17 @@ namespace OasysUnits
         }
 
         /// <summary>
-        ///     The base unit of Duration, which is Second. All conversions go via this value.
+        ///     The base unit of ReciprocalLength, which is Second. All conversions go via this value.
         /// </summary>
         public static ReciprocalLengthUnit BaseUnit { get; } = ReciprocalLengthUnit.InverseMeter;
 
         /// <summary>
-        /// Represents the largest possible value of Duration
+        /// Represents the largest possible value of ReciprocalLength.
         /// </summary>
         public static ReciprocalLength MaxValue { get; } = new ReciprocalLength(double.MaxValue, BaseUnit);
 
         /// <summary>
-        /// Represents the smallest possible value of Duration
+        /// Represents the smallest possible value of ReciprocalLength.
         /// </summary>
         public static ReciprocalLength MinValue { get; } = new ReciprocalLength(double.MinValue, BaseUnit);
 
@@ -218,9 +218,9 @@ namespace OasysUnits
                 public double As(ReciprocalLengthUnit unit) => GetValueAs(unit);
 
                 /// <summary>
-                ///     Converts this Duration to another Duration with the unit representation <paramref name="unit" />.
+                ///     Converts this ReciprocalLength to another ReciprocalLength with the unit representation <paramref name="unit" />.
                 /// </summary>
-                /// <returns>A Duration with the specified unit.</returns>
+                /// <returns>A ReciprocalLength with the specified unit.</returns>
                 public ReciprocalLength ToUnit(ReciprocalLengthUnit unit)
                 {
                     var convertedValue = GetValueAs(unit);
@@ -242,7 +242,7 @@ namespace OasysUnits
                         ReciprocalLengthUnit.InverseMeter => _value,
                         ReciprocalLengthUnit.InverseMicroinch => _value / 2.54e-8,
                         ReciprocalLengthUnit.InverseMil => _value / 2.54e-5,
-                        ReciprocalLengthUnit.InverseMile => _value / 1609.34,
+                        ReciprocalLengthUnit.InverseMile => _value / 1609.344,
                         ReciprocalLengthUnit.InverseMillimeter => _value * 1e3,
                         ReciprocalLengthUnit.InverseUsSurveyFoot => _value * 3937 / 1200,
                         ReciprocalLengthUnit.InverseYard => _value / 0.9144,
@@ -265,7 +265,7 @@ namespace OasysUnits
                         ReciprocalLengthUnit.InverseMeter => baseUnitValue,
                         ReciprocalLengthUnit.InverseMicroinch => baseUnitValue * 2.54e-8,
                         ReciprocalLengthUnit.InverseMil => baseUnitValue * 2.54e-5,
-                        ReciprocalLengthUnit.InverseMile => baseUnitValue * 1609.34,
+                        ReciprocalLengthUnit.InverseMile => baseUnitValue * 1609.344,
                         ReciprocalLengthUnit.InverseMillimeter => baseUnitValue / 1e3,
                         ReciprocalLengthUnit.InverseUsSurveyFoot => baseUnitValue * 1200 / 3937,
                         ReciprocalLengthUnit.InverseYard => baseUnitValue * 0.9144,

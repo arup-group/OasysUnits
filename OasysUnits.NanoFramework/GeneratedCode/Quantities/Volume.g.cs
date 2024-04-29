@@ -59,17 +59,17 @@ namespace OasysUnits
         }
 
         /// <summary>
-        ///     The base unit of Duration, which is Second. All conversions go via this value.
+        ///     The base unit of Volume, which is Second. All conversions go via this value.
         /// </summary>
         public static VolumeUnit BaseUnit { get; } = VolumeUnit.CubicMeter;
 
         /// <summary>
-        /// Represents the largest possible value of Duration
+        /// Represents the largest possible value of Volume.
         /// </summary>
         public static Volume MaxValue { get; } = new Volume(double.MaxValue, BaseUnit);
 
         /// <summary>
-        /// Represents the smallest possible value of Duration
+        /// Represents the smallest possible value of Volume.
         /// </summary>
         public static Volume MinValue { get; } = new Volume(double.MinValue, BaseUnit);
 
@@ -213,6 +213,11 @@ namespace OasysUnits
         ///     Gets a <see cref="double"/> value of this quantity converted into <see cref="VolumeUnit.ImperialPint"/>
         /// </summary>
         public double ImperialPints => As(VolumeUnit.ImperialPint);
+
+        /// <summary>
+        ///     Gets a <see cref="double"/> value of this quantity converted into <see cref="VolumeUnit.ImperialQuart"/>
+        /// </summary>
+        public double ImperialQuarts => As(VolumeUnit.ImperialQuart);
 
         /// <summary>
         ///     Gets a <see cref="double"/> value of this quantity converted into <see cref="VolumeUnit.KilocubicFoot"/>
@@ -511,6 +516,12 @@ namespace OasysUnits
         public static Volume FromImperialPints(double imperialpints) => new Volume(imperialpints, VolumeUnit.ImperialPint);
 
         /// <summary>
+        ///     Creates a <see cref="Volume"/> from <see cref="VolumeUnit.ImperialQuart"/>.
+        /// </summary>
+        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
+        public static Volume FromImperialQuarts(double imperialquarts) => new Volume(imperialquarts, VolumeUnit.ImperialQuart);
+
+        /// <summary>
         ///     Creates a <see cref="Volume"/> from <see cref="VolumeUnit.KilocubicFoot"/>.
         /// </summary>
         /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
@@ -688,9 +699,9 @@ namespace OasysUnits
                 public double As(VolumeUnit unit) => GetValueAs(unit);
 
                 /// <summary>
-                ///     Converts this Duration to another Duration with the unit representation <paramref name="unit" />.
+                ///     Converts this Volume to another Volume with the unit representation <paramref name="unit" />.
                 /// </summary>
-                /// <returns>A Duration with the specified unit.</returns>
+                /// <returns>A Volume with the specified unit.</returns>
                 public Volume ToUnit(VolumeUnit unit)
                 {
                     var convertedValue = GetValueAs(unit);
@@ -714,7 +725,7 @@ namespace OasysUnits
                         VolumeUnit.CubicDecimeter => _value / 1e3,
                         VolumeUnit.CubicFoot => _value * 2.8316846592e-2,
                         VolumeUnit.CubicHectometer => _value * 1e6,
-                        VolumeUnit.CubicInch => _value * 1.6387 * 1e-5,
+                        VolumeUnit.CubicInch => _value * 1.6387064e-5,
                         VolumeUnit.CubicKilometer => _value * 1e9,
                         VolumeUnit.CubicMeter => _value,
                         VolumeUnit.CubicMicrometer => _value / 1e18,
@@ -733,6 +744,7 @@ namespace OasysUnits
                         VolumeUnit.ImperialGallon => _value * 0.00454609,
                         VolumeUnit.ImperialOunce => _value * 2.8413062499962901241875439064617e-5,
                         VolumeUnit.ImperialPint => _value * 5.6826125e-4,
+                        VolumeUnit.ImperialQuart => _value * 1.1365225e-3,
                         VolumeUnit.KilocubicFoot => (_value * 2.8316846592e-2) * 1e3d,
                         VolumeUnit.KilocubicMeter => (_value) * 1e3d,
                         VolumeUnit.KiloimperialGallon => (_value * 0.00454609) * 1e3d,
@@ -780,7 +792,7 @@ namespace OasysUnits
                         VolumeUnit.CubicDecimeter => baseUnitValue * 1e3,
                         VolumeUnit.CubicFoot => baseUnitValue / 2.8316846592e-2,
                         VolumeUnit.CubicHectometer => baseUnitValue / 1e6,
-                        VolumeUnit.CubicInch => baseUnitValue / (1.6387 * 1e-5),
+                        VolumeUnit.CubicInch => baseUnitValue / 1.6387064e-5,
                         VolumeUnit.CubicKilometer => baseUnitValue / 1e9,
                         VolumeUnit.CubicMeter => baseUnitValue,
                         VolumeUnit.CubicMicrometer => baseUnitValue * 1e18,
@@ -799,6 +811,7 @@ namespace OasysUnits
                         VolumeUnit.ImperialGallon => baseUnitValue / 0.00454609,
                         VolumeUnit.ImperialOunce => baseUnitValue / 2.8413062499962901241875439064617e-5,
                         VolumeUnit.ImperialPint => baseUnitValue / 5.6826125e-4,
+                        VolumeUnit.ImperialQuart => baseUnitValue / 1.1365225e-3,
                         VolumeUnit.KilocubicFoot => (baseUnitValue / 2.8316846592e-2) / 1e3d,
                         VolumeUnit.KilocubicMeter => (baseUnitValue) / 1e3d,
                         VolumeUnit.KiloimperialGallon => (baseUnitValue / 0.00454609) / 1e3d,

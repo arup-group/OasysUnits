@@ -19,6 +19,10 @@
 
 using System;
 
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
+
 #nullable enable
 
 namespace OasysUnits.NumberExtensions.NumberToElectricCurrent
@@ -29,40 +33,76 @@ namespace OasysUnits.NumberExtensions.NumberToElectricCurrent
     public static class NumberToElectricCurrentExtensions
     {
         /// <inheritdoc cref="ElectricCurrent.FromAmperes(OasysUnits.QuantityValue)" />
-        public static ElectricCurrent Amperes<T>(this T value) =>
-            ElectricCurrent.FromAmperes(Convert.ToDouble(value));
+        public static ElectricCurrent Amperes<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ElectricCurrent.FromAmperes(Convert.ToDouble(value));
 
         /// <inheritdoc cref="ElectricCurrent.FromCentiamperes(OasysUnits.QuantityValue)" />
-        public static ElectricCurrent Centiamperes<T>(this T value) =>
-            ElectricCurrent.FromCentiamperes(Convert.ToDouble(value));
+        public static ElectricCurrent Centiamperes<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ElectricCurrent.FromCentiamperes(Convert.ToDouble(value));
 
         /// <inheritdoc cref="ElectricCurrent.FromFemtoamperes(OasysUnits.QuantityValue)" />
-        public static ElectricCurrent Femtoamperes<T>(this T value) =>
-            ElectricCurrent.FromFemtoamperes(Convert.ToDouble(value));
+        public static ElectricCurrent Femtoamperes<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ElectricCurrent.FromFemtoamperes(Convert.ToDouble(value));
 
         /// <inheritdoc cref="ElectricCurrent.FromKiloamperes(OasysUnits.QuantityValue)" />
-        public static ElectricCurrent Kiloamperes<T>(this T value) =>
-            ElectricCurrent.FromKiloamperes(Convert.ToDouble(value));
+        public static ElectricCurrent Kiloamperes<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ElectricCurrent.FromKiloamperes(Convert.ToDouble(value));
 
         /// <inheritdoc cref="ElectricCurrent.FromMegaamperes(OasysUnits.QuantityValue)" />
-        public static ElectricCurrent Megaamperes<T>(this T value) =>
-            ElectricCurrent.FromMegaamperes(Convert.ToDouble(value));
+        public static ElectricCurrent Megaamperes<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ElectricCurrent.FromMegaamperes(Convert.ToDouble(value));
 
         /// <inheritdoc cref="ElectricCurrent.FromMicroamperes(OasysUnits.QuantityValue)" />
-        public static ElectricCurrent Microamperes<T>(this T value) =>
-            ElectricCurrent.FromMicroamperes(Convert.ToDouble(value));
+        public static ElectricCurrent Microamperes<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ElectricCurrent.FromMicroamperes(Convert.ToDouble(value));
 
         /// <inheritdoc cref="ElectricCurrent.FromMilliamperes(OasysUnits.QuantityValue)" />
-        public static ElectricCurrent Milliamperes<T>(this T value) =>
-            ElectricCurrent.FromMilliamperes(Convert.ToDouble(value));
+        public static ElectricCurrent Milliamperes<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ElectricCurrent.FromMilliamperes(Convert.ToDouble(value));
 
         /// <inheritdoc cref="ElectricCurrent.FromNanoamperes(OasysUnits.QuantityValue)" />
-        public static ElectricCurrent Nanoamperes<T>(this T value) =>
-            ElectricCurrent.FromNanoamperes(Convert.ToDouble(value));
+        public static ElectricCurrent Nanoamperes<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ElectricCurrent.FromNanoamperes(Convert.ToDouble(value));
 
         /// <inheritdoc cref="ElectricCurrent.FromPicoamperes(OasysUnits.QuantityValue)" />
-        public static ElectricCurrent Picoamperes<T>(this T value) =>
-            ElectricCurrent.FromPicoamperes(Convert.ToDouble(value));
+        public static ElectricCurrent Picoamperes<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ElectricCurrent.FromPicoamperes(Convert.ToDouble(value));
 
     }
 }

@@ -19,6 +19,10 @@
 
 using System;
 
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
+
 #nullable enable
 
 namespace OasysUnits.NumberExtensions.NumberToElectricPotentialAc
@@ -29,24 +33,44 @@ namespace OasysUnits.NumberExtensions.NumberToElectricPotentialAc
     public static class NumberToElectricPotentialAcExtensions
     {
         /// <inheritdoc cref="ElectricPotentialAc.FromKilovoltsAc(OasysUnits.QuantityValue)" />
-        public static ElectricPotentialAc KilovoltsAc<T>(this T value) =>
-            ElectricPotentialAc.FromKilovoltsAc(Convert.ToDouble(value));
+        public static ElectricPotentialAc KilovoltsAc<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ElectricPotentialAc.FromKilovoltsAc(Convert.ToDouble(value));
 
         /// <inheritdoc cref="ElectricPotentialAc.FromMegavoltsAc(OasysUnits.QuantityValue)" />
-        public static ElectricPotentialAc MegavoltsAc<T>(this T value) =>
-            ElectricPotentialAc.FromMegavoltsAc(Convert.ToDouble(value));
+        public static ElectricPotentialAc MegavoltsAc<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ElectricPotentialAc.FromMegavoltsAc(Convert.ToDouble(value));
 
         /// <inheritdoc cref="ElectricPotentialAc.FromMicrovoltsAc(OasysUnits.QuantityValue)" />
-        public static ElectricPotentialAc MicrovoltsAc<T>(this T value) =>
-            ElectricPotentialAc.FromMicrovoltsAc(Convert.ToDouble(value));
+        public static ElectricPotentialAc MicrovoltsAc<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ElectricPotentialAc.FromMicrovoltsAc(Convert.ToDouble(value));
 
         /// <inheritdoc cref="ElectricPotentialAc.FromMillivoltsAc(OasysUnits.QuantityValue)" />
-        public static ElectricPotentialAc MillivoltsAc<T>(this T value) =>
-            ElectricPotentialAc.FromMillivoltsAc(Convert.ToDouble(value));
+        public static ElectricPotentialAc MillivoltsAc<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ElectricPotentialAc.FromMillivoltsAc(Convert.ToDouble(value));
 
         /// <inheritdoc cref="ElectricPotentialAc.FromVoltsAc(OasysUnits.QuantityValue)" />
-        public static ElectricPotentialAc VoltsAc<T>(this T value) =>
-            ElectricPotentialAc.FromVoltsAc(Convert.ToDouble(value));
+        public static ElectricPotentialAc VoltsAc<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ElectricPotentialAc.FromVoltsAc(Convert.ToDouble(value));
 
     }
 }

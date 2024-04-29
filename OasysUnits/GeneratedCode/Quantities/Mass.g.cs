@@ -47,13 +47,13 @@ namespace OasysUnits
         /// <summary>
         ///     The numeric value this quantity was constructed with.
         /// </summary>
-        [DataMember(Name = "Value", Order = 0)]
+        [DataMember(Name = "Value", Order = 1)]
         private readonly double _value;
 
         /// <summary>
         ///     The unit this quantity was constructed with.
         /// </summary>
-        [DataMember(Name = "Unit", Order = 1)]
+        [DataMember(Name = "Unit", Order = 2)]
         private readonly MassUnit? _unit;
 
         static Mass()
@@ -65,33 +65,33 @@ namespace OasysUnits
             Info = new QuantityInfo<MassUnit>("Mass",
                 new UnitInfo<MassUnit>[]
                 {
-                    new UnitInfo<MassUnit>(MassUnit.Centigram, "Centigrams", BaseUnits.Undefined),
-                    new UnitInfo<MassUnit>(MassUnit.Decagram, "Decagrams", BaseUnits.Undefined),
-                    new UnitInfo<MassUnit>(MassUnit.Decigram, "Decigrams", BaseUnits.Undefined),
-                    new UnitInfo<MassUnit>(MassUnit.EarthMass, "EarthMasses", new BaseUnits(mass: MassUnit.EarthMass)),
-                    new UnitInfo<MassUnit>(MassUnit.Femtogram, "Femtograms", BaseUnits.Undefined),
-                    new UnitInfo<MassUnit>(MassUnit.Grain, "Grains", new BaseUnits(mass: MassUnit.Grain)),
-                    new UnitInfo<MassUnit>(MassUnit.Gram, "Grams", new BaseUnits(mass: MassUnit.Gram)),
-                    new UnitInfo<MassUnit>(MassUnit.Hectogram, "Hectograms", BaseUnits.Undefined),
-                    new UnitInfo<MassUnit>(MassUnit.Kilogram, "Kilograms", BaseUnits.Undefined),
-                    new UnitInfo<MassUnit>(MassUnit.Kilopound, "Kilopounds", BaseUnits.Undefined),
-                    new UnitInfo<MassUnit>(MassUnit.Kilotonne, "Kilotonnes", BaseUnits.Undefined),
-                    new UnitInfo<MassUnit>(MassUnit.LongHundredweight, "LongHundredweight", new BaseUnits(mass: MassUnit.LongHundredweight)),
-                    new UnitInfo<MassUnit>(MassUnit.LongTon, "LongTons", new BaseUnits(mass: MassUnit.LongTon)),
-                    new UnitInfo<MassUnit>(MassUnit.Megapound, "Megapounds", BaseUnits.Undefined),
-                    new UnitInfo<MassUnit>(MassUnit.Megatonne, "Megatonnes", BaseUnits.Undefined),
-                    new UnitInfo<MassUnit>(MassUnit.Microgram, "Micrograms", BaseUnits.Undefined),
-                    new UnitInfo<MassUnit>(MassUnit.Milligram, "Milligrams", BaseUnits.Undefined),
-                    new UnitInfo<MassUnit>(MassUnit.Nanogram, "Nanograms", BaseUnits.Undefined),
-                    new UnitInfo<MassUnit>(MassUnit.Ounce, "Ounces", new BaseUnits(mass: MassUnit.Ounce)),
-                    new UnitInfo<MassUnit>(MassUnit.Picogram, "Picograms", BaseUnits.Undefined),
-                    new UnitInfo<MassUnit>(MassUnit.Pound, "Pounds", new BaseUnits(mass: MassUnit.Pound)),
-                    new UnitInfo<MassUnit>(MassUnit.ShortHundredweight, "ShortHundredweight", new BaseUnits(mass: MassUnit.ShortHundredweight)),
-                    new UnitInfo<MassUnit>(MassUnit.ShortTon, "ShortTons", new BaseUnits(mass: MassUnit.ShortTon)),
-                    new UnitInfo<MassUnit>(MassUnit.Slug, "Slugs", new BaseUnits(mass: MassUnit.Slug)),
-                    new UnitInfo<MassUnit>(MassUnit.SolarMass, "SolarMasses", new BaseUnits(mass: MassUnit.SolarMass)),
-                    new UnitInfo<MassUnit>(MassUnit.Stone, "Stone", new BaseUnits(mass: MassUnit.Stone)),
-                    new UnitInfo<MassUnit>(MassUnit.Tonne, "Tonnes", new BaseUnits(mass: MassUnit.Tonne)),
+                    new UnitInfo<MassUnit>(MassUnit.Centigram, "Centigrams", BaseUnits.Undefined, "Mass"),
+                    new UnitInfo<MassUnit>(MassUnit.Decagram, "Decagrams", BaseUnits.Undefined, "Mass"),
+                    new UnitInfo<MassUnit>(MassUnit.Decigram, "Decigrams", BaseUnits.Undefined, "Mass"),
+                    new UnitInfo<MassUnit>(MassUnit.EarthMass, "EarthMasses", new BaseUnits(mass: MassUnit.EarthMass), "Mass"),
+                    new UnitInfo<MassUnit>(MassUnit.Femtogram, "Femtograms", BaseUnits.Undefined, "Mass"),
+                    new UnitInfo<MassUnit>(MassUnit.Grain, "Grains", new BaseUnits(mass: MassUnit.Grain), "Mass"),
+                    new UnitInfo<MassUnit>(MassUnit.Gram, "Grams", new BaseUnits(mass: MassUnit.Gram), "Mass"),
+                    new UnitInfo<MassUnit>(MassUnit.Hectogram, "Hectograms", BaseUnits.Undefined, "Mass"),
+                    new UnitInfo<MassUnit>(MassUnit.Kilogram, "Kilograms", BaseUnits.Undefined, "Mass"),
+                    new UnitInfo<MassUnit>(MassUnit.Kilopound, "Kilopounds", BaseUnits.Undefined, "Mass"),
+                    new UnitInfo<MassUnit>(MassUnit.Kilotonne, "Kilotonnes", BaseUnits.Undefined, "Mass"),
+                    new UnitInfo<MassUnit>(MassUnit.LongHundredweight, "LongHundredweight", new BaseUnits(mass: MassUnit.LongHundredweight), "Mass"),
+                    new UnitInfo<MassUnit>(MassUnit.LongTon, "LongTons", new BaseUnits(mass: MassUnit.LongTon), "Mass"),
+                    new UnitInfo<MassUnit>(MassUnit.Megapound, "Megapounds", BaseUnits.Undefined, "Mass"),
+                    new UnitInfo<MassUnit>(MassUnit.Megatonne, "Megatonnes", BaseUnits.Undefined, "Mass"),
+                    new UnitInfo<MassUnit>(MassUnit.Microgram, "Micrograms", BaseUnits.Undefined, "Mass"),
+                    new UnitInfo<MassUnit>(MassUnit.Milligram, "Milligrams", BaseUnits.Undefined, "Mass"),
+                    new UnitInfo<MassUnit>(MassUnit.Nanogram, "Nanograms", BaseUnits.Undefined, "Mass"),
+                    new UnitInfo<MassUnit>(MassUnit.Ounce, "Ounces", new BaseUnits(mass: MassUnit.Ounce), "Mass"),
+                    new UnitInfo<MassUnit>(MassUnit.Picogram, "Picograms", BaseUnits.Undefined, "Mass"),
+                    new UnitInfo<MassUnit>(MassUnit.Pound, "Pounds", new BaseUnits(mass: MassUnit.Pound), "Mass"),
+                    new UnitInfo<MassUnit>(MassUnit.ShortHundredweight, "ShortHundredweight", new BaseUnits(mass: MassUnit.ShortHundredweight), "Mass"),
+                    new UnitInfo<MassUnit>(MassUnit.ShortTon, "ShortTons", new BaseUnits(mass: MassUnit.ShortTon), "Mass"),
+                    new UnitInfo<MassUnit>(MassUnit.Slug, "Slugs", new BaseUnits(mass: MassUnit.Slug), "Mass"),
+                    new UnitInfo<MassUnit>(MassUnit.SolarMass, "SolarMasses", new BaseUnits(mass: MassUnit.SolarMass), "Mass"),
+                    new UnitInfo<MassUnit>(MassUnit.Stone, "Stone", new BaseUnits(mass: MassUnit.Stone), "Mass"),
+                    new UnitInfo<MassUnit>(MassUnit.Tonne, "Tonnes", new BaseUnits(mass: MassUnit.Tonne), "Mass"),
                 },
                 BaseUnit, Zero, BaseDimensions);
 
@@ -164,7 +164,7 @@ namespace OasysUnits
         public static Mass AdditiveIdentity => Zero;
 
         #endregion
- 
+
         #region Properties
 
         /// <summary>
@@ -398,76 +398,6 @@ namespace OasysUnits
             unitConverter.SetConversionFunction<Mass>(MassUnit.Kilogram, MassUnit.SolarMass, quantity => quantity.ToUnit(MassUnit.SolarMass));
             unitConverter.SetConversionFunction<Mass>(MassUnit.Kilogram, MassUnit.Stone, quantity => quantity.ToUnit(MassUnit.Stone));
             unitConverter.SetConversionFunction<Mass>(MassUnit.Kilogram, MassUnit.Tonne, quantity => quantity.ToUnit(MassUnit.Tonne));
-        }
-
-        internal static void MapGeneratedLocalizations(UnitAbbreviationsCache unitAbbreviationsCache)
-        {
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Centigram, new CultureInfo("en-US"), false, true, new string[]{"cg"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Centigram, new CultureInfo("ru-RU"), false, true, new string[]{"сг"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Centigram, new CultureInfo("zh-CN"), false, true, new string[]{"厘克"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Decagram, new CultureInfo("en-US"), false, true, new string[]{"dag"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Decagram, new CultureInfo("ru-RU"), false, true, new string[]{"даг"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Decagram, new CultureInfo("zh-CN"), false, true, new string[]{"十克"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Decigram, new CultureInfo("en-US"), false, true, new string[]{"dg"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Decigram, new CultureInfo("ru-RU"), false, true, new string[]{"дг"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Decigram, new CultureInfo("zh-CN"), false, true, new string[]{"分克"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.EarthMass, new CultureInfo("en-US"), false, true, new string[]{"em"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Femtogram, new CultureInfo("en-US"), false, true, new string[]{"fg"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Femtogram, new CultureInfo("ru-RU"), false, true, new string[]{"фг"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Femtogram, new CultureInfo("zh-CN"), false, true, new string[]{"飞克"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Grain, new CultureInfo("en-US"), false, true, new string[]{"gr"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Gram, new CultureInfo("en-US"), false, true, new string[]{"g"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Gram, new CultureInfo("ru-RU"), false, true, new string[]{"г"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Gram, new CultureInfo("zh-CN"), false, true, new string[]{"克"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Hectogram, new CultureInfo("en-US"), false, true, new string[]{"hg"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Hectogram, new CultureInfo("ru-RU"), false, true, new string[]{"гг"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Hectogram, new CultureInfo("zh-CN"), false, true, new string[]{"百克"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Kilogram, new CultureInfo("en-US"), false, true, new string[]{"kg"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Kilogram, new CultureInfo("ru-RU"), false, true, new string[]{"кг"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Kilogram, new CultureInfo("zh-CN"), false, true, new string[]{"千克"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Kilopound, new CultureInfo("en-US"), false, true, new string[]{"klb", "klbs", "klbm"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Kilopound, new CultureInfo("ru-RU"), false, true, new string[]{"кфунт"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Kilopound, new CultureInfo("zh-CN"), false, true, new string[]{"千磅"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Kilotonne, new CultureInfo("en-US"), false, true, new string[]{"kt"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Kilotonne, new CultureInfo("ru-RU"), false, true, new string[]{"кт"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Kilotonne, new CultureInfo("zh-CN"), false, true, new string[]{"千吨"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.LongHundredweight, new CultureInfo("en-US"), false, true, new string[]{"cwt"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.LongTon, new CultureInfo("en-US"), false, true, new string[]{"long tn"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.LongTon, new CultureInfo("ru-RU"), false, true, new string[]{"тонна большая"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.LongTon, new CultureInfo("zh-CN"), false, true, new string[]{"长吨"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Megapound, new CultureInfo("en-US"), false, true, new string[]{"Mlb", "Mlbs", "Mlbm"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Megapound, new CultureInfo("ru-RU"), false, true, new string[]{"Мфунт"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Megapound, new CultureInfo("zh-CN"), false, true, new string[]{"兆磅"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Megatonne, new CultureInfo("en-US"), false, true, new string[]{"Mt"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Megatonne, new CultureInfo("ru-RU"), false, true, new string[]{"Мт"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Megatonne, new CultureInfo("zh-CN"), false, true, new string[]{"兆吨"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Microgram, new CultureInfo("en-US"), false, true, new string[]{"µg"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Microgram, new CultureInfo("ru-RU"), false, true, new string[]{"мкг"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Microgram, new CultureInfo("zh-CN"), false, true, new string[]{"微克"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Milligram, new CultureInfo("en-US"), false, true, new string[]{"mg"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Milligram, new CultureInfo("ru-RU"), false, true, new string[]{"мг"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Milligram, new CultureInfo("zh-CN"), false, true, new string[]{"毫克"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Nanogram, new CultureInfo("en-US"), false, true, new string[]{"ng"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Nanogram, new CultureInfo("ru-RU"), false, true, new string[]{"нг"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Nanogram, new CultureInfo("zh-CN"), false, true, new string[]{"纳克"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Ounce, new CultureInfo("en-US"), false, true, new string[]{"oz"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Ounce, new CultureInfo("zh-CN"), false, true, new string[]{"盎司"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Picogram, new CultureInfo("en-US"), false, true, new string[]{"pg"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Picogram, new CultureInfo("ru-RU"), false, true, new string[]{"пг"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Picogram, new CultureInfo("zh-CN"), false, true, new string[]{"皮克"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Pound, new CultureInfo("en-US"), false, true, new string[]{"lb", "lbs", "lbm"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Pound, new CultureInfo("ru-RU"), false, true, new string[]{"фунт"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Pound, new CultureInfo("zh-CN"), false, true, new string[]{"磅"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.ShortHundredweight, new CultureInfo("en-US"), false, true, new string[]{"cwt"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.ShortTon, new CultureInfo("en-US"), false, true, new string[]{"t (short)", "short tn", "ST"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.ShortTon, new CultureInfo("ru-RU"), false, true, new string[]{"тонна малая"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.ShortTon, new CultureInfo("zh-CN"), false, true, new string[]{"短吨"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Slug, new CultureInfo("en-US"), false, true, new string[]{"slug"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.SolarMass, new CultureInfo("en-US"), false, true, new string[]{"M☉", "M⊙"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Stone, new CultureInfo("en-US"), false, true, new string[]{"st"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Tonne, new CultureInfo("en-US"), false, true, new string[]{"t"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Tonne, new CultureInfo("ru-RU"), false, true, new string[]{"т"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Tonne, new CultureInfo("zh-CN"), false, true, new string[]{"吨"});
         }
 
         /// <summary>
@@ -785,7 +715,7 @@ namespace OasysUnits
         /// </summary>
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <example>
-        ///     Length.Parse("5.5 m", new CultureInfo("en-US"));
+        ///     Length.Parse("5.5 m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <exception cref="ArgumentNullException">The value of 'str' cannot be null. </exception>
         /// <exception cref="ArgumentException">
@@ -812,7 +742,7 @@ namespace OasysUnits
         /// </summary>
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <example>
-        ///     Length.Parse("5.5 m", new CultureInfo("en-US"));
+        ///     Length.Parse("5.5 m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <exception cref="ArgumentNullException">The value of 'str' cannot be null. </exception>
         /// <exception cref="ArgumentException">
@@ -844,7 +774,7 @@ namespace OasysUnits
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <param name="result">Resulting unit quantity if successful.</param>
         /// <example>
-        ///     Length.Parse("5.5 m", new CultureInfo("en-US"));
+        ///     Length.Parse("5.5 m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         public static bool TryParse(string? str, out Mass result)
         {
@@ -858,7 +788,7 @@ namespace OasysUnits
         /// <param name="result">Resulting unit quantity if successful.</param>
         /// <returns>True if successful, otherwise false.</returns>
         /// <example>
-        ///     Length.Parse("5.5 m", new CultureInfo("en-US"));
+        ///     Length.Parse("5.5 m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <param name="provider">Format to use when parsing number and unit. Defaults to <see cref="CultureInfo.CurrentCulture" /> if null.</param>
         public static bool TryParse(string? str, IFormatProvider? provider, out Mass result)
@@ -875,7 +805,7 @@ namespace OasysUnits
         /// </summary>
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <example>
-        ///     Length.ParseUnit("m", new CultureInfo("en-US"));
+        ///     Length.ParseUnit("m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <exception cref="ArgumentNullException">The value of 'str' cannot be null. </exception>
         /// <exception cref="OasysUnitsException">Error parsing string.</exception>
@@ -890,7 +820,7 @@ namespace OasysUnits
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <param name="provider">Format to use when parsing number and unit. Defaults to <see cref="CultureInfo.CurrentCulture" /> if null.</param>
         /// <example>
-        ///     Length.ParseUnit("m", new CultureInfo("en-US"));
+        ///     Length.ParseUnit("m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <exception cref="ArgumentNullException">The value of 'str' cannot be null. </exception>
         /// <exception cref="OasysUnitsException">Error parsing string.</exception>
@@ -912,7 +842,7 @@ namespace OasysUnits
         /// <param name="unit">The parsed unit if successful.</param>
         /// <returns>True if successful, otherwise false.</returns>
         /// <example>
-        ///     Length.TryParseUnit("m", new CultureInfo("en-US"));
+        ///     Length.TryParseUnit("m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <param name="provider">Format to use when parsing number and unit. Defaults to <see cref="CultureInfo.CurrentCulture" /> if null.</param>
         public static bool TryParseUnit(string str, IFormatProvider? provider, out MassUnit unit)
@@ -999,16 +929,14 @@ namespace OasysUnits
         #pragma warning disable CS0809
 
         /// <summary>Indicates strict equality of two <see cref="Mass"/> quantities, where both <see cref="Value" /> and <see cref="Unit" /> are exactly equal.</summary>
-        /// <remarks>Consider using <see cref="Equals(Mass, double, ComparisonType)"/> to check equality across different units and to specify a floating-point number error tolerance.</remarks>
-        [Obsolete("For null checks, use `x is null` syntax to not invoke overloads. For quantity comparisons, use Equals(Mass, double, ComparisonType) to check equality across different units and to specify a floating-point number error tolerance.")]
+        [Obsolete("For null checks, use `x is null` syntax to not invoke overloads. For equality checks, use Equals(Mass other, Mass tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public static bool operator ==(Mass left, Mass right)
         {
             return left.Equals(right);
         }
 
         /// <summary>Indicates strict inequality of two <see cref="Mass"/> quantities, where both <see cref="Value" /> and <see cref="Unit" /> are exactly equal.</summary>
-        /// <remarks>Consider using <see cref="Equals(Mass, double, ComparisonType)"/> to check equality across different units and to specify a floating-point number error tolerance.</remarks>
-        [Obsolete("For null checks, use `x is not null` syntax to not invoke overloads. For quantity comparisons, use Equals(Mass, double, ComparisonType) to check equality across different units and to specify a floating-point number error tolerance.")]
+        [Obsolete("For null checks, use `x is null` syntax to not invoke overloads. For equality checks, use Equals(Mass other, Mass tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public static bool operator !=(Mass left, Mass right)
         {
             return !(left == right);
@@ -1016,8 +944,7 @@ namespace OasysUnits
 
         /// <inheritdoc />
         /// <summary>Indicates strict equality of two <see cref="Mass"/> quantities, where both <see cref="Value" /> and <see cref="Unit" /> are exactly equal.</summary>
-        /// <remarks>Consider using <see cref="Equals(Mass, double, ComparisonType)"/> to check equality across different units and to specify a floating-point number error tolerance.</remarks>
-        [Obsolete("Consider using Equals(Mass, double, ComparisonType) to check equality across different units and to specify a floating-point number error tolerance.")]
+        [Obsolete("Use Equals(Mass other, Mass tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public override bool Equals(object? obj)
         {
             if (obj is null || !(obj is Mass otherQuantity))
@@ -1028,8 +955,7 @@ namespace OasysUnits
 
         /// <inheritdoc />
         /// <summary>Indicates strict equality of two <see cref="Mass"/> quantities, where both <see cref="Value" /> and <see cref="Unit" /> are exactly equal.</summary>
-        /// <remarks>Consider using <see cref="Equals(Mass, double, ComparisonType)"/> to check equality across different units and to specify a floating-point number error tolerance.</remarks>
-        [Obsolete("Consider using Equals(Mass, double, ComparisonType) to check equality across different units and to specify a floating-point number error tolerance.")]
+        [Obsolete("Use Equals(Mass other, Mass tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public bool Equals(Mass other)
         {
             return new { Value, Unit }.Equals(new { other.Value, other.Unit });
@@ -1113,15 +1039,37 @@ namespace OasysUnits
         /// <param name="tolerance">The absolute or relative tolerance value. Must be greater than or equal to 0.</param>
         /// <param name="comparisonType">The comparison type: either relative or absolute.</param>
         /// <returns>True if the absolute difference between the two values is not greater than the specified relative or absolute tolerance.</returns>
+        [Obsolete("Use Equals(Mass other, Mass tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public bool Equals(Mass other, double tolerance, ComparisonType comparisonType)
         {
             if (tolerance < 0)
-                throw new ArgumentOutOfRangeException("tolerance", "Tolerance must be greater than or equal to 0.");
+                throw new ArgumentOutOfRangeException(nameof(tolerance), "Tolerance must be greater than or equal to 0.");
 
-            double thisValue = this.Value;
-            double otherValueInThisUnits = other.As(this.Unit);
+            return OasysUnits.Comparison.Equals(
+                referenceValue: this.Value,
+                otherValue: other.As(this.Unit),
+                tolerance: tolerance,
+                comparisonType: ComparisonType.Absolute);
+        }
 
-            return OasysUnits.Comparison.Equals(thisValue, otherValueInThisUnits, tolerance, comparisonType);
+        /// <inheritdoc />
+        public bool Equals(IQuantity? other, IQuantity tolerance)
+        {
+            return other is Mass otherTyped
+                   && (tolerance is Mass toleranceTyped
+                       ? true
+                       : throw new ArgumentException($"Tolerance quantity ({tolerance.QuantityInfo.Name}) did not match the other quantities of type 'Mass'.", nameof(tolerance)))
+                   && Equals(otherTyped, toleranceTyped);
+        }
+
+        /// <inheritdoc />
+        public bool Equals(Mass other, Mass tolerance)
+        {
+            return OasysUnits.Comparison.Equals(
+                referenceValue: this.Value,
+                otherValue: other.As(this.Unit),
+                tolerance: tolerance.As(this.Unit),
+                comparisonType: ComparisonType.Absolute);
         }
 
         /// <summary>

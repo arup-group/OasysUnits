@@ -19,6 +19,10 @@
 
 using System;
 
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
+
 #nullable enable
 
 namespace OasysUnits.NumberExtensions.NumberToTemperatureDelta
@@ -29,40 +33,76 @@ namespace OasysUnits.NumberExtensions.NumberToTemperatureDelta
     public static class NumberToTemperatureDeltaExtensions
     {
         /// <inheritdoc cref="TemperatureDelta.FromDegreesCelsius(OasysUnits.QuantityValue)" />
-        public static TemperatureDelta DegreesCelsius<T>(this T value) =>
-            TemperatureDelta.FromDegreesCelsius(Convert.ToDouble(value));
+        public static TemperatureDelta DegreesCelsius<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => TemperatureDelta.FromDegreesCelsius(Convert.ToDouble(value));
 
         /// <inheritdoc cref="TemperatureDelta.FromDegreesDelisle(OasysUnits.QuantityValue)" />
-        public static TemperatureDelta DegreesDelisle<T>(this T value) =>
-            TemperatureDelta.FromDegreesDelisle(Convert.ToDouble(value));
+        public static TemperatureDelta DegreesDelisle<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => TemperatureDelta.FromDegreesDelisle(Convert.ToDouble(value));
 
         /// <inheritdoc cref="TemperatureDelta.FromDegreesFahrenheit(OasysUnits.QuantityValue)" />
-        public static TemperatureDelta DegreesFahrenheit<T>(this T value) =>
-            TemperatureDelta.FromDegreesFahrenheit(Convert.ToDouble(value));
+        public static TemperatureDelta DegreesFahrenheit<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => TemperatureDelta.FromDegreesFahrenheit(Convert.ToDouble(value));
 
         /// <inheritdoc cref="TemperatureDelta.FromDegreesNewton(OasysUnits.QuantityValue)" />
-        public static TemperatureDelta DegreesNewton<T>(this T value) =>
-            TemperatureDelta.FromDegreesNewton(Convert.ToDouble(value));
+        public static TemperatureDelta DegreesNewton<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => TemperatureDelta.FromDegreesNewton(Convert.ToDouble(value));
 
         /// <inheritdoc cref="TemperatureDelta.FromDegreesRankine(OasysUnits.QuantityValue)" />
-        public static TemperatureDelta DegreesRankine<T>(this T value) =>
-            TemperatureDelta.FromDegreesRankine(Convert.ToDouble(value));
+        public static TemperatureDelta DegreesRankine<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => TemperatureDelta.FromDegreesRankine(Convert.ToDouble(value));
 
         /// <inheritdoc cref="TemperatureDelta.FromDegreesReaumur(OasysUnits.QuantityValue)" />
-        public static TemperatureDelta DegreesReaumur<T>(this T value) =>
-            TemperatureDelta.FromDegreesReaumur(Convert.ToDouble(value));
+        public static TemperatureDelta DegreesReaumur<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => TemperatureDelta.FromDegreesReaumur(Convert.ToDouble(value));
 
         /// <inheritdoc cref="TemperatureDelta.FromDegreesRoemer(OasysUnits.QuantityValue)" />
-        public static TemperatureDelta DegreesRoemer<T>(this T value) =>
-            TemperatureDelta.FromDegreesRoemer(Convert.ToDouble(value));
+        public static TemperatureDelta DegreesRoemer<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => TemperatureDelta.FromDegreesRoemer(Convert.ToDouble(value));
 
         /// <inheritdoc cref="TemperatureDelta.FromKelvins(OasysUnits.QuantityValue)" />
-        public static TemperatureDelta Kelvins<T>(this T value) =>
-            TemperatureDelta.FromKelvins(Convert.ToDouble(value));
+        public static TemperatureDelta Kelvins<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => TemperatureDelta.FromKelvins(Convert.ToDouble(value));
 
         /// <inheritdoc cref="TemperatureDelta.FromMillidegreesCelsius(OasysUnits.QuantityValue)" />
-        public static TemperatureDelta MillidegreesCelsius<T>(this T value) =>
-            TemperatureDelta.FromMillidegreesCelsius(Convert.ToDouble(value));
+        public static TemperatureDelta MillidegreesCelsius<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => TemperatureDelta.FromMillidegreesCelsius(Convert.ToDouble(value));
 
     }
 }

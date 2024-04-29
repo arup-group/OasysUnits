@@ -141,6 +141,18 @@ namespace OasysUnits
             return Duration.FromSeconds(length.Meters/speed.MetersPerSecond);
         }
 
+        /// <summary>Get <see cref="ReciprocalLength"/> from <see cref="Length"/> divided by <see cref="Area"/>.</summary>
+        public static ReciprocalLength operator /(Length length, Area area)
+        {
+            return ReciprocalLength.FromInverseMeters(length.Meters / area.SquareMeters);
+        }
+
+        /// <summary>Get <see cref="ReciprocalArea"/> from <see cref="Length"/> divided by <see cref="Volume"/>.</summary>
+        public static ReciprocalArea operator /(Length length, Volume volume)
+        {
+            return ReciprocalArea.FromInverseSquareMeters(length.Meters / volume.CubicMeters);
+        }
+
         /// <summary>Get <see cref="Area"/> from <see cref="Length"/> times <see cref="Length"/>.</summary>
         public static Area operator *(Length length1, Length length2)
         {
@@ -227,8 +239,8 @@ namespace OasysUnits
         {
             cultureInfo = cultureInfo ?? CultureInfo.CurrentCulture;
 
-            var footUnit = UnitAbbreviationsCache.Default.GetDefaultAbbreviation(LengthUnit.Foot, cultureInfo);
-            var inchUnit = UnitAbbreviationsCache.Default.GetDefaultAbbreviation(LengthUnit.Inch, cultureInfo);
+            var footUnit = Length.GetAbbreviation(LengthUnit.Foot, cultureInfo);
+            var inchUnit = Length.GetAbbreviation(LengthUnit.Inch, cultureInfo);
 
             // Note that it isn't customary to use fractions - one wouldn't say "I am 5 feet and 4.5 inches".
             // So inches are rounded when converting from base units to feet/inches.

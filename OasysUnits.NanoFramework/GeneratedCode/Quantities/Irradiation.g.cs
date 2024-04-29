@@ -62,17 +62,17 @@ namespace OasysUnits
         }
 
         /// <summary>
-        ///     The base unit of Duration, which is Second. All conversions go via this value.
+        ///     The base unit of Irradiation, which is Second. All conversions go via this value.
         /// </summary>
         public static IrradiationUnit BaseUnit { get; } = IrradiationUnit.JoulePerSquareMeter;
 
         /// <summary>
-        /// Represents the largest possible value of Duration
+        /// Represents the largest possible value of Irradiation.
         /// </summary>
         public static Irradiation MaxValue { get; } = new Irradiation(double.MaxValue, BaseUnit);
 
         /// <summary>
-        /// Represents the smallest possible value of Duration
+        /// Represents the smallest possible value of Irradiation.
         /// </summary>
         public static Irradiation MinValue { get; } = new Irradiation(double.MinValue, BaseUnit);
 
@@ -81,6 +81,11 @@ namespace OasysUnits
         /// </summary>
         public static Irradiation Zero { get; } = new Irradiation(0, BaseUnit);
         #region Conversion Properties
+
+        /// <summary>
+        ///     Gets a <see cref="double"/> value of this quantity converted into <see cref="IrradiationUnit.BtuPerSquareFoot"/>
+        /// </summary>
+        public double BtusPerSquareFoot => As(IrradiationUnit.BtuPerSquareFoot);
 
         /// <summary>
         ///     Gets a <see cref="double"/> value of this quantity converted into <see cref="IrradiationUnit.JoulePerSquareCentimeter"/>
@@ -96,6 +101,11 @@ namespace OasysUnits
         ///     Gets a <see cref="double"/> value of this quantity converted into <see cref="IrradiationUnit.JoulePerSquareMillimeter"/>
         /// </summary>
         public double JoulesPerSquareMillimeter => As(IrradiationUnit.JoulePerSquareMillimeter);
+
+        /// <summary>
+        ///     Gets a <see cref="double"/> value of this quantity converted into <see cref="IrradiationUnit.KilobtuPerSquareFoot"/>
+        /// </summary>
+        public double KilobtusPerSquareFoot => As(IrradiationUnit.KilobtuPerSquareFoot);
 
         /// <summary>
         ///     Gets a <see cref="double"/> value of this quantity converted into <see cref="IrradiationUnit.KilojoulePerSquareMeter"/>
@@ -122,6 +132,12 @@ namespace OasysUnits
         #region Static Factory Methods
 
         /// <summary>
+        ///     Creates a <see cref="Irradiation"/> from <see cref="IrradiationUnit.BtuPerSquareFoot"/>.
+        /// </summary>
+        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
+        public static Irradiation FromBtusPerSquareFoot(double btuspersquarefoot) => new Irradiation(btuspersquarefoot, IrradiationUnit.BtuPerSquareFoot);
+
+        /// <summary>
         ///     Creates a <see cref="Irradiation"/> from <see cref="IrradiationUnit.JoulePerSquareCentimeter"/>.
         /// </summary>
         /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
@@ -138,6 +154,12 @@ namespace OasysUnits
         /// </summary>
         /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
         public static Irradiation FromJoulesPerSquareMillimeter(double joulespersquaremillimeter) => new Irradiation(joulespersquaremillimeter, IrradiationUnit.JoulePerSquareMillimeter);
+
+        /// <summary>
+        ///     Creates a <see cref="Irradiation"/> from <see cref="IrradiationUnit.KilobtuPerSquareFoot"/>.
+        /// </summary>
+        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
+        public static Irradiation FromKilobtusPerSquareFoot(double kilobtuspersquarefoot) => new Irradiation(kilobtuspersquarefoot, IrradiationUnit.KilobtuPerSquareFoot);
 
         /// <summary>
         ///     Creates a <see cref="Irradiation"/> from <see cref="IrradiationUnit.KilojoulePerSquareMeter"/>.
@@ -185,9 +207,9 @@ namespace OasysUnits
                 public double As(IrradiationUnit unit) => GetValueAs(unit);
 
                 /// <summary>
-                ///     Converts this Duration to another Duration with the unit representation <paramref name="unit" />.
+                ///     Converts this Irradiation to another Irradiation with the unit representation <paramref name="unit" />.
                 /// </summary>
-                /// <returns>A Duration with the specified unit.</returns>
+                /// <returns>A Irradiation with the specified unit.</returns>
                 public Irradiation ToUnit(IrradiationUnit unit)
                 {
                     var convertedValue = GetValueAs(unit);
@@ -203,9 +225,11 @@ namespace OasysUnits
                 {
                     return Unit switch
                     {
+                        IrradiationUnit.BtuPerSquareFoot => _value * (52752792631d / 4645152d),
                         IrradiationUnit.JoulePerSquareCentimeter => _value * 1e4,
                         IrradiationUnit.JoulePerSquareMeter => _value,
                         IrradiationUnit.JoulePerSquareMillimeter => _value * 1e6,
+                        IrradiationUnit.KilobtuPerSquareFoot => (_value * (52752792631d / 4645152d)) * 1e3d,
                         IrradiationUnit.KilojoulePerSquareMeter => (_value) * 1e3d,
                         IrradiationUnit.KilowattHourPerSquareMeter => (_value * 3600d) * 1e3d,
                         IrradiationUnit.MillijoulePerSquareCentimeter => (_value * 1e4) * 1e-3d,
@@ -223,9 +247,11 @@ namespace OasysUnits
 
                     return unit switch
                     {
+                        IrradiationUnit.BtuPerSquareFoot => baseUnitValue / (52752792631d / 4645152d),
                         IrradiationUnit.JoulePerSquareCentimeter => baseUnitValue / 1e4,
                         IrradiationUnit.JoulePerSquareMeter => baseUnitValue,
                         IrradiationUnit.JoulePerSquareMillimeter => baseUnitValue / 1e6,
+                        IrradiationUnit.KilobtuPerSquareFoot => (baseUnitValue / (52752792631d / 4645152d)) / 1e3d,
                         IrradiationUnit.KilojoulePerSquareMeter => (baseUnitValue) / 1e3d,
                         IrradiationUnit.KilowattHourPerSquareMeter => (baseUnitValue / 3600d) / 1e3d,
                         IrradiationUnit.MillijoulePerSquareCentimeter => (baseUnitValue / 1e4) / 1e-3d,

@@ -24,7 +24,7 @@ namespace OasysUnits
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Molar concentration, also called molarity, amount concentration or substance concentration, is a measure of the concentration of a solute in a solution, or of any chemical species, in terms of amount of substance in a given volume. 
+    ///     Molar concentration, also called molarity, amount concentration or substance concentration, is a measure of the concentration of a solute in a solution, or of any chemical species, in terms of amount of substance in a given volume.
     /// </summary>
     /// <remarks>
     ///     https://en.wikipedia.org/wiki/Molar_concentration
@@ -62,17 +62,17 @@ namespace OasysUnits
         }
 
         /// <summary>
-        ///     The base unit of Duration, which is Second. All conversions go via this value.
+        ///     The base unit of Molarity, which is Second. All conversions go via this value.
         /// </summary>
         public static MolarityUnit BaseUnit { get; } = MolarityUnit.MolePerCubicMeter;
 
         /// <summary>
-        /// Represents the largest possible value of Duration
+        /// Represents the largest possible value of Molarity.
         /// </summary>
         public static Molarity MaxValue { get; } = new Molarity(double.MaxValue, BaseUnit);
 
         /// <summary>
-        /// Represents the smallest possible value of Duration
+        /// Represents the smallest possible value of Molarity.
         /// </summary>
         public static Molarity MinValue { get; } = new Molarity(double.MinValue, BaseUnit);
 
@@ -229,9 +229,9 @@ namespace OasysUnits
                 public double As(MolarityUnit unit) => GetValueAs(unit);
 
                 /// <summary>
-                ///     Converts this Duration to another Duration with the unit representation <paramref name="unit" />.
+                ///     Converts this Molarity to another Molarity with the unit representation <paramref name="unit" />.
                 /// </summary>
-                /// <returns>A Duration with the specified unit.</returns>
+                /// <returns>A Molarity with the specified unit.</returns>
                 public Molarity ToUnit(MolarityUnit unit)
                 {
                     var convertedValue = GetValueAs(unit);

@@ -19,6 +19,10 @@
 
 using System;
 
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
+
 #nullable enable
 
 namespace OasysUnits.NumberExtensions.NumberToSectionModulus
@@ -29,24 +33,44 @@ namespace OasysUnits.NumberExtensions.NumberToSectionModulus
     public static class NumberToSectionModulusExtensions
     {
         /// <inheritdoc cref="SectionModulus.FromCubicCentimeters(OasysUnits.QuantityValue)" />
-        public static SectionModulus CubicCentimeters<T>(this T value) =>
-            SectionModulus.FromCubicCentimeters(Convert.ToDouble(value));
+        public static SectionModulus CubicCentimeters<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => SectionModulus.FromCubicCentimeters(Convert.ToDouble(value));
 
         /// <inheritdoc cref="SectionModulus.FromCubicFeet(OasysUnits.QuantityValue)" />
-        public static SectionModulus CubicFeet<T>(this T value) =>
-            SectionModulus.FromCubicFeet(Convert.ToDouble(value));
+        public static SectionModulus CubicFeet<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => SectionModulus.FromCubicFeet(Convert.ToDouble(value));
 
         /// <inheritdoc cref="SectionModulus.FromCubicInches(OasysUnits.QuantityValue)" />
-        public static SectionModulus CubicInches<T>(this T value) =>
-            SectionModulus.FromCubicInches(Convert.ToDouble(value));
+        public static SectionModulus CubicInches<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => SectionModulus.FromCubicInches(Convert.ToDouble(value));
 
         /// <inheritdoc cref="SectionModulus.FromCubicMeters(OasysUnits.QuantityValue)" />
-        public static SectionModulus CubicMeters<T>(this T value) =>
-            SectionModulus.FromCubicMeters(Convert.ToDouble(value));
+        public static SectionModulus CubicMeters<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => SectionModulus.FromCubicMeters(Convert.ToDouble(value));
 
         /// <inheritdoc cref="SectionModulus.FromCubicMillimeters(OasysUnits.QuantityValue)" />
-        public static SectionModulus CubicMillimeters<T>(this T value) =>
-            SectionModulus.FromCubicMillimeters(Convert.ToDouble(value));
+        public static SectionModulus CubicMillimeters<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => SectionModulus.FromCubicMillimeters(Convert.ToDouble(value));
 
     }
 }

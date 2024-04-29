@@ -25,11 +25,11 @@ namespace OasysUnits.Units
 
     public enum CurvatureUnit
     {
-        PerCentimeter = 3,
-        PerFoot = 10,
-        PerInch = 9,
-        PerMeter = 8,
-        PerMillimeter = 2,
+        PerCentimeter = 6,
+        PerFoot = 7,
+        PerInch = 3,
+        PerMeter = 5,
+        PerMillimeter = 4,
     }
 
     #pragma warning restore 1591

@@ -1,4 +1,4 @@
-// Licensed under MIT No Attribution, see LICENSE file at the root.
+﻿// Licensed under MIT No Attribution, see LICENSE file at the root.
 // Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
 
 using System;
@@ -20,8 +20,8 @@ namespace OasysUnits.InternalHelpers
         /// <exception cref="ArgumentException">If <paramref name="value" /> is invalid.</exception>
         internal static double EnsureValidNumber(double value, string paramName)
         {
-            if (double.IsNaN(value)) throw new ArgumentException("NaN is not a valid number.", paramName);
-            if (double.IsInfinity(value)) throw new ArgumentException("PositiveInfinity or NegativeInfinity is not a valid number.", paramName);
+            //if (double.IsNaN(value)) throw new ArgumentException("NaN is not a valid number.", paramName);
+            //if (double.IsInfinity(value)) throw new ArgumentException("PositiveInfinity or NegativeInfinity is not a valid number.", paramName);
             return value;
         }
     }

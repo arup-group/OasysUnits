@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29609.76
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33815.320
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OasysUnits", "OasysUnits\OasysUnits.csproj", "{CBEAD842-07BC-4B08-9D9D-D6659813776F}"
 EndProject
@@ -20,81 +20,101 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OasysUnits.NumberExtensions.Tests", "OasysUnits.NumberExtensions.Tests\OasysUnits.NumberExtensions.Tests.csproj", "{B4996AF5-9A8B-481A-9018-EC7F5B1605FF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Files", "_Files", "{B92B01BE-243E-4CCB-B5E5-AF469ADB1F54}"
-ProjectSection(SolutionItems) = preProject
-	.editorconfig = .editorconfig
-	.gitattributes = .gitattributes
-	.gitignore = .gitignore
-	build.bat = build.bat
-	build-all-targets.bat = build-all-targets.bat
-	clean.bat = clean.bat
-	CODE_OF_CONDUCT.md = CODE_OF_CONDUCT.md
-	CONTRIBUTING.md = CONTRIBUTING.md
-	Directory.Build.props = Directory.Build.props
-	generate-code.bat = generate-code.bat
-	init.bat = init.bat
-	LICENSE = LICENSE
-	nuget.config = nuget.config
-	publish-OasysUnits.bat = publish-OasysUnits.bat
-	README.md = README.md
-	test.bat = test.bat
-	OasysUnits.sln.DotSettings = OasysUnits.sln.DotSettings
-	azure-pipelines.yml = azure-pipelines.yml
-EndProjectSection
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		azure-pipelines.yml = azure-pipelines.yml
+		build-all-targets.bat = build-all-targets.bat
+		build.bat = build.bat
+		clean.bat = clean.bat
+		CODE_OF_CONDUCT.md = CODE_OF_CONDUCT.md
+		CONTRIBUTING.md = CONTRIBUTING.md
+		Directory.Build.props = Directory.Build.props
+		generate-code.bat = generate-code.bat
+		init.bat = init.bat
+		LICENSE = LICENSE
+		nuget.config = nuget.config
+		OasysUnits.sln.DotSettings = OasysUnits.sln.DotSettings
+		publish-OasysUnits.bat = publish-OasysUnits.bat
+		README.md = README.md
+		test.bat = test.bat
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{71C6EF60-7E52-4DF4-BA93-5FAF6D89AEC6}"
 	ProjectSection(SolutionItems) = preProject
-		Build\build.ps1 = Build\build.ps1
 		Build\build-functions.psm1 = Build\build-functions.psm1
 		Build\build-pack-nano-nugets.psm1 = Build\build-pack-nano-nugets.psm1
+		Build\build.ps1 = Build\build.ps1
 		Build\init.ps1 = Build\init.ps1
 	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
 		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{CBEAD842-07BC-4B08-9D9D-D6659813776F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CBEAD842-07BC-4B08-9D9D-D6659813776F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBEAD842-07BC-4B08-9D9D-D6659813776F}.Debug|x64.ActiveCfg = Debug|x64
+		{CBEAD842-07BC-4B08-9D9D-D6659813776F}.Debug|x64.Build.0 = Debug|x64
 		{CBEAD842-07BC-4B08-9D9D-D6659813776F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CBEAD842-07BC-4B08-9D9D-D6659813776F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CBEAD842-07BC-4B08-9D9D-D6659813776F}.Release|x64.ActiveCfg = Release|x64
+		{CBEAD842-07BC-4B08-9D9D-D6659813776F}.Release|x64.Build.0 = Release|x64
 		{FB696BFE-B303-4EBD-A0E6-4A7B19DE429B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FB696BFE-B303-4EBD-A0E6-4A7B19DE429B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB696BFE-B303-4EBD-A0E6-4A7B19DE429B}.Debug|x64.ActiveCfg = Debug|Any CPU
 		{FB696BFE-B303-4EBD-A0E6-4A7B19DE429B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FB696BFE-B303-4EBD-A0E6-4A7B19DE429B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB696BFE-B303-4EBD-A0E6-4A7B19DE429B}.Release|x64.ActiveCfg = Release|Any CPU
 		{FFEEDF44-F32D-4D92-A75E-487CB0582EB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FFEEDF44-F32D-4D92-A75E-487CB0582EB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFEEDF44-F32D-4D92-A75E-487CB0582EB1}.Debug|x64.ActiveCfg = Debug|Any CPU
 		{FFEEDF44-F32D-4D92-A75E-487CB0582EB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FFEEDF44-F32D-4D92-A75E-487CB0582EB1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FFEEDF44-F32D-4D92-A75E-487CB0582EB1}.Release|x64.ActiveCfg = Release|Any CPU
 		{0E3B7567-5DF2-44BD-88DB-CCF050D3F943}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0E3B7567-5DF2-44BD-88DB-CCF050D3F943}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E3B7567-5DF2-44BD-88DB-CCF050D3F943}.Debug|x64.ActiveCfg = Debug|Any CPU
 		{0E3B7567-5DF2-44BD-88DB-CCF050D3F943}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0E3B7567-5DF2-44BD-88DB-CCF050D3F943}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E3B7567-5DF2-44BD-88DB-CCF050D3F943}.Release|x64.ActiveCfg = Release|Any CPU
 		{76B9C7C8-E3D3-4FA7-B782-78E4BA1D0AD8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{76B9C7C8-E3D3-4FA7-B782-78E4BA1D0AD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76B9C7C8-E3D3-4FA7-B782-78E4BA1D0AD8}.Debug|x64.ActiveCfg = Debug|Any CPU
 		{76B9C7C8-E3D3-4FA7-B782-78E4BA1D0AD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{76B9C7C8-E3D3-4FA7-B782-78E4BA1D0AD8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76B9C7C8-E3D3-4FA7-B782-78E4BA1D0AD8}.Release|x64.ActiveCfg = Release|Any CPU
 		{078E3D44-4F60-46B3-9099-91A7CBF0B213}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{078E3D44-4F60-46B3-9099-91A7CBF0B213}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{078E3D44-4F60-46B3-9099-91A7CBF0B213}.Debug|x64.ActiveCfg = Debug|Any CPU
 		{078E3D44-4F60-46B3-9099-91A7CBF0B213}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{078E3D44-4F60-46B3-9099-91A7CBF0B213}.Release|Any CPU.Build.0 = Release|Any CPU
+		{078E3D44-4F60-46B3-9099-91A7CBF0B213}.Release|x64.ActiveCfg = Release|Any CPU
 		{41763DBA-0F2D-40D2-853C-2CBF719C7208}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{41763DBA-0F2D-40D2-853C-2CBF719C7208}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41763DBA-0F2D-40D2-853C-2CBF719C7208}.Debug|x64.ActiveCfg = Debug|Any CPU
 		{41763DBA-0F2D-40D2-853C-2CBF719C7208}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{41763DBA-0F2D-40D2-853C-2CBF719C7208}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41763DBA-0F2D-40D2-853C-2CBF719C7208}.Release|x64.ActiveCfg = Release|Any CPU
 		{B4996AF5-9A8B-481A-9018-EC7F5B1605FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B4996AF5-9A8B-481A-9018-EC7F5B1605FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4996AF5-9A8B-481A-9018-EC7F5B1605FF}.Debug|x64.ActiveCfg = Debug|Any CPU
 		{B4996AF5-9A8B-481A-9018-EC7F5B1605FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B4996AF5-9A8B-481A-9018-EC7F5B1605FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4996AF5-9A8B-481A-9018-EC7F5B1605FF}.Release|x64.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {554906B2-5972-4EBF-9DD5-EEFA77D735D8}
-	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{71C6EF60-7E52-4DF4-BA93-5FAF6D89AEC6} = {B92B01BE-243E-4CCB-B5E5-AF469ADB1F54}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {554906B2-5972-4EBF-9DD5-EEFA77D735D8}
 	EndGlobalSection
 EndGlobal

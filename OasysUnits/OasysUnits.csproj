@@ -57,4 +57,8 @@
     <None Include="../README.md" Pack="true" PackagePath="/" />
   </ItemGroup>
 
+  <ItemGroup>
+    <EmbeddedResource Include="GeneratedCode\Resources\*.restext" />
+  </ItemGroup>
+
 </Project>

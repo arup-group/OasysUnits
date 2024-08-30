@@ -6,7 +6,7 @@
 //     The build server regenerates the code before each build and a pre-build
 //     step will regenerate the code on each local build.
 //
-//     See https://github.com/angularsen/UnitsNet/wiki/Adding-a-New-Unit for how to add or edit units.
+//     See https://github.com/angularsen/OasysUnits/wiki/Adding-a-New-Unit for how to add or edit units.
 //
 //     Add CustomCode\Quantities\MyQuantity.extra.cs files to add code to generated quantities.
 //     Add UnitDefinitions\MyQuantity.json and run generate-code.bat to generate new units or quantities.
@@ -15,12 +15,16 @@
 //------------------------------------------------------------------------------
 
 // Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using System;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
 using System.Runtime.Serialization;
 using OasysUnits.InternalHelpers;
 using OasysUnits.Units;
@@ -36,8 +40,13 @@ namespace OasysUnits
     ///     Specific entropy is an amount of energy required to raise temperature of a substance by 1 Kelvin per unit mass.
     /// </summary>
     [DataContract]
+    [DebuggerTypeProxy(typeof(QuantityDisplay))]
     public readonly partial struct SpecificEntropy :
-        IArithmeticQuantity<SpecificEntropy, SpecificEntropyUnit, double>,
+        IArithmeticQuantity<SpecificEntropy, SpecificEntropyUnit>,
+#if NET7_0_OR_GREATER
+        IMultiplyOperators<SpecificEntropy, Mass, Entropy>,
+        IMultiplyOperators<SpecificEntropy, TemperatureDelta, SpecificEnergy>,
+#endif
         IComparable,
         IComparable<SpecificEntropy>,
         IConvertible,
@@ -47,13 +56,13 @@ namespace OasysUnits
         /// <summary>
         ///     The numeric value this quantity was constructed with.
         /// </summary>
-        [DataMember(Name = "Value", Order = 0)]
+        [DataMember(Name = "Value", Order = 1)]
         private readonly double _value;
 
         /// <summary>
         ///     The unit this quantity was constructed with.
         /// </summary>
-        [DataMember(Name = "Unit", Order = 1)]
+        [DataMember(Name = "Unit", Order = 2)]
         private readonly SpecificEntropyUnit? _unit;
 
         static SpecificEntropy()
@@ -65,15 +74,15 @@ namespace OasysUnits
             Info = new QuantityInfo<SpecificEntropyUnit>("SpecificEntropy",
                 new UnitInfo<SpecificEntropyUnit>[]
                 {
-                    new UnitInfo<SpecificEntropyUnit>(SpecificEntropyUnit.BtuPerPoundFahrenheit, "BtusPerPoundFahrenheit", BaseUnits.Undefined),
-                    new UnitInfo<SpecificEntropyUnit>(SpecificEntropyUnit.CaloriePerGramKelvin, "CaloriesPerGramKelvin", BaseUnits.Undefined),
-                    new UnitInfo<SpecificEntropyUnit>(SpecificEntropyUnit.JoulePerKilogramDegreeCelsius, "JoulesPerKilogramDegreeCelsius", BaseUnits.Undefined),
-                    new UnitInfo<SpecificEntropyUnit>(SpecificEntropyUnit.JoulePerKilogramKelvin, "JoulesPerKilogramKelvin", BaseUnits.Undefined),
-                    new UnitInfo<SpecificEntropyUnit>(SpecificEntropyUnit.KilocaloriePerGramKelvin, "KilocaloriesPerGramKelvin", BaseUnits.Undefined),
-                    new UnitInfo<SpecificEntropyUnit>(SpecificEntropyUnit.KilojoulePerKilogramDegreeCelsius, "KilojoulesPerKilogramDegreeCelsius", BaseUnits.Undefined),
-                    new UnitInfo<SpecificEntropyUnit>(SpecificEntropyUnit.KilojoulePerKilogramKelvin, "KilojoulesPerKilogramKelvin", BaseUnits.Undefined),
-                    new UnitInfo<SpecificEntropyUnit>(SpecificEntropyUnit.MegajoulePerKilogramDegreeCelsius, "MegajoulesPerKilogramDegreeCelsius", BaseUnits.Undefined),
-                    new UnitInfo<SpecificEntropyUnit>(SpecificEntropyUnit.MegajoulePerKilogramKelvin, "MegajoulesPerKilogramKelvin", BaseUnits.Undefined),
+                    new UnitInfo<SpecificEntropyUnit>(SpecificEntropyUnit.BtuPerPoundFahrenheit, "BtusPerPoundFahrenheit", BaseUnits.Undefined, "SpecificEntropy"),
+                    new UnitInfo<SpecificEntropyUnit>(SpecificEntropyUnit.CaloriePerGramKelvin, "CaloriesPerGramKelvin", BaseUnits.Undefined, "SpecificEntropy"),
+                    new UnitInfo<SpecificEntropyUnit>(SpecificEntropyUnit.JoulePerKilogramDegreeCelsius, "JoulesPerKilogramDegreeCelsius", BaseUnits.Undefined, "SpecificEntropy"),
+                    new UnitInfo<SpecificEntropyUnit>(SpecificEntropyUnit.JoulePerKilogramKelvin, "JoulesPerKilogramKelvin", BaseUnits.Undefined, "SpecificEntropy"),
+                    new UnitInfo<SpecificEntropyUnit>(SpecificEntropyUnit.KilocaloriePerGramKelvin, "KilocaloriesPerGramKelvin", BaseUnits.Undefined, "SpecificEntropy"),
+                    new UnitInfo<SpecificEntropyUnit>(SpecificEntropyUnit.KilojoulePerKilogramDegreeCelsius, "KilojoulesPerKilogramDegreeCelsius", BaseUnits.Undefined, "SpecificEntropy"),
+                    new UnitInfo<SpecificEntropyUnit>(SpecificEntropyUnit.KilojoulePerKilogramKelvin, "KilojoulesPerKilogramKelvin", BaseUnits.Undefined, "SpecificEntropy"),
+                    new UnitInfo<SpecificEntropyUnit>(SpecificEntropyUnit.MegajoulePerKilogramDegreeCelsius, "MegajoulesPerKilogramDegreeCelsius", BaseUnits.Undefined, "SpecificEntropy"),
+                    new UnitInfo<SpecificEntropyUnit>(SpecificEntropyUnit.MegajoulePerKilogramKelvin, "MegajoulesPerKilogramKelvin", BaseUnits.Undefined, "SpecificEntropy"),
                 },
                 BaseUnit, Zero, BaseDimensions);
 
@@ -86,10 +95,9 @@ namespace OasysUnits
         /// </summary>
         /// <param name="value">The numeric value to construct this quantity with.</param>
         /// <param name="unit">The unit representation to construct this quantity with.</param>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
         public SpecificEntropy(double value, SpecificEntropyUnit unit)
         {
-            _value = Guard.EnsureValidNumber(value, nameof(value));
+            _value = value;
             _unit = unit;
         }
 
@@ -108,7 +116,7 @@ namespace OasysUnits
             var unitInfos = Info.GetUnitInfosFor(unitSystem.BaseUnits);
             var firstUnitInfo = unitInfos.FirstOrDefault();
 
-            _value = Guard.EnsureValidNumber(value, nameof(value));
+            _value = value;
             _unit = firstUnitInfo?.Value ?? throw new ArgumentException("No units were found for the given UnitSystem.", nameof(unitSystem));
         }
 
@@ -146,7 +154,7 @@ namespace OasysUnits
         public static SpecificEntropy AdditiveIdentity => Zero;
 
         #endregion
- 
+
         #region Properties
 
         /// <summary>
@@ -155,7 +163,7 @@ namespace OasysUnits
         public double Value => _value;
 
         /// <inheritdoc />
-        QuantityValue IQuantity.Value => _value;
+        double IQuantity.Value => _value;
 
         Enum IQuantity.Unit => Unit;
 
@@ -256,19 +264,6 @@ namespace OasysUnits
             unitConverter.SetConversionFunction<SpecificEntropy>(SpecificEntropyUnit.JoulePerKilogramKelvin, SpecificEntropyUnit.MegajoulePerKilogramKelvin, quantity => quantity.ToUnit(SpecificEntropyUnit.MegajoulePerKilogramKelvin));
         }
 
-        internal static void MapGeneratedLocalizations(UnitAbbreviationsCache unitAbbreviationsCache)
-        {
-            unitAbbreviationsCache.PerformAbbreviationMapping(SpecificEntropyUnit.BtuPerPoundFahrenheit, new CultureInfo("en-US"), false, true, new string[]{"BTU/lb·°F", "BTU/lbm·°F"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(SpecificEntropyUnit.CaloriePerGramKelvin, new CultureInfo("en-US"), false, true, new string[]{"cal/g.K"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(SpecificEntropyUnit.JoulePerKilogramDegreeCelsius, new CultureInfo("en-US"), false, true, new string[]{"J/kg.C"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(SpecificEntropyUnit.JoulePerKilogramKelvin, new CultureInfo("en-US"), false, true, new string[]{"J/kg.K"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(SpecificEntropyUnit.KilocaloriePerGramKelvin, new CultureInfo("en-US"), false, true, new string[]{"kcal/g.K"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(SpecificEntropyUnit.KilojoulePerKilogramDegreeCelsius, new CultureInfo("en-US"), false, true, new string[]{"kJ/kg.C"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(SpecificEntropyUnit.KilojoulePerKilogramKelvin, new CultureInfo("en-US"), false, true, new string[]{"kJ/kg.K"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(SpecificEntropyUnit.MegajoulePerKilogramDegreeCelsius, new CultureInfo("en-US"), false, true, new string[]{"MJ/kg.C"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(SpecificEntropyUnit.MegajoulePerKilogramKelvin, new CultureInfo("en-US"), false, true, new string[]{"MJ/kg.K"});
-        }
-
         /// <summary>
         ///     Get unit abbreviation string.
         /// </summary>
@@ -297,90 +292,72 @@ namespace OasysUnits
         /// <summary>
         ///     Creates a <see cref="SpecificEntropy"/> from <see cref="SpecificEntropyUnit.BtuPerPoundFahrenheit"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static SpecificEntropy FromBtusPerPoundFahrenheit(QuantityValue btusperpoundfahrenheit)
+        public static SpecificEntropy FromBtusPerPoundFahrenheit(double value)
         {
-            double value = (double) btusperpoundfahrenheit;
             return new SpecificEntropy(value, SpecificEntropyUnit.BtuPerPoundFahrenheit);
         }
 
         /// <summary>
         ///     Creates a <see cref="SpecificEntropy"/> from <see cref="SpecificEntropyUnit.CaloriePerGramKelvin"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static SpecificEntropy FromCaloriesPerGramKelvin(QuantityValue caloriespergramkelvin)
+        public static SpecificEntropy FromCaloriesPerGramKelvin(double value)
         {
-            double value = (double) caloriespergramkelvin;
             return new SpecificEntropy(value, SpecificEntropyUnit.CaloriePerGramKelvin);
         }
 
         /// <summary>
         ///     Creates a <see cref="SpecificEntropy"/> from <see cref="SpecificEntropyUnit.JoulePerKilogramDegreeCelsius"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static SpecificEntropy FromJoulesPerKilogramDegreeCelsius(QuantityValue joulesperkilogramdegreecelsius)
+        public static SpecificEntropy FromJoulesPerKilogramDegreeCelsius(double value)
         {
-            double value = (double) joulesperkilogramdegreecelsius;
             return new SpecificEntropy(value, SpecificEntropyUnit.JoulePerKilogramDegreeCelsius);
         }
 
         /// <summary>
         ///     Creates a <see cref="SpecificEntropy"/> from <see cref="SpecificEntropyUnit.JoulePerKilogramKelvin"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static SpecificEntropy FromJoulesPerKilogramKelvin(QuantityValue joulesperkilogramkelvin)
+        public static SpecificEntropy FromJoulesPerKilogramKelvin(double value)
         {
-            double value = (double) joulesperkilogramkelvin;
             return new SpecificEntropy(value, SpecificEntropyUnit.JoulePerKilogramKelvin);
         }
 
         /// <summary>
         ///     Creates a <see cref="SpecificEntropy"/> from <see cref="SpecificEntropyUnit.KilocaloriePerGramKelvin"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static SpecificEntropy FromKilocaloriesPerGramKelvin(QuantityValue kilocaloriespergramkelvin)
+        public static SpecificEntropy FromKilocaloriesPerGramKelvin(double value)
         {
-            double value = (double) kilocaloriespergramkelvin;
             return new SpecificEntropy(value, SpecificEntropyUnit.KilocaloriePerGramKelvin);
         }
 
         /// <summary>
         ///     Creates a <see cref="SpecificEntropy"/> from <see cref="SpecificEntropyUnit.KilojoulePerKilogramDegreeCelsius"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static SpecificEntropy FromKilojoulesPerKilogramDegreeCelsius(QuantityValue kilojoulesperkilogramdegreecelsius)
+        public static SpecificEntropy FromKilojoulesPerKilogramDegreeCelsius(double value)
         {
-            double value = (double) kilojoulesperkilogramdegreecelsius;
             return new SpecificEntropy(value, SpecificEntropyUnit.KilojoulePerKilogramDegreeCelsius);
         }
 
         /// <summary>
         ///     Creates a <see cref="SpecificEntropy"/> from <see cref="SpecificEntropyUnit.KilojoulePerKilogramKelvin"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static SpecificEntropy FromKilojoulesPerKilogramKelvin(QuantityValue kilojoulesperkilogramkelvin)
+        public static SpecificEntropy FromKilojoulesPerKilogramKelvin(double value)
         {
-            double value = (double) kilojoulesperkilogramkelvin;
             return new SpecificEntropy(value, SpecificEntropyUnit.KilojoulePerKilogramKelvin);
         }
 
         /// <summary>
         ///     Creates a <see cref="SpecificEntropy"/> from <see cref="SpecificEntropyUnit.MegajoulePerKilogramDegreeCelsius"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static SpecificEntropy FromMegajoulesPerKilogramDegreeCelsius(QuantityValue megajoulesperkilogramdegreecelsius)
+        public static SpecificEntropy FromMegajoulesPerKilogramDegreeCelsius(double value)
         {
-            double value = (double) megajoulesperkilogramdegreecelsius;
             return new SpecificEntropy(value, SpecificEntropyUnit.MegajoulePerKilogramDegreeCelsius);
         }
 
         /// <summary>
         ///     Creates a <see cref="SpecificEntropy"/> from <see cref="SpecificEntropyUnit.MegajoulePerKilogramKelvin"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static SpecificEntropy FromMegajoulesPerKilogramKelvin(QuantityValue megajoulesperkilogramkelvin)
+        public static SpecificEntropy FromMegajoulesPerKilogramKelvin(double value)
         {
-            double value = (double) megajoulesperkilogramkelvin;
             return new SpecificEntropy(value, SpecificEntropyUnit.MegajoulePerKilogramKelvin);
         }
 
@@ -390,9 +367,9 @@ namespace OasysUnits
         /// <param name="value">Value to convert from.</param>
         /// <param name="fromUnit">Unit to convert from.</param>
         /// <returns>SpecificEntropy unit value.</returns>
-        public static SpecificEntropy From(QuantityValue value, SpecificEntropyUnit fromUnit)
+        public static SpecificEntropy From(double value, SpecificEntropyUnit fromUnit)
         {
-            return new SpecificEntropy((double)value, fromUnit);
+            return new SpecificEntropy(value, fromUnit);
         }
 
         #endregion
@@ -404,7 +381,7 @@ namespace OasysUnits
         /// </summary>
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <example>
-        ///     Length.Parse("5.5 m", new CultureInfo("en-US"));
+        ///     Length.Parse("5.5 m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <exception cref="ArgumentNullException">The value of 'str' cannot be null. </exception>
         /// <exception cref="ArgumentException">
@@ -431,7 +408,7 @@ namespace OasysUnits
         /// </summary>
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <example>
-        ///     Length.Parse("5.5 m", new CultureInfo("en-US"));
+        ///     Length.Parse("5.5 m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <exception cref="ArgumentNullException">The value of 'str' cannot be null. </exception>
         /// <exception cref="ArgumentException">
@@ -463,7 +440,7 @@ namespace OasysUnits
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <param name="result">Resulting unit quantity if successful.</param>
         /// <example>
-        ///     Length.Parse("5.5 m", new CultureInfo("en-US"));
+        ///     Length.Parse("5.5 m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         public static bool TryParse(string? str, out SpecificEntropy result)
         {
@@ -477,7 +454,7 @@ namespace OasysUnits
         /// <param name="result">Resulting unit quantity if successful.</param>
         /// <returns>True if successful, otherwise false.</returns>
         /// <example>
-        ///     Length.Parse("5.5 m", new CultureInfo("en-US"));
+        ///     Length.Parse("5.5 m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <param name="provider">Format to use when parsing number and unit. Defaults to <see cref="CultureInfo.CurrentCulture" /> if null.</param>
         public static bool TryParse(string? str, IFormatProvider? provider, out SpecificEntropy result)
@@ -494,7 +471,7 @@ namespace OasysUnits
         /// </summary>
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <example>
-        ///     Length.ParseUnit("m", new CultureInfo("en-US"));
+        ///     Length.ParseUnit("m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <exception cref="ArgumentNullException">The value of 'str' cannot be null. </exception>
         /// <exception cref="OasysUnitsException">Error parsing string.</exception>
@@ -509,7 +486,7 @@ namespace OasysUnits
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <param name="provider">Format to use when parsing number and unit. Defaults to <see cref="CultureInfo.CurrentCulture" /> if null.</param>
         /// <example>
-        ///     Length.ParseUnit("m", new CultureInfo("en-US"));
+        ///     Length.ParseUnit("m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <exception cref="ArgumentNullException">The value of 'str' cannot be null. </exception>
         /// <exception cref="OasysUnitsException">Error parsing string.</exception>
@@ -531,7 +508,7 @@ namespace OasysUnits
         /// <param name="unit">The parsed unit if successful.</param>
         /// <returns>True if successful, otherwise false.</returns>
         /// <example>
-        ///     Length.TryParseUnit("m", new CultureInfo("en-US"));
+        ///     Length.TryParseUnit("m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <param name="provider">Format to use when parsing number and unit. Defaults to <see cref="CultureInfo.CurrentCulture" /> if null.</param>
         public static bool TryParseUnit(string str, IFormatProvider? provider, out SpecificEntropyUnit unit)
@@ -587,6 +564,22 @@ namespace OasysUnits
 
         #endregion
 
+        #region Relational Operators
+
+        /// <summary>Get <see cref="Entropy"/> from <see cref="SpecificEntropy"/> * <see cref="Mass"/>.</summary>
+        public static Entropy operator *(SpecificEntropy specificEntropy, Mass mass)
+        {
+            return Entropy.FromJoulesPerKelvin(specificEntropy.JoulesPerKilogramKelvin * mass.Kilograms);
+        }
+
+        /// <summary>Get <see cref="SpecificEnergy"/> from <see cref="SpecificEntropy"/> * <see cref="TemperatureDelta"/>.</summary>
+        public static SpecificEnergy operator *(SpecificEntropy specificEntropy, TemperatureDelta temperatureDelta)
+        {
+            return SpecificEnergy.FromJoulesPerKilogram(specificEntropy.JoulesPerKilogramKelvin * temperatureDelta.Kelvins);
+        }
+
+        #endregion
+
         #region Equality / IComparable
 
         /// <summary>Returns true if less or equal to.</summary>
@@ -618,16 +611,14 @@ namespace OasysUnits
         #pragma warning disable CS0809
 
         /// <summary>Indicates strict equality of two <see cref="SpecificEntropy"/> quantities, where both <see cref="Value" /> and <see cref="Unit" /> are exactly equal.</summary>
-        /// <remarks>Consider using <see cref="Equals(SpecificEntropy, double, ComparisonType)"/> to check equality across different units and to specify a floating-point number error tolerance.</remarks>
-        [Obsolete("For null checks, use `x is null` syntax to not invoke overloads. For quantity comparisons, use Equals(SpecificEntropy, double, ComparisonType) to check equality across different units and to specify a floating-point number error tolerance.")]
+        [Obsolete("For null checks, use `x is null` syntax to not invoke overloads. For equality checks, use Equals(SpecificEntropy other, SpecificEntropy tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public static bool operator ==(SpecificEntropy left, SpecificEntropy right)
         {
             return left.Equals(right);
         }
 
         /// <summary>Indicates strict inequality of two <see cref="SpecificEntropy"/> quantities, where both <see cref="Value" /> and <see cref="Unit" /> are exactly equal.</summary>
-        /// <remarks>Consider using <see cref="Equals(SpecificEntropy, double, ComparisonType)"/> to check equality across different units and to specify a floating-point number error tolerance.</remarks>
-        [Obsolete("For null checks, use `x is not null` syntax to not invoke overloads. For quantity comparisons, use Equals(SpecificEntropy, double, ComparisonType) to check equality across different units and to specify a floating-point number error tolerance.")]
+        [Obsolete("For null checks, use `x is null` syntax to not invoke overloads. For equality checks, use Equals(SpecificEntropy other, SpecificEntropy tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public static bool operator !=(SpecificEntropy left, SpecificEntropy right)
         {
             return !(left == right);
@@ -635,8 +626,7 @@ namespace OasysUnits
 
         /// <inheritdoc />
         /// <summary>Indicates strict equality of two <see cref="SpecificEntropy"/> quantities, where both <see cref="Value" /> and <see cref="Unit" /> are exactly equal.</summary>
-        /// <remarks>Consider using <see cref="Equals(SpecificEntropy, double, ComparisonType)"/> to check equality across different units and to specify a floating-point number error tolerance.</remarks>
-        [Obsolete("Consider using Equals(SpecificEntropy, double, ComparisonType) to check equality across different units and to specify a floating-point number error tolerance.")]
+        [Obsolete("Use Equals(SpecificEntropy other, SpecificEntropy tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public override bool Equals(object? obj)
         {
             if (obj is null || !(obj is SpecificEntropy otherQuantity))
@@ -647,8 +637,7 @@ namespace OasysUnits
 
         /// <inheritdoc />
         /// <summary>Indicates strict equality of two <see cref="SpecificEntropy"/> quantities, where both <see cref="Value" /> and <see cref="Unit" /> are exactly equal.</summary>
-        /// <remarks>Consider using <see cref="Equals(SpecificEntropy, double, ComparisonType)"/> to check equality across different units and to specify a floating-point number error tolerance.</remarks>
-        [Obsolete("Consider using Equals(SpecificEntropy, double, ComparisonType) to check equality across different units and to specify a floating-point number error tolerance.")]
+        [Obsolete("Use Equals(SpecificEntropy other, SpecificEntropy tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public bool Equals(SpecificEntropy other)
         {
             return new { Value, Unit }.Equals(new { other.Value, other.Unit });
@@ -732,15 +721,37 @@ namespace OasysUnits
         /// <param name="tolerance">The absolute or relative tolerance value. Must be greater than or equal to 0.</param>
         /// <param name="comparisonType">The comparison type: either relative or absolute.</param>
         /// <returns>True if the absolute difference between the two values is not greater than the specified relative or absolute tolerance.</returns>
+        [Obsolete("Use Equals(SpecificEntropy other, SpecificEntropy tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public bool Equals(SpecificEntropy other, double tolerance, ComparisonType comparisonType)
         {
             if (tolerance < 0)
-                throw new ArgumentOutOfRangeException("tolerance", "Tolerance must be greater than or equal to 0.");
+                throw new ArgumentOutOfRangeException(nameof(tolerance), "Tolerance must be greater than or equal to 0.");
 
-            double thisValue = this.Value;
-            double otherValueInThisUnits = other.As(this.Unit);
+            return OasysUnits.Comparison.Equals(
+                referenceValue: this.Value,
+                otherValue: other.As(this.Unit),
+                tolerance: tolerance,
+                comparisonType: comparisonType);
+        }
 
-            return OasysUnits.Comparison.Equals(thisValue, otherValueInThisUnits, tolerance, comparisonType);
+        /// <inheritdoc />
+        public bool Equals(IQuantity? other, IQuantity tolerance)
+        {
+            return other is SpecificEntropy otherTyped
+                   && (tolerance is SpecificEntropy toleranceTyped
+                       ? true
+                       : throw new ArgumentException($"Tolerance quantity ({tolerance.QuantityInfo.Name}) did not match the other quantities of type 'SpecificEntropy'.", nameof(tolerance)))
+                   && Equals(otherTyped, toleranceTyped);
+        }
+
+        /// <inheritdoc />
+        public bool Equals(SpecificEntropy other, SpecificEntropy tolerance)
+        {
+            return OasysUnits.Comparison.Equals(
+                referenceValue: this.Value,
+                otherValue: other.As(this.Unit),
+                tolerance: tolerance.As(this.Unit),
+                comparisonType: ComparisonType.Absolute);
         }
 
         /// <summary>
@@ -785,15 +796,6 @@ namespace OasysUnits
 
         /// <inheritdoc />
         double IQuantity.As(Enum unit)
-        {
-            if (!(unit is SpecificEntropyUnit typedUnit))
-                throw new ArgumentException($"The given unit is of type {unit.GetType()}. Only {typeof(SpecificEntropyUnit)} is supported.", nameof(unit));
-
-            return (double)As(typedUnit);
-        }
-
-        /// <inheritdoc />
-        double IValueQuantity<double>.As(Enum unit)
         {
             if (!(unit is SpecificEntropyUnit typedUnit))
                 throw new ArgumentException($"The given unit is of type {unit.GetType()}. Only {typeof(SpecificEntropyUnit)} is supported.", nameof(unit));
@@ -923,18 +925,6 @@ namespace OasysUnits
 
         /// <inheritdoc />
         IQuantity<SpecificEntropyUnit> IQuantity<SpecificEntropyUnit>.ToUnit(UnitSystem unitSystem) => ToUnit(unitSystem);
-
-        /// <inheritdoc />
-        IValueQuantity<double> IValueQuantity<double>.ToUnit(Enum unit)
-        {
-            if (unit is not SpecificEntropyUnit typedUnit)
-                throw new ArgumentException($"The given unit is of type {unit.GetType()}. Only {typeof(SpecificEntropyUnit)} is supported.", nameof(unit));
-
-            return ToUnit(typedUnit);
-        }
-
-        /// <inheritdoc />
-        IValueQuantity<double> IValueQuantity<double>.ToUnit(UnitSystem unitSystem) => ToUnit(unitSystem);
 
         #endregion
 

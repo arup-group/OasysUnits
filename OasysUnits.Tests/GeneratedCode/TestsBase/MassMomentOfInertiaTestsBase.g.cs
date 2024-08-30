@@ -6,7 +6,7 @@
 //     The build server regenerates the code before each build and a pre-build
 //     step will regenerate the code on each local build.
 //
-//     See https://github.com/angularsen/UnitsNet/wiki/Adding-a-New-Unit for how to add or edit units.
+//     See https://github.com/angularsen/OasysUnits/wiki/Adding-a-New-Unit for how to add or edit units.
 //
 //     Add CustomCode\Quantities\MyQuantity.extra.cs files to add code to generated quantities.
 //     Add UnitDefinitions\MyQuantity.json and run generate-code.bat to generate new units or quantities.
@@ -15,7 +15,7 @@
 //------------------------------------------------------------------------------
 
 // Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using System;
 using System.Collections.Generic;
@@ -175,16 +175,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void Ctor_WithInfinityValue_ThrowsArgumentException()
+        public void Ctor_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new MassMomentOfInertia(double.PositiveInfinity, MassMomentOfInertiaUnit.KilogramSquareMeter));
-            Assert.Throws<ArgumentException>(() => new MassMomentOfInertia(double.NegativeInfinity, MassMomentOfInertiaUnit.KilogramSquareMeter));
+            var exception1 = Record.Exception(() => new MassMomentOfInertia(double.PositiveInfinity, MassMomentOfInertiaUnit.KilogramSquareMeter));
+            var exception2 = Record.Exception(() => new MassMomentOfInertia(double.NegativeInfinity, MassMomentOfInertiaUnit.KilogramSquareMeter));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void Ctor_WithNaNValue_ThrowsArgumentException()
+        public void Ctor_WithNaNValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new MassMomentOfInertia(double.NaN, MassMomentOfInertiaUnit.KilogramSquareMeter));
+            var exception = Record.Exception(() => new MassMomentOfInertia(double.NaN, MassMomentOfInertiaUnit.KilogramSquareMeter));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -374,16 +379,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void FromKilogramSquareMeters_WithInfinityValue_ThrowsArgumentException()
+        public void FromKilogramSquareMeters_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => MassMomentOfInertia.FromKilogramSquareMeters(double.PositiveInfinity));
-            Assert.Throws<ArgumentException>(() => MassMomentOfInertia.FromKilogramSquareMeters(double.NegativeInfinity));
+            var exception1 = Record.Exception(() => MassMomentOfInertia.FromKilogramSquareMeters(double.PositiveInfinity));
+            var exception2 = Record.Exception(() => MassMomentOfInertia.FromKilogramSquareMeters(double.NegativeInfinity));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void FromKilogramSquareMeters_WithNanValue_ThrowsArgumentException()
+        public void FromKilogramSquareMeters_WithNanValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => MassMomentOfInertia.FromKilogramSquareMeters(double.NaN));
+            var exception = Record.Exception(() => MassMomentOfInertia.FromKilogramSquareMeters(double.NaN));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -1305,6 +1315,8 @@ namespace OasysUnits.Tests
             var v = MassMomentOfInertia.FromKilogramSquareMeters(1);
             Assert.True(v.Equals(MassMomentOfInertia.FromKilogramSquareMeters(1), KilogramSquareMetersTolerance, ComparisonType.Relative));
             Assert.False(v.Equals(MassMomentOfInertia.Zero, KilogramSquareMetersTolerance, ComparisonType.Relative));
+            Assert.True(MassMomentOfInertia.FromKilogramSquareMeters(100).Equals(MassMomentOfInertia.FromKilogramSquareMeters(120), 0.3, ComparisonType.Relative));
+            Assert.False(MassMomentOfInertia.FromKilogramSquareMeters(100).Equals(MassMomentOfInertia.FromKilogramSquareMeters(120), 0.1, ComparisonType.Relative));
         }
 
         [Fact]

@@ -6,7 +6,7 @@
 //     The build server regenerates the code before each build and a pre-build
 //     step will regenerate the code on each local build.
 //
-//     See https://github.com/angularsen/UnitsNet/wiki/Adding-a-New-Unit for how to add or edit units.
+//     See https://github.com/angularsen/OasysUnits/wiki/Adding-a-New-Unit for how to add or edit units.
 //
 //     Add CustomCode\Quantities\MyQuantity.extra.cs files to add code to generated quantities.
 //     Add UnitDefinitions\MyQuantity.json and run generate-code.bat to generate new units or quantities.
@@ -15,9 +15,10 @@
 //------------------------------------------------------------------------------
 
 // Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using System;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
@@ -36,8 +37,9 @@ namespace OasysUnits
     ///     A temperature is a numerical measure of hot or cold. Its measurement is by detection of heat radiation or particle velocity or kinetic energy, or by the bulk behavior of a thermometric material. It may be calibrated in any of various temperature scales, Celsius, Fahrenheit, Kelvin, etc. The fundamental physical definition of temperature is provided by thermodynamics.
     /// </summary>
     [DataContract]
+    [DebuggerTypeProxy(typeof(QuantityDisplay))]
     public readonly partial struct Temperature :
-        IQuantity<Temperature, TemperatureUnit, double>,
+        IQuantity<Temperature, TemperatureUnit>,
         IComparable,
         IComparable<Temperature>,
         IConvertible,
@@ -47,13 +49,13 @@ namespace OasysUnits
         /// <summary>
         ///     The numeric value this quantity was constructed with.
         /// </summary>
-        [DataMember(Name = "Value", Order = 0)]
+        [DataMember(Name = "Value", Order = 1)]
         private readonly double _value;
 
         /// <summary>
         ///     The unit this quantity was constructed with.
         /// </summary>
-        [DataMember(Name = "Unit", Order = 1)]
+        [DataMember(Name = "Unit", Order = 2)]
         private readonly TemperatureUnit? _unit;
 
         static Temperature()
@@ -65,16 +67,16 @@ namespace OasysUnits
             Info = new QuantityInfo<TemperatureUnit>("Temperature",
                 new UnitInfo<TemperatureUnit>[]
                 {
-                    new UnitInfo<TemperatureUnit>(TemperatureUnit.DegreeCelsius, "DegreesCelsius", new BaseUnits(temperature: TemperatureUnit.DegreeCelsius)),
-                    new UnitInfo<TemperatureUnit>(TemperatureUnit.DegreeDelisle, "DegreesDelisle", new BaseUnits(temperature: TemperatureUnit.DegreeDelisle)),
-                    new UnitInfo<TemperatureUnit>(TemperatureUnit.DegreeFahrenheit, "DegreesFahrenheit", new BaseUnits(temperature: TemperatureUnit.DegreeFahrenheit)),
-                    new UnitInfo<TemperatureUnit>(TemperatureUnit.DegreeNewton, "DegreesNewton", new BaseUnits(temperature: TemperatureUnit.DegreeNewton)),
-                    new UnitInfo<TemperatureUnit>(TemperatureUnit.DegreeRankine, "DegreesRankine", new BaseUnits(temperature: TemperatureUnit.DegreeRankine)),
-                    new UnitInfo<TemperatureUnit>(TemperatureUnit.DegreeReaumur, "DegreesReaumur", new BaseUnits(temperature: TemperatureUnit.DegreeReaumur)),
-                    new UnitInfo<TemperatureUnit>(TemperatureUnit.DegreeRoemer, "DegreesRoemer", new BaseUnits(temperature: TemperatureUnit.DegreeRoemer)),
-                    new UnitInfo<TemperatureUnit>(TemperatureUnit.Kelvin, "Kelvins", new BaseUnits(temperature: TemperatureUnit.Kelvin)),
-                    new UnitInfo<TemperatureUnit>(TemperatureUnit.MillidegreeCelsius, "MillidegreesCelsius", new BaseUnits(temperature: TemperatureUnit.DegreeCelsius)),
-                    new UnitInfo<TemperatureUnit>(TemperatureUnit.SolarTemperature, "SolarTemperatures", BaseUnits.Undefined),
+                    new UnitInfo<TemperatureUnit>(TemperatureUnit.DegreeCelsius, "DegreesCelsius", new BaseUnits(temperature: TemperatureUnit.DegreeCelsius), "Temperature"),
+                    new UnitInfo<TemperatureUnit>(TemperatureUnit.DegreeDelisle, "DegreesDelisle", new BaseUnits(temperature: TemperatureUnit.DegreeDelisle), "Temperature"),
+                    new UnitInfo<TemperatureUnit>(TemperatureUnit.DegreeFahrenheit, "DegreesFahrenheit", new BaseUnits(temperature: TemperatureUnit.DegreeFahrenheit), "Temperature"),
+                    new UnitInfo<TemperatureUnit>(TemperatureUnit.DegreeNewton, "DegreesNewton", new BaseUnits(temperature: TemperatureUnit.DegreeNewton), "Temperature"),
+                    new UnitInfo<TemperatureUnit>(TemperatureUnit.DegreeRankine, "DegreesRankine", new BaseUnits(temperature: TemperatureUnit.DegreeRankine), "Temperature"),
+                    new UnitInfo<TemperatureUnit>(TemperatureUnit.DegreeReaumur, "DegreesReaumur", new BaseUnits(temperature: TemperatureUnit.DegreeReaumur), "Temperature"),
+                    new UnitInfo<TemperatureUnit>(TemperatureUnit.DegreeRoemer, "DegreesRoemer", new BaseUnits(temperature: TemperatureUnit.DegreeRoemer), "Temperature"),
+                    new UnitInfo<TemperatureUnit>(TemperatureUnit.Kelvin, "Kelvins", new BaseUnits(temperature: TemperatureUnit.Kelvin), "Temperature"),
+                    new UnitInfo<TemperatureUnit>(TemperatureUnit.MillidegreeCelsius, "MillidegreesCelsius", new BaseUnits(temperature: TemperatureUnit.DegreeCelsius), "Temperature"),
+                    new UnitInfo<TemperatureUnit>(TemperatureUnit.SolarTemperature, "SolarTemperatures", BaseUnits.Undefined, "Temperature"),
                 },
                 BaseUnit, Zero, BaseDimensions);
 
@@ -87,10 +89,9 @@ namespace OasysUnits
         /// </summary>
         /// <param name="value">The numeric value to construct this quantity with.</param>
         /// <param name="unit">The unit representation to construct this quantity with.</param>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
         public Temperature(double value, TemperatureUnit unit)
         {
-            _value = Guard.EnsureValidNumber(value, nameof(value));
+            _value = value;
             _unit = unit;
         }
 
@@ -109,7 +110,7 @@ namespace OasysUnits
             var unitInfos = Info.GetUnitInfosFor(unitSystem.BaseUnits);
             var firstUnitInfo = unitInfos.FirstOrDefault();
 
-            _value = Guard.EnsureValidNumber(value, nameof(value));
+            _value = value;
             _unit = firstUnitInfo?.Value ?? throw new ArgumentException("No units were found for the given UnitSystem.", nameof(unitSystem));
         }
 
@@ -144,7 +145,7 @@ namespace OasysUnits
         public static Temperature Zero { get; }
 
         #endregion
- 
+
         #region Properties
 
         /// <summary>
@@ -153,7 +154,7 @@ namespace OasysUnits
         public double Value => _value;
 
         /// <inheritdoc />
-        QuantityValue IQuantity.Value => _value;
+        double IQuantity.Value => _value;
 
         Enum IQuantity.Unit => Unit;
 
@@ -261,20 +262,6 @@ namespace OasysUnits
             unitConverter.SetConversionFunction<Temperature>(TemperatureUnit.Kelvin, TemperatureUnit.SolarTemperature, quantity => quantity.ToUnit(TemperatureUnit.SolarTemperature));
         }
 
-        internal static void MapGeneratedLocalizations(UnitAbbreviationsCache unitAbbreviationsCache)
-        {
-            unitAbbreviationsCache.PerformAbbreviationMapping(TemperatureUnit.DegreeCelsius, new CultureInfo("en-US"), false, true, new string[]{"°C"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(TemperatureUnit.DegreeDelisle, new CultureInfo("en-US"), false, true, new string[]{"°De"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(TemperatureUnit.DegreeFahrenheit, new CultureInfo("en-US"), false, true, new string[]{"°F"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(TemperatureUnit.DegreeNewton, new CultureInfo("en-US"), false, true, new string[]{"°N"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(TemperatureUnit.DegreeRankine, new CultureInfo("en-US"), false, true, new string[]{"°R"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(TemperatureUnit.DegreeReaumur, new CultureInfo("en-US"), false, true, new string[]{"°Ré"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(TemperatureUnit.DegreeRoemer, new CultureInfo("en-US"), false, true, new string[]{"°Rø"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(TemperatureUnit.Kelvin, new CultureInfo("en-US"), false, true, new string[]{"K"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(TemperatureUnit.MillidegreeCelsius, new CultureInfo("en-US"), false, true, new string[]{"m°C"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(TemperatureUnit.SolarTemperature, new CultureInfo("en-US"), false, true, new string[]{"T⊙"});
-        }
-
         /// <summary>
         ///     Get unit abbreviation string.
         /// </summary>
@@ -303,100 +290,80 @@ namespace OasysUnits
         /// <summary>
         ///     Creates a <see cref="Temperature"/> from <see cref="TemperatureUnit.DegreeCelsius"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Temperature FromDegreesCelsius(QuantityValue degreescelsius)
+        public static Temperature FromDegreesCelsius(double value)
         {
-            double value = (double) degreescelsius;
             return new Temperature(value, TemperatureUnit.DegreeCelsius);
         }
 
         /// <summary>
         ///     Creates a <see cref="Temperature"/> from <see cref="TemperatureUnit.DegreeDelisle"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Temperature FromDegreesDelisle(QuantityValue degreesdelisle)
+        public static Temperature FromDegreesDelisle(double value)
         {
-            double value = (double) degreesdelisle;
             return new Temperature(value, TemperatureUnit.DegreeDelisle);
         }
 
         /// <summary>
         ///     Creates a <see cref="Temperature"/> from <see cref="TemperatureUnit.DegreeFahrenheit"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Temperature FromDegreesFahrenheit(QuantityValue degreesfahrenheit)
+        public static Temperature FromDegreesFahrenheit(double value)
         {
-            double value = (double) degreesfahrenheit;
             return new Temperature(value, TemperatureUnit.DegreeFahrenheit);
         }
 
         /// <summary>
         ///     Creates a <see cref="Temperature"/> from <see cref="TemperatureUnit.DegreeNewton"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Temperature FromDegreesNewton(QuantityValue degreesnewton)
+        public static Temperature FromDegreesNewton(double value)
         {
-            double value = (double) degreesnewton;
             return new Temperature(value, TemperatureUnit.DegreeNewton);
         }
 
         /// <summary>
         ///     Creates a <see cref="Temperature"/> from <see cref="TemperatureUnit.DegreeRankine"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Temperature FromDegreesRankine(QuantityValue degreesrankine)
+        public static Temperature FromDegreesRankine(double value)
         {
-            double value = (double) degreesrankine;
             return new Temperature(value, TemperatureUnit.DegreeRankine);
         }
 
         /// <summary>
         ///     Creates a <see cref="Temperature"/> from <see cref="TemperatureUnit.DegreeReaumur"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Temperature FromDegreesReaumur(QuantityValue degreesreaumur)
+        public static Temperature FromDegreesReaumur(double value)
         {
-            double value = (double) degreesreaumur;
             return new Temperature(value, TemperatureUnit.DegreeReaumur);
         }
 
         /// <summary>
         ///     Creates a <see cref="Temperature"/> from <see cref="TemperatureUnit.DegreeRoemer"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Temperature FromDegreesRoemer(QuantityValue degreesroemer)
+        public static Temperature FromDegreesRoemer(double value)
         {
-            double value = (double) degreesroemer;
             return new Temperature(value, TemperatureUnit.DegreeRoemer);
         }
 
         /// <summary>
         ///     Creates a <see cref="Temperature"/> from <see cref="TemperatureUnit.Kelvin"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Temperature FromKelvins(QuantityValue kelvins)
+        public static Temperature FromKelvins(double value)
         {
-            double value = (double) kelvins;
             return new Temperature(value, TemperatureUnit.Kelvin);
         }
 
         /// <summary>
         ///     Creates a <see cref="Temperature"/> from <see cref="TemperatureUnit.MillidegreeCelsius"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Temperature FromMillidegreesCelsius(QuantityValue millidegreescelsius)
+        public static Temperature FromMillidegreesCelsius(double value)
         {
-            double value = (double) millidegreescelsius;
             return new Temperature(value, TemperatureUnit.MillidegreeCelsius);
         }
 
         /// <summary>
         ///     Creates a <see cref="Temperature"/> from <see cref="TemperatureUnit.SolarTemperature"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Temperature FromSolarTemperatures(QuantityValue solartemperatures)
+        public static Temperature FromSolarTemperatures(double value)
         {
-            double value = (double) solartemperatures;
             return new Temperature(value, TemperatureUnit.SolarTemperature);
         }
 
@@ -406,9 +373,9 @@ namespace OasysUnits
         /// <param name="value">Value to convert from.</param>
         /// <param name="fromUnit">Unit to convert from.</param>
         /// <returns>Temperature unit value.</returns>
-        public static Temperature From(QuantityValue value, TemperatureUnit fromUnit)
+        public static Temperature From(double value, TemperatureUnit fromUnit)
         {
-            return new Temperature((double)value, fromUnit);
+            return new Temperature(value, fromUnit);
         }
 
         #endregion
@@ -420,7 +387,7 @@ namespace OasysUnits
         /// </summary>
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <example>
-        ///     Length.Parse("5.5 m", new CultureInfo("en-US"));
+        ///     Length.Parse("5.5 m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <exception cref="ArgumentNullException">The value of 'str' cannot be null. </exception>
         /// <exception cref="ArgumentException">
@@ -447,7 +414,7 @@ namespace OasysUnits
         /// </summary>
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <example>
-        ///     Length.Parse("5.5 m", new CultureInfo("en-US"));
+        ///     Length.Parse("5.5 m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <exception cref="ArgumentNullException">The value of 'str' cannot be null. </exception>
         /// <exception cref="ArgumentException">
@@ -479,7 +446,7 @@ namespace OasysUnits
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <param name="result">Resulting unit quantity if successful.</param>
         /// <example>
-        ///     Length.Parse("5.5 m", new CultureInfo("en-US"));
+        ///     Length.Parse("5.5 m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         public static bool TryParse(string? str, out Temperature result)
         {
@@ -493,7 +460,7 @@ namespace OasysUnits
         /// <param name="result">Resulting unit quantity if successful.</param>
         /// <returns>True if successful, otherwise false.</returns>
         /// <example>
-        ///     Length.Parse("5.5 m", new CultureInfo("en-US"));
+        ///     Length.Parse("5.5 m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <param name="provider">Format to use when parsing number and unit. Defaults to <see cref="CultureInfo.CurrentCulture" /> if null.</param>
         public static bool TryParse(string? str, IFormatProvider? provider, out Temperature result)
@@ -510,7 +477,7 @@ namespace OasysUnits
         /// </summary>
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <example>
-        ///     Length.ParseUnit("m", new CultureInfo("en-US"));
+        ///     Length.ParseUnit("m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <exception cref="ArgumentNullException">The value of 'str' cannot be null. </exception>
         /// <exception cref="OasysUnitsException">Error parsing string.</exception>
@@ -525,7 +492,7 @@ namespace OasysUnits
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <param name="provider">Format to use when parsing number and unit. Defaults to <see cref="CultureInfo.CurrentCulture" /> if null.</param>
         /// <example>
-        ///     Length.ParseUnit("m", new CultureInfo("en-US"));
+        ///     Length.ParseUnit("m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <exception cref="ArgumentNullException">The value of 'str' cannot be null. </exception>
         /// <exception cref="OasysUnitsException">Error parsing string.</exception>
@@ -547,7 +514,7 @@ namespace OasysUnits
         /// <param name="unit">The parsed unit if successful.</param>
         /// <returns>True if successful, otherwise false.</returns>
         /// <example>
-        ///     Length.TryParseUnit("m", new CultureInfo("en-US"));
+        ///     Length.TryParseUnit("m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <param name="provider">Format to use when parsing number and unit. Defaults to <see cref="CultureInfo.CurrentCulture" /> if null.</param>
         public static bool TryParseUnit(string str, IFormatProvider? provider, out TemperatureUnit unit)
@@ -588,16 +555,14 @@ namespace OasysUnits
         #pragma warning disable CS0809
 
         /// <summary>Indicates strict equality of two <see cref="Temperature"/> quantities, where both <see cref="Value" /> and <see cref="Unit" /> are exactly equal.</summary>
-        /// <remarks>Consider using <see cref="Equals(Temperature, double, ComparisonType)"/> to check equality across different units and to specify a floating-point number error tolerance.</remarks>
-        [Obsolete("For null checks, use `x is null` syntax to not invoke overloads. For quantity comparisons, use Equals(Temperature, double, ComparisonType) to check equality across different units and to specify a floating-point number error tolerance.")]
+        [Obsolete("For null checks, use `x is null` syntax to not invoke overloads. For equality checks, use Equals(Temperature other, Temperature tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public static bool operator ==(Temperature left, Temperature right)
         {
             return left.Equals(right);
         }
 
         /// <summary>Indicates strict inequality of two <see cref="Temperature"/> quantities, where both <see cref="Value" /> and <see cref="Unit" /> are exactly equal.</summary>
-        /// <remarks>Consider using <see cref="Equals(Temperature, double, ComparisonType)"/> to check equality across different units and to specify a floating-point number error tolerance.</remarks>
-        [Obsolete("For null checks, use `x is not null` syntax to not invoke overloads. For quantity comparisons, use Equals(Temperature, double, ComparisonType) to check equality across different units and to specify a floating-point number error tolerance.")]
+        [Obsolete("For null checks, use `x is null` syntax to not invoke overloads. For equality checks, use Equals(Temperature other, Temperature tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public static bool operator !=(Temperature left, Temperature right)
         {
             return !(left == right);
@@ -605,8 +570,7 @@ namespace OasysUnits
 
         /// <inheritdoc />
         /// <summary>Indicates strict equality of two <see cref="Temperature"/> quantities, where both <see cref="Value" /> and <see cref="Unit" /> are exactly equal.</summary>
-        /// <remarks>Consider using <see cref="Equals(Temperature, double, ComparisonType)"/> to check equality across different units and to specify a floating-point number error tolerance.</remarks>
-        [Obsolete("Consider using Equals(Temperature, double, ComparisonType) to check equality across different units and to specify a floating-point number error tolerance.")]
+        [Obsolete("Use Equals(Temperature other, Temperature tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public override bool Equals(object? obj)
         {
             if (obj is null || !(obj is Temperature otherQuantity))
@@ -617,8 +581,7 @@ namespace OasysUnits
 
         /// <inheritdoc />
         /// <summary>Indicates strict equality of two <see cref="Temperature"/> quantities, where both <see cref="Value" /> and <see cref="Unit" /> are exactly equal.</summary>
-        /// <remarks>Consider using <see cref="Equals(Temperature, double, ComparisonType)"/> to check equality across different units and to specify a floating-point number error tolerance.</remarks>
-        [Obsolete("Consider using Equals(Temperature, double, ComparisonType) to check equality across different units and to specify a floating-point number error tolerance.")]
+        [Obsolete("Use Equals(Temperature other, Temperature tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public bool Equals(Temperature other)
         {
             return new { Value, Unit }.Equals(new { other.Value, other.Unit });
@@ -702,15 +665,37 @@ namespace OasysUnits
         /// <param name="tolerance">The absolute or relative tolerance value. Must be greater than or equal to 0.</param>
         /// <param name="comparisonType">The comparison type: either relative or absolute.</param>
         /// <returns>True if the absolute difference between the two values is not greater than the specified relative or absolute tolerance.</returns>
+        [Obsolete("Use Equals(Temperature other, Temperature tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public bool Equals(Temperature other, double tolerance, ComparisonType comparisonType)
         {
             if (tolerance < 0)
-                throw new ArgumentOutOfRangeException("tolerance", "Tolerance must be greater than or equal to 0.");
+                throw new ArgumentOutOfRangeException(nameof(tolerance), "Tolerance must be greater than or equal to 0.");
 
-            double thisValue = this.Value;
-            double otherValueInThisUnits = other.As(this.Unit);
+            return OasysUnits.Comparison.Equals(
+                referenceValue: this.Value,
+                otherValue: other.As(this.Unit),
+                tolerance: tolerance,
+                comparisonType: comparisonType);
+        }
 
-            return OasysUnits.Comparison.Equals(thisValue, otherValueInThisUnits, tolerance, comparisonType);
+        /// <inheritdoc />
+        public bool Equals(IQuantity? other, IQuantity tolerance)
+        {
+            return other is Temperature otherTyped
+                   && (tolerance is Temperature toleranceTyped
+                       ? true
+                       : throw new ArgumentException($"Tolerance quantity ({tolerance.QuantityInfo.Name}) did not match the other quantities of type 'Temperature'.", nameof(tolerance)))
+                   && Equals(otherTyped, toleranceTyped);
+        }
+
+        /// <inheritdoc />
+        public bool Equals(Temperature other, Temperature tolerance)
+        {
+            return OasysUnits.Comparison.Equals(
+                referenceValue: this.Value,
+                otherValue: other.As(this.Unit),
+                tolerance: tolerance.As(this.Unit),
+                comparisonType: ComparisonType.Absolute);
         }
 
         /// <summary>
@@ -755,15 +740,6 @@ namespace OasysUnits
 
         /// <inheritdoc />
         double IQuantity.As(Enum unit)
-        {
-            if (!(unit is TemperatureUnit typedUnit))
-                throw new ArgumentException($"The given unit is of type {unit.GetType()}. Only {typeof(TemperatureUnit)} is supported.", nameof(unit));
-
-            return (double)As(typedUnit);
-        }
-
-        /// <inheritdoc />
-        double IValueQuantity<double>.As(Enum unit)
         {
             if (!(unit is TemperatureUnit typedUnit))
                 throw new ArgumentException($"The given unit is of type {unit.GetType()}. Only {typeof(TemperatureUnit)} is supported.", nameof(unit));
@@ -895,18 +871,6 @@ namespace OasysUnits
 
         /// <inheritdoc />
         IQuantity<TemperatureUnit> IQuantity<TemperatureUnit>.ToUnit(UnitSystem unitSystem) => ToUnit(unitSystem);
-
-        /// <inheritdoc />
-        IValueQuantity<double> IValueQuantity<double>.ToUnit(Enum unit)
-        {
-            if (unit is not TemperatureUnit typedUnit)
-                throw new ArgumentException($"The given unit is of type {unit.GetType()}. Only {typeof(TemperatureUnit)} is supported.", nameof(unit));
-
-            return ToUnit(typedUnit);
-        }
-
-        /// <inheritdoc />
-        IValueQuantity<double> IValueQuantity<double>.ToUnit(UnitSystem unitSystem) => ToUnit(unitSystem);
 
         #endregion
 

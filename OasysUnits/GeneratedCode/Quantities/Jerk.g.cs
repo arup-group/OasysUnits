@@ -6,7 +6,7 @@
 //     The build server regenerates the code before each build and a pre-build
 //     step will regenerate the code on each local build.
 //
-//     See https://github.com/angularsen/UnitsNet/wiki/Adding-a-New-Unit for how to add or edit units.
+//     See https://github.com/angularsen/OasysUnits/wiki/Adding-a-New-Unit for how to add or edit units.
 //
 //     Add CustomCode\Quantities\MyQuantity.extra.cs files to add code to generated quantities.
 //     Add UnitDefinitions\MyQuantity.json and run generate-code.bat to generate new units or quantities.
@@ -15,12 +15,16 @@
 //------------------------------------------------------------------------------
 
 // Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using System;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
 using System.Runtime.Serialization;
 using OasysUnits.InternalHelpers;
 using OasysUnits.Units;
@@ -36,8 +40,12 @@ namespace OasysUnits
     ///     
     /// </summary>
     [DataContract]
+    [DebuggerTypeProxy(typeof(QuantityDisplay))]
     public readonly partial struct Jerk :
-        IArithmeticQuantity<Jerk, JerkUnit, double>,
+        IArithmeticQuantity<Jerk, JerkUnit>,
+#if NET7_0_OR_GREATER
+        IMultiplyOperators<Jerk, Duration, Acceleration>,
+#endif
         IComparable,
         IComparable<Jerk>,
         IConvertible,
@@ -47,13 +55,13 @@ namespace OasysUnits
         /// <summary>
         ///     The numeric value this quantity was constructed with.
         /// </summary>
-        [DataMember(Name = "Value", Order = 0)]
+        [DataMember(Name = "Value", Order = 1)]
         private readonly double _value;
 
         /// <summary>
         ///     The unit this quantity was constructed with.
         /// </summary>
-        [DataMember(Name = "Unit", Order = 1)]
+        [DataMember(Name = "Unit", Order = 2)]
         private readonly JerkUnit? _unit;
 
         static Jerk()
@@ -65,17 +73,17 @@ namespace OasysUnits
             Info = new QuantityInfo<JerkUnit>("Jerk",
                 new UnitInfo<JerkUnit>[]
                 {
-                    new UnitInfo<JerkUnit>(JerkUnit.CentimeterPerSecondCubed, "CentimetersPerSecondCubed", BaseUnits.Undefined),
-                    new UnitInfo<JerkUnit>(JerkUnit.DecimeterPerSecondCubed, "DecimetersPerSecondCubed", BaseUnits.Undefined),
-                    new UnitInfo<JerkUnit>(JerkUnit.FootPerSecondCubed, "FeetPerSecondCubed", new BaseUnits(length: LengthUnit.Foot, time: DurationUnit.Second)),
-                    new UnitInfo<JerkUnit>(JerkUnit.InchPerSecondCubed, "InchesPerSecondCubed", new BaseUnits(length: LengthUnit.Inch, time: DurationUnit.Second)),
-                    new UnitInfo<JerkUnit>(JerkUnit.KilometerPerSecondCubed, "KilometersPerSecondCubed", BaseUnits.Undefined),
-                    new UnitInfo<JerkUnit>(JerkUnit.MeterPerSecondCubed, "MetersPerSecondCubed", new BaseUnits(length: LengthUnit.Meter, time: DurationUnit.Second)),
-                    new UnitInfo<JerkUnit>(JerkUnit.MicrometerPerSecondCubed, "MicrometersPerSecondCubed", BaseUnits.Undefined),
-                    new UnitInfo<JerkUnit>(JerkUnit.MillimeterPerSecondCubed, "MillimetersPerSecondCubed", BaseUnits.Undefined),
-                    new UnitInfo<JerkUnit>(JerkUnit.MillistandardGravitiesPerSecond, "MillistandardGravitiesPerSecond", BaseUnits.Undefined),
-                    new UnitInfo<JerkUnit>(JerkUnit.NanometerPerSecondCubed, "NanometersPerSecondCubed", BaseUnits.Undefined),
-                    new UnitInfo<JerkUnit>(JerkUnit.StandardGravitiesPerSecond, "StandardGravitiesPerSecond", new BaseUnits(length: LengthUnit.Meter, time: DurationUnit.Second)),
+                    new UnitInfo<JerkUnit>(JerkUnit.CentimeterPerSecondCubed, "CentimetersPerSecondCubed", BaseUnits.Undefined, "Jerk"),
+                    new UnitInfo<JerkUnit>(JerkUnit.DecimeterPerSecondCubed, "DecimetersPerSecondCubed", BaseUnits.Undefined, "Jerk"),
+                    new UnitInfo<JerkUnit>(JerkUnit.FootPerSecondCubed, "FeetPerSecondCubed", new BaseUnits(length: LengthUnit.Foot, time: DurationUnit.Second), "Jerk"),
+                    new UnitInfo<JerkUnit>(JerkUnit.InchPerSecondCubed, "InchesPerSecondCubed", new BaseUnits(length: LengthUnit.Inch, time: DurationUnit.Second), "Jerk"),
+                    new UnitInfo<JerkUnit>(JerkUnit.KilometerPerSecondCubed, "KilometersPerSecondCubed", BaseUnits.Undefined, "Jerk"),
+                    new UnitInfo<JerkUnit>(JerkUnit.MeterPerSecondCubed, "MetersPerSecondCubed", new BaseUnits(length: LengthUnit.Meter, time: DurationUnit.Second), "Jerk"),
+                    new UnitInfo<JerkUnit>(JerkUnit.MicrometerPerSecondCubed, "MicrometersPerSecondCubed", BaseUnits.Undefined, "Jerk"),
+                    new UnitInfo<JerkUnit>(JerkUnit.MillimeterPerSecondCubed, "MillimetersPerSecondCubed", BaseUnits.Undefined, "Jerk"),
+                    new UnitInfo<JerkUnit>(JerkUnit.MillistandardGravitiesPerSecond, "MillistandardGravitiesPerSecond", BaseUnits.Undefined, "Jerk"),
+                    new UnitInfo<JerkUnit>(JerkUnit.NanometerPerSecondCubed, "NanometersPerSecondCubed", BaseUnits.Undefined, "Jerk"),
+                    new UnitInfo<JerkUnit>(JerkUnit.StandardGravitiesPerSecond, "StandardGravitiesPerSecond", new BaseUnits(length: LengthUnit.Meter, time: DurationUnit.Second), "Jerk"),
                 },
                 BaseUnit, Zero, BaseDimensions);
 
@@ -88,10 +96,9 @@ namespace OasysUnits
         /// </summary>
         /// <param name="value">The numeric value to construct this quantity with.</param>
         /// <param name="unit">The unit representation to construct this quantity with.</param>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
         public Jerk(double value, JerkUnit unit)
         {
-            _value = Guard.EnsureValidNumber(value, nameof(value));
+            _value = value;
             _unit = unit;
         }
 
@@ -110,7 +117,7 @@ namespace OasysUnits
             var unitInfos = Info.GetUnitInfosFor(unitSystem.BaseUnits);
             var firstUnitInfo = unitInfos.FirstOrDefault();
 
-            _value = Guard.EnsureValidNumber(value, nameof(value));
+            _value = value;
             _unit = firstUnitInfo?.Value ?? throw new ArgumentException("No units were found for the given UnitSystem.", nameof(unitSystem));
         }
 
@@ -148,7 +155,7 @@ namespace OasysUnits
         public static Jerk AdditiveIdentity => Zero;
 
         #endregion
- 
+
         #region Properties
 
         /// <summary>
@@ -157,7 +164,7 @@ namespace OasysUnits
         public double Value => _value;
 
         /// <inheritdoc />
-        QuantityValue IQuantity.Value => _value;
+        double IQuantity.Value => _value;
 
         Enum IQuantity.Unit => Unit;
 
@@ -272,32 +279,6 @@ namespace OasysUnits
             unitConverter.SetConversionFunction<Jerk>(JerkUnit.MeterPerSecondCubed, JerkUnit.StandardGravitiesPerSecond, quantity => quantity.ToUnit(JerkUnit.StandardGravitiesPerSecond));
         }
 
-        internal static void MapGeneratedLocalizations(UnitAbbreviationsCache unitAbbreviationsCache)
-        {
-            unitAbbreviationsCache.PerformAbbreviationMapping(JerkUnit.CentimeterPerSecondCubed, new CultureInfo("en-US"), false, true, new string[]{"cm/s³"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(JerkUnit.CentimeterPerSecondCubed, new CultureInfo("ru-RU"), false, true, new string[]{"см/с³"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(JerkUnit.DecimeterPerSecondCubed, new CultureInfo("en-US"), false, true, new string[]{"dm/s³"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(JerkUnit.DecimeterPerSecondCubed, new CultureInfo("ru-RU"), false, true, new string[]{"дм/с³"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(JerkUnit.FootPerSecondCubed, new CultureInfo("en-US"), false, true, new string[]{"ft/s³"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(JerkUnit.FootPerSecondCubed, new CultureInfo("ru-RU"), false, true, new string[]{"фут/с³"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(JerkUnit.InchPerSecondCubed, new CultureInfo("en-US"), false, true, new string[]{"in/s³"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(JerkUnit.InchPerSecondCubed, new CultureInfo("ru-RU"), false, true, new string[]{"дюйм/с³"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(JerkUnit.KilometerPerSecondCubed, new CultureInfo("en-US"), false, true, new string[]{"km/s³"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(JerkUnit.KilometerPerSecondCubed, new CultureInfo("ru-RU"), false, true, new string[]{"км/с³"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(JerkUnit.MeterPerSecondCubed, new CultureInfo("en-US"), false, true, new string[]{"m/s³"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(JerkUnit.MeterPerSecondCubed, new CultureInfo("ru-RU"), false, true, new string[]{"м/с³"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(JerkUnit.MicrometerPerSecondCubed, new CultureInfo("en-US"), false, true, new string[]{"µm/s³"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(JerkUnit.MicrometerPerSecondCubed, new CultureInfo("ru-RU"), false, true, new string[]{"мкм/с³"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(JerkUnit.MillimeterPerSecondCubed, new CultureInfo("en-US"), false, true, new string[]{"mm/s³"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(JerkUnit.MillimeterPerSecondCubed, new CultureInfo("ru-RU"), false, true, new string[]{"мм/с³"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(JerkUnit.MillistandardGravitiesPerSecond, new CultureInfo("en-US"), false, true, new string[]{"mg/s"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(JerkUnit.MillistandardGravitiesPerSecond, new CultureInfo("ru-RU"), false, true, new string[]{"мg/s"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(JerkUnit.NanometerPerSecondCubed, new CultureInfo("en-US"), false, true, new string[]{"nm/s³"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(JerkUnit.NanometerPerSecondCubed, new CultureInfo("ru-RU"), false, true, new string[]{"нм/с³"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(JerkUnit.StandardGravitiesPerSecond, new CultureInfo("en-US"), false, true, new string[]{"g/s"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(JerkUnit.StandardGravitiesPerSecond, new CultureInfo("ru-RU"), false, true, new string[]{"g/s"});
-        }
-
         /// <summary>
         ///     Get unit abbreviation string.
         /// </summary>
@@ -326,110 +307,88 @@ namespace OasysUnits
         /// <summary>
         ///     Creates a <see cref="Jerk"/> from <see cref="JerkUnit.CentimeterPerSecondCubed"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Jerk FromCentimetersPerSecondCubed(QuantityValue centimeterspersecondcubed)
+        public static Jerk FromCentimetersPerSecondCubed(double value)
         {
-            double value = (double) centimeterspersecondcubed;
             return new Jerk(value, JerkUnit.CentimeterPerSecondCubed);
         }
 
         /// <summary>
         ///     Creates a <see cref="Jerk"/> from <see cref="JerkUnit.DecimeterPerSecondCubed"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Jerk FromDecimetersPerSecondCubed(QuantityValue decimeterspersecondcubed)
+        public static Jerk FromDecimetersPerSecondCubed(double value)
         {
-            double value = (double) decimeterspersecondcubed;
             return new Jerk(value, JerkUnit.DecimeterPerSecondCubed);
         }
 
         /// <summary>
         ///     Creates a <see cref="Jerk"/> from <see cref="JerkUnit.FootPerSecondCubed"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Jerk FromFeetPerSecondCubed(QuantityValue feetpersecondcubed)
+        public static Jerk FromFeetPerSecondCubed(double value)
         {
-            double value = (double) feetpersecondcubed;
             return new Jerk(value, JerkUnit.FootPerSecondCubed);
         }
 
         /// <summary>
         ///     Creates a <see cref="Jerk"/> from <see cref="JerkUnit.InchPerSecondCubed"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Jerk FromInchesPerSecondCubed(QuantityValue inchespersecondcubed)
+        public static Jerk FromInchesPerSecondCubed(double value)
         {
-            double value = (double) inchespersecondcubed;
             return new Jerk(value, JerkUnit.InchPerSecondCubed);
         }
 
         /// <summary>
         ///     Creates a <see cref="Jerk"/> from <see cref="JerkUnit.KilometerPerSecondCubed"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Jerk FromKilometersPerSecondCubed(QuantityValue kilometerspersecondcubed)
+        public static Jerk FromKilometersPerSecondCubed(double value)
         {
-            double value = (double) kilometerspersecondcubed;
             return new Jerk(value, JerkUnit.KilometerPerSecondCubed);
         }
 
         /// <summary>
         ///     Creates a <see cref="Jerk"/> from <see cref="JerkUnit.MeterPerSecondCubed"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Jerk FromMetersPerSecondCubed(QuantityValue meterspersecondcubed)
+        public static Jerk FromMetersPerSecondCubed(double value)
         {
-            double value = (double) meterspersecondcubed;
             return new Jerk(value, JerkUnit.MeterPerSecondCubed);
         }
 
         /// <summary>
         ///     Creates a <see cref="Jerk"/> from <see cref="JerkUnit.MicrometerPerSecondCubed"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Jerk FromMicrometersPerSecondCubed(QuantityValue micrometerspersecondcubed)
+        public static Jerk FromMicrometersPerSecondCubed(double value)
         {
-            double value = (double) micrometerspersecondcubed;
             return new Jerk(value, JerkUnit.MicrometerPerSecondCubed);
         }
 
         /// <summary>
         ///     Creates a <see cref="Jerk"/> from <see cref="JerkUnit.MillimeterPerSecondCubed"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Jerk FromMillimetersPerSecondCubed(QuantityValue millimeterspersecondcubed)
+        public static Jerk FromMillimetersPerSecondCubed(double value)
         {
-            double value = (double) millimeterspersecondcubed;
             return new Jerk(value, JerkUnit.MillimeterPerSecondCubed);
         }
 
         /// <summary>
         ///     Creates a <see cref="Jerk"/> from <see cref="JerkUnit.MillistandardGravitiesPerSecond"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Jerk FromMillistandardGravitiesPerSecond(QuantityValue millistandardgravitiespersecond)
+        public static Jerk FromMillistandardGravitiesPerSecond(double value)
         {
-            double value = (double) millistandardgravitiespersecond;
             return new Jerk(value, JerkUnit.MillistandardGravitiesPerSecond);
         }
 
         /// <summary>
         ///     Creates a <see cref="Jerk"/> from <see cref="JerkUnit.NanometerPerSecondCubed"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Jerk FromNanometersPerSecondCubed(QuantityValue nanometerspersecondcubed)
+        public static Jerk FromNanometersPerSecondCubed(double value)
         {
-            double value = (double) nanometerspersecondcubed;
             return new Jerk(value, JerkUnit.NanometerPerSecondCubed);
         }
 
         /// <summary>
         ///     Creates a <see cref="Jerk"/> from <see cref="JerkUnit.StandardGravitiesPerSecond"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Jerk FromStandardGravitiesPerSecond(QuantityValue standardgravitiespersecond)
+        public static Jerk FromStandardGravitiesPerSecond(double value)
         {
-            double value = (double) standardgravitiespersecond;
             return new Jerk(value, JerkUnit.StandardGravitiesPerSecond);
         }
 
@@ -439,9 +398,9 @@ namespace OasysUnits
         /// <param name="value">Value to convert from.</param>
         /// <param name="fromUnit">Unit to convert from.</param>
         /// <returns>Jerk unit value.</returns>
-        public static Jerk From(QuantityValue value, JerkUnit fromUnit)
+        public static Jerk From(double value, JerkUnit fromUnit)
         {
-            return new Jerk((double)value, fromUnit);
+            return new Jerk(value, fromUnit);
         }
 
         #endregion
@@ -453,7 +412,7 @@ namespace OasysUnits
         /// </summary>
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <example>
-        ///     Length.Parse("5.5 m", new CultureInfo("en-US"));
+        ///     Length.Parse("5.5 m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <exception cref="ArgumentNullException">The value of 'str' cannot be null. </exception>
         /// <exception cref="ArgumentException">
@@ -480,7 +439,7 @@ namespace OasysUnits
         /// </summary>
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <example>
-        ///     Length.Parse("5.5 m", new CultureInfo("en-US"));
+        ///     Length.Parse("5.5 m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <exception cref="ArgumentNullException">The value of 'str' cannot be null. </exception>
         /// <exception cref="ArgumentException">
@@ -512,7 +471,7 @@ namespace OasysUnits
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <param name="result">Resulting unit quantity if successful.</param>
         /// <example>
-        ///     Length.Parse("5.5 m", new CultureInfo("en-US"));
+        ///     Length.Parse("5.5 m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         public static bool TryParse(string? str, out Jerk result)
         {
@@ -526,7 +485,7 @@ namespace OasysUnits
         /// <param name="result">Resulting unit quantity if successful.</param>
         /// <returns>True if successful, otherwise false.</returns>
         /// <example>
-        ///     Length.Parse("5.5 m", new CultureInfo("en-US"));
+        ///     Length.Parse("5.5 m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <param name="provider">Format to use when parsing number and unit. Defaults to <see cref="CultureInfo.CurrentCulture" /> if null.</param>
         public static bool TryParse(string? str, IFormatProvider? provider, out Jerk result)
@@ -543,7 +502,7 @@ namespace OasysUnits
         /// </summary>
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <example>
-        ///     Length.ParseUnit("m", new CultureInfo("en-US"));
+        ///     Length.ParseUnit("m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <exception cref="ArgumentNullException">The value of 'str' cannot be null. </exception>
         /// <exception cref="OasysUnitsException">Error parsing string.</exception>
@@ -558,7 +517,7 @@ namespace OasysUnits
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <param name="provider">Format to use when parsing number and unit. Defaults to <see cref="CultureInfo.CurrentCulture" /> if null.</param>
         /// <example>
-        ///     Length.ParseUnit("m", new CultureInfo("en-US"));
+        ///     Length.ParseUnit("m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <exception cref="ArgumentNullException">The value of 'str' cannot be null. </exception>
         /// <exception cref="OasysUnitsException">Error parsing string.</exception>
@@ -580,7 +539,7 @@ namespace OasysUnits
         /// <param name="unit">The parsed unit if successful.</param>
         /// <returns>True if successful, otherwise false.</returns>
         /// <example>
-        ///     Length.TryParseUnit("m", new CultureInfo("en-US"));
+        ///     Length.TryParseUnit("m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <param name="provider">Format to use when parsing number and unit. Defaults to <see cref="CultureInfo.CurrentCulture" /> if null.</param>
         public static bool TryParseUnit(string str, IFormatProvider? provider, out JerkUnit unit)
@@ -636,6 +595,16 @@ namespace OasysUnits
 
         #endregion
 
+        #region Relational Operators
+
+        /// <summary>Get <see cref="Acceleration"/> from <see cref="Jerk"/> * <see cref="Duration"/>.</summary>
+        public static Acceleration operator *(Jerk jerk, Duration duration)
+        {
+            return Acceleration.FromMetersPerSecondSquared(jerk.MetersPerSecondCubed * duration.Seconds);
+        }
+
+        #endregion
+
         #region Equality / IComparable
 
         /// <summary>Returns true if less or equal to.</summary>
@@ -667,16 +636,14 @@ namespace OasysUnits
         #pragma warning disable CS0809
 
         /// <summary>Indicates strict equality of two <see cref="Jerk"/> quantities, where both <see cref="Value" /> and <see cref="Unit" /> are exactly equal.</summary>
-        /// <remarks>Consider using <see cref="Equals(Jerk, double, ComparisonType)"/> to check equality across different units and to specify a floating-point number error tolerance.</remarks>
-        [Obsolete("For null checks, use `x is null` syntax to not invoke overloads. For quantity comparisons, use Equals(Jerk, double, ComparisonType) to check equality across different units and to specify a floating-point number error tolerance.")]
+        [Obsolete("For null checks, use `x is null` syntax to not invoke overloads. For equality checks, use Equals(Jerk other, Jerk tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public static bool operator ==(Jerk left, Jerk right)
         {
             return left.Equals(right);
         }
 
         /// <summary>Indicates strict inequality of two <see cref="Jerk"/> quantities, where both <see cref="Value" /> and <see cref="Unit" /> are exactly equal.</summary>
-        /// <remarks>Consider using <see cref="Equals(Jerk, double, ComparisonType)"/> to check equality across different units and to specify a floating-point number error tolerance.</remarks>
-        [Obsolete("For null checks, use `x is not null` syntax to not invoke overloads. For quantity comparisons, use Equals(Jerk, double, ComparisonType) to check equality across different units and to specify a floating-point number error tolerance.")]
+        [Obsolete("For null checks, use `x is null` syntax to not invoke overloads. For equality checks, use Equals(Jerk other, Jerk tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public static bool operator !=(Jerk left, Jerk right)
         {
             return !(left == right);
@@ -684,8 +651,7 @@ namespace OasysUnits
 
         /// <inheritdoc />
         /// <summary>Indicates strict equality of two <see cref="Jerk"/> quantities, where both <see cref="Value" /> and <see cref="Unit" /> are exactly equal.</summary>
-        /// <remarks>Consider using <see cref="Equals(Jerk, double, ComparisonType)"/> to check equality across different units and to specify a floating-point number error tolerance.</remarks>
-        [Obsolete("Consider using Equals(Jerk, double, ComparisonType) to check equality across different units and to specify a floating-point number error tolerance.")]
+        [Obsolete("Use Equals(Jerk other, Jerk tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public override bool Equals(object? obj)
         {
             if (obj is null || !(obj is Jerk otherQuantity))
@@ -696,8 +662,7 @@ namespace OasysUnits
 
         /// <inheritdoc />
         /// <summary>Indicates strict equality of two <see cref="Jerk"/> quantities, where both <see cref="Value" /> and <see cref="Unit" /> are exactly equal.</summary>
-        /// <remarks>Consider using <see cref="Equals(Jerk, double, ComparisonType)"/> to check equality across different units and to specify a floating-point number error tolerance.</remarks>
-        [Obsolete("Consider using Equals(Jerk, double, ComparisonType) to check equality across different units and to specify a floating-point number error tolerance.")]
+        [Obsolete("Use Equals(Jerk other, Jerk tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public bool Equals(Jerk other)
         {
             return new { Value, Unit }.Equals(new { other.Value, other.Unit });
@@ -781,15 +746,37 @@ namespace OasysUnits
         /// <param name="tolerance">The absolute or relative tolerance value. Must be greater than or equal to 0.</param>
         /// <param name="comparisonType">The comparison type: either relative or absolute.</param>
         /// <returns>True if the absolute difference between the two values is not greater than the specified relative or absolute tolerance.</returns>
+        [Obsolete("Use Equals(Jerk other, Jerk tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public bool Equals(Jerk other, double tolerance, ComparisonType comparisonType)
         {
             if (tolerance < 0)
-                throw new ArgumentOutOfRangeException("tolerance", "Tolerance must be greater than or equal to 0.");
+                throw new ArgumentOutOfRangeException(nameof(tolerance), "Tolerance must be greater than or equal to 0.");
 
-            double thisValue = this.Value;
-            double otherValueInThisUnits = other.As(this.Unit);
+            return OasysUnits.Comparison.Equals(
+                referenceValue: this.Value,
+                otherValue: other.As(this.Unit),
+                tolerance: tolerance,
+                comparisonType: comparisonType);
+        }
 
-            return OasysUnits.Comparison.Equals(thisValue, otherValueInThisUnits, tolerance, comparisonType);
+        /// <inheritdoc />
+        public bool Equals(IQuantity? other, IQuantity tolerance)
+        {
+            return other is Jerk otherTyped
+                   && (tolerance is Jerk toleranceTyped
+                       ? true
+                       : throw new ArgumentException($"Tolerance quantity ({tolerance.QuantityInfo.Name}) did not match the other quantities of type 'Jerk'.", nameof(tolerance)))
+                   && Equals(otherTyped, toleranceTyped);
+        }
+
+        /// <inheritdoc />
+        public bool Equals(Jerk other, Jerk tolerance)
+        {
+            return OasysUnits.Comparison.Equals(
+                referenceValue: this.Value,
+                otherValue: other.As(this.Unit),
+                tolerance: tolerance.As(this.Unit),
+                comparisonType: ComparisonType.Absolute);
         }
 
         /// <summary>
@@ -834,15 +821,6 @@ namespace OasysUnits
 
         /// <inheritdoc />
         double IQuantity.As(Enum unit)
-        {
-            if (!(unit is JerkUnit typedUnit))
-                throw new ArgumentException($"The given unit is of type {unit.GetType()}. Only {typeof(JerkUnit)} is supported.", nameof(unit));
-
-            return (double)As(typedUnit);
-        }
-
-        /// <inheritdoc />
-        double IValueQuantity<double>.As(Enum unit)
         {
             if (!(unit is JerkUnit typedUnit))
                 throw new ArgumentException($"The given unit is of type {unit.GetType()}. Only {typeof(JerkUnit)} is supported.", nameof(unit));
@@ -976,18 +954,6 @@ namespace OasysUnits
 
         /// <inheritdoc />
         IQuantity<JerkUnit> IQuantity<JerkUnit>.ToUnit(UnitSystem unitSystem) => ToUnit(unitSystem);
-
-        /// <inheritdoc />
-        IValueQuantity<double> IValueQuantity<double>.ToUnit(Enum unit)
-        {
-            if (unit is not JerkUnit typedUnit)
-                throw new ArgumentException($"The given unit is of type {unit.GetType()}. Only {typeof(JerkUnit)} is supported.", nameof(unit));
-
-            return ToUnit(typedUnit);
-        }
-
-        /// <inheritdoc />
-        IValueQuantity<double> IValueQuantity<double>.ToUnit(UnitSystem unitSystem) => ToUnit(unitSystem);
 
         #endregion
 

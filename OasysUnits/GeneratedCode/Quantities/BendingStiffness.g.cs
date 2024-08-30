@@ -6,7 +6,7 @@
 //     The build server regenerates the code before each build and a pre-build
 //     step will regenerate the code on each local build.
 //
-//     See https://github.com/angularsen/UnitsNet/wiki/Adding-a-New-Unit for how to add or edit units.
+//     See https://github.com/angularsen/OasysUnits/wiki/Adding-a-New-Unit for how to add or edit units.
 //
 //     Add CustomCode\Quantities\MyQuantity.extra.cs files to add code to generated quantities.
 //     Add UnitDefinitions\MyQuantity.json and run generate-code.bat to generate new units or quantities.
@@ -15,9 +15,10 @@
 //------------------------------------------------------------------------------
 
 // Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using System;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
@@ -36,8 +37,9 @@ namespace OasysUnits
     ///     
     /// </summary>
     [DataContract]
+    [DebuggerTypeProxy(typeof(QuantityDisplay))]
     public readonly partial struct BendingStiffness :
-        IArithmeticQuantity<BendingStiffness, BendingStiffnessUnit, double>,
+        IArithmeticQuantity<BendingStiffness, BendingStiffnessUnit>,
         IComparable,
         IComparable<BendingStiffness>,
         IConvertible,
@@ -47,13 +49,13 @@ namespace OasysUnits
         /// <summary>
         ///     The numeric value this quantity was constructed with.
         /// </summary>
-        [DataMember(Name = "Value", Order = 0)]
+        [DataMember(Name = "Value", Order = 1)]
         private readonly double _value;
 
         /// <summary>
         ///     The unit this quantity was constructed with.
         /// </summary>
-        [DataMember(Name = "Unit", Order = 1)]
+        [DataMember(Name = "Unit", Order = 2)]
         private readonly BendingStiffnessUnit? _unit;
 
         static BendingStiffness()
@@ -65,12 +67,12 @@ namespace OasysUnits
             Info = new QuantityInfo<BendingStiffnessUnit>("BendingStiffness",
                 new UnitInfo<BendingStiffnessUnit>[]
                 {
-                    new UnitInfo<BendingStiffnessUnit>(BendingStiffnessUnit.KilonewtonSquareMeter, "KilonewtonSquareMeters", BaseUnits.Undefined),
-                    new UnitInfo<BendingStiffnessUnit>(BendingStiffnessUnit.KilonewtonSquareMillimeter, "KilonewtonSquareMillimeters", BaseUnits.Undefined),
-                    new UnitInfo<BendingStiffnessUnit>(BendingStiffnessUnit.NewtonSquareMeter, "NewtonSquareMeters", new BaseUnits(length: LengthUnit.Meter, mass: MassUnit.Kilogram, time: DurationUnit.Second)),
-                    new UnitInfo<BendingStiffnessUnit>(BendingStiffnessUnit.NewtonSquareMillimeter, "NewtonSquareMillimeters", BaseUnits.Undefined),
-                    new UnitInfo<BendingStiffnessUnit>(BendingStiffnessUnit.PoundForceSquareFoot, "PoundsForceSquareFeet", BaseUnits.Undefined),
-                    new UnitInfo<BendingStiffnessUnit>(BendingStiffnessUnit.PoundForceSquareInch, "PoundsForceSquareInches", BaseUnits.Undefined),
+                    new UnitInfo<BendingStiffnessUnit>(BendingStiffnessUnit.KilonewtonSquareMeter, "KilonewtonSquareMeters", BaseUnits.Undefined, "BendingStiffness"),
+                    new UnitInfo<BendingStiffnessUnit>(BendingStiffnessUnit.KilonewtonSquareMillimeter, "KilonewtonSquareMillimeters", BaseUnits.Undefined, "BendingStiffness"),
+                    new UnitInfo<BendingStiffnessUnit>(BendingStiffnessUnit.NewtonSquareMeter, "NewtonSquareMeters", new BaseUnits(length: LengthUnit.Meter, mass: MassUnit.Kilogram, time: DurationUnit.Second), "BendingStiffness"),
+                    new UnitInfo<BendingStiffnessUnit>(BendingStiffnessUnit.NewtonSquareMillimeter, "NewtonSquareMillimeters", BaseUnits.Undefined, "BendingStiffness"),
+                    new UnitInfo<BendingStiffnessUnit>(BendingStiffnessUnit.PoundForceSquareFoot, "PoundsForceSquareFeet", BaseUnits.Undefined, "BendingStiffness"),
+                    new UnitInfo<BendingStiffnessUnit>(BendingStiffnessUnit.PoundForceSquareInch, "PoundsForceSquareInches", BaseUnits.Undefined, "BendingStiffness"),
                 },
                 BaseUnit, Zero, BaseDimensions);
 
@@ -83,10 +85,9 @@ namespace OasysUnits
         /// </summary>
         /// <param name="value">The numeric value to construct this quantity with.</param>
         /// <param name="unit">The unit representation to construct this quantity with.</param>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
         public BendingStiffness(double value, BendingStiffnessUnit unit)
         {
-            _value = Guard.EnsureValidNumber(value, nameof(value));
+            _value = value;
             _unit = unit;
         }
 
@@ -105,7 +106,7 @@ namespace OasysUnits
             var unitInfos = Info.GetUnitInfosFor(unitSystem.BaseUnits);
             var firstUnitInfo = unitInfos.FirstOrDefault();
 
-            _value = Guard.EnsureValidNumber(value, nameof(value));
+            _value = value;
             _unit = firstUnitInfo?.Value ?? throw new ArgumentException("No units were found for the given UnitSystem.", nameof(unitSystem));
         }
 
@@ -143,7 +144,7 @@ namespace OasysUnits
         public static BendingStiffness AdditiveIdentity => Zero;
 
         #endregion
- 
+
         #region Properties
 
         /// <summary>
@@ -152,7 +153,7 @@ namespace OasysUnits
         public double Value => _value;
 
         /// <inheritdoc />
-        QuantityValue IQuantity.Value => _value;
+        double IQuantity.Value => _value;
 
         Enum IQuantity.Unit => Unit;
 
@@ -232,16 +233,6 @@ namespace OasysUnits
             unitConverter.SetConversionFunction<BendingStiffness>(BendingStiffnessUnit.NewtonSquareMeter, BendingStiffnessUnit.PoundForceSquareInch, quantity => quantity.ToUnit(BendingStiffnessUnit.PoundForceSquareInch));
         }
 
-        internal static void MapGeneratedLocalizations(UnitAbbreviationsCache unitAbbreviationsCache)
-        {
-            unitAbbreviationsCache.PerformAbbreviationMapping(BendingStiffnessUnit.KilonewtonSquareMeter, new CultureInfo("en-US"), false, true, new string[]{"kN·m²"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(BendingStiffnessUnit.KilonewtonSquareMillimeter, new CultureInfo("en-US"), false, true, new string[]{"kN·mm²"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(BendingStiffnessUnit.NewtonSquareMeter, new CultureInfo("en-US"), false, true, new string[]{"N·m²"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(BendingStiffnessUnit.NewtonSquareMillimeter, new CultureInfo("en-US"), false, true, new string[]{"N·mm²"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(BendingStiffnessUnit.PoundForceSquareFoot, new CultureInfo("en-US"), false, true, new string[]{"lbf·ft²"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(BendingStiffnessUnit.PoundForceSquareInch, new CultureInfo("en-US"), false, true, new string[]{"lbf·in²"});
-        }
-
         /// <summary>
         ///     Get unit abbreviation string.
         /// </summary>
@@ -270,60 +261,48 @@ namespace OasysUnits
         /// <summary>
         ///     Creates a <see cref="BendingStiffness"/> from <see cref="BendingStiffnessUnit.KilonewtonSquareMeter"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static BendingStiffness FromKilonewtonSquareMeters(QuantityValue kilonewtonsquaremeters)
+        public static BendingStiffness FromKilonewtonSquareMeters(double value)
         {
-            double value = (double) kilonewtonsquaremeters;
             return new BendingStiffness(value, BendingStiffnessUnit.KilonewtonSquareMeter);
         }
 
         /// <summary>
         ///     Creates a <see cref="BendingStiffness"/> from <see cref="BendingStiffnessUnit.KilonewtonSquareMillimeter"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static BendingStiffness FromKilonewtonSquareMillimeters(QuantityValue kilonewtonsquaremillimeters)
+        public static BendingStiffness FromKilonewtonSquareMillimeters(double value)
         {
-            double value = (double) kilonewtonsquaremillimeters;
             return new BendingStiffness(value, BendingStiffnessUnit.KilonewtonSquareMillimeter);
         }
 
         /// <summary>
         ///     Creates a <see cref="BendingStiffness"/> from <see cref="BendingStiffnessUnit.NewtonSquareMeter"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static BendingStiffness FromNewtonSquareMeters(QuantityValue newtonsquaremeters)
+        public static BendingStiffness FromNewtonSquareMeters(double value)
         {
-            double value = (double) newtonsquaremeters;
             return new BendingStiffness(value, BendingStiffnessUnit.NewtonSquareMeter);
         }
 
         /// <summary>
         ///     Creates a <see cref="BendingStiffness"/> from <see cref="BendingStiffnessUnit.NewtonSquareMillimeter"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static BendingStiffness FromNewtonSquareMillimeters(QuantityValue newtonsquaremillimeters)
+        public static BendingStiffness FromNewtonSquareMillimeters(double value)
         {
-            double value = (double) newtonsquaremillimeters;
             return new BendingStiffness(value, BendingStiffnessUnit.NewtonSquareMillimeter);
         }
 
         /// <summary>
         ///     Creates a <see cref="BendingStiffness"/> from <see cref="BendingStiffnessUnit.PoundForceSquareFoot"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static BendingStiffness FromPoundsForceSquareFeet(QuantityValue poundsforcesquarefeet)
+        public static BendingStiffness FromPoundsForceSquareFeet(double value)
         {
-            double value = (double) poundsforcesquarefeet;
             return new BendingStiffness(value, BendingStiffnessUnit.PoundForceSquareFoot);
         }
 
         /// <summary>
         ///     Creates a <see cref="BendingStiffness"/> from <see cref="BendingStiffnessUnit.PoundForceSquareInch"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static BendingStiffness FromPoundsForceSquareInches(QuantityValue poundsforcesquareinches)
+        public static BendingStiffness FromPoundsForceSquareInches(double value)
         {
-            double value = (double) poundsforcesquareinches;
             return new BendingStiffness(value, BendingStiffnessUnit.PoundForceSquareInch);
         }
 
@@ -333,9 +312,9 @@ namespace OasysUnits
         /// <param name="value">Value to convert from.</param>
         /// <param name="fromUnit">Unit to convert from.</param>
         /// <returns>BendingStiffness unit value.</returns>
-        public static BendingStiffness From(QuantityValue value, BendingStiffnessUnit fromUnit)
+        public static BendingStiffness From(double value, BendingStiffnessUnit fromUnit)
         {
-            return new BendingStiffness((double)value, fromUnit);
+            return new BendingStiffness(value, fromUnit);
         }
 
         #endregion
@@ -347,7 +326,7 @@ namespace OasysUnits
         /// </summary>
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <example>
-        ///     Length.Parse("5.5 m", new CultureInfo("en-US"));
+        ///     Length.Parse("5.5 m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <exception cref="ArgumentNullException">The value of 'str' cannot be null. </exception>
         /// <exception cref="ArgumentException">
@@ -374,7 +353,7 @@ namespace OasysUnits
         /// </summary>
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <example>
-        ///     Length.Parse("5.5 m", new CultureInfo("en-US"));
+        ///     Length.Parse("5.5 m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <exception cref="ArgumentNullException">The value of 'str' cannot be null. </exception>
         /// <exception cref="ArgumentException">
@@ -406,7 +385,7 @@ namespace OasysUnits
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <param name="result">Resulting unit quantity if successful.</param>
         /// <example>
-        ///     Length.Parse("5.5 m", new CultureInfo("en-US"));
+        ///     Length.Parse("5.5 m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         public static bool TryParse(string? str, out BendingStiffness result)
         {
@@ -420,7 +399,7 @@ namespace OasysUnits
         /// <param name="result">Resulting unit quantity if successful.</param>
         /// <returns>True if successful, otherwise false.</returns>
         /// <example>
-        ///     Length.Parse("5.5 m", new CultureInfo("en-US"));
+        ///     Length.Parse("5.5 m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <param name="provider">Format to use when parsing number and unit. Defaults to <see cref="CultureInfo.CurrentCulture" /> if null.</param>
         public static bool TryParse(string? str, IFormatProvider? provider, out BendingStiffness result)
@@ -437,7 +416,7 @@ namespace OasysUnits
         /// </summary>
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <example>
-        ///     Length.ParseUnit("m", new CultureInfo("en-US"));
+        ///     Length.ParseUnit("m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <exception cref="ArgumentNullException">The value of 'str' cannot be null. </exception>
         /// <exception cref="OasysUnitsException">Error parsing string.</exception>
@@ -452,7 +431,7 @@ namespace OasysUnits
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <param name="provider">Format to use when parsing number and unit. Defaults to <see cref="CultureInfo.CurrentCulture" /> if null.</param>
         /// <example>
-        ///     Length.ParseUnit("m", new CultureInfo("en-US"));
+        ///     Length.ParseUnit("m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <exception cref="ArgumentNullException">The value of 'str' cannot be null. </exception>
         /// <exception cref="OasysUnitsException">Error parsing string.</exception>
@@ -474,7 +453,7 @@ namespace OasysUnits
         /// <param name="unit">The parsed unit if successful.</param>
         /// <returns>True if successful, otherwise false.</returns>
         /// <example>
-        ///     Length.TryParseUnit("m", new CultureInfo("en-US"));
+        ///     Length.TryParseUnit("m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <param name="provider">Format to use when parsing number and unit. Defaults to <see cref="CultureInfo.CurrentCulture" /> if null.</param>
         public static bool TryParseUnit(string str, IFormatProvider? provider, out BendingStiffnessUnit unit)
@@ -561,16 +540,14 @@ namespace OasysUnits
         #pragma warning disable CS0809
 
         /// <summary>Indicates strict equality of two <see cref="BendingStiffness"/> quantities, where both <see cref="Value" /> and <see cref="Unit" /> are exactly equal.</summary>
-        /// <remarks>Consider using <see cref="Equals(BendingStiffness, double, ComparisonType)"/> to check equality across different units and to specify a floating-point number error tolerance.</remarks>
-        [Obsolete("For null checks, use `x is null` syntax to not invoke overloads. For quantity comparisons, use Equals(BendingStiffness, double, ComparisonType) to check equality across different units and to specify a floating-point number error tolerance.")]
+        [Obsolete("For null checks, use `x is null` syntax to not invoke overloads. For equality checks, use Equals(BendingStiffness other, BendingStiffness tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public static bool operator ==(BendingStiffness left, BendingStiffness right)
         {
             return left.Equals(right);
         }
 
         /// <summary>Indicates strict inequality of two <see cref="BendingStiffness"/> quantities, where both <see cref="Value" /> and <see cref="Unit" /> are exactly equal.</summary>
-        /// <remarks>Consider using <see cref="Equals(BendingStiffness, double, ComparisonType)"/> to check equality across different units and to specify a floating-point number error tolerance.</remarks>
-        [Obsolete("For null checks, use `x is not null` syntax to not invoke overloads. For quantity comparisons, use Equals(BendingStiffness, double, ComparisonType) to check equality across different units and to specify a floating-point number error tolerance.")]
+        [Obsolete("For null checks, use `x is null` syntax to not invoke overloads. For equality checks, use Equals(BendingStiffness other, BendingStiffness tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public static bool operator !=(BendingStiffness left, BendingStiffness right)
         {
             return !(left == right);
@@ -578,8 +555,7 @@ namespace OasysUnits
 
         /// <inheritdoc />
         /// <summary>Indicates strict equality of two <see cref="BendingStiffness"/> quantities, where both <see cref="Value" /> and <see cref="Unit" /> are exactly equal.</summary>
-        /// <remarks>Consider using <see cref="Equals(BendingStiffness, double, ComparisonType)"/> to check equality across different units and to specify a floating-point number error tolerance.</remarks>
-        [Obsolete("Consider using Equals(BendingStiffness, double, ComparisonType) to check equality across different units and to specify a floating-point number error tolerance.")]
+        [Obsolete("Use Equals(BendingStiffness other, BendingStiffness tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public override bool Equals(object? obj)
         {
             if (obj is null || !(obj is BendingStiffness otherQuantity))
@@ -590,8 +566,7 @@ namespace OasysUnits
 
         /// <inheritdoc />
         /// <summary>Indicates strict equality of two <see cref="BendingStiffness"/> quantities, where both <see cref="Value" /> and <see cref="Unit" /> are exactly equal.</summary>
-        /// <remarks>Consider using <see cref="Equals(BendingStiffness, double, ComparisonType)"/> to check equality across different units and to specify a floating-point number error tolerance.</remarks>
-        [Obsolete("Consider using Equals(BendingStiffness, double, ComparisonType) to check equality across different units and to specify a floating-point number error tolerance.")]
+        [Obsolete("Use Equals(BendingStiffness other, BendingStiffness tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public bool Equals(BendingStiffness other)
         {
             return new { Value, Unit }.Equals(new { other.Value, other.Unit });
@@ -675,15 +650,37 @@ namespace OasysUnits
         /// <param name="tolerance">The absolute or relative tolerance value. Must be greater than or equal to 0.</param>
         /// <param name="comparisonType">The comparison type: either relative or absolute.</param>
         /// <returns>True if the absolute difference between the two values is not greater than the specified relative or absolute tolerance.</returns>
+        [Obsolete("Use Equals(BendingStiffness other, BendingStiffness tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public bool Equals(BendingStiffness other, double tolerance, ComparisonType comparisonType)
         {
             if (tolerance < 0)
-                throw new ArgumentOutOfRangeException("tolerance", "Tolerance must be greater than or equal to 0.");
+                throw new ArgumentOutOfRangeException(nameof(tolerance), "Tolerance must be greater than or equal to 0.");
 
-            double thisValue = this.Value;
-            double otherValueInThisUnits = other.As(this.Unit);
+            return OasysUnits.Comparison.Equals(
+                referenceValue: this.Value,
+                otherValue: other.As(this.Unit),
+                tolerance: tolerance,
+                comparisonType: comparisonType);
+        }
 
-            return OasysUnits.Comparison.Equals(thisValue, otherValueInThisUnits, tolerance, comparisonType);
+        /// <inheritdoc />
+        public bool Equals(IQuantity? other, IQuantity tolerance)
+        {
+            return other is BendingStiffness otherTyped
+                   && (tolerance is BendingStiffness toleranceTyped
+                       ? true
+                       : throw new ArgumentException($"Tolerance quantity ({tolerance.QuantityInfo.Name}) did not match the other quantities of type 'BendingStiffness'.", nameof(tolerance)))
+                   && Equals(otherTyped, toleranceTyped);
+        }
+
+        /// <inheritdoc />
+        public bool Equals(BendingStiffness other, BendingStiffness tolerance)
+        {
+            return OasysUnits.Comparison.Equals(
+                referenceValue: this.Value,
+                otherValue: other.As(this.Unit),
+                tolerance: tolerance.As(this.Unit),
+                comparisonType: ComparisonType.Absolute);
         }
 
         /// <summary>
@@ -728,15 +725,6 @@ namespace OasysUnits
 
         /// <inheritdoc />
         double IQuantity.As(Enum unit)
-        {
-            if (!(unit is BendingStiffnessUnit typedUnit))
-                throw new ArgumentException($"The given unit is of type {unit.GetType()}. Only {typeof(BendingStiffnessUnit)} is supported.", nameof(unit));
-
-            return (double)As(typedUnit);
-        }
-
-        /// <inheritdoc />
-        double IValueQuantity<double>.As(Enum unit)
         {
             if (!(unit is BendingStiffnessUnit typedUnit))
                 throw new ArgumentException($"The given unit is of type {unit.GetType()}. Only {typeof(BendingStiffnessUnit)} is supported.", nameof(unit));
@@ -860,18 +848,6 @@ namespace OasysUnits
 
         /// <inheritdoc />
         IQuantity<BendingStiffnessUnit> IQuantity<BendingStiffnessUnit>.ToUnit(UnitSystem unitSystem) => ToUnit(unitSystem);
-
-        /// <inheritdoc />
-        IValueQuantity<double> IValueQuantity<double>.ToUnit(Enum unit)
-        {
-            if (unit is not BendingStiffnessUnit typedUnit)
-                throw new ArgumentException($"The given unit is of type {unit.GetType()}. Only {typeof(BendingStiffnessUnit)} is supported.", nameof(unit));
-
-            return ToUnit(typedUnit);
-        }
-
-        /// <inheritdoc />
-        IValueQuantity<double> IValueQuantity<double>.ToUnit(UnitSystem unitSystem) => ToUnit(unitSystem);
 
         #endregion
 

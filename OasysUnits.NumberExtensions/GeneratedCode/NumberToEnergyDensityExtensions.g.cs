@@ -6,7 +6,7 @@
 //     The build server regenerates the code before each build and a pre-build
 //     step will regenerate the code on each local build.
 //
-//     See https://github.com/angularsen/UnitsNet/wiki/Adding-a-New-Unit for how to add or edit units.
+//     See https://github.com/angularsen/OasysUnits/wiki/Adding-a-New-Unit for how to add or edit units.
 //
 //     Add CustomCode\Quantities\MyQuantity.extra.cs files to add code to generated quantities.
 //     Add UnitDefinitions\MyQuantity.json and run generate-code.bat to generate new units or quantities.
@@ -15,9 +15,13 @@
 //------------------------------------------------------------------------------
 
 // Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using System;
+
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
 
 #nullable enable
 
@@ -28,53 +32,101 @@ namespace OasysUnits.NumberExtensions.NumberToEnergyDensity
     /// </summary>
     public static class NumberToEnergyDensityExtensions
     {
-        /// <inheritdoc cref="EnergyDensity.FromGigajoulesPerCubicMeter(OasysUnits.QuantityValue)" />
-        public static EnergyDensity GigajoulesPerCubicMeter<T>(this T value) =>
-            EnergyDensity.FromGigajoulesPerCubicMeter(Convert.ToDouble(value));
+        /// <inheritdoc cref="EnergyDensity.FromGigajoulesPerCubicMeter(double)" />
+        public static EnergyDensity GigajoulesPerCubicMeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => EnergyDensity.FromGigajoulesPerCubicMeter(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="EnergyDensity.FromGigawattHoursPerCubicMeter(OasysUnits.QuantityValue)" />
-        public static EnergyDensity GigawattHoursPerCubicMeter<T>(this T value) =>
-            EnergyDensity.FromGigawattHoursPerCubicMeter(Convert.ToDouble(value));
+        /// <inheritdoc cref="EnergyDensity.FromGigawattHoursPerCubicMeter(double)" />
+        public static EnergyDensity GigawattHoursPerCubicMeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => EnergyDensity.FromGigawattHoursPerCubicMeter(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="EnergyDensity.FromJoulesPerCubicMeter(OasysUnits.QuantityValue)" />
-        public static EnergyDensity JoulesPerCubicMeter<T>(this T value) =>
-            EnergyDensity.FromJoulesPerCubicMeter(Convert.ToDouble(value));
+        /// <inheritdoc cref="EnergyDensity.FromJoulesPerCubicMeter(double)" />
+        public static EnergyDensity JoulesPerCubicMeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => EnergyDensity.FromJoulesPerCubicMeter(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="EnergyDensity.FromKilojoulesPerCubicMeter(OasysUnits.QuantityValue)" />
-        public static EnergyDensity KilojoulesPerCubicMeter<T>(this T value) =>
-            EnergyDensity.FromKilojoulesPerCubicMeter(Convert.ToDouble(value));
+        /// <inheritdoc cref="EnergyDensity.FromKilojoulesPerCubicMeter(double)" />
+        public static EnergyDensity KilojoulesPerCubicMeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => EnergyDensity.FromKilojoulesPerCubicMeter(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="EnergyDensity.FromKilowattHoursPerCubicMeter(OasysUnits.QuantityValue)" />
-        public static EnergyDensity KilowattHoursPerCubicMeter<T>(this T value) =>
-            EnergyDensity.FromKilowattHoursPerCubicMeter(Convert.ToDouble(value));
+        /// <inheritdoc cref="EnergyDensity.FromKilowattHoursPerCubicMeter(double)" />
+        public static EnergyDensity KilowattHoursPerCubicMeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => EnergyDensity.FromKilowattHoursPerCubicMeter(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="EnergyDensity.FromMegajoulesPerCubicMeter(OasysUnits.QuantityValue)" />
-        public static EnergyDensity MegajoulesPerCubicMeter<T>(this T value) =>
-            EnergyDensity.FromMegajoulesPerCubicMeter(Convert.ToDouble(value));
+        /// <inheritdoc cref="EnergyDensity.FromMegajoulesPerCubicMeter(double)" />
+        public static EnergyDensity MegajoulesPerCubicMeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => EnergyDensity.FromMegajoulesPerCubicMeter(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="EnergyDensity.FromMegawattHoursPerCubicMeter(OasysUnits.QuantityValue)" />
-        public static EnergyDensity MegawattHoursPerCubicMeter<T>(this T value) =>
-            EnergyDensity.FromMegawattHoursPerCubicMeter(Convert.ToDouble(value));
+        /// <inheritdoc cref="EnergyDensity.FromMegawattHoursPerCubicMeter(double)" />
+        public static EnergyDensity MegawattHoursPerCubicMeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => EnergyDensity.FromMegawattHoursPerCubicMeter(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="EnergyDensity.FromPetajoulesPerCubicMeter(OasysUnits.QuantityValue)" />
-        public static EnergyDensity PetajoulesPerCubicMeter<T>(this T value) =>
-            EnergyDensity.FromPetajoulesPerCubicMeter(Convert.ToDouble(value));
+        /// <inheritdoc cref="EnergyDensity.FromPetajoulesPerCubicMeter(double)" />
+        public static EnergyDensity PetajoulesPerCubicMeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => EnergyDensity.FromPetajoulesPerCubicMeter(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="EnergyDensity.FromPetawattHoursPerCubicMeter(OasysUnits.QuantityValue)" />
-        public static EnergyDensity PetawattHoursPerCubicMeter<T>(this T value) =>
-            EnergyDensity.FromPetawattHoursPerCubicMeter(Convert.ToDouble(value));
+        /// <inheritdoc cref="EnergyDensity.FromPetawattHoursPerCubicMeter(double)" />
+        public static EnergyDensity PetawattHoursPerCubicMeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => EnergyDensity.FromPetawattHoursPerCubicMeter(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="EnergyDensity.FromTerajoulesPerCubicMeter(OasysUnits.QuantityValue)" />
-        public static EnergyDensity TerajoulesPerCubicMeter<T>(this T value) =>
-            EnergyDensity.FromTerajoulesPerCubicMeter(Convert.ToDouble(value));
+        /// <inheritdoc cref="EnergyDensity.FromTerajoulesPerCubicMeter(double)" />
+        public static EnergyDensity TerajoulesPerCubicMeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => EnergyDensity.FromTerajoulesPerCubicMeter(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="EnergyDensity.FromTerawattHoursPerCubicMeter(OasysUnits.QuantityValue)" />
-        public static EnergyDensity TerawattHoursPerCubicMeter<T>(this T value) =>
-            EnergyDensity.FromTerawattHoursPerCubicMeter(Convert.ToDouble(value));
+        /// <inheritdoc cref="EnergyDensity.FromTerawattHoursPerCubicMeter(double)" />
+        public static EnergyDensity TerawattHoursPerCubicMeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => EnergyDensity.FromTerawattHoursPerCubicMeter(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="EnergyDensity.FromWattHoursPerCubicMeter(OasysUnits.QuantityValue)" />
-        public static EnergyDensity WattHoursPerCubicMeter<T>(this T value) =>
-            EnergyDensity.FromWattHoursPerCubicMeter(Convert.ToDouble(value));
+        /// <inheritdoc cref="EnergyDensity.FromWattHoursPerCubicMeter(double)" />
+        public static EnergyDensity WattHoursPerCubicMeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => EnergyDensity.FromWattHoursPerCubicMeter(Convert.ToDouble(value));
 
     }
 }

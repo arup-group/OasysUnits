@@ -6,7 +6,7 @@
 //     The build server regenerates the code before each build and a pre-build
 //     step will regenerate the code on each local build.
 //
-//     See https://github.com/angularsen/UnitsNet/wiki/Adding-a-New-Unit for how to add or edit units.
+//     See https://github.com/angularsen/OasysUnits/wiki/Adding-a-New-Unit for how to add or edit units.
 //
 //     Add CustomCode\Quantities\MyQuantity.extra.cs files to add code to generated quantities.
 //     Add UnitDefinitions\MyQuantity.json and run generate-code.bat to generate new units or quantities.
@@ -15,7 +15,7 @@
 //------------------------------------------------------------------------------
 
 // Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using OasysUnits.NumberExtensions.NumberToLinearDensity;
 using Xunit;
@@ -27,6 +27,10 @@ namespace OasysUnits.Tests
         [Fact]
         public void NumberToGramsPerCentimeterTest() =>
             Assert.Equal(LinearDensity.FromGramsPerCentimeter(2), 2.GramsPerCentimeter());
+
+        [Fact]
+        public void NumberToGramsPerFootTest() =>
+            Assert.Equal(LinearDensity.FromGramsPerFoot(2), 2.GramsPerFoot());
 
         [Fact]
         public void NumberToGramsPerMeterTest() =>
@@ -41,6 +45,10 @@ namespace OasysUnits.Tests
             Assert.Equal(LinearDensity.FromKilogramsPerCentimeter(2), 2.KilogramsPerCentimeter());
 
         [Fact]
+        public void NumberToKilogramsPerFootTest() =>
+            Assert.Equal(LinearDensity.FromKilogramsPerFoot(2), 2.KilogramsPerFoot());
+
+        [Fact]
         public void NumberToKilogramsPerMeterTest() =>
             Assert.Equal(LinearDensity.FromKilogramsPerMeter(2), 2.KilogramsPerMeter());
 
@@ -53,6 +61,10 @@ namespace OasysUnits.Tests
             Assert.Equal(LinearDensity.FromMicrogramsPerCentimeter(2), 2.MicrogramsPerCentimeter());
 
         [Fact]
+        public void NumberToMicrogramsPerFootTest() =>
+            Assert.Equal(LinearDensity.FromMicrogramsPerFoot(2), 2.MicrogramsPerFoot());
+
+        [Fact]
         public void NumberToMicrogramsPerMeterTest() =>
             Assert.Equal(LinearDensity.FromMicrogramsPerMeter(2), 2.MicrogramsPerMeter());
 
@@ -63,6 +75,10 @@ namespace OasysUnits.Tests
         [Fact]
         public void NumberToMilligramsPerCentimeterTest() =>
             Assert.Equal(LinearDensity.FromMilligramsPerCentimeter(2), 2.MilligramsPerCentimeter());
+
+        [Fact]
+        public void NumberToMilligramsPerFootTest() =>
+            Assert.Equal(LinearDensity.FromMilligramsPerFoot(2), 2.MilligramsPerFoot());
 
         [Fact]
         public void NumberToMilligramsPerMeterTest() =>

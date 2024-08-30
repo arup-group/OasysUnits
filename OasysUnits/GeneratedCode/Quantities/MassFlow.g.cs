@@ -6,7 +6,7 @@
 //     The build server regenerates the code before each build and a pre-build
 //     step will regenerate the code on each local build.
 //
-//     See https://github.com/angularsen/UnitsNet/wiki/Adding-a-New-Unit for how to add or edit units.
+//     See https://github.com/angularsen/OasysUnits/wiki/Adding-a-New-Unit for how to add or edit units.
 //
 //     Add CustomCode\Quantities\MyQuantity.extra.cs files to add code to generated quantities.
 //     Add UnitDefinitions\MyQuantity.json and run generate-code.bat to generate new units or quantities.
@@ -15,12 +15,16 @@
 //------------------------------------------------------------------------------
 
 // Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using System;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
 using System.Runtime.Serialization;
 using OasysUnits.InternalHelpers;
 using OasysUnits.Units;
@@ -36,8 +40,21 @@ namespace OasysUnits
     ///     Mass flow is the ratio of the mass change to the time during which the change occurred (value of mass changes per unit time).
     /// </summary>
     [DataContract]
+    [DebuggerTypeProxy(typeof(QuantityDisplay))]
     public readonly partial struct MassFlow :
-        IArithmeticQuantity<MassFlow, MassFlowUnit, double>,
+        IArithmeticQuantity<MassFlow, MassFlowUnit>,
+#if NET7_0_OR_GREATER
+        IDivisionOperators<MassFlow, MassFlux, Area>,
+        IDivisionOperators<MassFlow, Power, BrakeSpecificFuelConsumption>,
+        IDivisionOperators<MassFlow, VolumeFlow, Density>,
+        IMultiplyOperators<MassFlow, Duration, Mass>,
+        IDivisionOperators<MassFlow, Area, MassFlux>,
+        IDivisionOperators<MassFlow, MolarMass, MolarFlow>,
+        IDivisionOperators<MassFlow, MolarFlow, MolarMass>,
+        IMultiplyOperators<MassFlow, SpecificEnergy, Power>,
+        IDivisionOperators<MassFlow, BrakeSpecificFuelConsumption, Power>,
+        IDivisionOperators<MassFlow, Density, VolumeFlow>,
+#endif
         IComparable,
         IComparable<MassFlow>,
         IConvertible,
@@ -47,13 +64,13 @@ namespace OasysUnits
         /// <summary>
         ///     The numeric value this quantity was constructed with.
         /// </summary>
-        [DataMember(Name = "Value", Order = 0)]
+        [DataMember(Name = "Value", Order = 1)]
         private readonly double _value;
 
         /// <summary>
         ///     The unit this quantity was constructed with.
         /// </summary>
-        [DataMember(Name = "Unit", Order = 1)]
+        [DataMember(Name = "Unit", Order = 2)]
         private readonly MassFlowUnit? _unit;
 
         static MassFlow()
@@ -65,39 +82,39 @@ namespace OasysUnits
             Info = new QuantityInfo<MassFlowUnit>("MassFlow",
                 new UnitInfo<MassFlowUnit>[]
                 {
-                    new UnitInfo<MassFlowUnit>(MassFlowUnit.CentigramPerDay, "CentigramsPerDay", BaseUnits.Undefined),
-                    new UnitInfo<MassFlowUnit>(MassFlowUnit.CentigramPerSecond, "CentigramsPerSecond", BaseUnits.Undefined),
-                    new UnitInfo<MassFlowUnit>(MassFlowUnit.DecagramPerDay, "DecagramsPerDay", BaseUnits.Undefined),
-                    new UnitInfo<MassFlowUnit>(MassFlowUnit.DecagramPerSecond, "DecagramsPerSecond", BaseUnits.Undefined),
-                    new UnitInfo<MassFlowUnit>(MassFlowUnit.DecigramPerDay, "DecigramsPerDay", BaseUnits.Undefined),
-                    new UnitInfo<MassFlowUnit>(MassFlowUnit.DecigramPerSecond, "DecigramsPerSecond", BaseUnits.Undefined),
-                    new UnitInfo<MassFlowUnit>(MassFlowUnit.GramPerDay, "GramsPerDay", BaseUnits.Undefined),
-                    new UnitInfo<MassFlowUnit>(MassFlowUnit.GramPerHour, "GramsPerHour", BaseUnits.Undefined),
-                    new UnitInfo<MassFlowUnit>(MassFlowUnit.GramPerSecond, "GramsPerSecond", BaseUnits.Undefined),
-                    new UnitInfo<MassFlowUnit>(MassFlowUnit.HectogramPerDay, "HectogramsPerDay", BaseUnits.Undefined),
-                    new UnitInfo<MassFlowUnit>(MassFlowUnit.HectogramPerSecond, "HectogramsPerSecond", BaseUnits.Undefined),
-                    new UnitInfo<MassFlowUnit>(MassFlowUnit.KilogramPerDay, "KilogramsPerDay", BaseUnits.Undefined),
-                    new UnitInfo<MassFlowUnit>(MassFlowUnit.KilogramPerHour, "KilogramsPerHour", BaseUnits.Undefined),
-                    new UnitInfo<MassFlowUnit>(MassFlowUnit.KilogramPerMinute, "KilogramsPerMinute", BaseUnits.Undefined),
-                    new UnitInfo<MassFlowUnit>(MassFlowUnit.KilogramPerSecond, "KilogramsPerSecond", BaseUnits.Undefined),
-                    new UnitInfo<MassFlowUnit>(MassFlowUnit.MegagramPerDay, "MegagramsPerDay", BaseUnits.Undefined),
-                    new UnitInfo<MassFlowUnit>(MassFlowUnit.MegapoundPerDay, "MegapoundsPerDay", BaseUnits.Undefined),
-                    new UnitInfo<MassFlowUnit>(MassFlowUnit.MegapoundPerHour, "MegapoundsPerHour", BaseUnits.Undefined),
-                    new UnitInfo<MassFlowUnit>(MassFlowUnit.MegapoundPerMinute, "MegapoundsPerMinute", BaseUnits.Undefined),
-                    new UnitInfo<MassFlowUnit>(MassFlowUnit.MegapoundPerSecond, "MegapoundsPerSecond", BaseUnits.Undefined),
-                    new UnitInfo<MassFlowUnit>(MassFlowUnit.MicrogramPerDay, "MicrogramsPerDay", BaseUnits.Undefined),
-                    new UnitInfo<MassFlowUnit>(MassFlowUnit.MicrogramPerSecond, "MicrogramsPerSecond", BaseUnits.Undefined),
-                    new UnitInfo<MassFlowUnit>(MassFlowUnit.MilligramPerDay, "MilligramsPerDay", BaseUnits.Undefined),
-                    new UnitInfo<MassFlowUnit>(MassFlowUnit.MilligramPerSecond, "MilligramsPerSecond", BaseUnits.Undefined),
-                    new UnitInfo<MassFlowUnit>(MassFlowUnit.NanogramPerDay, "NanogramsPerDay", BaseUnits.Undefined),
-                    new UnitInfo<MassFlowUnit>(MassFlowUnit.NanogramPerSecond, "NanogramsPerSecond", BaseUnits.Undefined),
-                    new UnitInfo<MassFlowUnit>(MassFlowUnit.PoundPerDay, "PoundsPerDay", BaseUnits.Undefined),
-                    new UnitInfo<MassFlowUnit>(MassFlowUnit.PoundPerHour, "PoundsPerHour", BaseUnits.Undefined),
-                    new UnitInfo<MassFlowUnit>(MassFlowUnit.PoundPerMinute, "PoundsPerMinute", BaseUnits.Undefined),
-                    new UnitInfo<MassFlowUnit>(MassFlowUnit.PoundPerSecond, "PoundsPerSecond", BaseUnits.Undefined),
-                    new UnitInfo<MassFlowUnit>(MassFlowUnit.ShortTonPerHour, "ShortTonsPerHour", BaseUnits.Undefined),
-                    new UnitInfo<MassFlowUnit>(MassFlowUnit.TonnePerDay, "TonnesPerDay", BaseUnits.Undefined),
-                    new UnitInfo<MassFlowUnit>(MassFlowUnit.TonnePerHour, "TonnesPerHour", BaseUnits.Undefined),
+                    new UnitInfo<MassFlowUnit>(MassFlowUnit.CentigramPerDay, "CentigramsPerDay", BaseUnits.Undefined, "MassFlow"),
+                    new UnitInfo<MassFlowUnit>(MassFlowUnit.CentigramPerSecond, "CentigramsPerSecond", BaseUnits.Undefined, "MassFlow"),
+                    new UnitInfo<MassFlowUnit>(MassFlowUnit.DecagramPerDay, "DecagramsPerDay", BaseUnits.Undefined, "MassFlow"),
+                    new UnitInfo<MassFlowUnit>(MassFlowUnit.DecagramPerSecond, "DecagramsPerSecond", BaseUnits.Undefined, "MassFlow"),
+                    new UnitInfo<MassFlowUnit>(MassFlowUnit.DecigramPerDay, "DecigramsPerDay", BaseUnits.Undefined, "MassFlow"),
+                    new UnitInfo<MassFlowUnit>(MassFlowUnit.DecigramPerSecond, "DecigramsPerSecond", BaseUnits.Undefined, "MassFlow"),
+                    new UnitInfo<MassFlowUnit>(MassFlowUnit.GramPerDay, "GramsPerDay", BaseUnits.Undefined, "MassFlow"),
+                    new UnitInfo<MassFlowUnit>(MassFlowUnit.GramPerHour, "GramsPerHour", BaseUnits.Undefined, "MassFlow"),
+                    new UnitInfo<MassFlowUnit>(MassFlowUnit.GramPerSecond, "GramsPerSecond", BaseUnits.Undefined, "MassFlow"),
+                    new UnitInfo<MassFlowUnit>(MassFlowUnit.HectogramPerDay, "HectogramsPerDay", BaseUnits.Undefined, "MassFlow"),
+                    new UnitInfo<MassFlowUnit>(MassFlowUnit.HectogramPerSecond, "HectogramsPerSecond", BaseUnits.Undefined, "MassFlow"),
+                    new UnitInfo<MassFlowUnit>(MassFlowUnit.KilogramPerDay, "KilogramsPerDay", BaseUnits.Undefined, "MassFlow"),
+                    new UnitInfo<MassFlowUnit>(MassFlowUnit.KilogramPerHour, "KilogramsPerHour", BaseUnits.Undefined, "MassFlow"),
+                    new UnitInfo<MassFlowUnit>(MassFlowUnit.KilogramPerMinute, "KilogramsPerMinute", BaseUnits.Undefined, "MassFlow"),
+                    new UnitInfo<MassFlowUnit>(MassFlowUnit.KilogramPerSecond, "KilogramsPerSecond", BaseUnits.Undefined, "MassFlow"),
+                    new UnitInfo<MassFlowUnit>(MassFlowUnit.MegagramPerDay, "MegagramsPerDay", BaseUnits.Undefined, "MassFlow"),
+                    new UnitInfo<MassFlowUnit>(MassFlowUnit.MegapoundPerDay, "MegapoundsPerDay", BaseUnits.Undefined, "MassFlow"),
+                    new UnitInfo<MassFlowUnit>(MassFlowUnit.MegapoundPerHour, "MegapoundsPerHour", BaseUnits.Undefined, "MassFlow"),
+                    new UnitInfo<MassFlowUnit>(MassFlowUnit.MegapoundPerMinute, "MegapoundsPerMinute", BaseUnits.Undefined, "MassFlow"),
+                    new UnitInfo<MassFlowUnit>(MassFlowUnit.MegapoundPerSecond, "MegapoundsPerSecond", BaseUnits.Undefined, "MassFlow"),
+                    new UnitInfo<MassFlowUnit>(MassFlowUnit.MicrogramPerDay, "MicrogramsPerDay", BaseUnits.Undefined, "MassFlow"),
+                    new UnitInfo<MassFlowUnit>(MassFlowUnit.MicrogramPerSecond, "MicrogramsPerSecond", BaseUnits.Undefined, "MassFlow"),
+                    new UnitInfo<MassFlowUnit>(MassFlowUnit.MilligramPerDay, "MilligramsPerDay", BaseUnits.Undefined, "MassFlow"),
+                    new UnitInfo<MassFlowUnit>(MassFlowUnit.MilligramPerSecond, "MilligramsPerSecond", BaseUnits.Undefined, "MassFlow"),
+                    new UnitInfo<MassFlowUnit>(MassFlowUnit.NanogramPerDay, "NanogramsPerDay", BaseUnits.Undefined, "MassFlow"),
+                    new UnitInfo<MassFlowUnit>(MassFlowUnit.NanogramPerSecond, "NanogramsPerSecond", BaseUnits.Undefined, "MassFlow"),
+                    new UnitInfo<MassFlowUnit>(MassFlowUnit.PoundPerDay, "PoundsPerDay", BaseUnits.Undefined, "MassFlow"),
+                    new UnitInfo<MassFlowUnit>(MassFlowUnit.PoundPerHour, "PoundsPerHour", BaseUnits.Undefined, "MassFlow"),
+                    new UnitInfo<MassFlowUnit>(MassFlowUnit.PoundPerMinute, "PoundsPerMinute", BaseUnits.Undefined, "MassFlow"),
+                    new UnitInfo<MassFlowUnit>(MassFlowUnit.PoundPerSecond, "PoundsPerSecond", BaseUnits.Undefined, "MassFlow"),
+                    new UnitInfo<MassFlowUnit>(MassFlowUnit.ShortTonPerHour, "ShortTonsPerHour", BaseUnits.Undefined, "MassFlow"),
+                    new UnitInfo<MassFlowUnit>(MassFlowUnit.TonnePerDay, "TonnesPerDay", BaseUnits.Undefined, "MassFlow"),
+                    new UnitInfo<MassFlowUnit>(MassFlowUnit.TonnePerHour, "TonnesPerHour", BaseUnits.Undefined, "MassFlow"),
                 },
                 BaseUnit, Zero, BaseDimensions);
 
@@ -110,10 +127,9 @@ namespace OasysUnits
         /// </summary>
         /// <param name="value">The numeric value to construct this quantity with.</param>
         /// <param name="unit">The unit representation to construct this quantity with.</param>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
         public MassFlow(double value, MassFlowUnit unit)
         {
-            _value = Guard.EnsureValidNumber(value, nameof(value));
+            _value = value;
             _unit = unit;
         }
 
@@ -132,7 +148,7 @@ namespace OasysUnits
             var unitInfos = Info.GetUnitInfosFor(unitSystem.BaseUnits);
             var firstUnitInfo = unitInfos.FirstOrDefault();
 
-            _value = Guard.EnsureValidNumber(value, nameof(value));
+            _value = value;
             _unit = firstUnitInfo?.Value ?? throw new ArgumentException("No units were found for the given UnitSystem.", nameof(unitSystem));
         }
 
@@ -170,7 +186,7 @@ namespace OasysUnits
         public static MassFlow AdditiveIdentity => Zero;
 
         #endregion
- 
+
         #region Properties
 
         /// <summary>
@@ -179,7 +195,7 @@ namespace OasysUnits
         public double Value => _value;
 
         /// <inheritdoc />
-        QuantityValue IQuantity.Value => _value;
+        double IQuantity.Value => _value;
 
         Enum IQuantity.Unit => Unit;
 
@@ -448,45 +464,6 @@ namespace OasysUnits
             unitConverter.SetConversionFunction<MassFlow>(MassFlowUnit.GramPerSecond, MassFlowUnit.TonnePerHour, quantity => quantity.ToUnit(MassFlowUnit.TonnePerHour));
         }
 
-        internal static void MapGeneratedLocalizations(UnitAbbreviationsCache unitAbbreviationsCache)
-        {
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassFlowUnit.CentigramPerDay, new CultureInfo("en-US"), false, true, new string[]{"cg/d"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassFlowUnit.CentigramPerSecond, new CultureInfo("en-US"), false, true, new string[]{"cg/s", "cg/S"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassFlowUnit.DecagramPerDay, new CultureInfo("en-US"), false, true, new string[]{"dag/d"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassFlowUnit.DecagramPerSecond, new CultureInfo("en-US"), false, true, new string[]{"dag/s", "dag/S"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassFlowUnit.DecigramPerDay, new CultureInfo("en-US"), false, true, new string[]{"dg/d"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassFlowUnit.DecigramPerSecond, new CultureInfo("en-US"), false, true, new string[]{"dg/s", "dg/S"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassFlowUnit.GramPerDay, new CultureInfo("en-US"), false, true, new string[]{"g/d"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassFlowUnit.GramPerHour, new CultureInfo("en-US"), false, true, new string[]{"g/h"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassFlowUnit.GramPerSecond, new CultureInfo("en-US"), false, true, new string[]{"g/s", "g/S"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassFlowUnit.HectogramPerDay, new CultureInfo("en-US"), false, true, new string[]{"hg/d"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassFlowUnit.HectogramPerSecond, new CultureInfo("en-US"), false, true, new string[]{"hg/s", "hg/S"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassFlowUnit.KilogramPerDay, new CultureInfo("en-US"), false, true, new string[]{"kg/d"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassFlowUnit.KilogramPerHour, new CultureInfo("en-US"), false, true, new string[]{"kg/h"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassFlowUnit.KilogramPerHour, new CultureInfo("ru-RU"), false, true, new string[]{"кг/ч"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassFlowUnit.KilogramPerMinute, new CultureInfo("en-US"), false, true, new string[]{"kg/min"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassFlowUnit.KilogramPerMinute, new CultureInfo("ru-RU"), false, true, new string[]{"кг/мин"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassFlowUnit.KilogramPerSecond, new CultureInfo("en-US"), false, true, new string[]{"kg/s", "kg/S"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassFlowUnit.MegagramPerDay, new CultureInfo("en-US"), false, true, new string[]{"Mg/d"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassFlowUnit.MegapoundPerDay, new CultureInfo("en-US"), false, true, new string[]{"Mlb/d"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassFlowUnit.MegapoundPerHour, new CultureInfo("en-US"), false, true, new string[]{"Mlb/h"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassFlowUnit.MegapoundPerMinute, new CultureInfo("en-US"), false, true, new string[]{"Mlb/min"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassFlowUnit.MegapoundPerSecond, new CultureInfo("en-US"), false, true, new string[]{"Mlb/s"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassFlowUnit.MicrogramPerDay, new CultureInfo("en-US"), false, true, new string[]{"µg/d"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassFlowUnit.MicrogramPerSecond, new CultureInfo("en-US"), false, true, new string[]{"µg/s", "µg/S"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassFlowUnit.MilligramPerDay, new CultureInfo("en-US"), false, true, new string[]{"mg/d"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassFlowUnit.MilligramPerSecond, new CultureInfo("en-US"), false, true, new string[]{"mg/s", "mg/S"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassFlowUnit.NanogramPerDay, new CultureInfo("en-US"), false, true, new string[]{"ng/d"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassFlowUnit.NanogramPerSecond, new CultureInfo("en-US"), false, true, new string[]{"ng/s", "ng/S"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassFlowUnit.PoundPerDay, new CultureInfo("en-US"), false, true, new string[]{"lb/d"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassFlowUnit.PoundPerHour, new CultureInfo("en-US"), false, true, new string[]{"lb/h"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassFlowUnit.PoundPerMinute, new CultureInfo("en-US"), false, true, new string[]{"lb/min"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassFlowUnit.PoundPerSecond, new CultureInfo("en-US"), false, true, new string[]{"lb/s"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassFlowUnit.ShortTonPerHour, new CultureInfo("en-US"), false, true, new string[]{"short tn/h"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassFlowUnit.TonnePerDay, new CultureInfo("en-US"), false, true, new string[]{"t/d"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassFlowUnit.TonnePerHour, new CultureInfo("en-US"), false, true, new string[]{"t/h"});
-        }
-
         /// <summary>
         ///     Get unit abbreviation string.
         /// </summary>
@@ -515,330 +492,264 @@ namespace OasysUnits
         /// <summary>
         ///     Creates a <see cref="MassFlow"/> from <see cref="MassFlowUnit.CentigramPerDay"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static MassFlow FromCentigramsPerDay(QuantityValue centigramsperday)
+        public static MassFlow FromCentigramsPerDay(double value)
         {
-            double value = (double) centigramsperday;
             return new MassFlow(value, MassFlowUnit.CentigramPerDay);
         }
 
         /// <summary>
         ///     Creates a <see cref="MassFlow"/> from <see cref="MassFlowUnit.CentigramPerSecond"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static MassFlow FromCentigramsPerSecond(QuantityValue centigramspersecond)
+        public static MassFlow FromCentigramsPerSecond(double value)
         {
-            double value = (double) centigramspersecond;
             return new MassFlow(value, MassFlowUnit.CentigramPerSecond);
         }
 
         /// <summary>
         ///     Creates a <see cref="MassFlow"/> from <see cref="MassFlowUnit.DecagramPerDay"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static MassFlow FromDecagramsPerDay(QuantityValue decagramsperday)
+        public static MassFlow FromDecagramsPerDay(double value)
         {
-            double value = (double) decagramsperday;
             return new MassFlow(value, MassFlowUnit.DecagramPerDay);
         }
 
         /// <summary>
         ///     Creates a <see cref="MassFlow"/> from <see cref="MassFlowUnit.DecagramPerSecond"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static MassFlow FromDecagramsPerSecond(QuantityValue decagramspersecond)
+        public static MassFlow FromDecagramsPerSecond(double value)
         {
-            double value = (double) decagramspersecond;
             return new MassFlow(value, MassFlowUnit.DecagramPerSecond);
         }
 
         /// <summary>
         ///     Creates a <see cref="MassFlow"/> from <see cref="MassFlowUnit.DecigramPerDay"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static MassFlow FromDecigramsPerDay(QuantityValue decigramsperday)
+        public static MassFlow FromDecigramsPerDay(double value)
         {
-            double value = (double) decigramsperday;
             return new MassFlow(value, MassFlowUnit.DecigramPerDay);
         }
 
         /// <summary>
         ///     Creates a <see cref="MassFlow"/> from <see cref="MassFlowUnit.DecigramPerSecond"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static MassFlow FromDecigramsPerSecond(QuantityValue decigramspersecond)
+        public static MassFlow FromDecigramsPerSecond(double value)
         {
-            double value = (double) decigramspersecond;
             return new MassFlow(value, MassFlowUnit.DecigramPerSecond);
         }
 
         /// <summary>
         ///     Creates a <see cref="MassFlow"/> from <see cref="MassFlowUnit.GramPerDay"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static MassFlow FromGramsPerDay(QuantityValue gramsperday)
+        public static MassFlow FromGramsPerDay(double value)
         {
-            double value = (double) gramsperday;
             return new MassFlow(value, MassFlowUnit.GramPerDay);
         }
 
         /// <summary>
         ///     Creates a <see cref="MassFlow"/> from <see cref="MassFlowUnit.GramPerHour"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static MassFlow FromGramsPerHour(QuantityValue gramsperhour)
+        public static MassFlow FromGramsPerHour(double value)
         {
-            double value = (double) gramsperhour;
             return new MassFlow(value, MassFlowUnit.GramPerHour);
         }
 
         /// <summary>
         ///     Creates a <see cref="MassFlow"/> from <see cref="MassFlowUnit.GramPerSecond"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static MassFlow FromGramsPerSecond(QuantityValue gramspersecond)
+        public static MassFlow FromGramsPerSecond(double value)
         {
-            double value = (double) gramspersecond;
             return new MassFlow(value, MassFlowUnit.GramPerSecond);
         }
 
         /// <summary>
         ///     Creates a <see cref="MassFlow"/> from <see cref="MassFlowUnit.HectogramPerDay"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static MassFlow FromHectogramsPerDay(QuantityValue hectogramsperday)
+        public static MassFlow FromHectogramsPerDay(double value)
         {
-            double value = (double) hectogramsperday;
             return new MassFlow(value, MassFlowUnit.HectogramPerDay);
         }
 
         /// <summary>
         ///     Creates a <see cref="MassFlow"/> from <see cref="MassFlowUnit.HectogramPerSecond"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static MassFlow FromHectogramsPerSecond(QuantityValue hectogramspersecond)
+        public static MassFlow FromHectogramsPerSecond(double value)
         {
-            double value = (double) hectogramspersecond;
             return new MassFlow(value, MassFlowUnit.HectogramPerSecond);
         }
 
         /// <summary>
         ///     Creates a <see cref="MassFlow"/> from <see cref="MassFlowUnit.KilogramPerDay"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static MassFlow FromKilogramsPerDay(QuantityValue kilogramsperday)
+        public static MassFlow FromKilogramsPerDay(double value)
         {
-            double value = (double) kilogramsperday;
             return new MassFlow(value, MassFlowUnit.KilogramPerDay);
         }
 
         /// <summary>
         ///     Creates a <see cref="MassFlow"/> from <see cref="MassFlowUnit.KilogramPerHour"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static MassFlow FromKilogramsPerHour(QuantityValue kilogramsperhour)
+        public static MassFlow FromKilogramsPerHour(double value)
         {
-            double value = (double) kilogramsperhour;
             return new MassFlow(value, MassFlowUnit.KilogramPerHour);
         }
 
         /// <summary>
         ///     Creates a <see cref="MassFlow"/> from <see cref="MassFlowUnit.KilogramPerMinute"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static MassFlow FromKilogramsPerMinute(QuantityValue kilogramsperminute)
+        public static MassFlow FromKilogramsPerMinute(double value)
         {
-            double value = (double) kilogramsperminute;
             return new MassFlow(value, MassFlowUnit.KilogramPerMinute);
         }
 
         /// <summary>
         ///     Creates a <see cref="MassFlow"/> from <see cref="MassFlowUnit.KilogramPerSecond"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static MassFlow FromKilogramsPerSecond(QuantityValue kilogramspersecond)
+        public static MassFlow FromKilogramsPerSecond(double value)
         {
-            double value = (double) kilogramspersecond;
             return new MassFlow(value, MassFlowUnit.KilogramPerSecond);
         }
 
         /// <summary>
         ///     Creates a <see cref="MassFlow"/> from <see cref="MassFlowUnit.MegagramPerDay"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static MassFlow FromMegagramsPerDay(QuantityValue megagramsperday)
+        public static MassFlow FromMegagramsPerDay(double value)
         {
-            double value = (double) megagramsperday;
             return new MassFlow(value, MassFlowUnit.MegagramPerDay);
         }
 
         /// <summary>
         ///     Creates a <see cref="MassFlow"/> from <see cref="MassFlowUnit.MegapoundPerDay"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static MassFlow FromMegapoundsPerDay(QuantityValue megapoundsperday)
+        public static MassFlow FromMegapoundsPerDay(double value)
         {
-            double value = (double) megapoundsperday;
             return new MassFlow(value, MassFlowUnit.MegapoundPerDay);
         }
 
         /// <summary>
         ///     Creates a <see cref="MassFlow"/> from <see cref="MassFlowUnit.MegapoundPerHour"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static MassFlow FromMegapoundsPerHour(QuantityValue megapoundsperhour)
+        public static MassFlow FromMegapoundsPerHour(double value)
         {
-            double value = (double) megapoundsperhour;
             return new MassFlow(value, MassFlowUnit.MegapoundPerHour);
         }
 
         /// <summary>
         ///     Creates a <see cref="MassFlow"/> from <see cref="MassFlowUnit.MegapoundPerMinute"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static MassFlow FromMegapoundsPerMinute(QuantityValue megapoundsperminute)
+        public static MassFlow FromMegapoundsPerMinute(double value)
         {
-            double value = (double) megapoundsperminute;
             return new MassFlow(value, MassFlowUnit.MegapoundPerMinute);
         }
 
         /// <summary>
         ///     Creates a <see cref="MassFlow"/> from <see cref="MassFlowUnit.MegapoundPerSecond"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static MassFlow FromMegapoundsPerSecond(QuantityValue megapoundspersecond)
+        public static MassFlow FromMegapoundsPerSecond(double value)
         {
-            double value = (double) megapoundspersecond;
             return new MassFlow(value, MassFlowUnit.MegapoundPerSecond);
         }
 
         /// <summary>
         ///     Creates a <see cref="MassFlow"/> from <see cref="MassFlowUnit.MicrogramPerDay"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static MassFlow FromMicrogramsPerDay(QuantityValue microgramsperday)
+        public static MassFlow FromMicrogramsPerDay(double value)
         {
-            double value = (double) microgramsperday;
             return new MassFlow(value, MassFlowUnit.MicrogramPerDay);
         }
 
         /// <summary>
         ///     Creates a <see cref="MassFlow"/> from <see cref="MassFlowUnit.MicrogramPerSecond"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static MassFlow FromMicrogramsPerSecond(QuantityValue microgramspersecond)
+        public static MassFlow FromMicrogramsPerSecond(double value)
         {
-            double value = (double) microgramspersecond;
             return new MassFlow(value, MassFlowUnit.MicrogramPerSecond);
         }
 
         /// <summary>
         ///     Creates a <see cref="MassFlow"/> from <see cref="MassFlowUnit.MilligramPerDay"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static MassFlow FromMilligramsPerDay(QuantityValue milligramsperday)
+        public static MassFlow FromMilligramsPerDay(double value)
         {
-            double value = (double) milligramsperday;
             return new MassFlow(value, MassFlowUnit.MilligramPerDay);
         }
 
         /// <summary>
         ///     Creates a <see cref="MassFlow"/> from <see cref="MassFlowUnit.MilligramPerSecond"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static MassFlow FromMilligramsPerSecond(QuantityValue milligramspersecond)
+        public static MassFlow FromMilligramsPerSecond(double value)
         {
-            double value = (double) milligramspersecond;
             return new MassFlow(value, MassFlowUnit.MilligramPerSecond);
         }
 
         /// <summary>
         ///     Creates a <see cref="MassFlow"/> from <see cref="MassFlowUnit.NanogramPerDay"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static MassFlow FromNanogramsPerDay(QuantityValue nanogramsperday)
+        public static MassFlow FromNanogramsPerDay(double value)
         {
-            double value = (double) nanogramsperday;
             return new MassFlow(value, MassFlowUnit.NanogramPerDay);
         }
 
         /// <summary>
         ///     Creates a <see cref="MassFlow"/> from <see cref="MassFlowUnit.NanogramPerSecond"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static MassFlow FromNanogramsPerSecond(QuantityValue nanogramspersecond)
+        public static MassFlow FromNanogramsPerSecond(double value)
         {
-            double value = (double) nanogramspersecond;
             return new MassFlow(value, MassFlowUnit.NanogramPerSecond);
         }
 
         /// <summary>
         ///     Creates a <see cref="MassFlow"/> from <see cref="MassFlowUnit.PoundPerDay"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static MassFlow FromPoundsPerDay(QuantityValue poundsperday)
+        public static MassFlow FromPoundsPerDay(double value)
         {
-            double value = (double) poundsperday;
             return new MassFlow(value, MassFlowUnit.PoundPerDay);
         }
 
         /// <summary>
         ///     Creates a <see cref="MassFlow"/> from <see cref="MassFlowUnit.PoundPerHour"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static MassFlow FromPoundsPerHour(QuantityValue poundsperhour)
+        public static MassFlow FromPoundsPerHour(double value)
         {
-            double value = (double) poundsperhour;
             return new MassFlow(value, MassFlowUnit.PoundPerHour);
         }
 
         /// <summary>
         ///     Creates a <see cref="MassFlow"/> from <see cref="MassFlowUnit.PoundPerMinute"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static MassFlow FromPoundsPerMinute(QuantityValue poundsperminute)
+        public static MassFlow FromPoundsPerMinute(double value)
         {
-            double value = (double) poundsperminute;
             return new MassFlow(value, MassFlowUnit.PoundPerMinute);
         }
 
         /// <summary>
         ///     Creates a <see cref="MassFlow"/> from <see cref="MassFlowUnit.PoundPerSecond"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static MassFlow FromPoundsPerSecond(QuantityValue poundspersecond)
+        public static MassFlow FromPoundsPerSecond(double value)
         {
-            double value = (double) poundspersecond;
             return new MassFlow(value, MassFlowUnit.PoundPerSecond);
         }
 
         /// <summary>
         ///     Creates a <see cref="MassFlow"/> from <see cref="MassFlowUnit.ShortTonPerHour"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static MassFlow FromShortTonsPerHour(QuantityValue shorttonsperhour)
+        public static MassFlow FromShortTonsPerHour(double value)
         {
-            double value = (double) shorttonsperhour;
             return new MassFlow(value, MassFlowUnit.ShortTonPerHour);
         }
 
         /// <summary>
         ///     Creates a <see cref="MassFlow"/> from <see cref="MassFlowUnit.TonnePerDay"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static MassFlow FromTonnesPerDay(QuantityValue tonnesperday)
+        public static MassFlow FromTonnesPerDay(double value)
         {
-            double value = (double) tonnesperday;
             return new MassFlow(value, MassFlowUnit.TonnePerDay);
         }
 
         /// <summary>
         ///     Creates a <see cref="MassFlow"/> from <see cref="MassFlowUnit.TonnePerHour"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static MassFlow FromTonnesPerHour(QuantityValue tonnesperhour)
+        public static MassFlow FromTonnesPerHour(double value)
         {
-            double value = (double) tonnesperhour;
             return new MassFlow(value, MassFlowUnit.TonnePerHour);
         }
 
@@ -848,9 +759,9 @@ namespace OasysUnits
         /// <param name="value">Value to convert from.</param>
         /// <param name="fromUnit">Unit to convert from.</param>
         /// <returns>MassFlow unit value.</returns>
-        public static MassFlow From(QuantityValue value, MassFlowUnit fromUnit)
+        public static MassFlow From(double value, MassFlowUnit fromUnit)
         {
-            return new MassFlow((double)value, fromUnit);
+            return new MassFlow(value, fromUnit);
         }
 
         #endregion
@@ -862,7 +773,7 @@ namespace OasysUnits
         /// </summary>
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <example>
-        ///     Length.Parse("5.5 m", new CultureInfo("en-US"));
+        ///     Length.Parse("5.5 m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <exception cref="ArgumentNullException">The value of 'str' cannot be null. </exception>
         /// <exception cref="ArgumentException">
@@ -889,7 +800,7 @@ namespace OasysUnits
         /// </summary>
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <example>
-        ///     Length.Parse("5.5 m", new CultureInfo("en-US"));
+        ///     Length.Parse("5.5 m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <exception cref="ArgumentNullException">The value of 'str' cannot be null. </exception>
         /// <exception cref="ArgumentException">
@@ -921,7 +832,7 @@ namespace OasysUnits
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <param name="result">Resulting unit quantity if successful.</param>
         /// <example>
-        ///     Length.Parse("5.5 m", new CultureInfo("en-US"));
+        ///     Length.Parse("5.5 m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         public static bool TryParse(string? str, out MassFlow result)
         {
@@ -935,7 +846,7 @@ namespace OasysUnits
         /// <param name="result">Resulting unit quantity if successful.</param>
         /// <returns>True if successful, otherwise false.</returns>
         /// <example>
-        ///     Length.Parse("5.5 m", new CultureInfo("en-US"));
+        ///     Length.Parse("5.5 m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <param name="provider">Format to use when parsing number and unit. Defaults to <see cref="CultureInfo.CurrentCulture" /> if null.</param>
         public static bool TryParse(string? str, IFormatProvider? provider, out MassFlow result)
@@ -952,7 +863,7 @@ namespace OasysUnits
         /// </summary>
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <example>
-        ///     Length.ParseUnit("m", new CultureInfo("en-US"));
+        ///     Length.ParseUnit("m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <exception cref="ArgumentNullException">The value of 'str' cannot be null. </exception>
         /// <exception cref="OasysUnitsException">Error parsing string.</exception>
@@ -967,7 +878,7 @@ namespace OasysUnits
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <param name="provider">Format to use when parsing number and unit. Defaults to <see cref="CultureInfo.CurrentCulture" /> if null.</param>
         /// <example>
-        ///     Length.ParseUnit("m", new CultureInfo("en-US"));
+        ///     Length.ParseUnit("m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <exception cref="ArgumentNullException">The value of 'str' cannot be null. </exception>
         /// <exception cref="OasysUnitsException">Error parsing string.</exception>
@@ -989,7 +900,7 @@ namespace OasysUnits
         /// <param name="unit">The parsed unit if successful.</param>
         /// <returns>True if successful, otherwise false.</returns>
         /// <example>
-        ///     Length.TryParseUnit("m", new CultureInfo("en-US"));
+        ///     Length.TryParseUnit("m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <param name="provider">Format to use when parsing number and unit. Defaults to <see cref="CultureInfo.CurrentCulture" /> if null.</param>
         public static bool TryParseUnit(string str, IFormatProvider? provider, out MassFlowUnit unit)
@@ -1045,6 +956,70 @@ namespace OasysUnits
 
         #endregion
 
+        #region Relational Operators
+
+        /// <summary>Get <see cref="Area"/> from <see cref="MassFlow"/> / <see cref="MassFlux"/>.</summary>
+        public static Area operator /(MassFlow massFlow, MassFlux massFlux)
+        {
+            return Area.FromSquareMeters(massFlow.KilogramsPerSecond / massFlux.KilogramsPerSecondPerSquareMeter);
+        }
+
+        /// <summary>Get <see cref="BrakeSpecificFuelConsumption"/> from <see cref="MassFlow"/> / <see cref="Power"/>.</summary>
+        public static BrakeSpecificFuelConsumption operator /(MassFlow massFlow, Power power)
+        {
+            return BrakeSpecificFuelConsumption.FromKilogramsPerJoule(massFlow.KilogramsPerSecond / power.Watts);
+        }
+
+        /// <summary>Get <see cref="Density"/> from <see cref="MassFlow"/> / <see cref="VolumeFlow"/>.</summary>
+        public static Density operator /(MassFlow massFlow, VolumeFlow volumeFlow)
+        {
+            return Density.FromKilogramsPerCubicMeter(massFlow.KilogramsPerSecond / volumeFlow.CubicMetersPerSecond);
+        }
+
+        /// <summary>Get <see cref="Mass"/> from <see cref="MassFlow"/> * <see cref="Duration"/>.</summary>
+        public static Mass operator *(MassFlow massFlow, Duration duration)
+        {
+            return Mass.FromKilograms(massFlow.KilogramsPerSecond * duration.Seconds);
+        }
+
+        /// <summary>Get <see cref="MassFlux"/> from <see cref="MassFlow"/> / <see cref="Area"/>.</summary>
+        public static MassFlux operator /(MassFlow massFlow, Area area)
+        {
+            return MassFlux.FromKilogramsPerSecondPerSquareMeter(massFlow.KilogramsPerSecond / area.SquareMeters);
+        }
+
+        /// <summary>Get <see cref="MolarFlow"/> from <see cref="MassFlow"/> / <see cref="MolarMass"/>.</summary>
+        public static MolarFlow operator /(MassFlow massFlow, MolarMass molarMass)
+        {
+            return MolarFlow.FromKilomolesPerSecond(massFlow.KilogramsPerSecond / molarMass.KilogramsPerKilomole);
+        }
+
+        /// <summary>Get <see cref="MolarMass"/> from <see cref="MassFlow"/> / <see cref="MolarFlow"/>.</summary>
+        public static MolarMass operator /(MassFlow massFlow, MolarFlow molarFlow)
+        {
+            return MolarMass.FromKilogramsPerKilomole(massFlow.KilogramsPerSecond / molarFlow.KilomolesPerSecond);
+        }
+
+        /// <summary>Get <see cref="Power"/> from <see cref="MassFlow"/> * <see cref="SpecificEnergy"/>.</summary>
+        public static Power operator *(MassFlow massFlow, SpecificEnergy specificEnergy)
+        {
+            return Power.FromWatts(massFlow.KilogramsPerSecond * specificEnergy.JoulesPerKilogram);
+        }
+
+        /// <summary>Get <see cref="Power"/> from <see cref="MassFlow"/> / <see cref="BrakeSpecificFuelConsumption"/>.</summary>
+        public static Power operator /(MassFlow massFlow, BrakeSpecificFuelConsumption brakeSpecificFuelConsumption)
+        {
+            return Power.FromWatts(massFlow.KilogramsPerSecond / brakeSpecificFuelConsumption.KilogramsPerJoule);
+        }
+
+        /// <summary>Get <see cref="VolumeFlow"/> from <see cref="MassFlow"/> / <see cref="Density"/>.</summary>
+        public static VolumeFlow operator /(MassFlow massFlow, Density density)
+        {
+            return VolumeFlow.FromCubicMetersPerSecond(massFlow.KilogramsPerSecond / density.KilogramsPerCubicMeter);
+        }
+
+        #endregion
+
         #region Equality / IComparable
 
         /// <summary>Returns true if less or equal to.</summary>
@@ -1076,16 +1051,14 @@ namespace OasysUnits
         #pragma warning disable CS0809
 
         /// <summary>Indicates strict equality of two <see cref="MassFlow"/> quantities, where both <see cref="Value" /> and <see cref="Unit" /> are exactly equal.</summary>
-        /// <remarks>Consider using <see cref="Equals(MassFlow, double, ComparisonType)"/> to check equality across different units and to specify a floating-point number error tolerance.</remarks>
-        [Obsolete("For null checks, use `x is null` syntax to not invoke overloads. For quantity comparisons, use Equals(MassFlow, double, ComparisonType) to check equality across different units and to specify a floating-point number error tolerance.")]
+        [Obsolete("For null checks, use `x is null` syntax to not invoke overloads. For equality checks, use Equals(MassFlow other, MassFlow tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public static bool operator ==(MassFlow left, MassFlow right)
         {
             return left.Equals(right);
         }
 
         /// <summary>Indicates strict inequality of two <see cref="MassFlow"/> quantities, where both <see cref="Value" /> and <see cref="Unit" /> are exactly equal.</summary>
-        /// <remarks>Consider using <see cref="Equals(MassFlow, double, ComparisonType)"/> to check equality across different units and to specify a floating-point number error tolerance.</remarks>
-        [Obsolete("For null checks, use `x is not null` syntax to not invoke overloads. For quantity comparisons, use Equals(MassFlow, double, ComparisonType) to check equality across different units and to specify a floating-point number error tolerance.")]
+        [Obsolete("For null checks, use `x is null` syntax to not invoke overloads. For equality checks, use Equals(MassFlow other, MassFlow tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public static bool operator !=(MassFlow left, MassFlow right)
         {
             return !(left == right);
@@ -1093,8 +1066,7 @@ namespace OasysUnits
 
         /// <inheritdoc />
         /// <summary>Indicates strict equality of two <see cref="MassFlow"/> quantities, where both <see cref="Value" /> and <see cref="Unit" /> are exactly equal.</summary>
-        /// <remarks>Consider using <see cref="Equals(MassFlow, double, ComparisonType)"/> to check equality across different units and to specify a floating-point number error tolerance.</remarks>
-        [Obsolete("Consider using Equals(MassFlow, double, ComparisonType) to check equality across different units and to specify a floating-point number error tolerance.")]
+        [Obsolete("Use Equals(MassFlow other, MassFlow tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public override bool Equals(object? obj)
         {
             if (obj is null || !(obj is MassFlow otherQuantity))
@@ -1105,8 +1077,7 @@ namespace OasysUnits
 
         /// <inheritdoc />
         /// <summary>Indicates strict equality of two <see cref="MassFlow"/> quantities, where both <see cref="Value" /> and <see cref="Unit" /> are exactly equal.</summary>
-        /// <remarks>Consider using <see cref="Equals(MassFlow, double, ComparisonType)"/> to check equality across different units and to specify a floating-point number error tolerance.</remarks>
-        [Obsolete("Consider using Equals(MassFlow, double, ComparisonType) to check equality across different units and to specify a floating-point number error tolerance.")]
+        [Obsolete("Use Equals(MassFlow other, MassFlow tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public bool Equals(MassFlow other)
         {
             return new { Value, Unit }.Equals(new { other.Value, other.Unit });
@@ -1190,15 +1161,37 @@ namespace OasysUnits
         /// <param name="tolerance">The absolute or relative tolerance value. Must be greater than or equal to 0.</param>
         /// <param name="comparisonType">The comparison type: either relative or absolute.</param>
         /// <returns>True if the absolute difference between the two values is not greater than the specified relative or absolute tolerance.</returns>
+        [Obsolete("Use Equals(MassFlow other, MassFlow tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public bool Equals(MassFlow other, double tolerance, ComparisonType comparisonType)
         {
             if (tolerance < 0)
-                throw new ArgumentOutOfRangeException("tolerance", "Tolerance must be greater than or equal to 0.");
+                throw new ArgumentOutOfRangeException(nameof(tolerance), "Tolerance must be greater than or equal to 0.");
 
-            double thisValue = this.Value;
-            double otherValueInThisUnits = other.As(this.Unit);
+            return OasysUnits.Comparison.Equals(
+                referenceValue: this.Value,
+                otherValue: other.As(this.Unit),
+                tolerance: tolerance,
+                comparisonType: comparisonType);
+        }
 
-            return OasysUnits.Comparison.Equals(thisValue, otherValueInThisUnits, tolerance, comparisonType);
+        /// <inheritdoc />
+        public bool Equals(IQuantity? other, IQuantity tolerance)
+        {
+            return other is MassFlow otherTyped
+                   && (tolerance is MassFlow toleranceTyped
+                       ? true
+                       : throw new ArgumentException($"Tolerance quantity ({tolerance.QuantityInfo.Name}) did not match the other quantities of type 'MassFlow'.", nameof(tolerance)))
+                   && Equals(otherTyped, toleranceTyped);
+        }
+
+        /// <inheritdoc />
+        public bool Equals(MassFlow other, MassFlow tolerance)
+        {
+            return OasysUnits.Comparison.Equals(
+                referenceValue: this.Value,
+                otherValue: other.As(this.Unit),
+                tolerance: tolerance.As(this.Unit),
+                comparisonType: ComparisonType.Absolute);
         }
 
         /// <summary>
@@ -1243,15 +1236,6 @@ namespace OasysUnits
 
         /// <inheritdoc />
         double IQuantity.As(Enum unit)
-        {
-            if (!(unit is MassFlowUnit typedUnit))
-                throw new ArgumentException($"The given unit is of type {unit.GetType()}. Only {typeof(MassFlowUnit)} is supported.", nameof(unit));
-
-            return (double)As(typedUnit);
-        }
-
-        /// <inheritdoc />
-        double IValueQuantity<double>.As(Enum unit)
         {
             if (!(unit is MassFlowUnit typedUnit))
                 throw new ArgumentException($"The given unit is of type {unit.GetType()}. Only {typeof(MassFlowUnit)} is supported.", nameof(unit));
@@ -1429,18 +1413,6 @@ namespace OasysUnits
 
         /// <inheritdoc />
         IQuantity<MassFlowUnit> IQuantity<MassFlowUnit>.ToUnit(UnitSystem unitSystem) => ToUnit(unitSystem);
-
-        /// <inheritdoc />
-        IValueQuantity<double> IValueQuantity<double>.ToUnit(Enum unit)
-        {
-            if (unit is not MassFlowUnit typedUnit)
-                throw new ArgumentException($"The given unit is of type {unit.GetType()}. Only {typeof(MassFlowUnit)} is supported.", nameof(unit));
-
-            return ToUnit(typedUnit);
-        }
-
-        /// <inheritdoc />
-        IValueQuantity<double> IValueQuantity<double>.ToUnit(UnitSystem unitSystem) => ToUnit(unitSystem);
 
         #endregion
 

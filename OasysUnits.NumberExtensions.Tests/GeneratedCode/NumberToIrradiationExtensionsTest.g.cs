@@ -6,7 +6,7 @@
 //     The build server regenerates the code before each build and a pre-build
 //     step will regenerate the code on each local build.
 //
-//     See https://github.com/angularsen/UnitsNet/wiki/Adding-a-New-Unit for how to add or edit units.
+//     See https://github.com/angularsen/OasysUnits/wiki/Adding-a-New-Unit for how to add or edit units.
 //
 //     Add CustomCode\Quantities\MyQuantity.extra.cs files to add code to generated quantities.
 //     Add UnitDefinitions\MyQuantity.json and run generate-code.bat to generate new units or quantities.
@@ -15,7 +15,7 @@
 //------------------------------------------------------------------------------
 
 // Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using OasysUnits.NumberExtensions.NumberToIrradiation;
 using Xunit;
@@ -24,6 +24,10 @@ namespace OasysUnits.Tests
 {
     public class NumberToIrradiationExtensionsTests
     {
+        [Fact]
+        public void NumberToBtusPerSquareFootTest() =>
+            Assert.Equal(Irradiation.FromBtusPerSquareFoot(2), 2.BtusPerSquareFoot());
+
         [Fact]
         public void NumberToJoulesPerSquareCentimeterTest() =>
             Assert.Equal(Irradiation.FromJoulesPerSquareCentimeter(2), 2.JoulesPerSquareCentimeter());
@@ -35,6 +39,10 @@ namespace OasysUnits.Tests
         [Fact]
         public void NumberToJoulesPerSquareMillimeterTest() =>
             Assert.Equal(Irradiation.FromJoulesPerSquareMillimeter(2), 2.JoulesPerSquareMillimeter());
+
+        [Fact]
+        public void NumberToKilobtusPerSquareFootTest() =>
+            Assert.Equal(Irradiation.FromKilobtusPerSquareFoot(2), 2.KilobtusPerSquareFoot());
 
         [Fact]
         public void NumberToKilojoulesPerSquareMeterTest() =>

@@ -1,5 +1,5 @@
 ﻿// Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using System;
 using OasysUnits.CustomCode.Units;
@@ -247,6 +247,20 @@ namespace OasysUnits.Tests
         {
             Force force = Pressure.FromPascals(200) / ReciprocalArea.FromInverseSquareMeters(5);
             Assert.Equal(force, Force.FromNewtons(40));
+        }
+
+        [Fact]
+        public void PressureDividedByDurationEqualsPressureChangeRate()
+        {
+            PressureChangeRate pressureChangeRate = Pressure.FromPascals(500) / Duration.FromSeconds(2);
+            Assert.Equal(PressureChangeRate.FromPascalsPerSecond(250), pressureChangeRate);
+        }
+
+        [Fact]
+        public void PressureDividedByTimeSpanEqualsPressurechangeRate()
+        {
+            PressureChangeRate pressureChangeRate = Pressure.FromPascals(50) / TimeSpan.FromSeconds(5);
+            Assert.Equal(PressureChangeRate.FromPascalsPerSecond(10), pressureChangeRate);
         }
     }
 }

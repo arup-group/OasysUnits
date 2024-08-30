@@ -6,7 +6,7 @@
 //     The build server regenerates the code before each build and a pre-build
 //     step will regenerate the code on each local build.
 //
-//     See https://github.com/angularsen/UnitsNet/wiki/Adding-a-New-Unit for how to add or edit units.
+//     See https://github.com/angularsen/OasysUnits/wiki/Adding-a-New-Unit for how to add or edit units.
 //
 //     Add CustomCode\Quantities\MyQuantity.extra.cs files to add code to generated quantities.
 //     Add UnitDefinitions\MyQuantity.json and run generate-code.bat to generate new units or quantities.
@@ -15,9 +15,13 @@
 //------------------------------------------------------------------------------
 
 // Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using System;
+
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
 
 #nullable enable
 
@@ -28,13 +32,21 @@ namespace OasysUnits.NumberExtensions.NumberToPowerRatio
     /// </summary>
     public static class NumberToPowerRatioExtensions
     {
-        /// <inheritdoc cref="PowerRatio.FromDecibelMilliwatts(OasysUnits.QuantityValue)" />
-        public static PowerRatio DecibelMilliwatts<T>(this T value) =>
-            PowerRatio.FromDecibelMilliwatts(Convert.ToDouble(value));
+        /// <inheritdoc cref="PowerRatio.FromDecibelMilliwatts(double)" />
+        public static PowerRatio DecibelMilliwatts<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => PowerRatio.FromDecibelMilliwatts(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="PowerRatio.FromDecibelWatts(OasysUnits.QuantityValue)" />
-        public static PowerRatio DecibelWatts<T>(this T value) =>
-            PowerRatio.FromDecibelWatts(Convert.ToDouble(value));
+        /// <inheritdoc cref="PowerRatio.FromDecibelWatts(double)" />
+        public static PowerRatio DecibelWatts<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => PowerRatio.FromDecibelWatts(Convert.ToDouble(value));
 
     }
 }

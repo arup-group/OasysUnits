@@ -6,7 +6,7 @@
 //     The build server regenerates the code before each build and a pre-build
 //     step will regenerate the code on each local build.
 //
-//     See https://github.com/angularsen/UnitsNet/wiki/Adding-a-New-Unit for how to add or edit units.
+//     See https://github.com/angularsen/OasysUnits/wiki/Adding-a-New-Unit for how to add or edit units.
 //
 //     Add CustomCode\Quantities\MyQuantity.extra.cs files to add code to generated quantities.
 //     Add UnitDefinitions\MyQuantity.json and run generate-code.bat to generate new units or quantities.
@@ -15,7 +15,7 @@
 //------------------------------------------------------------------------------
 
 // Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using System;
 using System.Collections.Generic;
@@ -195,16 +195,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void Ctor_WithInfinityValue_ThrowsArgumentException()
+        public void Ctor_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new MassFlow(double.PositiveInfinity, MassFlowUnit.GramPerSecond));
-            Assert.Throws<ArgumentException>(() => new MassFlow(double.NegativeInfinity, MassFlowUnit.GramPerSecond));
+            var exception1 = Record.Exception(() => new MassFlow(double.PositiveInfinity, MassFlowUnit.GramPerSecond));
+            var exception2 = Record.Exception(() => new MassFlow(double.NegativeInfinity, MassFlowUnit.GramPerSecond));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void Ctor_WithNaNValue_ThrowsArgumentException()
+        public void Ctor_WithNaNValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new MassFlow(double.NaN, MassFlowUnit.GramPerSecond));
+            var exception = Record.Exception(() => new MassFlow(double.NaN, MassFlowUnit.GramPerSecond));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -419,16 +424,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void FromGramsPerSecond_WithInfinityValue_ThrowsArgumentException()
+        public void FromGramsPerSecond_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => MassFlow.FromGramsPerSecond(double.PositiveInfinity));
-            Assert.Throws<ArgumentException>(() => MassFlow.FromGramsPerSecond(double.NegativeInfinity));
+            var exception1 = Record.Exception(() => MassFlow.FromGramsPerSecond(double.PositiveInfinity));
+            var exception2 = Record.Exception(() => MassFlow.FromGramsPerSecond(double.NegativeInfinity));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void FromGramsPerSecond_WithNanValue_ThrowsArgumentException()
+        public void FromGramsPerSecond_WithNanValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => MassFlow.FromGramsPerSecond(double.NaN));
+            var exception = Record.Exception(() => MassFlow.FromGramsPerSecond(double.NaN));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -1722,6 +1732,8 @@ namespace OasysUnits.Tests
             var v = MassFlow.FromGramsPerSecond(1);
             Assert.True(v.Equals(MassFlow.FromGramsPerSecond(1), GramsPerSecondTolerance, ComparisonType.Relative));
             Assert.False(v.Equals(MassFlow.Zero, GramsPerSecondTolerance, ComparisonType.Relative));
+            Assert.True(MassFlow.FromGramsPerSecond(100).Equals(MassFlow.FromGramsPerSecond(120), 0.3, ComparisonType.Relative));
+            Assert.False(MassFlow.FromGramsPerSecond(100).Equals(MassFlow.FromGramsPerSecond(120), 0.1, ComparisonType.Relative));
         }
 
         [Fact]

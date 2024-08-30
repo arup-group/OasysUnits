@@ -6,7 +6,7 @@
 //     The build server regenerates the code before each build and a pre-build
 //     step will regenerate the code on each local build.
 //
-//     See https://github.com/angularsen/UnitsNet/wiki/Adding-a-New-Unit for how to add or edit units.
+//     See https://github.com/angularsen/OasysUnits/wiki/Adding-a-New-Unit for how to add or edit units.
 //
 //     Add CustomCode\Quantities\MyQuantity.extra.cs files to add code to generated quantities.
 //     Add UnitDefinitions\MyQuantity.json and run generate-code.bat to generate new units or quantities.
@@ -15,7 +15,7 @@
 //------------------------------------------------------------------------------
 
 // Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using OasysUnits.NumberExtensions.NumberToLength;
 using Xunit;
@@ -65,8 +65,16 @@ namespace OasysUnits.Tests
             Assert.Equal(Length.FromFathoms(2), 2.Fathoms());
 
         [Fact]
+        public void NumberToFemtometersTest() =>
+            Assert.Equal(Length.FromFemtometers(2), 2.Femtometers());
+
+        [Fact]
         public void NumberToFeetTest() =>
             Assert.Equal(Length.FromFeet(2), 2.Feet());
+
+        [Fact]
+        public void NumberToGigametersTest() =>
+            Assert.Equal(Length.FromGigameters(2), 2.Gigameters());
 
         [Fact]
         public void NumberToHandsTest() =>
@@ -81,6 +89,10 @@ namespace OasysUnits.Tests
             Assert.Equal(Length.FromInches(2), 2.Inches());
 
         [Fact]
+        public void NumberToKilofeetTest() =>
+            Assert.Equal(Length.FromKilofeet(2), 2.Kilofeet());
+
+        [Fact]
         public void NumberToKilolightYearsTest() =>
             Assert.Equal(Length.FromKilolightYears(2), 2.KilolightYears());
 
@@ -91,6 +103,10 @@ namespace OasysUnits.Tests
         [Fact]
         public void NumberToKiloparsecsTest() =>
             Assert.Equal(Length.FromKiloparsecs(2), 2.Kiloparsecs());
+
+        [Fact]
+        public void NumberToKiloyardsTest() =>
+            Assert.Equal(Length.FromKiloyards(2), 2.Kiloyards());
 
         [Fact]
         public void NumberToLightYearsTest() =>
@@ -143,6 +159,10 @@ namespace OasysUnits.Tests
         [Fact]
         public void NumberToParsecsTest() =>
             Assert.Equal(Length.FromParsecs(2), 2.Parsecs());
+
+        [Fact]
+        public void NumberToPicometersTest() =>
+            Assert.Equal(Length.FromPicometers(2), 2.Picometers());
 
         [Fact]
         public void NumberToPrinterPicasTest() =>

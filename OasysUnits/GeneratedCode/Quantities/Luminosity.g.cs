@@ -6,7 +6,7 @@
 //     The build server regenerates the code before each build and a pre-build
 //     step will regenerate the code on each local build.
 //
-//     See https://github.com/angularsen/UnitsNet/wiki/Adding-a-New-Unit for how to add or edit units.
+//     See https://github.com/angularsen/OasysUnits/wiki/Adding-a-New-Unit for how to add or edit units.
 //
 //     Add CustomCode\Quantities\MyQuantity.extra.cs files to add code to generated quantities.
 //     Add UnitDefinitions\MyQuantity.json and run generate-code.bat to generate new units or quantities.
@@ -15,9 +15,10 @@
 //------------------------------------------------------------------------------
 
 // Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using System;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
@@ -39,8 +40,9 @@ namespace OasysUnits
     ///     https://en.wikipedia.org/wiki/Luminosity
     /// </remarks>
     [DataContract]
+    [DebuggerTypeProxy(typeof(QuantityDisplay))]
     public readonly partial struct Luminosity :
-        IArithmeticQuantity<Luminosity, LuminosityUnit, double>,
+        IArithmeticQuantity<Luminosity, LuminosityUnit>,
         IComparable,
         IComparable<Luminosity>,
         IConvertible,
@@ -50,13 +52,13 @@ namespace OasysUnits
         /// <summary>
         ///     The numeric value this quantity was constructed with.
         /// </summary>
-        [DataMember(Name = "Value", Order = 0)]
+        [DataMember(Name = "Value", Order = 1)]
         private readonly double _value;
 
         /// <summary>
         ///     The unit this quantity was constructed with.
         /// </summary>
-        [DataMember(Name = "Unit", Order = 1)]
+        [DataMember(Name = "Unit", Order = 2)]
         private readonly LuminosityUnit? _unit;
 
         static Luminosity()
@@ -68,20 +70,20 @@ namespace OasysUnits
             Info = new QuantityInfo<LuminosityUnit>("Luminosity",
                 new UnitInfo<LuminosityUnit>[]
                 {
-                    new UnitInfo<LuminosityUnit>(LuminosityUnit.Decawatt, "Decawatts", BaseUnits.Undefined),
-                    new UnitInfo<LuminosityUnit>(LuminosityUnit.Deciwatt, "Deciwatts", BaseUnits.Undefined),
-                    new UnitInfo<LuminosityUnit>(LuminosityUnit.Femtowatt, "Femtowatts", BaseUnits.Undefined),
-                    new UnitInfo<LuminosityUnit>(LuminosityUnit.Gigawatt, "Gigawatts", BaseUnits.Undefined),
-                    new UnitInfo<LuminosityUnit>(LuminosityUnit.Kilowatt, "Kilowatts", BaseUnits.Undefined),
-                    new UnitInfo<LuminosityUnit>(LuminosityUnit.Megawatt, "Megawatts", BaseUnits.Undefined),
-                    new UnitInfo<LuminosityUnit>(LuminosityUnit.Microwatt, "Microwatts", BaseUnits.Undefined),
-                    new UnitInfo<LuminosityUnit>(LuminosityUnit.Milliwatt, "Milliwatts", BaseUnits.Undefined),
-                    new UnitInfo<LuminosityUnit>(LuminosityUnit.Nanowatt, "Nanowatts", BaseUnits.Undefined),
-                    new UnitInfo<LuminosityUnit>(LuminosityUnit.Petawatt, "Petawatts", BaseUnits.Undefined),
-                    new UnitInfo<LuminosityUnit>(LuminosityUnit.Picowatt, "Picowatts", BaseUnits.Undefined),
-                    new UnitInfo<LuminosityUnit>(LuminosityUnit.SolarLuminosity, "SolarLuminosities", BaseUnits.Undefined),
-                    new UnitInfo<LuminosityUnit>(LuminosityUnit.Terawatt, "Terawatts", BaseUnits.Undefined),
-                    new UnitInfo<LuminosityUnit>(LuminosityUnit.Watt, "Watts", BaseUnits.Undefined),
+                    new UnitInfo<LuminosityUnit>(LuminosityUnit.Decawatt, "Decawatts", BaseUnits.Undefined, "Luminosity"),
+                    new UnitInfo<LuminosityUnit>(LuminosityUnit.Deciwatt, "Deciwatts", BaseUnits.Undefined, "Luminosity"),
+                    new UnitInfo<LuminosityUnit>(LuminosityUnit.Femtowatt, "Femtowatts", BaseUnits.Undefined, "Luminosity"),
+                    new UnitInfo<LuminosityUnit>(LuminosityUnit.Gigawatt, "Gigawatts", BaseUnits.Undefined, "Luminosity"),
+                    new UnitInfo<LuminosityUnit>(LuminosityUnit.Kilowatt, "Kilowatts", BaseUnits.Undefined, "Luminosity"),
+                    new UnitInfo<LuminosityUnit>(LuminosityUnit.Megawatt, "Megawatts", BaseUnits.Undefined, "Luminosity"),
+                    new UnitInfo<LuminosityUnit>(LuminosityUnit.Microwatt, "Microwatts", BaseUnits.Undefined, "Luminosity"),
+                    new UnitInfo<LuminosityUnit>(LuminosityUnit.Milliwatt, "Milliwatts", BaseUnits.Undefined, "Luminosity"),
+                    new UnitInfo<LuminosityUnit>(LuminosityUnit.Nanowatt, "Nanowatts", BaseUnits.Undefined, "Luminosity"),
+                    new UnitInfo<LuminosityUnit>(LuminosityUnit.Petawatt, "Petawatts", BaseUnits.Undefined, "Luminosity"),
+                    new UnitInfo<LuminosityUnit>(LuminosityUnit.Picowatt, "Picowatts", BaseUnits.Undefined, "Luminosity"),
+                    new UnitInfo<LuminosityUnit>(LuminosityUnit.SolarLuminosity, "SolarLuminosities", BaseUnits.Undefined, "Luminosity"),
+                    new UnitInfo<LuminosityUnit>(LuminosityUnit.Terawatt, "Terawatts", BaseUnits.Undefined, "Luminosity"),
+                    new UnitInfo<LuminosityUnit>(LuminosityUnit.Watt, "Watts", BaseUnits.Undefined, "Luminosity"),
                 },
                 BaseUnit, Zero, BaseDimensions);
 
@@ -94,10 +96,9 @@ namespace OasysUnits
         /// </summary>
         /// <param name="value">The numeric value to construct this quantity with.</param>
         /// <param name="unit">The unit representation to construct this quantity with.</param>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
         public Luminosity(double value, LuminosityUnit unit)
         {
-            _value = Guard.EnsureValidNumber(value, nameof(value));
+            _value = value;
             _unit = unit;
         }
 
@@ -116,7 +117,7 @@ namespace OasysUnits
             var unitInfos = Info.GetUnitInfosFor(unitSystem.BaseUnits);
             var firstUnitInfo = unitInfos.FirstOrDefault();
 
-            _value = Guard.EnsureValidNumber(value, nameof(value));
+            _value = value;
             _unit = firstUnitInfo?.Value ?? throw new ArgumentException("No units were found for the given UnitSystem.", nameof(unitSystem));
         }
 
@@ -154,7 +155,7 @@ namespace OasysUnits
         public static Luminosity AdditiveIdentity => Zero;
 
         #endregion
- 
+
         #region Properties
 
         /// <summary>
@@ -163,7 +164,7 @@ namespace OasysUnits
         public double Value => _value;
 
         /// <inheritdoc />
-        QuantityValue IQuantity.Value => _value;
+        double IQuantity.Value => _value;
 
         Enum IQuantity.Unit => Unit;
 
@@ -299,24 +300,6 @@ namespace OasysUnits
             unitConverter.SetConversionFunction<Luminosity>(LuminosityUnit.Watt, LuminosityUnit.Terawatt, quantity => quantity.ToUnit(LuminosityUnit.Terawatt));
         }
 
-        internal static void MapGeneratedLocalizations(UnitAbbreviationsCache unitAbbreviationsCache)
-        {
-            unitAbbreviationsCache.PerformAbbreviationMapping(LuminosityUnit.Decawatt, new CultureInfo("en-US"), false, true, new string[]{"daW"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(LuminosityUnit.Deciwatt, new CultureInfo("en-US"), false, true, new string[]{"dW"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(LuminosityUnit.Femtowatt, new CultureInfo("en-US"), false, true, new string[]{"fW"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(LuminosityUnit.Gigawatt, new CultureInfo("en-US"), false, true, new string[]{"GW"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(LuminosityUnit.Kilowatt, new CultureInfo("en-US"), false, true, new string[]{"kW"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(LuminosityUnit.Megawatt, new CultureInfo("en-US"), false, true, new string[]{"MW"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(LuminosityUnit.Microwatt, new CultureInfo("en-US"), false, true, new string[]{"µW"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(LuminosityUnit.Milliwatt, new CultureInfo("en-US"), false, true, new string[]{"mW"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(LuminosityUnit.Nanowatt, new CultureInfo("en-US"), false, true, new string[]{"nW"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(LuminosityUnit.Petawatt, new CultureInfo("en-US"), false, true, new string[]{"PW"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(LuminosityUnit.Picowatt, new CultureInfo("en-US"), false, true, new string[]{"pW"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(LuminosityUnit.SolarLuminosity, new CultureInfo("en-US"), false, true, new string[]{"L⊙"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(LuminosityUnit.Terawatt, new CultureInfo("en-US"), false, true, new string[]{"TW"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(LuminosityUnit.Watt, new CultureInfo("en-US"), false, true, new string[]{"W"});
-        }
-
         /// <summary>
         ///     Get unit abbreviation string.
         /// </summary>
@@ -345,140 +328,112 @@ namespace OasysUnits
         /// <summary>
         ///     Creates a <see cref="Luminosity"/> from <see cref="LuminosityUnit.Decawatt"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Luminosity FromDecawatts(QuantityValue decawatts)
+        public static Luminosity FromDecawatts(double value)
         {
-            double value = (double) decawatts;
             return new Luminosity(value, LuminosityUnit.Decawatt);
         }
 
         /// <summary>
         ///     Creates a <see cref="Luminosity"/> from <see cref="LuminosityUnit.Deciwatt"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Luminosity FromDeciwatts(QuantityValue deciwatts)
+        public static Luminosity FromDeciwatts(double value)
         {
-            double value = (double) deciwatts;
             return new Luminosity(value, LuminosityUnit.Deciwatt);
         }
 
         /// <summary>
         ///     Creates a <see cref="Luminosity"/> from <see cref="LuminosityUnit.Femtowatt"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Luminosity FromFemtowatts(QuantityValue femtowatts)
+        public static Luminosity FromFemtowatts(double value)
         {
-            double value = (double) femtowatts;
             return new Luminosity(value, LuminosityUnit.Femtowatt);
         }
 
         /// <summary>
         ///     Creates a <see cref="Luminosity"/> from <see cref="LuminosityUnit.Gigawatt"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Luminosity FromGigawatts(QuantityValue gigawatts)
+        public static Luminosity FromGigawatts(double value)
         {
-            double value = (double) gigawatts;
             return new Luminosity(value, LuminosityUnit.Gigawatt);
         }
 
         /// <summary>
         ///     Creates a <see cref="Luminosity"/> from <see cref="LuminosityUnit.Kilowatt"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Luminosity FromKilowatts(QuantityValue kilowatts)
+        public static Luminosity FromKilowatts(double value)
         {
-            double value = (double) kilowatts;
             return new Luminosity(value, LuminosityUnit.Kilowatt);
         }
 
         /// <summary>
         ///     Creates a <see cref="Luminosity"/> from <see cref="LuminosityUnit.Megawatt"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Luminosity FromMegawatts(QuantityValue megawatts)
+        public static Luminosity FromMegawatts(double value)
         {
-            double value = (double) megawatts;
             return new Luminosity(value, LuminosityUnit.Megawatt);
         }
 
         /// <summary>
         ///     Creates a <see cref="Luminosity"/> from <see cref="LuminosityUnit.Microwatt"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Luminosity FromMicrowatts(QuantityValue microwatts)
+        public static Luminosity FromMicrowatts(double value)
         {
-            double value = (double) microwatts;
             return new Luminosity(value, LuminosityUnit.Microwatt);
         }
 
         /// <summary>
         ///     Creates a <see cref="Luminosity"/> from <see cref="LuminosityUnit.Milliwatt"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Luminosity FromMilliwatts(QuantityValue milliwatts)
+        public static Luminosity FromMilliwatts(double value)
         {
-            double value = (double) milliwatts;
             return new Luminosity(value, LuminosityUnit.Milliwatt);
         }
 
         /// <summary>
         ///     Creates a <see cref="Luminosity"/> from <see cref="LuminosityUnit.Nanowatt"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Luminosity FromNanowatts(QuantityValue nanowatts)
+        public static Luminosity FromNanowatts(double value)
         {
-            double value = (double) nanowatts;
             return new Luminosity(value, LuminosityUnit.Nanowatt);
         }
 
         /// <summary>
         ///     Creates a <see cref="Luminosity"/> from <see cref="LuminosityUnit.Petawatt"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Luminosity FromPetawatts(QuantityValue petawatts)
+        public static Luminosity FromPetawatts(double value)
         {
-            double value = (double) petawatts;
             return new Luminosity(value, LuminosityUnit.Petawatt);
         }
 
         /// <summary>
         ///     Creates a <see cref="Luminosity"/> from <see cref="LuminosityUnit.Picowatt"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Luminosity FromPicowatts(QuantityValue picowatts)
+        public static Luminosity FromPicowatts(double value)
         {
-            double value = (double) picowatts;
             return new Luminosity(value, LuminosityUnit.Picowatt);
         }
 
         /// <summary>
         ///     Creates a <see cref="Luminosity"/> from <see cref="LuminosityUnit.SolarLuminosity"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Luminosity FromSolarLuminosities(QuantityValue solarluminosities)
+        public static Luminosity FromSolarLuminosities(double value)
         {
-            double value = (double) solarluminosities;
             return new Luminosity(value, LuminosityUnit.SolarLuminosity);
         }
 
         /// <summary>
         ///     Creates a <see cref="Luminosity"/> from <see cref="LuminosityUnit.Terawatt"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Luminosity FromTerawatts(QuantityValue terawatts)
+        public static Luminosity FromTerawatts(double value)
         {
-            double value = (double) terawatts;
             return new Luminosity(value, LuminosityUnit.Terawatt);
         }
 
         /// <summary>
         ///     Creates a <see cref="Luminosity"/> from <see cref="LuminosityUnit.Watt"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Luminosity FromWatts(QuantityValue watts)
+        public static Luminosity FromWatts(double value)
         {
-            double value = (double) watts;
             return new Luminosity(value, LuminosityUnit.Watt);
         }
 
@@ -488,9 +443,9 @@ namespace OasysUnits
         /// <param name="value">Value to convert from.</param>
         /// <param name="fromUnit">Unit to convert from.</param>
         /// <returns>Luminosity unit value.</returns>
-        public static Luminosity From(QuantityValue value, LuminosityUnit fromUnit)
+        public static Luminosity From(double value, LuminosityUnit fromUnit)
         {
-            return new Luminosity((double)value, fromUnit);
+            return new Luminosity(value, fromUnit);
         }
 
         #endregion
@@ -502,7 +457,7 @@ namespace OasysUnits
         /// </summary>
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <example>
-        ///     Length.Parse("5.5 m", new CultureInfo("en-US"));
+        ///     Length.Parse("5.5 m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <exception cref="ArgumentNullException">The value of 'str' cannot be null. </exception>
         /// <exception cref="ArgumentException">
@@ -529,7 +484,7 @@ namespace OasysUnits
         /// </summary>
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <example>
-        ///     Length.Parse("5.5 m", new CultureInfo("en-US"));
+        ///     Length.Parse("5.5 m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <exception cref="ArgumentNullException">The value of 'str' cannot be null. </exception>
         /// <exception cref="ArgumentException">
@@ -561,7 +516,7 @@ namespace OasysUnits
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <param name="result">Resulting unit quantity if successful.</param>
         /// <example>
-        ///     Length.Parse("5.5 m", new CultureInfo("en-US"));
+        ///     Length.Parse("5.5 m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         public static bool TryParse(string? str, out Luminosity result)
         {
@@ -575,7 +530,7 @@ namespace OasysUnits
         /// <param name="result">Resulting unit quantity if successful.</param>
         /// <returns>True if successful, otherwise false.</returns>
         /// <example>
-        ///     Length.Parse("5.5 m", new CultureInfo("en-US"));
+        ///     Length.Parse("5.5 m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <param name="provider">Format to use when parsing number and unit. Defaults to <see cref="CultureInfo.CurrentCulture" /> if null.</param>
         public static bool TryParse(string? str, IFormatProvider? provider, out Luminosity result)
@@ -592,7 +547,7 @@ namespace OasysUnits
         /// </summary>
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <example>
-        ///     Length.ParseUnit("m", new CultureInfo("en-US"));
+        ///     Length.ParseUnit("m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <exception cref="ArgumentNullException">The value of 'str' cannot be null. </exception>
         /// <exception cref="OasysUnitsException">Error parsing string.</exception>
@@ -607,7 +562,7 @@ namespace OasysUnits
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <param name="provider">Format to use when parsing number and unit. Defaults to <see cref="CultureInfo.CurrentCulture" /> if null.</param>
         /// <example>
-        ///     Length.ParseUnit("m", new CultureInfo("en-US"));
+        ///     Length.ParseUnit("m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <exception cref="ArgumentNullException">The value of 'str' cannot be null. </exception>
         /// <exception cref="OasysUnitsException">Error parsing string.</exception>
@@ -629,7 +584,7 @@ namespace OasysUnits
         /// <param name="unit">The parsed unit if successful.</param>
         /// <returns>True if successful, otherwise false.</returns>
         /// <example>
-        ///     Length.TryParseUnit("m", new CultureInfo("en-US"));
+        ///     Length.TryParseUnit("m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <param name="provider">Format to use when parsing number and unit. Defaults to <see cref="CultureInfo.CurrentCulture" /> if null.</param>
         public static bool TryParseUnit(string str, IFormatProvider? provider, out LuminosityUnit unit)
@@ -716,16 +671,14 @@ namespace OasysUnits
         #pragma warning disable CS0809
 
         /// <summary>Indicates strict equality of two <see cref="Luminosity"/> quantities, where both <see cref="Value" /> and <see cref="Unit" /> are exactly equal.</summary>
-        /// <remarks>Consider using <see cref="Equals(Luminosity, double, ComparisonType)"/> to check equality across different units and to specify a floating-point number error tolerance.</remarks>
-        [Obsolete("For null checks, use `x is null` syntax to not invoke overloads. For quantity comparisons, use Equals(Luminosity, double, ComparisonType) to check equality across different units and to specify a floating-point number error tolerance.")]
+        [Obsolete("For null checks, use `x is null` syntax to not invoke overloads. For equality checks, use Equals(Luminosity other, Luminosity tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public static bool operator ==(Luminosity left, Luminosity right)
         {
             return left.Equals(right);
         }
 
         /// <summary>Indicates strict inequality of two <see cref="Luminosity"/> quantities, where both <see cref="Value" /> and <see cref="Unit" /> are exactly equal.</summary>
-        /// <remarks>Consider using <see cref="Equals(Luminosity, double, ComparisonType)"/> to check equality across different units and to specify a floating-point number error tolerance.</remarks>
-        [Obsolete("For null checks, use `x is not null` syntax to not invoke overloads. For quantity comparisons, use Equals(Luminosity, double, ComparisonType) to check equality across different units and to specify a floating-point number error tolerance.")]
+        [Obsolete("For null checks, use `x is null` syntax to not invoke overloads. For equality checks, use Equals(Luminosity other, Luminosity tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public static bool operator !=(Luminosity left, Luminosity right)
         {
             return !(left == right);
@@ -733,8 +686,7 @@ namespace OasysUnits
 
         /// <inheritdoc />
         /// <summary>Indicates strict equality of two <see cref="Luminosity"/> quantities, where both <see cref="Value" /> and <see cref="Unit" /> are exactly equal.</summary>
-        /// <remarks>Consider using <see cref="Equals(Luminosity, double, ComparisonType)"/> to check equality across different units and to specify a floating-point number error tolerance.</remarks>
-        [Obsolete("Consider using Equals(Luminosity, double, ComparisonType) to check equality across different units and to specify a floating-point number error tolerance.")]
+        [Obsolete("Use Equals(Luminosity other, Luminosity tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public override bool Equals(object? obj)
         {
             if (obj is null || !(obj is Luminosity otherQuantity))
@@ -745,8 +697,7 @@ namespace OasysUnits
 
         /// <inheritdoc />
         /// <summary>Indicates strict equality of two <see cref="Luminosity"/> quantities, where both <see cref="Value" /> and <see cref="Unit" /> are exactly equal.</summary>
-        /// <remarks>Consider using <see cref="Equals(Luminosity, double, ComparisonType)"/> to check equality across different units and to specify a floating-point number error tolerance.</remarks>
-        [Obsolete("Consider using Equals(Luminosity, double, ComparisonType) to check equality across different units and to specify a floating-point number error tolerance.")]
+        [Obsolete("Use Equals(Luminosity other, Luminosity tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public bool Equals(Luminosity other)
         {
             return new { Value, Unit }.Equals(new { other.Value, other.Unit });
@@ -830,15 +781,37 @@ namespace OasysUnits
         /// <param name="tolerance">The absolute or relative tolerance value. Must be greater than or equal to 0.</param>
         /// <param name="comparisonType">The comparison type: either relative or absolute.</param>
         /// <returns>True if the absolute difference between the two values is not greater than the specified relative or absolute tolerance.</returns>
+        [Obsolete("Use Equals(Luminosity other, Luminosity tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public bool Equals(Luminosity other, double tolerance, ComparisonType comparisonType)
         {
             if (tolerance < 0)
-                throw new ArgumentOutOfRangeException("tolerance", "Tolerance must be greater than or equal to 0.");
+                throw new ArgumentOutOfRangeException(nameof(tolerance), "Tolerance must be greater than or equal to 0.");
 
-            double thisValue = this.Value;
-            double otherValueInThisUnits = other.As(this.Unit);
+            return OasysUnits.Comparison.Equals(
+                referenceValue: this.Value,
+                otherValue: other.As(this.Unit),
+                tolerance: tolerance,
+                comparisonType: comparisonType);
+        }
 
-            return OasysUnits.Comparison.Equals(thisValue, otherValueInThisUnits, tolerance, comparisonType);
+        /// <inheritdoc />
+        public bool Equals(IQuantity? other, IQuantity tolerance)
+        {
+            return other is Luminosity otherTyped
+                   && (tolerance is Luminosity toleranceTyped
+                       ? true
+                       : throw new ArgumentException($"Tolerance quantity ({tolerance.QuantityInfo.Name}) did not match the other quantities of type 'Luminosity'.", nameof(tolerance)))
+                   && Equals(otherTyped, toleranceTyped);
+        }
+
+        /// <inheritdoc />
+        public bool Equals(Luminosity other, Luminosity tolerance)
+        {
+            return OasysUnits.Comparison.Equals(
+                referenceValue: this.Value,
+                otherValue: other.As(this.Unit),
+                tolerance: tolerance.As(this.Unit),
+                comparisonType: ComparisonType.Absolute);
         }
 
         /// <summary>
@@ -883,15 +856,6 @@ namespace OasysUnits
 
         /// <inheritdoc />
         double IQuantity.As(Enum unit)
-        {
-            if (!(unit is LuminosityUnit typedUnit))
-                throw new ArgumentException($"The given unit is of type {unit.GetType()}. Only {typeof(LuminosityUnit)} is supported.", nameof(unit));
-
-            return (double)As(typedUnit);
-        }
-
-        /// <inheritdoc />
-        double IValueQuantity<double>.As(Enum unit)
         {
             if (!(unit is LuminosityUnit typedUnit))
                 throw new ArgumentException($"The given unit is of type {unit.GetType()}. Only {typeof(LuminosityUnit)} is supported.", nameof(unit));
@@ -1031,18 +995,6 @@ namespace OasysUnits
 
         /// <inheritdoc />
         IQuantity<LuminosityUnit> IQuantity<LuminosityUnit>.ToUnit(UnitSystem unitSystem) => ToUnit(unitSystem);
-
-        /// <inheritdoc />
-        IValueQuantity<double> IValueQuantity<double>.ToUnit(Enum unit)
-        {
-            if (unit is not LuminosityUnit typedUnit)
-                throw new ArgumentException($"The given unit is of type {unit.GetType()}. Only {typeof(LuminosityUnit)} is supported.", nameof(unit));
-
-            return ToUnit(typedUnit);
-        }
-
-        /// <inheritdoc />
-        IValueQuantity<double> IValueQuantity<double>.ToUnit(UnitSystem unitSystem) => ToUnit(unitSystem);
 
         #endregion
 

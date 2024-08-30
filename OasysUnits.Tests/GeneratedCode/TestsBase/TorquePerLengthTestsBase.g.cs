@@ -6,7 +6,7 @@
 //     The build server regenerates the code before each build and a pre-build
 //     step will regenerate the code on each local build.
 //
-//     See https://github.com/angularsen/UnitsNet/wiki/Adding-a-New-Unit for how to add or edit units.
+//     See https://github.com/angularsen/OasysUnits/wiki/Adding-a-New-Unit for how to add or edit units.
 //
 //     Add CustomCode\Quantities\MyQuantity.extra.cs files to add code to generated quantities.
 //     Add UnitDefinitions\MyQuantity.json and run generate-code.bat to generate new units or quantities.
@@ -15,7 +15,7 @@
 //------------------------------------------------------------------------------
 
 // Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using System;
 using System.Collections.Generic;
@@ -147,16 +147,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void Ctor_WithInfinityValue_ThrowsArgumentException()
+        public void Ctor_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new TorquePerLength(double.PositiveInfinity, TorquePerLengthUnit.NewtonMeterPerMeter));
-            Assert.Throws<ArgumentException>(() => new TorquePerLength(double.NegativeInfinity, TorquePerLengthUnit.NewtonMeterPerMeter));
+            var exception1 = Record.Exception(() => new TorquePerLength(double.PositiveInfinity, TorquePerLengthUnit.NewtonMeterPerMeter));
+            var exception2 = Record.Exception(() => new TorquePerLength(double.NegativeInfinity, TorquePerLengthUnit.NewtonMeterPerMeter));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void Ctor_WithNaNValue_ThrowsArgumentException()
+        public void Ctor_WithNaNValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new TorquePerLength(double.NaN, TorquePerLengthUnit.NewtonMeterPerMeter));
+            var exception = Record.Exception(() => new TorquePerLength(double.NaN, TorquePerLengthUnit.NewtonMeterPerMeter));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -311,16 +316,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void FromNewtonMetersPerMeter_WithInfinityValue_ThrowsArgumentException()
+        public void FromNewtonMetersPerMeter_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => TorquePerLength.FromNewtonMetersPerMeter(double.PositiveInfinity));
-            Assert.Throws<ArgumentException>(() => TorquePerLength.FromNewtonMetersPerMeter(double.NegativeInfinity));
+            var exception1 = Record.Exception(() => TorquePerLength.FromNewtonMetersPerMeter(double.PositiveInfinity));
+            var exception2 = Record.Exception(() => TorquePerLength.FromNewtonMetersPerMeter(double.NegativeInfinity));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void FromNewtonMetersPerMeter_WithNanValue_ThrowsArgumentException()
+        public void FromNewtonMetersPerMeter_WithNanValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => TorquePerLength.FromNewtonMetersPerMeter(double.NaN));
+            var exception = Record.Exception(() => TorquePerLength.FromNewtonMetersPerMeter(double.NaN));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -1132,6 +1142,8 @@ namespace OasysUnits.Tests
             var v = TorquePerLength.FromNewtonMetersPerMeter(1);
             Assert.True(v.Equals(TorquePerLength.FromNewtonMetersPerMeter(1), NewtonMetersPerMeterTolerance, ComparisonType.Relative));
             Assert.False(v.Equals(TorquePerLength.Zero, NewtonMetersPerMeterTolerance, ComparisonType.Relative));
+            Assert.True(TorquePerLength.FromNewtonMetersPerMeter(100).Equals(TorquePerLength.FromNewtonMetersPerMeter(120), 0.3, ComparisonType.Relative));
+            Assert.False(TorquePerLength.FromNewtonMetersPerMeter(100).Equals(TorquePerLength.FromNewtonMetersPerMeter(120), 0.1, ComparisonType.Relative));
         }
 
         [Fact]

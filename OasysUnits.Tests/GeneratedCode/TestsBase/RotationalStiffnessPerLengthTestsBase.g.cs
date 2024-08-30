@@ -6,7 +6,7 @@
 //     The build server regenerates the code before each build and a pre-build
 //     step will regenerate the code on each local build.
 //
-//     See https://github.com/angularsen/UnitsNet/wiki/Adding-a-New-Unit for how to add or edit units.
+//     See https://github.com/angularsen/OasysUnits/wiki/Adding-a-New-Unit for how to add or edit units.
 //
 //     Add CustomCode\Quantities\MyQuantity.extra.cs files to add code to generated quantities.
 //     Add UnitDefinitions\MyQuantity.json and run generate-code.bat to generate new units or quantities.
@@ -15,7 +15,7 @@
 //------------------------------------------------------------------------------
 
 // Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using System;
 using System.Collections.Generic;
@@ -83,16 +83,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void Ctor_WithInfinityValue_ThrowsArgumentException()
+        public void Ctor_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new RotationalStiffnessPerLength(double.PositiveInfinity, RotationalStiffnessPerLengthUnit.NewtonMeterPerRadianPerMeter));
-            Assert.Throws<ArgumentException>(() => new RotationalStiffnessPerLength(double.NegativeInfinity, RotationalStiffnessPerLengthUnit.NewtonMeterPerRadianPerMeter));
+            var exception1 = Record.Exception(() => new RotationalStiffnessPerLength(double.PositiveInfinity, RotationalStiffnessPerLengthUnit.NewtonMeterPerRadianPerMeter));
+            var exception2 = Record.Exception(() => new RotationalStiffnessPerLength(double.NegativeInfinity, RotationalStiffnessPerLengthUnit.NewtonMeterPerRadianPerMeter));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void Ctor_WithNaNValue_ThrowsArgumentException()
+        public void Ctor_WithNaNValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new RotationalStiffnessPerLength(double.NaN, RotationalStiffnessPerLengthUnit.NewtonMeterPerRadianPerMeter));
+            var exception = Record.Exception(() => new RotationalStiffnessPerLength(double.NaN, RotationalStiffnessPerLengthUnit.NewtonMeterPerRadianPerMeter));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -167,16 +172,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void FromNewtonMetersPerRadianPerMeter_WithInfinityValue_ThrowsArgumentException()
+        public void FromNewtonMetersPerRadianPerMeter_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => RotationalStiffnessPerLength.FromNewtonMetersPerRadianPerMeter(double.PositiveInfinity));
-            Assert.Throws<ArgumentException>(() => RotationalStiffnessPerLength.FromNewtonMetersPerRadianPerMeter(double.NegativeInfinity));
+            var exception1 = Record.Exception(() => RotationalStiffnessPerLength.FromNewtonMetersPerRadianPerMeter(double.PositiveInfinity));
+            var exception2 = Record.Exception(() => RotationalStiffnessPerLength.FromNewtonMetersPerRadianPerMeter(double.NegativeInfinity));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void FromNewtonMetersPerRadianPerMeter_WithNanValue_ThrowsArgumentException()
+        public void FromNewtonMetersPerRadianPerMeter_WithNanValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => RotationalStiffnessPerLength.FromNewtonMetersPerRadianPerMeter(double.NaN));
+            var exception = Record.Exception(() => RotationalStiffnessPerLength.FromNewtonMetersPerRadianPerMeter(double.NaN));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -692,6 +702,8 @@ namespace OasysUnits.Tests
             var v = RotationalStiffnessPerLength.FromNewtonMetersPerRadianPerMeter(1);
             Assert.True(v.Equals(RotationalStiffnessPerLength.FromNewtonMetersPerRadianPerMeter(1), NewtonMetersPerRadianPerMeterTolerance, ComparisonType.Relative));
             Assert.False(v.Equals(RotationalStiffnessPerLength.Zero, NewtonMetersPerRadianPerMeterTolerance, ComparisonType.Relative));
+            Assert.True(RotationalStiffnessPerLength.FromNewtonMetersPerRadianPerMeter(100).Equals(RotationalStiffnessPerLength.FromNewtonMetersPerRadianPerMeter(120), 0.3, ComparisonType.Relative));
+            Assert.False(RotationalStiffnessPerLength.FromNewtonMetersPerRadianPerMeter(100).Equals(RotationalStiffnessPerLength.FromNewtonMetersPerRadianPerMeter(120), 0.1, ComparisonType.Relative));
         }
 
         [Fact]

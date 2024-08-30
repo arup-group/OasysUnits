@@ -6,7 +6,7 @@
 //     The build server regenerates the code before each build and a pre-build
 //     step will regenerate the code on each local build.
 //
-//     See https://github.com/angularsen/UnitsNet/wiki/Adding-a-New-Unit for how to add or edit units.
+//     See https://github.com/angularsen/OasysUnits/wiki/Adding-a-New-Unit for how to add or edit units.
 //
 //     Add CustomCode\Quantities\MyQuantity.extra.cs files to add code to generated quantities.
 //     Add UnitDefinitions\MyQuantity.json and run generate-code.bat to generate new units or quantities.
@@ -15,9 +15,13 @@
 //------------------------------------------------------------------------------
 
 // Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using System;
+
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
 
 #nullable enable
 
@@ -28,17 +32,29 @@ namespace OasysUnits.NumberExtensions.NumberToBrakeSpecificFuelConsumption
     /// </summary>
     public static class NumberToBrakeSpecificFuelConsumptionExtensions
     {
-        /// <inheritdoc cref="BrakeSpecificFuelConsumption.FromGramsPerKiloWattHour(OasysUnits.QuantityValue)" />
-        public static BrakeSpecificFuelConsumption GramsPerKiloWattHour<T>(this T value) =>
-            BrakeSpecificFuelConsumption.FromGramsPerKiloWattHour(Convert.ToDouble(value));
+        /// <inheritdoc cref="BrakeSpecificFuelConsumption.FromGramsPerKiloWattHour(double)" />
+        public static BrakeSpecificFuelConsumption GramsPerKiloWattHour<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => BrakeSpecificFuelConsumption.FromGramsPerKiloWattHour(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="BrakeSpecificFuelConsumption.FromKilogramsPerJoule(OasysUnits.QuantityValue)" />
-        public static BrakeSpecificFuelConsumption KilogramsPerJoule<T>(this T value) =>
-            BrakeSpecificFuelConsumption.FromKilogramsPerJoule(Convert.ToDouble(value));
+        /// <inheritdoc cref="BrakeSpecificFuelConsumption.FromKilogramsPerJoule(double)" />
+        public static BrakeSpecificFuelConsumption KilogramsPerJoule<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => BrakeSpecificFuelConsumption.FromKilogramsPerJoule(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="BrakeSpecificFuelConsumption.FromPoundsPerMechanicalHorsepowerHour(OasysUnits.QuantityValue)" />
-        public static BrakeSpecificFuelConsumption PoundsPerMechanicalHorsepowerHour<T>(this T value) =>
-            BrakeSpecificFuelConsumption.FromPoundsPerMechanicalHorsepowerHour(Convert.ToDouble(value));
+        /// <inheritdoc cref="BrakeSpecificFuelConsumption.FromPoundsPerMechanicalHorsepowerHour(double)" />
+        public static BrakeSpecificFuelConsumption PoundsPerMechanicalHorsepowerHour<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => BrakeSpecificFuelConsumption.FromPoundsPerMechanicalHorsepowerHour(Convert.ToDouble(value));
 
     }
 }

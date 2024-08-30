@@ -6,7 +6,7 @@
 //     The build server regenerates the code before each build and a pre-build
 //     step will regenerate the code on each local build.
 //
-//     See https://github.com/angularsen/UnitsNet/wiki/Adding-a-New-Unit for how to add or edit units.
+//     See https://github.com/angularsen/OasysUnits/wiki/Adding-a-New-Unit for how to add or edit units.
 //
 //     Add CustomCode\Quantities\MyQuantity.extra.cs files to add code to generated quantities.
 //     Add UnitDefinitions\MyQuantity.json and run generate-code.bat to generate new units or quantities.
@@ -15,9 +15,13 @@
 //------------------------------------------------------------------------------
 
 // Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using System;
+
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
 
 #nullable enable
 
@@ -28,25 +32,45 @@ namespace OasysUnits.NumberExtensions.NumberToElectricConductance
     /// </summary>
     public static class NumberToElectricConductanceExtensions
     {
-        /// <inheritdoc cref="ElectricConductance.FromKilosiemens(OasysUnits.QuantityValue)" />
-        public static ElectricConductance Kilosiemens<T>(this T value) =>
-            ElectricConductance.FromKilosiemens(Convert.ToDouble(value));
+        /// <inheritdoc cref="ElectricConductance.FromKilosiemens(double)" />
+        public static ElectricConductance Kilosiemens<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ElectricConductance.FromKilosiemens(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="ElectricConductance.FromMicrosiemens(OasysUnits.QuantityValue)" />
-        public static ElectricConductance Microsiemens<T>(this T value) =>
-            ElectricConductance.FromMicrosiemens(Convert.ToDouble(value));
+        /// <inheritdoc cref="ElectricConductance.FromMicrosiemens(double)" />
+        public static ElectricConductance Microsiemens<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ElectricConductance.FromMicrosiemens(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="ElectricConductance.FromMillisiemens(OasysUnits.QuantityValue)" />
-        public static ElectricConductance Millisiemens<T>(this T value) =>
-            ElectricConductance.FromMillisiemens(Convert.ToDouble(value));
+        /// <inheritdoc cref="ElectricConductance.FromMillisiemens(double)" />
+        public static ElectricConductance Millisiemens<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ElectricConductance.FromMillisiemens(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="ElectricConductance.FromNanosiemens(OasysUnits.QuantityValue)" />
-        public static ElectricConductance Nanosiemens<T>(this T value) =>
-            ElectricConductance.FromNanosiemens(Convert.ToDouble(value));
+        /// <inheritdoc cref="ElectricConductance.FromNanosiemens(double)" />
+        public static ElectricConductance Nanosiemens<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ElectricConductance.FromNanosiemens(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="ElectricConductance.FromSiemens(OasysUnits.QuantityValue)" />
-        public static ElectricConductance Siemens<T>(this T value) =>
-            ElectricConductance.FromSiemens(Convert.ToDouble(value));
+        /// <inheritdoc cref="ElectricConductance.FromSiemens(double)" />
+        public static ElectricConductance Siemens<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ElectricConductance.FromSiemens(Convert.ToDouble(value));
 
     }
 }

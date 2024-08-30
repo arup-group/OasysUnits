@@ -6,7 +6,7 @@
 //     The build server regenerates the code before each build and a pre-build
 //     step will regenerate the code on each local build.
 //
-//     See https://github.com/angularsen/UnitsNet/wiki/Adding-a-New-Unit for how to add or edit units.
+//     See https://github.com/angularsen/OasysUnits/wiki/Adding-a-New-Unit for how to add or edit units.
 //
 //     Add CustomCode\Quantities\MyQuantity.extra.cs files to add code to generated quantities.
 //     Add UnitDefinitions\MyQuantity.json and run generate-code.bat to generate new units or quantities.
@@ -15,9 +15,13 @@
 //------------------------------------------------------------------------------
 
 // Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using System;
+
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
 
 #nullable enable
 
@@ -28,125 +32,245 @@ namespace OasysUnits.NumberExtensions.NumberToSpecificEnergy
     /// </summary>
     public static class NumberToSpecificEnergyExtensions
     {
-        /// <inheritdoc cref="SpecificEnergy.FromBtuPerPound(OasysUnits.QuantityValue)" />
-        public static SpecificEnergy BtuPerPound<T>(this T value) =>
-            SpecificEnergy.FromBtuPerPound(Convert.ToDouble(value));
+        /// <inheritdoc cref="SpecificEnergy.FromBtuPerPound(double)" />
+        public static SpecificEnergy BtuPerPound<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => SpecificEnergy.FromBtuPerPound(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="SpecificEnergy.FromCaloriesPerGram(OasysUnits.QuantityValue)" />
-        public static SpecificEnergy CaloriesPerGram<T>(this T value) =>
-            SpecificEnergy.FromCaloriesPerGram(Convert.ToDouble(value));
+        /// <inheritdoc cref="SpecificEnergy.FromCaloriesPerGram(double)" />
+        public static SpecificEnergy CaloriesPerGram<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => SpecificEnergy.FromCaloriesPerGram(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="SpecificEnergy.FromGigawattDaysPerKilogram(OasysUnits.QuantityValue)" />
-        public static SpecificEnergy GigawattDaysPerKilogram<T>(this T value) =>
-            SpecificEnergy.FromGigawattDaysPerKilogram(Convert.ToDouble(value));
+        /// <inheritdoc cref="SpecificEnergy.FromGigawattDaysPerKilogram(double)" />
+        public static SpecificEnergy GigawattDaysPerKilogram<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => SpecificEnergy.FromGigawattDaysPerKilogram(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="SpecificEnergy.FromGigawattDaysPerShortTon(OasysUnits.QuantityValue)" />
-        public static SpecificEnergy GigawattDaysPerShortTon<T>(this T value) =>
-            SpecificEnergy.FromGigawattDaysPerShortTon(Convert.ToDouble(value));
+        /// <inheritdoc cref="SpecificEnergy.FromGigawattDaysPerShortTon(double)" />
+        public static SpecificEnergy GigawattDaysPerShortTon<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => SpecificEnergy.FromGigawattDaysPerShortTon(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="SpecificEnergy.FromGigawattDaysPerTonne(OasysUnits.QuantityValue)" />
-        public static SpecificEnergy GigawattDaysPerTonne<T>(this T value) =>
-            SpecificEnergy.FromGigawattDaysPerTonne(Convert.ToDouble(value));
+        /// <inheritdoc cref="SpecificEnergy.FromGigawattDaysPerTonne(double)" />
+        public static SpecificEnergy GigawattDaysPerTonne<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => SpecificEnergy.FromGigawattDaysPerTonne(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="SpecificEnergy.FromGigawattHoursPerKilogram(OasysUnits.QuantityValue)" />
-        public static SpecificEnergy GigawattHoursPerKilogram<T>(this T value) =>
-            SpecificEnergy.FromGigawattHoursPerKilogram(Convert.ToDouble(value));
+        /// <inheritdoc cref="SpecificEnergy.FromGigawattHoursPerKilogram(double)" />
+        public static SpecificEnergy GigawattHoursPerKilogram<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => SpecificEnergy.FromGigawattHoursPerKilogram(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="SpecificEnergy.FromGigawattHoursPerPound(OasysUnits.QuantityValue)" />
-        public static SpecificEnergy GigawattHoursPerPound<T>(this T value) =>
-            SpecificEnergy.FromGigawattHoursPerPound(Convert.ToDouble(value));
+        /// <inheritdoc cref="SpecificEnergy.FromGigawattHoursPerPound(double)" />
+        public static SpecificEnergy GigawattHoursPerPound<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => SpecificEnergy.FromGigawattHoursPerPound(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="SpecificEnergy.FromJoulesPerKilogram(OasysUnits.QuantityValue)" />
-        public static SpecificEnergy JoulesPerKilogram<T>(this T value) =>
-            SpecificEnergy.FromJoulesPerKilogram(Convert.ToDouble(value));
+        /// <inheritdoc cref="SpecificEnergy.FromJoulesPerKilogram(double)" />
+        public static SpecificEnergy JoulesPerKilogram<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => SpecificEnergy.FromJoulesPerKilogram(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="SpecificEnergy.FromKilocaloriesPerGram(OasysUnits.QuantityValue)" />
-        public static SpecificEnergy KilocaloriesPerGram<T>(this T value) =>
-            SpecificEnergy.FromKilocaloriesPerGram(Convert.ToDouble(value));
+        /// <inheritdoc cref="SpecificEnergy.FromKilocaloriesPerGram(double)" />
+        public static SpecificEnergy KilocaloriesPerGram<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => SpecificEnergy.FromKilocaloriesPerGram(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="SpecificEnergy.FromKilojoulesPerKilogram(OasysUnits.QuantityValue)" />
-        public static SpecificEnergy KilojoulesPerKilogram<T>(this T value) =>
-            SpecificEnergy.FromKilojoulesPerKilogram(Convert.ToDouble(value));
+        /// <inheritdoc cref="SpecificEnergy.FromKilojoulesPerKilogram(double)" />
+        public static SpecificEnergy KilojoulesPerKilogram<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => SpecificEnergy.FromKilojoulesPerKilogram(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="SpecificEnergy.FromKilowattDaysPerKilogram(OasysUnits.QuantityValue)" />
-        public static SpecificEnergy KilowattDaysPerKilogram<T>(this T value) =>
-            SpecificEnergy.FromKilowattDaysPerKilogram(Convert.ToDouble(value));
+        /// <inheritdoc cref="SpecificEnergy.FromKilowattDaysPerKilogram(double)" />
+        public static SpecificEnergy KilowattDaysPerKilogram<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => SpecificEnergy.FromKilowattDaysPerKilogram(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="SpecificEnergy.FromKilowattDaysPerShortTon(OasysUnits.QuantityValue)" />
-        public static SpecificEnergy KilowattDaysPerShortTon<T>(this T value) =>
-            SpecificEnergy.FromKilowattDaysPerShortTon(Convert.ToDouble(value));
+        /// <inheritdoc cref="SpecificEnergy.FromKilowattDaysPerShortTon(double)" />
+        public static SpecificEnergy KilowattDaysPerShortTon<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => SpecificEnergy.FromKilowattDaysPerShortTon(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="SpecificEnergy.FromKilowattDaysPerTonne(OasysUnits.QuantityValue)" />
-        public static SpecificEnergy KilowattDaysPerTonne<T>(this T value) =>
-            SpecificEnergy.FromKilowattDaysPerTonne(Convert.ToDouble(value));
+        /// <inheritdoc cref="SpecificEnergy.FromKilowattDaysPerTonne(double)" />
+        public static SpecificEnergy KilowattDaysPerTonne<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => SpecificEnergy.FromKilowattDaysPerTonne(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="SpecificEnergy.FromKilowattHoursPerKilogram(OasysUnits.QuantityValue)" />
-        public static SpecificEnergy KilowattHoursPerKilogram<T>(this T value) =>
-            SpecificEnergy.FromKilowattHoursPerKilogram(Convert.ToDouble(value));
+        /// <inheritdoc cref="SpecificEnergy.FromKilowattHoursPerKilogram(double)" />
+        public static SpecificEnergy KilowattHoursPerKilogram<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => SpecificEnergy.FromKilowattHoursPerKilogram(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="SpecificEnergy.FromKilowattHoursPerPound(OasysUnits.QuantityValue)" />
-        public static SpecificEnergy KilowattHoursPerPound<T>(this T value) =>
-            SpecificEnergy.FromKilowattHoursPerPound(Convert.ToDouble(value));
+        /// <inheritdoc cref="SpecificEnergy.FromKilowattHoursPerPound(double)" />
+        public static SpecificEnergy KilowattHoursPerPound<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => SpecificEnergy.FromKilowattHoursPerPound(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="SpecificEnergy.FromMegajoulesPerKilogram(OasysUnits.QuantityValue)" />
-        public static SpecificEnergy MegajoulesPerKilogram<T>(this T value) =>
-            SpecificEnergy.FromMegajoulesPerKilogram(Convert.ToDouble(value));
+        /// <inheritdoc cref="SpecificEnergy.FromMegajoulesPerKilogram(double)" />
+        public static SpecificEnergy MegajoulesPerKilogram<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => SpecificEnergy.FromMegajoulesPerKilogram(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="SpecificEnergy.FromMegaJoulesPerTonne(OasysUnits.QuantityValue)" />
-        public static SpecificEnergy MegaJoulesPerTonne<T>(this T value) =>
-            SpecificEnergy.FromMegaJoulesPerTonne(Convert.ToDouble(value));
+        /// <inheritdoc cref="SpecificEnergy.FromMegaJoulesPerTonne(double)" />
+        public static SpecificEnergy MegaJoulesPerTonne<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => SpecificEnergy.FromMegaJoulesPerTonne(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="SpecificEnergy.FromMegawattDaysPerKilogram(OasysUnits.QuantityValue)" />
-        public static SpecificEnergy MegawattDaysPerKilogram<T>(this T value) =>
-            SpecificEnergy.FromMegawattDaysPerKilogram(Convert.ToDouble(value));
+        /// <inheritdoc cref="SpecificEnergy.FromMegawattDaysPerKilogram(double)" />
+        public static SpecificEnergy MegawattDaysPerKilogram<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => SpecificEnergy.FromMegawattDaysPerKilogram(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="SpecificEnergy.FromMegawattDaysPerShortTon(OasysUnits.QuantityValue)" />
-        public static SpecificEnergy MegawattDaysPerShortTon<T>(this T value) =>
-            SpecificEnergy.FromMegawattDaysPerShortTon(Convert.ToDouble(value));
+        /// <inheritdoc cref="SpecificEnergy.FromMegawattDaysPerShortTon(double)" />
+        public static SpecificEnergy MegawattDaysPerShortTon<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => SpecificEnergy.FromMegawattDaysPerShortTon(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="SpecificEnergy.FromMegawattDaysPerTonne(OasysUnits.QuantityValue)" />
-        public static SpecificEnergy MegawattDaysPerTonne<T>(this T value) =>
-            SpecificEnergy.FromMegawattDaysPerTonne(Convert.ToDouble(value));
+        /// <inheritdoc cref="SpecificEnergy.FromMegawattDaysPerTonne(double)" />
+        public static SpecificEnergy MegawattDaysPerTonne<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => SpecificEnergy.FromMegawattDaysPerTonne(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="SpecificEnergy.FromMegawattHoursPerKilogram(OasysUnits.QuantityValue)" />
-        public static SpecificEnergy MegawattHoursPerKilogram<T>(this T value) =>
-            SpecificEnergy.FromMegawattHoursPerKilogram(Convert.ToDouble(value));
+        /// <inheritdoc cref="SpecificEnergy.FromMegawattHoursPerKilogram(double)" />
+        public static SpecificEnergy MegawattHoursPerKilogram<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => SpecificEnergy.FromMegawattHoursPerKilogram(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="SpecificEnergy.FromMegawattHoursPerPound(OasysUnits.QuantityValue)" />
-        public static SpecificEnergy MegawattHoursPerPound<T>(this T value) =>
-            SpecificEnergy.FromMegawattHoursPerPound(Convert.ToDouble(value));
+        /// <inheritdoc cref="SpecificEnergy.FromMegawattHoursPerPound(double)" />
+        public static SpecificEnergy MegawattHoursPerPound<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => SpecificEnergy.FromMegawattHoursPerPound(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="SpecificEnergy.FromTerawattDaysPerKilogram(OasysUnits.QuantityValue)" />
-        public static SpecificEnergy TerawattDaysPerKilogram<T>(this T value) =>
-            SpecificEnergy.FromTerawattDaysPerKilogram(Convert.ToDouble(value));
+        /// <inheritdoc cref="SpecificEnergy.FromTerawattDaysPerKilogram(double)" />
+        public static SpecificEnergy TerawattDaysPerKilogram<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => SpecificEnergy.FromTerawattDaysPerKilogram(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="SpecificEnergy.FromTerawattDaysPerShortTon(OasysUnits.QuantityValue)" />
-        public static SpecificEnergy TerawattDaysPerShortTon<T>(this T value) =>
-            SpecificEnergy.FromTerawattDaysPerShortTon(Convert.ToDouble(value));
+        /// <inheritdoc cref="SpecificEnergy.FromTerawattDaysPerShortTon(double)" />
+        public static SpecificEnergy TerawattDaysPerShortTon<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => SpecificEnergy.FromTerawattDaysPerShortTon(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="SpecificEnergy.FromTerawattDaysPerTonne(OasysUnits.QuantityValue)" />
-        public static SpecificEnergy TerawattDaysPerTonne<T>(this T value) =>
-            SpecificEnergy.FromTerawattDaysPerTonne(Convert.ToDouble(value));
+        /// <inheritdoc cref="SpecificEnergy.FromTerawattDaysPerTonne(double)" />
+        public static SpecificEnergy TerawattDaysPerTonne<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => SpecificEnergy.FromTerawattDaysPerTonne(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="SpecificEnergy.FromWattDaysPerKilogram(OasysUnits.QuantityValue)" />
-        public static SpecificEnergy WattDaysPerKilogram<T>(this T value) =>
-            SpecificEnergy.FromWattDaysPerKilogram(Convert.ToDouble(value));
+        /// <inheritdoc cref="SpecificEnergy.FromWattDaysPerKilogram(double)" />
+        public static SpecificEnergy WattDaysPerKilogram<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => SpecificEnergy.FromWattDaysPerKilogram(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="SpecificEnergy.FromWattDaysPerShortTon(OasysUnits.QuantityValue)" />
-        public static SpecificEnergy WattDaysPerShortTon<T>(this T value) =>
-            SpecificEnergy.FromWattDaysPerShortTon(Convert.ToDouble(value));
+        /// <inheritdoc cref="SpecificEnergy.FromWattDaysPerShortTon(double)" />
+        public static SpecificEnergy WattDaysPerShortTon<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => SpecificEnergy.FromWattDaysPerShortTon(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="SpecificEnergy.FromWattDaysPerTonne(OasysUnits.QuantityValue)" />
-        public static SpecificEnergy WattDaysPerTonne<T>(this T value) =>
-            SpecificEnergy.FromWattDaysPerTonne(Convert.ToDouble(value));
+        /// <inheritdoc cref="SpecificEnergy.FromWattDaysPerTonne(double)" />
+        public static SpecificEnergy WattDaysPerTonne<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => SpecificEnergy.FromWattDaysPerTonne(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="SpecificEnergy.FromWattHoursPerKilogram(OasysUnits.QuantityValue)" />
-        public static SpecificEnergy WattHoursPerKilogram<T>(this T value) =>
-            SpecificEnergy.FromWattHoursPerKilogram(Convert.ToDouble(value));
+        /// <inheritdoc cref="SpecificEnergy.FromWattHoursPerKilogram(double)" />
+        public static SpecificEnergy WattHoursPerKilogram<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => SpecificEnergy.FromWattHoursPerKilogram(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="SpecificEnergy.FromWattHoursPerPound(OasysUnits.QuantityValue)" />
-        public static SpecificEnergy WattHoursPerPound<T>(this T value) =>
-            SpecificEnergy.FromWattHoursPerPound(Convert.ToDouble(value));
+        /// <inheritdoc cref="SpecificEnergy.FromWattHoursPerPound(double)" />
+        public static SpecificEnergy WattHoursPerPound<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => SpecificEnergy.FromWattHoursPerPound(Convert.ToDouble(value));
 
     }
 }

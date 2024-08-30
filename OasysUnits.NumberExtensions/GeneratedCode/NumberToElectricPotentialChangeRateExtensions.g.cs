@@ -6,7 +6,7 @@
 //     The build server regenerates the code before each build and a pre-build
 //     step will regenerate the code on each local build.
 //
-//     See https://github.com/angularsen/UnitsNet/wiki/Adding-a-New-Unit for how to add or edit units.
+//     See https://github.com/angularsen/OasysUnits/wiki/Adding-a-New-Unit for how to add or edit units.
 //
 //     Add CustomCode\Quantities\MyQuantity.extra.cs files to add code to generated quantities.
 //     Add UnitDefinitions\MyQuantity.json and run generate-code.bat to generate new units or quantities.
@@ -15,9 +15,13 @@
 //------------------------------------------------------------------------------
 
 // Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using System;
+
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
 
 #nullable enable
 
@@ -28,85 +32,165 @@ namespace OasysUnits.NumberExtensions.NumberToElectricPotentialChangeRate
     /// </summary>
     public static class NumberToElectricPotentialChangeRateExtensions
     {
-        /// <inheritdoc cref="ElectricPotentialChangeRate.FromKilovoltsPerHours(OasysUnits.QuantityValue)" />
-        public static ElectricPotentialChangeRate KilovoltsPerHours<T>(this T value) =>
-            ElectricPotentialChangeRate.FromKilovoltsPerHours(Convert.ToDouble(value));
+        /// <inheritdoc cref="ElectricPotentialChangeRate.FromKilovoltsPerHour(double)" />
+        public static ElectricPotentialChangeRate KilovoltsPerHour<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ElectricPotentialChangeRate.FromKilovoltsPerHour(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="ElectricPotentialChangeRate.FromKilovoltsPerMicroseconds(OasysUnits.QuantityValue)" />
-        public static ElectricPotentialChangeRate KilovoltsPerMicroseconds<T>(this T value) =>
-            ElectricPotentialChangeRate.FromKilovoltsPerMicroseconds(Convert.ToDouble(value));
+        /// <inheritdoc cref="ElectricPotentialChangeRate.FromKilovoltsPerMicrosecond(double)" />
+        public static ElectricPotentialChangeRate KilovoltsPerMicrosecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ElectricPotentialChangeRate.FromKilovoltsPerMicrosecond(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="ElectricPotentialChangeRate.FromKilovoltsPerMinutes(OasysUnits.QuantityValue)" />
-        public static ElectricPotentialChangeRate KilovoltsPerMinutes<T>(this T value) =>
-            ElectricPotentialChangeRate.FromKilovoltsPerMinutes(Convert.ToDouble(value));
+        /// <inheritdoc cref="ElectricPotentialChangeRate.FromKilovoltsPerMinute(double)" />
+        public static ElectricPotentialChangeRate KilovoltsPerMinute<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ElectricPotentialChangeRate.FromKilovoltsPerMinute(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="ElectricPotentialChangeRate.FromKilovoltsPerSeconds(OasysUnits.QuantityValue)" />
-        public static ElectricPotentialChangeRate KilovoltsPerSeconds<T>(this T value) =>
-            ElectricPotentialChangeRate.FromKilovoltsPerSeconds(Convert.ToDouble(value));
+        /// <inheritdoc cref="ElectricPotentialChangeRate.FromKilovoltsPerSecond(double)" />
+        public static ElectricPotentialChangeRate KilovoltsPerSecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ElectricPotentialChangeRate.FromKilovoltsPerSecond(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="ElectricPotentialChangeRate.FromMegavoltsPerHours(OasysUnits.QuantityValue)" />
-        public static ElectricPotentialChangeRate MegavoltsPerHours<T>(this T value) =>
-            ElectricPotentialChangeRate.FromMegavoltsPerHours(Convert.ToDouble(value));
+        /// <inheritdoc cref="ElectricPotentialChangeRate.FromMegavoltsPerHour(double)" />
+        public static ElectricPotentialChangeRate MegavoltsPerHour<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ElectricPotentialChangeRate.FromMegavoltsPerHour(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="ElectricPotentialChangeRate.FromMegavoltsPerMicroseconds(OasysUnits.QuantityValue)" />
-        public static ElectricPotentialChangeRate MegavoltsPerMicroseconds<T>(this T value) =>
-            ElectricPotentialChangeRate.FromMegavoltsPerMicroseconds(Convert.ToDouble(value));
+        /// <inheritdoc cref="ElectricPotentialChangeRate.FromMegavoltsPerMicrosecond(double)" />
+        public static ElectricPotentialChangeRate MegavoltsPerMicrosecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ElectricPotentialChangeRate.FromMegavoltsPerMicrosecond(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="ElectricPotentialChangeRate.FromMegavoltsPerMinutes(OasysUnits.QuantityValue)" />
-        public static ElectricPotentialChangeRate MegavoltsPerMinutes<T>(this T value) =>
-            ElectricPotentialChangeRate.FromMegavoltsPerMinutes(Convert.ToDouble(value));
+        /// <inheritdoc cref="ElectricPotentialChangeRate.FromMegavoltsPerMinute(double)" />
+        public static ElectricPotentialChangeRate MegavoltsPerMinute<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ElectricPotentialChangeRate.FromMegavoltsPerMinute(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="ElectricPotentialChangeRate.FromMegavoltsPerSeconds(OasysUnits.QuantityValue)" />
-        public static ElectricPotentialChangeRate MegavoltsPerSeconds<T>(this T value) =>
-            ElectricPotentialChangeRate.FromMegavoltsPerSeconds(Convert.ToDouble(value));
+        /// <inheritdoc cref="ElectricPotentialChangeRate.FromMegavoltsPerSecond(double)" />
+        public static ElectricPotentialChangeRate MegavoltsPerSecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ElectricPotentialChangeRate.FromMegavoltsPerSecond(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="ElectricPotentialChangeRate.FromMicrovoltsPerHours(OasysUnits.QuantityValue)" />
-        public static ElectricPotentialChangeRate MicrovoltsPerHours<T>(this T value) =>
-            ElectricPotentialChangeRate.FromMicrovoltsPerHours(Convert.ToDouble(value));
+        /// <inheritdoc cref="ElectricPotentialChangeRate.FromMicrovoltsPerHour(double)" />
+        public static ElectricPotentialChangeRate MicrovoltsPerHour<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ElectricPotentialChangeRate.FromMicrovoltsPerHour(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="ElectricPotentialChangeRate.FromMicrovoltsPerMicroseconds(OasysUnits.QuantityValue)" />
-        public static ElectricPotentialChangeRate MicrovoltsPerMicroseconds<T>(this T value) =>
-            ElectricPotentialChangeRate.FromMicrovoltsPerMicroseconds(Convert.ToDouble(value));
+        /// <inheritdoc cref="ElectricPotentialChangeRate.FromMicrovoltsPerMicrosecond(double)" />
+        public static ElectricPotentialChangeRate MicrovoltsPerMicrosecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ElectricPotentialChangeRate.FromMicrovoltsPerMicrosecond(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="ElectricPotentialChangeRate.FromMicrovoltsPerMinutes(OasysUnits.QuantityValue)" />
-        public static ElectricPotentialChangeRate MicrovoltsPerMinutes<T>(this T value) =>
-            ElectricPotentialChangeRate.FromMicrovoltsPerMinutes(Convert.ToDouble(value));
+        /// <inheritdoc cref="ElectricPotentialChangeRate.FromMicrovoltsPerMinute(double)" />
+        public static ElectricPotentialChangeRate MicrovoltsPerMinute<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ElectricPotentialChangeRate.FromMicrovoltsPerMinute(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="ElectricPotentialChangeRate.FromMicrovoltsPerSeconds(OasysUnits.QuantityValue)" />
-        public static ElectricPotentialChangeRate MicrovoltsPerSeconds<T>(this T value) =>
-            ElectricPotentialChangeRate.FromMicrovoltsPerSeconds(Convert.ToDouble(value));
+        /// <inheritdoc cref="ElectricPotentialChangeRate.FromMicrovoltsPerSecond(double)" />
+        public static ElectricPotentialChangeRate MicrovoltsPerSecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ElectricPotentialChangeRate.FromMicrovoltsPerSecond(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="ElectricPotentialChangeRate.FromMillivoltsPerHours(OasysUnits.QuantityValue)" />
-        public static ElectricPotentialChangeRate MillivoltsPerHours<T>(this T value) =>
-            ElectricPotentialChangeRate.FromMillivoltsPerHours(Convert.ToDouble(value));
+        /// <inheritdoc cref="ElectricPotentialChangeRate.FromMillivoltsPerHour(double)" />
+        public static ElectricPotentialChangeRate MillivoltsPerHour<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ElectricPotentialChangeRate.FromMillivoltsPerHour(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="ElectricPotentialChangeRate.FromMillivoltsPerMicroseconds(OasysUnits.QuantityValue)" />
-        public static ElectricPotentialChangeRate MillivoltsPerMicroseconds<T>(this T value) =>
-            ElectricPotentialChangeRate.FromMillivoltsPerMicroseconds(Convert.ToDouble(value));
+        /// <inheritdoc cref="ElectricPotentialChangeRate.FromMillivoltsPerMicrosecond(double)" />
+        public static ElectricPotentialChangeRate MillivoltsPerMicrosecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ElectricPotentialChangeRate.FromMillivoltsPerMicrosecond(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="ElectricPotentialChangeRate.FromMillivoltsPerMinutes(OasysUnits.QuantityValue)" />
-        public static ElectricPotentialChangeRate MillivoltsPerMinutes<T>(this T value) =>
-            ElectricPotentialChangeRate.FromMillivoltsPerMinutes(Convert.ToDouble(value));
+        /// <inheritdoc cref="ElectricPotentialChangeRate.FromMillivoltsPerMinute(double)" />
+        public static ElectricPotentialChangeRate MillivoltsPerMinute<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ElectricPotentialChangeRate.FromMillivoltsPerMinute(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="ElectricPotentialChangeRate.FromMillivoltsPerSeconds(OasysUnits.QuantityValue)" />
-        public static ElectricPotentialChangeRate MillivoltsPerSeconds<T>(this T value) =>
-            ElectricPotentialChangeRate.FromMillivoltsPerSeconds(Convert.ToDouble(value));
+        /// <inheritdoc cref="ElectricPotentialChangeRate.FromMillivoltsPerSecond(double)" />
+        public static ElectricPotentialChangeRate MillivoltsPerSecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ElectricPotentialChangeRate.FromMillivoltsPerSecond(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="ElectricPotentialChangeRate.FromVoltsPerHours(OasysUnits.QuantityValue)" />
-        public static ElectricPotentialChangeRate VoltsPerHours<T>(this T value) =>
-            ElectricPotentialChangeRate.FromVoltsPerHours(Convert.ToDouble(value));
+        /// <inheritdoc cref="ElectricPotentialChangeRate.FromVoltsPerHour(double)" />
+        public static ElectricPotentialChangeRate VoltsPerHour<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ElectricPotentialChangeRate.FromVoltsPerHour(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="ElectricPotentialChangeRate.FromVoltsPerMicroseconds(OasysUnits.QuantityValue)" />
-        public static ElectricPotentialChangeRate VoltsPerMicroseconds<T>(this T value) =>
-            ElectricPotentialChangeRate.FromVoltsPerMicroseconds(Convert.ToDouble(value));
+        /// <inheritdoc cref="ElectricPotentialChangeRate.FromVoltsPerMicrosecond(double)" />
+        public static ElectricPotentialChangeRate VoltsPerMicrosecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ElectricPotentialChangeRate.FromVoltsPerMicrosecond(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="ElectricPotentialChangeRate.FromVoltsPerMinutes(OasysUnits.QuantityValue)" />
-        public static ElectricPotentialChangeRate VoltsPerMinutes<T>(this T value) =>
-            ElectricPotentialChangeRate.FromVoltsPerMinutes(Convert.ToDouble(value));
+        /// <inheritdoc cref="ElectricPotentialChangeRate.FromVoltsPerMinute(double)" />
+        public static ElectricPotentialChangeRate VoltsPerMinute<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ElectricPotentialChangeRate.FromVoltsPerMinute(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="ElectricPotentialChangeRate.FromVoltsPerSeconds(OasysUnits.QuantityValue)" />
-        public static ElectricPotentialChangeRate VoltsPerSeconds<T>(this T value) =>
-            ElectricPotentialChangeRate.FromVoltsPerSeconds(Convert.ToDouble(value));
+        /// <inheritdoc cref="ElectricPotentialChangeRate.FromVoltsPerSecond(double)" />
+        public static ElectricPotentialChangeRate VoltsPerSecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ElectricPotentialChangeRate.FromVoltsPerSecond(Convert.ToDouble(value));
 
     }
 }

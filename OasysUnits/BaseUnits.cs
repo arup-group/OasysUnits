@@ -1,5 +1,5 @@
 ﻿// Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using System;
 using System.Text;
@@ -138,21 +138,28 @@ namespace OasysUnits
         /// <inheritdoc />
         public override string ToString()
         {
-            var sb = new StringBuilder();
+            if(!Equals(Undefined))
+            {
+                var sb = new StringBuilder();
 
-            string GetDefaultAbbreviation<TUnitType>(TUnitType? unitOrNull) where TUnitType : struct, Enum => unitOrNull is { } unit
-                ? UnitAbbreviationsCache.Default.GetDefaultAbbreviation(unit)
-                : "N/A";
+                string GetDefaultAbbreviation<TUnitType>(TUnitType? unitOrNull) where TUnitType : struct, Enum => unitOrNull is { } unit
+                    ? UnitAbbreviationsCache.Default.GetDefaultAbbreviation(unit)
+                    : "N/A";
 
-            sb.AppendFormat("[Length]: {0}, ", GetDefaultAbbreviation(Length));
-            sb.AppendFormat("[Mass]: {0}, ", GetDefaultAbbreviation(Mass));
-            sb.AppendFormat("[Time]: {0}, ", GetDefaultAbbreviation(Time));
-            sb.AppendFormat("[Current]: {0}, ", GetDefaultAbbreviation(Current));
-            sb.AppendFormat("[Temperature]: {0}, ", GetDefaultAbbreviation(Temperature));
-            sb.AppendFormat("[Amount]: {0}, ", GetDefaultAbbreviation(Amount));
-            sb.AppendFormat("[LuminousIntensity]: {0}", GetDefaultAbbreviation(LuminousIntensity));
+                sb.AppendFormat("[Length]: {0}, ", GetDefaultAbbreviation(Length));
+                sb.AppendFormat("[Mass]: {0}, ", GetDefaultAbbreviation(Mass));
+                sb.AppendFormat("[Time]: {0}, ", GetDefaultAbbreviation(Time));
+                sb.AppendFormat("[Current]: {0}, ", GetDefaultAbbreviation(Current));
+                sb.AppendFormat("[Temperature]: {0}, ", GetDefaultAbbreviation(Temperature));
+                sb.AppendFormat("[Amount]: {0}, ", GetDefaultAbbreviation(Amount));
+                sb.AppendFormat("[LuminousIntensity]: {0}", GetDefaultAbbreviation(LuminousIntensity));
 
-            return sb.ToString();
+                return sb.ToString();
+            }
+            else
+            {
+                return "Undefined";
+            }
         }
 
         /// <summary>

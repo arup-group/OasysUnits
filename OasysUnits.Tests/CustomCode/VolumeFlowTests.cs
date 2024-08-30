@@ -9,7 +9,7 @@
 //     in this derived class, reminding the developer to implement the test case
 //     for the new unit.
 //
-//     See https://github.com/angularsen/UnitsNet/wiki/Adding-a-New-Unit for how to add or edit units.
+//     See https://github.com/angularsen/OasysUnits/wiki/Adding-a-New-Unit for how to add or edit units.
 //
 //     Add CustomCode\Quantities\MyQuantity.extra.cs files to add code to generated quantities.
 //     Add UnitDefinitions\MyQuantity.json and run GeneratUnits.bat to generate new units or quantities.
@@ -18,7 +18,7 @@
 //------------------------------------------------------------------------------
 
 // Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using System;
 using Xunit;
@@ -164,6 +164,22 @@ namespace OasysUnits.Tests.CustomCode
         protected override double UsGallonsPerMinuteInOneCubicMeterPerSecond => 1.5850323141489e4;
 
         protected override double UsGallonsPerSecondInOneCubicMeterPerSecond => 2.64172052358148E2;
+
+        protected override double DecalitersPerDayInOneCubicMeterPerSecond => 8.64E6;
+
+        protected override double DecalitersPerHourInOneCubicMeterPerSecond => 360_000;
+
+        protected override double DecalitersPerMinuteInOneCubicMeterPerSecond => 6_000;
+
+        protected override double DecalitersPerSecondInOneCubicMeterPerSecond => 100;
+
+        protected override double HectolitersPerDayInOneCubicMeterPerSecond => 864_000;
+
+        protected override double HectolitersPerHourInOneCubicMeterPerSecond => 36_000;
+
+        protected override double HectolitersPerMinuteInOneCubicMeterPerSecond => 600;
+
+        protected override double HectolitersPerSecondInOneCubicMeterPerSecond => 10;
 
         [Theory]
         [InlineData(20, 2, 40)]

@@ -1,5 +1,5 @@
 ﻿// Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using System;
 using Xunit;
@@ -33,19 +33,19 @@ namespace OasysUnits.Tests
 
         protected override double MetersPerHourInOneMeterPerSecond => 3.6E3;
 
-        protected override double NanometersPerMinutesInOneMeterPerSecond => 6E10;
+        protected override double NanometersPerMinuteInOneMeterPerSecond => 6E10;
 
-        protected override double MicrometersPerMinutesInOneMeterPerSecond => 6E7;
+        protected override double MicrometersPerMinuteInOneMeterPerSecond => 6E7;
 
-        protected override double MillimetersPerMinutesInOneMeterPerSecond => 6E4;
+        protected override double MillimetersPerMinuteInOneMeterPerSecond => 6E4;
 
-        protected override double CentimetersPerMinutesInOneMeterPerSecond => 6E3;
+        protected override double CentimetersPerMinuteInOneMeterPerSecond => 6E3;
 
-        protected override double DecimetersPerMinutesInOneMeterPerSecond => 6E2;
+        protected override double DecimetersPerMinuteInOneMeterPerSecond => 6E2;
 
-        protected override double MetersPerMinutesInOneMeterPerSecond => 6E1;
+        protected override double MetersPerMinuteInOneMeterPerSecond => 6E1;
 
-        protected override double KilometersPerMinutesInOneMeterPerSecond => 6E-2;
+        protected override double KilometersPerMinuteInOneMeterPerSecond => 6E-2;
 
         protected override double CentimetersPerHourInOneMeterPerSecond => 3.6E5;
 
@@ -104,6 +104,13 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
+        public void SpeedDividedByAccelerationEqualsDuration()
+        {
+            Duration duration = Speed.FromMetersPerSecond(20)/Acceleration.FromMetersPerSecondSquared(2);
+            Assert.Equal(Duration.FromSeconds(10), duration);
+        }
+
+        [Fact]
         public void SpeedDividedByTimeSpanEqualsAcceleration()
         {
             Acceleration acceleration = Speed.FromMetersPerSecond(20)/TimeSpan.FromSeconds(2);
@@ -121,13 +128,6 @@ namespace OasysUnits.Tests
         public void SpeedTimesTimeSpanEqualsLength()
         {
             Length length = Speed.FromMetersPerSecond(20)*TimeSpan.FromSeconds(2);
-            Assert.Equal(length, Length.FromMeters(40));
-        }
-
-        [Fact]
-        public void TimeSpanTimesSpeedEqualsLength()
-        {
-            Length length = TimeSpan.FromSeconds(2)*Speed.FromMetersPerSecond(20);
             Assert.Equal(length, Length.FromMeters(40));
         }
 

@@ -6,7 +6,7 @@
 //     The build server regenerates the code before each build and a pre-build
 //     step will regenerate the code on each local build.
 //
-//     See https://github.com/angularsen/UnitsNet/wiki/Adding-a-New-Unit for how to add or edit units.
+//     See https://github.com/angularsen/OasysUnits/wiki/Adding-a-New-Unit for how to add or edit units.
 //
 //     Add CustomCode\Quantities\MyQuantity.extra.cs files to add code to generated quantities.
 //     Add UnitDefinitions\MyQuantity.json and run generate-code.bat to generate new units or quantities.
@@ -15,9 +15,13 @@
 //------------------------------------------------------------------------------
 
 // Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using System;
+
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
 
 #nullable enable
 
@@ -28,21 +32,37 @@ namespace OasysUnits.NumberExtensions.NumberToAmplitudeRatio
     /// </summary>
     public static class NumberToAmplitudeRatioExtensions
     {
-        /// <inheritdoc cref="AmplitudeRatio.FromDecibelMicrovolts(OasysUnits.QuantityValue)" />
-        public static AmplitudeRatio DecibelMicrovolts<T>(this T value) =>
-            AmplitudeRatio.FromDecibelMicrovolts(Convert.ToDouble(value));
+        /// <inheritdoc cref="AmplitudeRatio.FromDecibelMicrovolts(double)" />
+        public static AmplitudeRatio DecibelMicrovolts<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => AmplitudeRatio.FromDecibelMicrovolts(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="AmplitudeRatio.FromDecibelMillivolts(OasysUnits.QuantityValue)" />
-        public static AmplitudeRatio DecibelMillivolts<T>(this T value) =>
-            AmplitudeRatio.FromDecibelMillivolts(Convert.ToDouble(value));
+        /// <inheritdoc cref="AmplitudeRatio.FromDecibelMillivolts(double)" />
+        public static AmplitudeRatio DecibelMillivolts<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => AmplitudeRatio.FromDecibelMillivolts(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="AmplitudeRatio.FromDecibelsUnloaded(OasysUnits.QuantityValue)" />
-        public static AmplitudeRatio DecibelsUnloaded<T>(this T value) =>
-            AmplitudeRatio.FromDecibelsUnloaded(Convert.ToDouble(value));
+        /// <inheritdoc cref="AmplitudeRatio.FromDecibelsUnloaded(double)" />
+        public static AmplitudeRatio DecibelsUnloaded<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => AmplitudeRatio.FromDecibelsUnloaded(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="AmplitudeRatio.FromDecibelVolts(OasysUnits.QuantityValue)" />
-        public static AmplitudeRatio DecibelVolts<T>(this T value) =>
-            AmplitudeRatio.FromDecibelVolts(Convert.ToDouble(value));
+        /// <inheritdoc cref="AmplitudeRatio.FromDecibelVolts(double)" />
+        public static AmplitudeRatio DecibelVolts<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => AmplitudeRatio.FromDecibelVolts(Convert.ToDouble(value));
 
     }
 }

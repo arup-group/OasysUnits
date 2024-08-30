@@ -6,7 +6,7 @@
 //     The build server regenerates the code before each build and a pre-build
 //     step will regenerate the code on each local build.
 //
-//     See https://github.com/angularsen/UnitsNet/wiki/Adding-a-New-Unit for how to add or edit units.
+//     See https://github.com/angularsen/OasysUnits/wiki/Adding-a-New-Unit for how to add or edit units.
 //
 //     Add CustomCode\Quantities\MyQuantity.extra.cs files to add code to generated quantities.
 //     Add UnitDefinitions\MyQuantity.json and run generate-code.bat to generate new units or quantities.
@@ -15,12 +15,16 @@
 //------------------------------------------------------------------------------
 
 // Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using System;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
 using System.Runtime.Serialization;
 using OasysUnits.InternalHelpers;
 using OasysUnits.Units;
@@ -36,8 +40,13 @@ namespace OasysUnits
     ///     Brake specific fuel consumption (BSFC) is a measure of the fuel efficiency of any prime mover that burns fuel and produces rotational, or shaft, power. It is typically used for comparing the efficiency of internal combustion engines with a shaft output.
     /// </summary>
     [DataContract]
+    [DebuggerTypeProxy(typeof(QuantityDisplay))]
     public readonly partial struct BrakeSpecificFuelConsumption :
-        IArithmeticQuantity<BrakeSpecificFuelConsumption, BrakeSpecificFuelConsumptionUnit, double>,
+        IArithmeticQuantity<BrakeSpecificFuelConsumption, BrakeSpecificFuelConsumptionUnit>,
+#if NET7_0_OR_GREATER
+        IMultiplyOperators<BrakeSpecificFuelConsumption, Power, MassFlow>,
+        IMultiplyOperators<BrakeSpecificFuelConsumption, SpecificEnergy, double>,
+#endif
         IComparable,
         IComparable<BrakeSpecificFuelConsumption>,
         IConvertible,
@@ -47,13 +56,13 @@ namespace OasysUnits
         /// <summary>
         ///     The numeric value this quantity was constructed with.
         /// </summary>
-        [DataMember(Name = "Value", Order = 0)]
+        [DataMember(Name = "Value", Order = 1)]
         private readonly double _value;
 
         /// <summary>
         ///     The unit this quantity was constructed with.
         /// </summary>
-        [DataMember(Name = "Unit", Order = 1)]
+        [DataMember(Name = "Unit", Order = 2)]
         private readonly BrakeSpecificFuelConsumptionUnit? _unit;
 
         static BrakeSpecificFuelConsumption()
@@ -65,9 +74,9 @@ namespace OasysUnits
             Info = new QuantityInfo<BrakeSpecificFuelConsumptionUnit>("BrakeSpecificFuelConsumption",
                 new UnitInfo<BrakeSpecificFuelConsumptionUnit>[]
                 {
-                    new UnitInfo<BrakeSpecificFuelConsumptionUnit>(BrakeSpecificFuelConsumptionUnit.GramPerKiloWattHour, "GramsPerKiloWattHour", BaseUnits.Undefined),
-                    new UnitInfo<BrakeSpecificFuelConsumptionUnit>(BrakeSpecificFuelConsumptionUnit.KilogramPerJoule, "KilogramsPerJoule", BaseUnits.Undefined),
-                    new UnitInfo<BrakeSpecificFuelConsumptionUnit>(BrakeSpecificFuelConsumptionUnit.PoundPerMechanicalHorsepowerHour, "PoundsPerMechanicalHorsepowerHour", BaseUnits.Undefined),
+                    new UnitInfo<BrakeSpecificFuelConsumptionUnit>(BrakeSpecificFuelConsumptionUnit.GramPerKiloWattHour, "GramsPerKiloWattHour", BaseUnits.Undefined, "BrakeSpecificFuelConsumption"),
+                    new UnitInfo<BrakeSpecificFuelConsumptionUnit>(BrakeSpecificFuelConsumptionUnit.KilogramPerJoule, "KilogramsPerJoule", BaseUnits.Undefined, "BrakeSpecificFuelConsumption"),
+                    new UnitInfo<BrakeSpecificFuelConsumptionUnit>(BrakeSpecificFuelConsumptionUnit.PoundPerMechanicalHorsepowerHour, "PoundsPerMechanicalHorsepowerHour", BaseUnits.Undefined, "BrakeSpecificFuelConsumption"),
                 },
                 BaseUnit, Zero, BaseDimensions);
 
@@ -80,10 +89,9 @@ namespace OasysUnits
         /// </summary>
         /// <param name="value">The numeric value to construct this quantity with.</param>
         /// <param name="unit">The unit representation to construct this quantity with.</param>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
         public BrakeSpecificFuelConsumption(double value, BrakeSpecificFuelConsumptionUnit unit)
         {
-            _value = Guard.EnsureValidNumber(value, nameof(value));
+            _value = value;
             _unit = unit;
         }
 
@@ -102,7 +110,7 @@ namespace OasysUnits
             var unitInfos = Info.GetUnitInfosFor(unitSystem.BaseUnits);
             var firstUnitInfo = unitInfos.FirstOrDefault();
 
-            _value = Guard.EnsureValidNumber(value, nameof(value));
+            _value = value;
             _unit = firstUnitInfo?.Value ?? throw new ArgumentException("No units were found for the given UnitSystem.", nameof(unitSystem));
         }
 
@@ -140,7 +148,7 @@ namespace OasysUnits
         public static BrakeSpecificFuelConsumption AdditiveIdentity => Zero;
 
         #endregion
- 
+
         #region Properties
 
         /// <summary>
@@ -149,7 +157,7 @@ namespace OasysUnits
         public double Value => _value;
 
         /// <inheritdoc />
-        QuantityValue IQuantity.Value => _value;
+        double IQuantity.Value => _value;
 
         Enum IQuantity.Unit => Unit;
 
@@ -208,13 +216,6 @@ namespace OasysUnits
             unitConverter.SetConversionFunction<BrakeSpecificFuelConsumption>(BrakeSpecificFuelConsumptionUnit.KilogramPerJoule, BrakeSpecificFuelConsumptionUnit.PoundPerMechanicalHorsepowerHour, quantity => quantity.ToUnit(BrakeSpecificFuelConsumptionUnit.PoundPerMechanicalHorsepowerHour));
         }
 
-        internal static void MapGeneratedLocalizations(UnitAbbreviationsCache unitAbbreviationsCache)
-        {
-            unitAbbreviationsCache.PerformAbbreviationMapping(BrakeSpecificFuelConsumptionUnit.GramPerKiloWattHour, new CultureInfo("en-US"), false, true, new string[]{"g/kWh"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(BrakeSpecificFuelConsumptionUnit.KilogramPerJoule, new CultureInfo("en-US"), false, true, new string[]{"kg/J"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(BrakeSpecificFuelConsumptionUnit.PoundPerMechanicalHorsepowerHour, new CultureInfo("en-US"), false, true, new string[]{"lb/hph"});
-        }
-
         /// <summary>
         ///     Get unit abbreviation string.
         /// </summary>
@@ -243,30 +244,24 @@ namespace OasysUnits
         /// <summary>
         ///     Creates a <see cref="BrakeSpecificFuelConsumption"/> from <see cref="BrakeSpecificFuelConsumptionUnit.GramPerKiloWattHour"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static BrakeSpecificFuelConsumption FromGramsPerKiloWattHour(QuantityValue gramsperkilowatthour)
+        public static BrakeSpecificFuelConsumption FromGramsPerKiloWattHour(double value)
         {
-            double value = (double) gramsperkilowatthour;
             return new BrakeSpecificFuelConsumption(value, BrakeSpecificFuelConsumptionUnit.GramPerKiloWattHour);
         }
 
         /// <summary>
         ///     Creates a <see cref="BrakeSpecificFuelConsumption"/> from <see cref="BrakeSpecificFuelConsumptionUnit.KilogramPerJoule"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static BrakeSpecificFuelConsumption FromKilogramsPerJoule(QuantityValue kilogramsperjoule)
+        public static BrakeSpecificFuelConsumption FromKilogramsPerJoule(double value)
         {
-            double value = (double) kilogramsperjoule;
             return new BrakeSpecificFuelConsumption(value, BrakeSpecificFuelConsumptionUnit.KilogramPerJoule);
         }
 
         /// <summary>
         ///     Creates a <see cref="BrakeSpecificFuelConsumption"/> from <see cref="BrakeSpecificFuelConsumptionUnit.PoundPerMechanicalHorsepowerHour"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static BrakeSpecificFuelConsumption FromPoundsPerMechanicalHorsepowerHour(QuantityValue poundspermechanicalhorsepowerhour)
+        public static BrakeSpecificFuelConsumption FromPoundsPerMechanicalHorsepowerHour(double value)
         {
-            double value = (double) poundspermechanicalhorsepowerhour;
             return new BrakeSpecificFuelConsumption(value, BrakeSpecificFuelConsumptionUnit.PoundPerMechanicalHorsepowerHour);
         }
 
@@ -276,9 +271,9 @@ namespace OasysUnits
         /// <param name="value">Value to convert from.</param>
         /// <param name="fromUnit">Unit to convert from.</param>
         /// <returns>BrakeSpecificFuelConsumption unit value.</returns>
-        public static BrakeSpecificFuelConsumption From(QuantityValue value, BrakeSpecificFuelConsumptionUnit fromUnit)
+        public static BrakeSpecificFuelConsumption From(double value, BrakeSpecificFuelConsumptionUnit fromUnit)
         {
-            return new BrakeSpecificFuelConsumption((double)value, fromUnit);
+            return new BrakeSpecificFuelConsumption(value, fromUnit);
         }
 
         #endregion
@@ -290,7 +285,7 @@ namespace OasysUnits
         /// </summary>
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <example>
-        ///     Length.Parse("5.5 m", new CultureInfo("en-US"));
+        ///     Length.Parse("5.5 m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <exception cref="ArgumentNullException">The value of 'str' cannot be null. </exception>
         /// <exception cref="ArgumentException">
@@ -317,7 +312,7 @@ namespace OasysUnits
         /// </summary>
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <example>
-        ///     Length.Parse("5.5 m", new CultureInfo("en-US"));
+        ///     Length.Parse("5.5 m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <exception cref="ArgumentNullException">The value of 'str' cannot be null. </exception>
         /// <exception cref="ArgumentException">
@@ -349,7 +344,7 @@ namespace OasysUnits
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <param name="result">Resulting unit quantity if successful.</param>
         /// <example>
-        ///     Length.Parse("5.5 m", new CultureInfo("en-US"));
+        ///     Length.Parse("5.5 m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         public static bool TryParse(string? str, out BrakeSpecificFuelConsumption result)
         {
@@ -363,7 +358,7 @@ namespace OasysUnits
         /// <param name="result">Resulting unit quantity if successful.</param>
         /// <returns>True if successful, otherwise false.</returns>
         /// <example>
-        ///     Length.Parse("5.5 m", new CultureInfo("en-US"));
+        ///     Length.Parse("5.5 m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <param name="provider">Format to use when parsing number and unit. Defaults to <see cref="CultureInfo.CurrentCulture" /> if null.</param>
         public static bool TryParse(string? str, IFormatProvider? provider, out BrakeSpecificFuelConsumption result)
@@ -380,7 +375,7 @@ namespace OasysUnits
         /// </summary>
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <example>
-        ///     Length.ParseUnit("m", new CultureInfo("en-US"));
+        ///     Length.ParseUnit("m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <exception cref="ArgumentNullException">The value of 'str' cannot be null. </exception>
         /// <exception cref="OasysUnitsException">Error parsing string.</exception>
@@ -395,7 +390,7 @@ namespace OasysUnits
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <param name="provider">Format to use when parsing number and unit. Defaults to <see cref="CultureInfo.CurrentCulture" /> if null.</param>
         /// <example>
-        ///     Length.ParseUnit("m", new CultureInfo("en-US"));
+        ///     Length.ParseUnit("m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <exception cref="ArgumentNullException">The value of 'str' cannot be null. </exception>
         /// <exception cref="OasysUnitsException">Error parsing string.</exception>
@@ -417,7 +412,7 @@ namespace OasysUnits
         /// <param name="unit">The parsed unit if successful.</param>
         /// <returns>True if successful, otherwise false.</returns>
         /// <example>
-        ///     Length.TryParseUnit("m", new CultureInfo("en-US"));
+        ///     Length.TryParseUnit("m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <param name="provider">Format to use when parsing number and unit. Defaults to <see cref="CultureInfo.CurrentCulture" /> if null.</param>
         public static bool TryParseUnit(string str, IFormatProvider? provider, out BrakeSpecificFuelConsumptionUnit unit)
@@ -473,6 +468,28 @@ namespace OasysUnits
 
         #endregion
 
+        #region Relational Operators
+
+        /// <summary>Get <see cref="MassFlow"/> from <see cref="BrakeSpecificFuelConsumption"/> * <see cref="Power"/>.</summary>
+        public static MassFlow operator *(BrakeSpecificFuelConsumption brakeSpecificFuelConsumption, Power power)
+        {
+            return MassFlow.FromKilogramsPerSecond(brakeSpecificFuelConsumption.KilogramsPerJoule * power.Watts);
+        }
+
+        /// <summary>Get <see cref="SpecificEnergy"/> from <see cref="double"/> / <see cref="BrakeSpecificFuelConsumption"/>.</summary>
+        public static SpecificEnergy operator /(double value, BrakeSpecificFuelConsumption brakeSpecificFuelConsumption)
+        {
+            return SpecificEnergy.FromJoulesPerKilogram(value / brakeSpecificFuelConsumption.KilogramsPerJoule);
+        }
+
+        /// <summary>Get <see cref="double"/> from <see cref="BrakeSpecificFuelConsumption"/> * <see cref="SpecificEnergy"/>.</summary>
+        public static double operator *(BrakeSpecificFuelConsumption brakeSpecificFuelConsumption, SpecificEnergy specificEnergy)
+        {
+            return brakeSpecificFuelConsumption.KilogramsPerJoule * specificEnergy.JoulesPerKilogram;
+        }
+
+        #endregion
+
         #region Equality / IComparable
 
         /// <summary>Returns true if less or equal to.</summary>
@@ -504,16 +521,14 @@ namespace OasysUnits
         #pragma warning disable CS0809
 
         /// <summary>Indicates strict equality of two <see cref="BrakeSpecificFuelConsumption"/> quantities, where both <see cref="Value" /> and <see cref="Unit" /> are exactly equal.</summary>
-        /// <remarks>Consider using <see cref="Equals(BrakeSpecificFuelConsumption, double, ComparisonType)"/> to check equality across different units and to specify a floating-point number error tolerance.</remarks>
-        [Obsolete("For null checks, use `x is null` syntax to not invoke overloads. For quantity comparisons, use Equals(BrakeSpecificFuelConsumption, double, ComparisonType) to check equality across different units and to specify a floating-point number error tolerance.")]
+        [Obsolete("For null checks, use `x is null` syntax to not invoke overloads. For equality checks, use Equals(BrakeSpecificFuelConsumption other, BrakeSpecificFuelConsumption tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public static bool operator ==(BrakeSpecificFuelConsumption left, BrakeSpecificFuelConsumption right)
         {
             return left.Equals(right);
         }
 
         /// <summary>Indicates strict inequality of two <see cref="BrakeSpecificFuelConsumption"/> quantities, where both <see cref="Value" /> and <see cref="Unit" /> are exactly equal.</summary>
-        /// <remarks>Consider using <see cref="Equals(BrakeSpecificFuelConsumption, double, ComparisonType)"/> to check equality across different units and to specify a floating-point number error tolerance.</remarks>
-        [Obsolete("For null checks, use `x is not null` syntax to not invoke overloads. For quantity comparisons, use Equals(BrakeSpecificFuelConsumption, double, ComparisonType) to check equality across different units and to specify a floating-point number error tolerance.")]
+        [Obsolete("For null checks, use `x is null` syntax to not invoke overloads. For equality checks, use Equals(BrakeSpecificFuelConsumption other, BrakeSpecificFuelConsumption tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public static bool operator !=(BrakeSpecificFuelConsumption left, BrakeSpecificFuelConsumption right)
         {
             return !(left == right);
@@ -521,8 +536,7 @@ namespace OasysUnits
 
         /// <inheritdoc />
         /// <summary>Indicates strict equality of two <see cref="BrakeSpecificFuelConsumption"/> quantities, where both <see cref="Value" /> and <see cref="Unit" /> are exactly equal.</summary>
-        /// <remarks>Consider using <see cref="Equals(BrakeSpecificFuelConsumption, double, ComparisonType)"/> to check equality across different units and to specify a floating-point number error tolerance.</remarks>
-        [Obsolete("Consider using Equals(BrakeSpecificFuelConsumption, double, ComparisonType) to check equality across different units and to specify a floating-point number error tolerance.")]
+        [Obsolete("Use Equals(BrakeSpecificFuelConsumption other, BrakeSpecificFuelConsumption tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public override bool Equals(object? obj)
         {
             if (obj is null || !(obj is BrakeSpecificFuelConsumption otherQuantity))
@@ -533,8 +547,7 @@ namespace OasysUnits
 
         /// <inheritdoc />
         /// <summary>Indicates strict equality of two <see cref="BrakeSpecificFuelConsumption"/> quantities, where both <see cref="Value" /> and <see cref="Unit" /> are exactly equal.</summary>
-        /// <remarks>Consider using <see cref="Equals(BrakeSpecificFuelConsumption, double, ComparisonType)"/> to check equality across different units and to specify a floating-point number error tolerance.</remarks>
-        [Obsolete("Consider using Equals(BrakeSpecificFuelConsumption, double, ComparisonType) to check equality across different units and to specify a floating-point number error tolerance.")]
+        [Obsolete("Use Equals(BrakeSpecificFuelConsumption other, BrakeSpecificFuelConsumption tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public bool Equals(BrakeSpecificFuelConsumption other)
         {
             return new { Value, Unit }.Equals(new { other.Value, other.Unit });
@@ -618,15 +631,37 @@ namespace OasysUnits
         /// <param name="tolerance">The absolute or relative tolerance value. Must be greater than or equal to 0.</param>
         /// <param name="comparisonType">The comparison type: either relative or absolute.</param>
         /// <returns>True if the absolute difference between the two values is not greater than the specified relative or absolute tolerance.</returns>
+        [Obsolete("Use Equals(BrakeSpecificFuelConsumption other, BrakeSpecificFuelConsumption tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public bool Equals(BrakeSpecificFuelConsumption other, double tolerance, ComparisonType comparisonType)
         {
             if (tolerance < 0)
-                throw new ArgumentOutOfRangeException("tolerance", "Tolerance must be greater than or equal to 0.");
+                throw new ArgumentOutOfRangeException(nameof(tolerance), "Tolerance must be greater than or equal to 0.");
 
-            double thisValue = this.Value;
-            double otherValueInThisUnits = other.As(this.Unit);
+            return OasysUnits.Comparison.Equals(
+                referenceValue: this.Value,
+                otherValue: other.As(this.Unit),
+                tolerance: tolerance,
+                comparisonType: comparisonType);
+        }
 
-            return OasysUnits.Comparison.Equals(thisValue, otherValueInThisUnits, tolerance, comparisonType);
+        /// <inheritdoc />
+        public bool Equals(IQuantity? other, IQuantity tolerance)
+        {
+            return other is BrakeSpecificFuelConsumption otherTyped
+                   && (tolerance is BrakeSpecificFuelConsumption toleranceTyped
+                       ? true
+                       : throw new ArgumentException($"Tolerance quantity ({tolerance.QuantityInfo.Name}) did not match the other quantities of type 'BrakeSpecificFuelConsumption'.", nameof(tolerance)))
+                   && Equals(otherTyped, toleranceTyped);
+        }
+
+        /// <inheritdoc />
+        public bool Equals(BrakeSpecificFuelConsumption other, BrakeSpecificFuelConsumption tolerance)
+        {
+            return OasysUnits.Comparison.Equals(
+                referenceValue: this.Value,
+                otherValue: other.As(this.Unit),
+                tolerance: tolerance.As(this.Unit),
+                comparisonType: ComparisonType.Absolute);
         }
 
         /// <summary>
@@ -671,15 +706,6 @@ namespace OasysUnits
 
         /// <inheritdoc />
         double IQuantity.As(Enum unit)
-        {
-            if (!(unit is BrakeSpecificFuelConsumptionUnit typedUnit))
-                throw new ArgumentException($"The given unit is of type {unit.GetType()}. Only {typeof(BrakeSpecificFuelConsumptionUnit)} is supported.", nameof(unit));
-
-            return (double)As(typedUnit);
-        }
-
-        /// <inheritdoc />
-        double IValueQuantity<double>.As(Enum unit)
         {
             if (!(unit is BrakeSpecificFuelConsumptionUnit typedUnit))
                 throw new ArgumentException($"The given unit is of type {unit.GetType()}. Only {typeof(BrakeSpecificFuelConsumptionUnit)} is supported.", nameof(unit));
@@ -797,18 +823,6 @@ namespace OasysUnits
 
         /// <inheritdoc />
         IQuantity<BrakeSpecificFuelConsumptionUnit> IQuantity<BrakeSpecificFuelConsumptionUnit>.ToUnit(UnitSystem unitSystem) => ToUnit(unitSystem);
-
-        /// <inheritdoc />
-        IValueQuantity<double> IValueQuantity<double>.ToUnit(Enum unit)
-        {
-            if (unit is not BrakeSpecificFuelConsumptionUnit typedUnit)
-                throw new ArgumentException($"The given unit is of type {unit.GetType()}. Only {typeof(BrakeSpecificFuelConsumptionUnit)} is supported.", nameof(unit));
-
-            return ToUnit(typedUnit);
-        }
-
-        /// <inheritdoc />
-        IValueQuantity<double> IValueQuantity<double>.ToUnit(UnitSystem unitSystem) => ToUnit(unitSystem);
 
         #endregion
 

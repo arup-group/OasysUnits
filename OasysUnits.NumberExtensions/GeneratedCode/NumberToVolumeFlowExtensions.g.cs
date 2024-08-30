@@ -6,7 +6,7 @@
 //     The build server regenerates the code before each build and a pre-build
 //     step will regenerate the code on each local build.
 //
-//     See https://github.com/angularsen/UnitsNet/wiki/Adding-a-New-Unit for how to add or edit units.
+//     See https://github.com/angularsen/OasysUnits/wiki/Adding-a-New-Unit for how to add or edit units.
 //
 //     Add CustomCode\Quantities\MyQuantity.extra.cs files to add code to generated quantities.
 //     Add UnitDefinitions\MyQuantity.json and run generate-code.bat to generate new units or quantities.
@@ -15,9 +15,13 @@
 //------------------------------------------------------------------------------
 
 // Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using System;
+
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
 
 #nullable enable
 
@@ -28,273 +32,605 @@ namespace OasysUnits.NumberExtensions.NumberToVolumeFlow
     /// </summary>
     public static class NumberToVolumeFlowExtensions
     {
-        /// <inheritdoc cref="VolumeFlow.FromAcreFeetPerDay(OasysUnits.QuantityValue)" />
-        public static VolumeFlow AcreFeetPerDay<T>(this T value) =>
-            VolumeFlow.FromAcreFeetPerDay(Convert.ToDouble(value));
-
-        /// <inheritdoc cref="VolumeFlow.FromAcreFeetPerHour(OasysUnits.QuantityValue)" />
-        public static VolumeFlow AcreFeetPerHour<T>(this T value) =>
-            VolumeFlow.FromAcreFeetPerHour(Convert.ToDouble(value));
-
-        /// <inheritdoc cref="VolumeFlow.FromAcreFeetPerMinute(OasysUnits.QuantityValue)" />
-        public static VolumeFlow AcreFeetPerMinute<T>(this T value) =>
-            VolumeFlow.FromAcreFeetPerMinute(Convert.ToDouble(value));
-
-        /// <inheritdoc cref="VolumeFlow.FromAcreFeetPerSecond(OasysUnits.QuantityValue)" />
-        public static VolumeFlow AcreFeetPerSecond<T>(this T value) =>
-            VolumeFlow.FromAcreFeetPerSecond(Convert.ToDouble(value));
-
-        /// <inheritdoc cref="VolumeFlow.FromCentilitersPerDay(OasysUnits.QuantityValue)" />
-        public static VolumeFlow CentilitersPerDay<T>(this T value) =>
-            VolumeFlow.FromCentilitersPerDay(Convert.ToDouble(value));
-
-        /// <inheritdoc cref="VolumeFlow.FromCentilitersPerHour(OasysUnits.QuantityValue)" />
-        public static VolumeFlow CentilitersPerHour<T>(this T value) =>
-            VolumeFlow.FromCentilitersPerHour(Convert.ToDouble(value));
-
-        /// <inheritdoc cref="VolumeFlow.FromCentilitersPerMinute(OasysUnits.QuantityValue)" />
-        public static VolumeFlow CentilitersPerMinute<T>(this T value) =>
-            VolumeFlow.FromCentilitersPerMinute(Convert.ToDouble(value));
-
-        /// <inheritdoc cref="VolumeFlow.FromCentilitersPerSecond(OasysUnits.QuantityValue)" />
-        public static VolumeFlow CentilitersPerSecond<T>(this T value) =>
-            VolumeFlow.FromCentilitersPerSecond(Convert.ToDouble(value));
-
-        /// <inheritdoc cref="VolumeFlow.FromCubicCentimetersPerMinute(OasysUnits.QuantityValue)" />
-        public static VolumeFlow CubicCentimetersPerMinute<T>(this T value) =>
-            VolumeFlow.FromCubicCentimetersPerMinute(Convert.ToDouble(value));
-
-        /// <inheritdoc cref="VolumeFlow.FromCubicDecimetersPerMinute(OasysUnits.QuantityValue)" />
-        public static VolumeFlow CubicDecimetersPerMinute<T>(this T value) =>
-            VolumeFlow.FromCubicDecimetersPerMinute(Convert.ToDouble(value));
-
-        /// <inheritdoc cref="VolumeFlow.FromCubicFeetPerHour(OasysUnits.QuantityValue)" />
-        public static VolumeFlow CubicFeetPerHour<T>(this T value) =>
-            VolumeFlow.FromCubicFeetPerHour(Convert.ToDouble(value));
-
-        /// <inheritdoc cref="VolumeFlow.FromCubicFeetPerMinute(OasysUnits.QuantityValue)" />
-        public static VolumeFlow CubicFeetPerMinute<T>(this T value) =>
-            VolumeFlow.FromCubicFeetPerMinute(Convert.ToDouble(value));
-
-        /// <inheritdoc cref="VolumeFlow.FromCubicFeetPerSecond(OasysUnits.QuantityValue)" />
-        public static VolumeFlow CubicFeetPerSecond<T>(this T value) =>
-            VolumeFlow.FromCubicFeetPerSecond(Convert.ToDouble(value));
-
-        /// <inheritdoc cref="VolumeFlow.FromCubicMetersPerDay(OasysUnits.QuantityValue)" />
-        public static VolumeFlow CubicMetersPerDay<T>(this T value) =>
-            VolumeFlow.FromCubicMetersPerDay(Convert.ToDouble(value));
-
-        /// <inheritdoc cref="VolumeFlow.FromCubicMetersPerHour(OasysUnits.QuantityValue)" />
-        public static VolumeFlow CubicMetersPerHour<T>(this T value) =>
-            VolumeFlow.FromCubicMetersPerHour(Convert.ToDouble(value));
-
-        /// <inheritdoc cref="VolumeFlow.FromCubicMetersPerMinute(OasysUnits.QuantityValue)" />
-        public static VolumeFlow CubicMetersPerMinute<T>(this T value) =>
-            VolumeFlow.FromCubicMetersPerMinute(Convert.ToDouble(value));
-
-        /// <inheritdoc cref="VolumeFlow.FromCubicMetersPerSecond(OasysUnits.QuantityValue)" />
-        public static VolumeFlow CubicMetersPerSecond<T>(this T value) =>
-            VolumeFlow.FromCubicMetersPerSecond(Convert.ToDouble(value));
-
-        /// <inheritdoc cref="VolumeFlow.FromCubicMillimetersPerSecond(OasysUnits.QuantityValue)" />
-        public static VolumeFlow CubicMillimetersPerSecond<T>(this T value) =>
-            VolumeFlow.FromCubicMillimetersPerSecond(Convert.ToDouble(value));
-
-        /// <inheritdoc cref="VolumeFlow.FromCubicYardsPerDay(OasysUnits.QuantityValue)" />
-        public static VolumeFlow CubicYardsPerDay<T>(this T value) =>
-            VolumeFlow.FromCubicYardsPerDay(Convert.ToDouble(value));
-
-        /// <inheritdoc cref="VolumeFlow.FromCubicYardsPerHour(OasysUnits.QuantityValue)" />
-        public static VolumeFlow CubicYardsPerHour<T>(this T value) =>
-            VolumeFlow.FromCubicYardsPerHour(Convert.ToDouble(value));
-
-        /// <inheritdoc cref="VolumeFlow.FromCubicYardsPerMinute(OasysUnits.QuantityValue)" />
-        public static VolumeFlow CubicYardsPerMinute<T>(this T value) =>
-            VolumeFlow.FromCubicYardsPerMinute(Convert.ToDouble(value));
-
-        /// <inheritdoc cref="VolumeFlow.FromCubicYardsPerSecond(OasysUnits.QuantityValue)" />
-        public static VolumeFlow CubicYardsPerSecond<T>(this T value) =>
-            VolumeFlow.FromCubicYardsPerSecond(Convert.ToDouble(value));
-
-        /// <inheritdoc cref="VolumeFlow.FromDecilitersPerDay(OasysUnits.QuantityValue)" />
-        public static VolumeFlow DecilitersPerDay<T>(this T value) =>
-            VolumeFlow.FromDecilitersPerDay(Convert.ToDouble(value));
-
-        /// <inheritdoc cref="VolumeFlow.FromDecilitersPerHour(OasysUnits.QuantityValue)" />
-        public static VolumeFlow DecilitersPerHour<T>(this T value) =>
-            VolumeFlow.FromDecilitersPerHour(Convert.ToDouble(value));
-
-        /// <inheritdoc cref="VolumeFlow.FromDecilitersPerMinute(OasysUnits.QuantityValue)" />
-        public static VolumeFlow DecilitersPerMinute<T>(this T value) =>
-            VolumeFlow.FromDecilitersPerMinute(Convert.ToDouble(value));
-
-        /// <inheritdoc cref="VolumeFlow.FromDecilitersPerSecond(OasysUnits.QuantityValue)" />
-        public static VolumeFlow DecilitersPerSecond<T>(this T value) =>
-            VolumeFlow.FromDecilitersPerSecond(Convert.ToDouble(value));
-
-        /// <inheritdoc cref="VolumeFlow.FromKilolitersPerDay(OasysUnits.QuantityValue)" />
-        public static VolumeFlow KilolitersPerDay<T>(this T value) =>
-            VolumeFlow.FromKilolitersPerDay(Convert.ToDouble(value));
-
-        /// <inheritdoc cref="VolumeFlow.FromKilolitersPerHour(OasysUnits.QuantityValue)" />
-        public static VolumeFlow KilolitersPerHour<T>(this T value) =>
-            VolumeFlow.FromKilolitersPerHour(Convert.ToDouble(value));
-
-        /// <inheritdoc cref="VolumeFlow.FromKilolitersPerMinute(OasysUnits.QuantityValue)" />
-        public static VolumeFlow KilolitersPerMinute<T>(this T value) =>
-            VolumeFlow.FromKilolitersPerMinute(Convert.ToDouble(value));
-
-        /// <inheritdoc cref="VolumeFlow.FromKilolitersPerSecond(OasysUnits.QuantityValue)" />
-        public static VolumeFlow KilolitersPerSecond<T>(this T value) =>
-            VolumeFlow.FromKilolitersPerSecond(Convert.ToDouble(value));
-
-        /// <inheritdoc cref="VolumeFlow.FromKilousGallonsPerMinute(OasysUnits.QuantityValue)" />
-        public static VolumeFlow KilousGallonsPerMinute<T>(this T value) =>
-            VolumeFlow.FromKilousGallonsPerMinute(Convert.ToDouble(value));
-
-        /// <inheritdoc cref="VolumeFlow.FromLitersPerDay(OasysUnits.QuantityValue)" />
-        public static VolumeFlow LitersPerDay<T>(this T value) =>
-            VolumeFlow.FromLitersPerDay(Convert.ToDouble(value));
-
-        /// <inheritdoc cref="VolumeFlow.FromLitersPerHour(OasysUnits.QuantityValue)" />
-        public static VolumeFlow LitersPerHour<T>(this T value) =>
-            VolumeFlow.FromLitersPerHour(Convert.ToDouble(value));
-
-        /// <inheritdoc cref="VolumeFlow.FromLitersPerMinute(OasysUnits.QuantityValue)" />
-        public static VolumeFlow LitersPerMinute<T>(this T value) =>
-            VolumeFlow.FromLitersPerMinute(Convert.ToDouble(value));
-
-        /// <inheritdoc cref="VolumeFlow.FromLitersPerSecond(OasysUnits.QuantityValue)" />
-        public static VolumeFlow LitersPerSecond<T>(this T value) =>
-            VolumeFlow.FromLitersPerSecond(Convert.ToDouble(value));
-
-        /// <inheritdoc cref="VolumeFlow.FromMegalitersPerDay(OasysUnits.QuantityValue)" />
-        public static VolumeFlow MegalitersPerDay<T>(this T value) =>
-            VolumeFlow.FromMegalitersPerDay(Convert.ToDouble(value));
-
-        /// <inheritdoc cref="VolumeFlow.FromMegalitersPerHour(OasysUnits.QuantityValue)" />
-        public static VolumeFlow MegalitersPerHour<T>(this T value) =>
-            VolumeFlow.FromMegalitersPerHour(Convert.ToDouble(value));
-
-        /// <inheritdoc cref="VolumeFlow.FromMegalitersPerMinute(OasysUnits.QuantityValue)" />
-        public static VolumeFlow MegalitersPerMinute<T>(this T value) =>
-            VolumeFlow.FromMegalitersPerMinute(Convert.ToDouble(value));
-
-        /// <inheritdoc cref="VolumeFlow.FromMegalitersPerSecond(OasysUnits.QuantityValue)" />
-        public static VolumeFlow MegalitersPerSecond<T>(this T value) =>
-            VolumeFlow.FromMegalitersPerSecond(Convert.ToDouble(value));
-
-        /// <inheritdoc cref="VolumeFlow.FromMegaukGallonsPerDay(OasysUnits.QuantityValue)" />
-        public static VolumeFlow MegaukGallonsPerDay<T>(this T value) =>
-            VolumeFlow.FromMegaukGallonsPerDay(Convert.ToDouble(value));
-
-        /// <inheritdoc cref="VolumeFlow.FromMegaukGallonsPerSecond(OasysUnits.QuantityValue)" />
-        public static VolumeFlow MegaukGallonsPerSecond<T>(this T value) =>
-            VolumeFlow.FromMegaukGallonsPerSecond(Convert.ToDouble(value));
-
-        /// <inheritdoc cref="VolumeFlow.FromMegausGallonsPerDay(OasysUnits.QuantityValue)" />
-        public static VolumeFlow MegausGallonsPerDay<T>(this T value) =>
-            VolumeFlow.FromMegausGallonsPerDay(Convert.ToDouble(value));
-
-        /// <inheritdoc cref="VolumeFlow.FromMicrolitersPerDay(OasysUnits.QuantityValue)" />
-        public static VolumeFlow MicrolitersPerDay<T>(this T value) =>
-            VolumeFlow.FromMicrolitersPerDay(Convert.ToDouble(value));
-
-        /// <inheritdoc cref="VolumeFlow.FromMicrolitersPerHour(OasysUnits.QuantityValue)" />
-        public static VolumeFlow MicrolitersPerHour<T>(this T value) =>
-            VolumeFlow.FromMicrolitersPerHour(Convert.ToDouble(value));
-
-        /// <inheritdoc cref="VolumeFlow.FromMicrolitersPerMinute(OasysUnits.QuantityValue)" />
-        public static VolumeFlow MicrolitersPerMinute<T>(this T value) =>
-            VolumeFlow.FromMicrolitersPerMinute(Convert.ToDouble(value));
-
-        /// <inheritdoc cref="VolumeFlow.FromMicrolitersPerSecond(OasysUnits.QuantityValue)" />
-        public static VolumeFlow MicrolitersPerSecond<T>(this T value) =>
-            VolumeFlow.FromMicrolitersPerSecond(Convert.ToDouble(value));
-
-        /// <inheritdoc cref="VolumeFlow.FromMillilitersPerDay(OasysUnits.QuantityValue)" />
-        public static VolumeFlow MillilitersPerDay<T>(this T value) =>
-            VolumeFlow.FromMillilitersPerDay(Convert.ToDouble(value));
-
-        /// <inheritdoc cref="VolumeFlow.FromMillilitersPerHour(OasysUnits.QuantityValue)" />
-        public static VolumeFlow MillilitersPerHour<T>(this T value) =>
-            VolumeFlow.FromMillilitersPerHour(Convert.ToDouble(value));
-
-        /// <inheritdoc cref="VolumeFlow.FromMillilitersPerMinute(OasysUnits.QuantityValue)" />
-        public static VolumeFlow MillilitersPerMinute<T>(this T value) =>
-            VolumeFlow.FromMillilitersPerMinute(Convert.ToDouble(value));
-
-        /// <inheritdoc cref="VolumeFlow.FromMillilitersPerSecond(OasysUnits.QuantityValue)" />
-        public static VolumeFlow MillilitersPerSecond<T>(this T value) =>
-            VolumeFlow.FromMillilitersPerSecond(Convert.ToDouble(value));
-
-        /// <inheritdoc cref="VolumeFlow.FromMillionUsGallonsPerDay(OasysUnits.QuantityValue)" />
-        public static VolumeFlow MillionUsGallonsPerDay<T>(this T value) =>
-            VolumeFlow.FromMillionUsGallonsPerDay(Convert.ToDouble(value));
-
-        /// <inheritdoc cref="VolumeFlow.FromNanolitersPerDay(OasysUnits.QuantityValue)" />
-        public static VolumeFlow NanolitersPerDay<T>(this T value) =>
-            VolumeFlow.FromNanolitersPerDay(Convert.ToDouble(value));
-
-        /// <inheritdoc cref="VolumeFlow.FromNanolitersPerHour(OasysUnits.QuantityValue)" />
-        public static VolumeFlow NanolitersPerHour<T>(this T value) =>
-            VolumeFlow.FromNanolitersPerHour(Convert.ToDouble(value));
-
-        /// <inheritdoc cref="VolumeFlow.FromNanolitersPerMinute(OasysUnits.QuantityValue)" />
-        public static VolumeFlow NanolitersPerMinute<T>(this T value) =>
-            VolumeFlow.FromNanolitersPerMinute(Convert.ToDouble(value));
-
-        /// <inheritdoc cref="VolumeFlow.FromNanolitersPerSecond(OasysUnits.QuantityValue)" />
-        public static VolumeFlow NanolitersPerSecond<T>(this T value) =>
-            VolumeFlow.FromNanolitersPerSecond(Convert.ToDouble(value));
-
-        /// <inheritdoc cref="VolumeFlow.FromOilBarrelsPerDay(OasysUnits.QuantityValue)" />
-        public static VolumeFlow OilBarrelsPerDay<T>(this T value) =>
-            VolumeFlow.FromOilBarrelsPerDay(Convert.ToDouble(value));
-
-        /// <inheritdoc cref="VolumeFlow.FromOilBarrelsPerHour(OasysUnits.QuantityValue)" />
-        public static VolumeFlow OilBarrelsPerHour<T>(this T value) =>
-            VolumeFlow.FromOilBarrelsPerHour(Convert.ToDouble(value));
-
-        /// <inheritdoc cref="VolumeFlow.FromOilBarrelsPerMinute(OasysUnits.QuantityValue)" />
-        public static VolumeFlow OilBarrelsPerMinute<T>(this T value) =>
-            VolumeFlow.FromOilBarrelsPerMinute(Convert.ToDouble(value));
-
-        /// <inheritdoc cref="VolumeFlow.FromOilBarrelsPerSecond(OasysUnits.QuantityValue)" />
-        public static VolumeFlow OilBarrelsPerSecond<T>(this T value) =>
-            VolumeFlow.FromOilBarrelsPerSecond(Convert.ToDouble(value));
-
-        /// <inheritdoc cref="VolumeFlow.FromUkGallonsPerDay(OasysUnits.QuantityValue)" />
-        public static VolumeFlow UkGallonsPerDay<T>(this T value) =>
-            VolumeFlow.FromUkGallonsPerDay(Convert.ToDouble(value));
-
-        /// <inheritdoc cref="VolumeFlow.FromUkGallonsPerHour(OasysUnits.QuantityValue)" />
-        public static VolumeFlow UkGallonsPerHour<T>(this T value) =>
-            VolumeFlow.FromUkGallonsPerHour(Convert.ToDouble(value));
-
-        /// <inheritdoc cref="VolumeFlow.FromUkGallonsPerMinute(OasysUnits.QuantityValue)" />
-        public static VolumeFlow UkGallonsPerMinute<T>(this T value) =>
-            VolumeFlow.FromUkGallonsPerMinute(Convert.ToDouble(value));
-
-        /// <inheritdoc cref="VolumeFlow.FromUkGallonsPerSecond(OasysUnits.QuantityValue)" />
-        public static VolumeFlow UkGallonsPerSecond<T>(this T value) =>
-            VolumeFlow.FromUkGallonsPerSecond(Convert.ToDouble(value));
-
-        /// <inheritdoc cref="VolumeFlow.FromUsGallonsPerDay(OasysUnits.QuantityValue)" />
-        public static VolumeFlow UsGallonsPerDay<T>(this T value) =>
-            VolumeFlow.FromUsGallonsPerDay(Convert.ToDouble(value));
-
-        /// <inheritdoc cref="VolumeFlow.FromUsGallonsPerHour(OasysUnits.QuantityValue)" />
-        public static VolumeFlow UsGallonsPerHour<T>(this T value) =>
-            VolumeFlow.FromUsGallonsPerHour(Convert.ToDouble(value));
-
-        /// <inheritdoc cref="VolumeFlow.FromUsGallonsPerMinute(OasysUnits.QuantityValue)" />
-        public static VolumeFlow UsGallonsPerMinute<T>(this T value) =>
-            VolumeFlow.FromUsGallonsPerMinute(Convert.ToDouble(value));
-
-        /// <inheritdoc cref="VolumeFlow.FromUsGallonsPerSecond(OasysUnits.QuantityValue)" />
-        public static VolumeFlow UsGallonsPerSecond<T>(this T value) =>
-            VolumeFlow.FromUsGallonsPerSecond(Convert.ToDouble(value));
+        /// <inheritdoc cref="VolumeFlow.FromAcreFeetPerDay(double)" />
+        public static VolumeFlow AcreFeetPerDay<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumeFlow.FromAcreFeetPerDay(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="VolumeFlow.FromAcreFeetPerHour(double)" />
+        public static VolumeFlow AcreFeetPerHour<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumeFlow.FromAcreFeetPerHour(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="VolumeFlow.FromAcreFeetPerMinute(double)" />
+        public static VolumeFlow AcreFeetPerMinute<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumeFlow.FromAcreFeetPerMinute(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="VolumeFlow.FromAcreFeetPerSecond(double)" />
+        public static VolumeFlow AcreFeetPerSecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumeFlow.FromAcreFeetPerSecond(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="VolumeFlow.FromCentilitersPerDay(double)" />
+        public static VolumeFlow CentilitersPerDay<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumeFlow.FromCentilitersPerDay(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="VolumeFlow.FromCentilitersPerHour(double)" />
+        public static VolumeFlow CentilitersPerHour<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumeFlow.FromCentilitersPerHour(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="VolumeFlow.FromCentilitersPerMinute(double)" />
+        public static VolumeFlow CentilitersPerMinute<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumeFlow.FromCentilitersPerMinute(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="VolumeFlow.FromCentilitersPerSecond(double)" />
+        public static VolumeFlow CentilitersPerSecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumeFlow.FromCentilitersPerSecond(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="VolumeFlow.FromCubicCentimetersPerMinute(double)" />
+        public static VolumeFlow CubicCentimetersPerMinute<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumeFlow.FromCubicCentimetersPerMinute(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="VolumeFlow.FromCubicDecimetersPerMinute(double)" />
+        public static VolumeFlow CubicDecimetersPerMinute<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumeFlow.FromCubicDecimetersPerMinute(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="VolumeFlow.FromCubicFeetPerHour(double)" />
+        public static VolumeFlow CubicFeetPerHour<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumeFlow.FromCubicFeetPerHour(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="VolumeFlow.FromCubicFeetPerMinute(double)" />
+        public static VolumeFlow CubicFeetPerMinute<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumeFlow.FromCubicFeetPerMinute(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="VolumeFlow.FromCubicFeetPerSecond(double)" />
+        public static VolumeFlow CubicFeetPerSecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumeFlow.FromCubicFeetPerSecond(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="VolumeFlow.FromCubicMetersPerDay(double)" />
+        public static VolumeFlow CubicMetersPerDay<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumeFlow.FromCubicMetersPerDay(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="VolumeFlow.FromCubicMetersPerHour(double)" />
+        public static VolumeFlow CubicMetersPerHour<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumeFlow.FromCubicMetersPerHour(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="VolumeFlow.FromCubicMetersPerMinute(double)" />
+        public static VolumeFlow CubicMetersPerMinute<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumeFlow.FromCubicMetersPerMinute(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="VolumeFlow.FromCubicMetersPerSecond(double)" />
+        public static VolumeFlow CubicMetersPerSecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumeFlow.FromCubicMetersPerSecond(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="VolumeFlow.FromCubicMillimetersPerSecond(double)" />
+        public static VolumeFlow CubicMillimetersPerSecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumeFlow.FromCubicMillimetersPerSecond(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="VolumeFlow.FromCubicYardsPerDay(double)" />
+        public static VolumeFlow CubicYardsPerDay<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumeFlow.FromCubicYardsPerDay(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="VolumeFlow.FromCubicYardsPerHour(double)" />
+        public static VolumeFlow CubicYardsPerHour<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumeFlow.FromCubicYardsPerHour(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="VolumeFlow.FromCubicYardsPerMinute(double)" />
+        public static VolumeFlow CubicYardsPerMinute<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumeFlow.FromCubicYardsPerMinute(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="VolumeFlow.FromCubicYardsPerSecond(double)" />
+        public static VolumeFlow CubicYardsPerSecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumeFlow.FromCubicYardsPerSecond(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="VolumeFlow.FromDecalitersPerDay(double)" />
+        public static VolumeFlow DecalitersPerDay<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumeFlow.FromDecalitersPerDay(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="VolumeFlow.FromDecalitersPerHour(double)" />
+        public static VolumeFlow DecalitersPerHour<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumeFlow.FromDecalitersPerHour(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="VolumeFlow.FromDecalitersPerMinute(double)" />
+        public static VolumeFlow DecalitersPerMinute<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumeFlow.FromDecalitersPerMinute(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="VolumeFlow.FromDecalitersPerSecond(double)" />
+        public static VolumeFlow DecalitersPerSecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumeFlow.FromDecalitersPerSecond(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="VolumeFlow.FromDecilitersPerDay(double)" />
+        public static VolumeFlow DecilitersPerDay<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumeFlow.FromDecilitersPerDay(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="VolumeFlow.FromDecilitersPerHour(double)" />
+        public static VolumeFlow DecilitersPerHour<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumeFlow.FromDecilitersPerHour(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="VolumeFlow.FromDecilitersPerMinute(double)" />
+        public static VolumeFlow DecilitersPerMinute<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumeFlow.FromDecilitersPerMinute(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="VolumeFlow.FromDecilitersPerSecond(double)" />
+        public static VolumeFlow DecilitersPerSecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumeFlow.FromDecilitersPerSecond(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="VolumeFlow.FromHectolitersPerDay(double)" />
+        public static VolumeFlow HectolitersPerDay<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumeFlow.FromHectolitersPerDay(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="VolumeFlow.FromHectolitersPerHour(double)" />
+        public static VolumeFlow HectolitersPerHour<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumeFlow.FromHectolitersPerHour(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="VolumeFlow.FromHectolitersPerMinute(double)" />
+        public static VolumeFlow HectolitersPerMinute<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumeFlow.FromHectolitersPerMinute(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="VolumeFlow.FromHectolitersPerSecond(double)" />
+        public static VolumeFlow HectolitersPerSecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumeFlow.FromHectolitersPerSecond(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="VolumeFlow.FromKilolitersPerDay(double)" />
+        public static VolumeFlow KilolitersPerDay<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumeFlow.FromKilolitersPerDay(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="VolumeFlow.FromKilolitersPerHour(double)" />
+        public static VolumeFlow KilolitersPerHour<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumeFlow.FromKilolitersPerHour(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="VolumeFlow.FromKilolitersPerMinute(double)" />
+        public static VolumeFlow KilolitersPerMinute<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumeFlow.FromKilolitersPerMinute(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="VolumeFlow.FromKilolitersPerSecond(double)" />
+        public static VolumeFlow KilolitersPerSecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumeFlow.FromKilolitersPerSecond(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="VolumeFlow.FromKilousGallonsPerMinute(double)" />
+        public static VolumeFlow KilousGallonsPerMinute<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumeFlow.FromKilousGallonsPerMinute(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="VolumeFlow.FromLitersPerDay(double)" />
+        public static VolumeFlow LitersPerDay<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumeFlow.FromLitersPerDay(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="VolumeFlow.FromLitersPerHour(double)" />
+        public static VolumeFlow LitersPerHour<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumeFlow.FromLitersPerHour(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="VolumeFlow.FromLitersPerMinute(double)" />
+        public static VolumeFlow LitersPerMinute<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumeFlow.FromLitersPerMinute(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="VolumeFlow.FromLitersPerSecond(double)" />
+        public static VolumeFlow LitersPerSecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumeFlow.FromLitersPerSecond(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="VolumeFlow.FromMegalitersPerDay(double)" />
+        public static VolumeFlow MegalitersPerDay<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumeFlow.FromMegalitersPerDay(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="VolumeFlow.FromMegalitersPerHour(double)" />
+        public static VolumeFlow MegalitersPerHour<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumeFlow.FromMegalitersPerHour(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="VolumeFlow.FromMegalitersPerMinute(double)" />
+        public static VolumeFlow MegalitersPerMinute<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumeFlow.FromMegalitersPerMinute(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="VolumeFlow.FromMegalitersPerSecond(double)" />
+        public static VolumeFlow MegalitersPerSecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumeFlow.FromMegalitersPerSecond(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="VolumeFlow.FromMegaukGallonsPerDay(double)" />
+        public static VolumeFlow MegaukGallonsPerDay<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumeFlow.FromMegaukGallonsPerDay(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="VolumeFlow.FromMegaukGallonsPerSecond(double)" />
+        public static VolumeFlow MegaukGallonsPerSecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumeFlow.FromMegaukGallonsPerSecond(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="VolumeFlow.FromMegausGallonsPerDay(double)" />
+        public static VolumeFlow MegausGallonsPerDay<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumeFlow.FromMegausGallonsPerDay(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="VolumeFlow.FromMicrolitersPerDay(double)" />
+        public static VolumeFlow MicrolitersPerDay<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumeFlow.FromMicrolitersPerDay(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="VolumeFlow.FromMicrolitersPerHour(double)" />
+        public static VolumeFlow MicrolitersPerHour<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumeFlow.FromMicrolitersPerHour(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="VolumeFlow.FromMicrolitersPerMinute(double)" />
+        public static VolumeFlow MicrolitersPerMinute<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumeFlow.FromMicrolitersPerMinute(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="VolumeFlow.FromMicrolitersPerSecond(double)" />
+        public static VolumeFlow MicrolitersPerSecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumeFlow.FromMicrolitersPerSecond(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="VolumeFlow.FromMillilitersPerDay(double)" />
+        public static VolumeFlow MillilitersPerDay<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumeFlow.FromMillilitersPerDay(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="VolumeFlow.FromMillilitersPerHour(double)" />
+        public static VolumeFlow MillilitersPerHour<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumeFlow.FromMillilitersPerHour(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="VolumeFlow.FromMillilitersPerMinute(double)" />
+        public static VolumeFlow MillilitersPerMinute<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumeFlow.FromMillilitersPerMinute(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="VolumeFlow.FromMillilitersPerSecond(double)" />
+        public static VolumeFlow MillilitersPerSecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumeFlow.FromMillilitersPerSecond(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="VolumeFlow.FromMillionUsGallonsPerDay(double)" />
+        public static VolumeFlow MillionUsGallonsPerDay<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumeFlow.FromMillionUsGallonsPerDay(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="VolumeFlow.FromNanolitersPerDay(double)" />
+        public static VolumeFlow NanolitersPerDay<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumeFlow.FromNanolitersPerDay(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="VolumeFlow.FromNanolitersPerHour(double)" />
+        public static VolumeFlow NanolitersPerHour<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumeFlow.FromNanolitersPerHour(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="VolumeFlow.FromNanolitersPerMinute(double)" />
+        public static VolumeFlow NanolitersPerMinute<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumeFlow.FromNanolitersPerMinute(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="VolumeFlow.FromNanolitersPerSecond(double)" />
+        public static VolumeFlow NanolitersPerSecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumeFlow.FromNanolitersPerSecond(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="VolumeFlow.FromOilBarrelsPerDay(double)" />
+        public static VolumeFlow OilBarrelsPerDay<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumeFlow.FromOilBarrelsPerDay(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="VolumeFlow.FromOilBarrelsPerHour(double)" />
+        public static VolumeFlow OilBarrelsPerHour<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumeFlow.FromOilBarrelsPerHour(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="VolumeFlow.FromOilBarrelsPerMinute(double)" />
+        public static VolumeFlow OilBarrelsPerMinute<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumeFlow.FromOilBarrelsPerMinute(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="VolumeFlow.FromOilBarrelsPerSecond(double)" />
+        public static VolumeFlow OilBarrelsPerSecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumeFlow.FromOilBarrelsPerSecond(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="VolumeFlow.FromUkGallonsPerDay(double)" />
+        public static VolumeFlow UkGallonsPerDay<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumeFlow.FromUkGallonsPerDay(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="VolumeFlow.FromUkGallonsPerHour(double)" />
+        public static VolumeFlow UkGallonsPerHour<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumeFlow.FromUkGallonsPerHour(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="VolumeFlow.FromUkGallonsPerMinute(double)" />
+        public static VolumeFlow UkGallonsPerMinute<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumeFlow.FromUkGallonsPerMinute(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="VolumeFlow.FromUkGallonsPerSecond(double)" />
+        public static VolumeFlow UkGallonsPerSecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumeFlow.FromUkGallonsPerSecond(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="VolumeFlow.FromUsGallonsPerDay(double)" />
+        public static VolumeFlow UsGallonsPerDay<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumeFlow.FromUsGallonsPerDay(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="VolumeFlow.FromUsGallonsPerHour(double)" />
+        public static VolumeFlow UsGallonsPerHour<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumeFlow.FromUsGallonsPerHour(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="VolumeFlow.FromUsGallonsPerMinute(double)" />
+        public static VolumeFlow UsGallonsPerMinute<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumeFlow.FromUsGallonsPerMinute(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="VolumeFlow.FromUsGallonsPerSecond(double)" />
+        public static VolumeFlow UsGallonsPerSecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumeFlow.FromUsGallonsPerSecond(Convert.ToDouble(value));
 
     }
 }

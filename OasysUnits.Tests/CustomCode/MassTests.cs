@@ -1,5 +1,5 @@
 ﻿// Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using System;
 using OasysUnits.Units;
@@ -116,6 +116,20 @@ namespace OasysUnits.Tests
         {
             Force force = Mass.FromKilograms(18)*Acceleration.FromMetersPerSecondSquared(3);
             Assert.Equal(force, Force.FromNewtons(54));
+        }
+
+        [Fact]
+        public void MassDividedByLengthEqualsLinearDensity()
+        {
+            LinearDensity linearDensity = Mass.FromKilograms(18) / Length.FromMeters(3);
+            Assert.Equal(linearDensity, LinearDensity.FromKilogramsPerMeter(6));
+        }
+
+        [Fact]
+        public void MassDividedByLinearDensityEqualsLength()
+        {
+            Length length = Mass.FromKilograms(18) / LinearDensity.FromKilogramsPerMeter(3);
+            Assert.Equal(length, Length.FromMeters(6));
         }
 
         [Fact]

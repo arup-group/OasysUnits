@@ -6,7 +6,7 @@
 //     The build server regenerates the code before each build and a pre-build
 //     step will regenerate the code on each local build.
 //
-//     See https://github.com/angularsen/UnitsNet/wiki/Adding-a-New-Unit for how to add or edit units.
+//     See https://github.com/angularsen/OasysUnits/wiki/Adding-a-New-Unit for how to add or edit units.
 //
 //     Add CustomCode\Quantities\MyQuantity.extra.cs files to add code to generated quantities.
 //     Add UnitDefinitions\MyQuantity.json and run generate-code.bat to generate new units or quantities.
@@ -15,7 +15,7 @@
 //------------------------------------------------------------------------------
 
 // Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using System;
 using System.Collections.Generic;
@@ -83,16 +83,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void Ctor_WithInfinityValue_ThrowsArgumentException()
+        public void Ctor_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new ElectricPotentialAc(double.PositiveInfinity, ElectricPotentialAcUnit.VoltAc));
-            Assert.Throws<ArgumentException>(() => new ElectricPotentialAc(double.NegativeInfinity, ElectricPotentialAcUnit.VoltAc));
+            var exception1 = Record.Exception(() => new ElectricPotentialAc(double.PositiveInfinity, ElectricPotentialAcUnit.VoltAc));
+            var exception2 = Record.Exception(() => new ElectricPotentialAc(double.NegativeInfinity, ElectricPotentialAcUnit.VoltAc));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void Ctor_WithNaNValue_ThrowsArgumentException()
+        public void Ctor_WithNaNValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new ElectricPotentialAc(double.NaN, ElectricPotentialAcUnit.VoltAc));
+            var exception = Record.Exception(() => new ElectricPotentialAc(double.NaN, ElectricPotentialAcUnit.VoltAc));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -167,16 +172,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void FromVoltsAc_WithInfinityValue_ThrowsArgumentException()
+        public void FromVoltsAc_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => ElectricPotentialAc.FromVoltsAc(double.PositiveInfinity));
-            Assert.Throws<ArgumentException>(() => ElectricPotentialAc.FromVoltsAc(double.NegativeInfinity));
+            var exception1 = Record.Exception(() => ElectricPotentialAc.FromVoltsAc(double.PositiveInfinity));
+            var exception2 = Record.Exception(() => ElectricPotentialAc.FromVoltsAc(double.NegativeInfinity));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void FromVoltsAc_WithNanValue_ThrowsArgumentException()
+        public void FromVoltsAc_WithNanValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => ElectricPotentialAc.FromVoltsAc(double.NaN));
+            var exception = Record.Exception(() => ElectricPotentialAc.FromVoltsAc(double.NaN));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -478,6 +488,8 @@ namespace OasysUnits.Tests
             var v = ElectricPotentialAc.FromVoltsAc(1);
             Assert.True(v.Equals(ElectricPotentialAc.FromVoltsAc(1), VoltsAcTolerance, ComparisonType.Relative));
             Assert.False(v.Equals(ElectricPotentialAc.Zero, VoltsAcTolerance, ComparisonType.Relative));
+            Assert.True(ElectricPotentialAc.FromVoltsAc(100).Equals(ElectricPotentialAc.FromVoltsAc(120), 0.3, ComparisonType.Relative));
+            Assert.False(ElectricPotentialAc.FromVoltsAc(100).Equals(ElectricPotentialAc.FromVoltsAc(120), 0.1, ComparisonType.Relative));
         }
 
         [Fact]

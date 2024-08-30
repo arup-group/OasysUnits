@@ -1,5 +1,5 @@
 ﻿// Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using Xunit;
 
@@ -71,7 +71,7 @@ namespace OasysUnits.Tests
         public void SpecificEnergyTimesMassFlowEqualsPower()
         {
             Power power = SpecificEnergy.FromJoulesPerKilogram(10.0) * MassFlow.FromKilogramsPerSecond(20.0);
-            Assert.Equal(200m, power.Watts);
+            Assert.Equal(200, power.Watts);
         }
 
         [Fact]

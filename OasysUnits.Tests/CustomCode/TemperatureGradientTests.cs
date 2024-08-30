@@ -6,7 +6,7 @@
 //     The build server regenerates the code before each build and a pre-build
 //     step will regenerate the code on each local build.
 //
-//     See https://github.com/angularsen/UnitsNet/wiki/Adding-a-New-Unit for how to add or edit units.
+//     See https://github.com/angularsen/OasysUnits/wiki/Adding-a-New-Unit for how to add or edit units.
 //
 //     Add CustomCode\Quantities\MyQuantity.extra.cs files to add code to generated quantities.
 //     Add UnitDefinitions\MyQuantity.json and run generate-code.bat to generate new units or quantities.
@@ -15,7 +15,7 @@
 //------------------------------------------------------------------------------
 
 // Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using System;
 using Xunit;
@@ -26,9 +26,9 @@ namespace OasysUnits.Tests.CustomCode
     {
         protected override bool SupportsSIUnitSystem => true;
 
-        protected override double DegreesCelciusPerKilometerInOneKelvinPerMeter => 1000;
+        protected override double DegreesCelsiusPerKilometerInOneKelvinPerMeter => 1000;
 
-        protected override double DegreesCelciusPerMeterInOneKelvinPerMeter => 1;
+        protected override double DegreesCelsiusPerMeterInOneKelvinPerMeter => 1;
 
         protected override double DegreesFahrenheitPerFootInOneKelvinPerMeter => 0.54864;
 
@@ -37,7 +37,7 @@ namespace OasysUnits.Tests.CustomCode
         [Fact]
         public void TemperatureDeltaDividedByTemperatureGradientEqualsLength()
         {
-            Length length = TemperatureDelta.FromDegreesCelsius(50) / TemperatureGradient.FromDegreesCelciusPerKilometer(5);
+            Length length = TemperatureDelta.FromDegreesCelsius(50) / TemperatureGradient.FromDegreesCelsiusPerKilometer(5);
             Assert.Equal(length, Length.FromKilometers(10));
         }
 
@@ -45,20 +45,20 @@ namespace OasysUnits.Tests.CustomCode
         public void TemperatureDeltaDividedByLengthEqualsTemperatureGradient()
         {
             TemperatureGradient temperatureGradient = TemperatureDelta.FromDegreesCelsius(50) / Length.FromKilometers(10);
-            Assert.Equal(5, temperatureGradient.DegreesCelciusPerKilometer);
+            Assert.Equal(5, temperatureGradient.DegreesCelsiusPerKilometer);
         }
 
         [Fact]
         public void LengthMultipliedByTemperatureGradientEqualsTemperatureDelta()
         {
-            TemperatureDelta temperatureDelta = Length.FromKilometers(10) * TemperatureGradient.FromDegreesCelciusPerKilometer(5);
+            TemperatureDelta temperatureDelta = Length.FromKilometers(10) * TemperatureGradient.FromDegreesCelsiusPerKilometer(5);
             Assert.Equal(temperatureDelta, TemperatureDelta.FromDegreesCelsius(50));
         }
 
         [Fact]
         public void TemperatureGradientMultipliedByLengthEqualsTemperatureDelta()
         {
-            TemperatureDelta temperatureDelta = TemperatureGradient.FromDegreesCelciusPerKilometer(5) * Length.FromKilometers(10);
+            TemperatureDelta temperatureDelta = TemperatureGradient.FromDegreesCelsiusPerKilometer(5) * Length.FromKilometers(10);
             Assert.Equal(temperatureDelta, TemperatureDelta.FromDegreesCelsius(50));
         }
     }

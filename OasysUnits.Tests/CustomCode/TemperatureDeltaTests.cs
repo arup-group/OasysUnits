@@ -9,7 +9,7 @@
 //     in this derived class, reminding the developer to implement the test case
 //     for the new unit.
 //
-//     See https://github.com/angularsen/UnitsNet/wiki/Adding-a-New-Unit for how to add or edit units.
+//     See https://github.com/angularsen/OasysUnits/wiki/Adding-a-New-Unit for how to add or edit units.
 //
 //     Add CustomCode\UnitClasses\MyQuantity.extra.cs files to add code to generated unit classes.
 //     Add UnitDefinitions\MyQuantity.json and run GeneratUnits.bat to generate new units or unit classes.
@@ -18,7 +18,7 @@
 //------------------------------------------------------------------------------
 
 // Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 using System;
 using Xunit;
 
@@ -63,6 +63,20 @@ namespace OasysUnits.Tests.CustomCode
         {
             Energy energy = TemperatureDelta.FromKelvins(20) * Entropy.FromJoulesPerKelvin(4);
             Assert.Equal(Energy.FromJoules(80), energy);
+        }
+
+        [Fact]
+        public void TemperatureDeltaDividedByTimeSpanEqualsTemperatureChangeRate()
+        {
+            TemperatureChangeRate changeRate = TemperatureDelta.FromKelvins(20) / TimeSpan.FromSeconds(2);
+            Assert.Equal(TemperatureChangeRate.FromDegreesCelsiusPerSecond(10), changeRate);
+        }
+
+        [Fact]
+        public void TemperatureDeltaDividedByDurationEqualsTemperatureChangeRate()
+        {
+            TemperatureChangeRate changeRate = TemperatureDelta.FromKelvins(20) / Duration.FromSeconds(2);
+            Assert.Equal(TemperatureChangeRate.FromDegreesCelsiusPerSecond(10), changeRate);
         }
     }
 }

@@ -6,7 +6,7 @@
 //     The build server regenerates the code before each build and a pre-build
 //     step will regenerate the code on each local build.
 //
-//     See https://github.com/angularsen/UnitsNet/wiki/Adding-a-New-Unit for how to add or edit units.
+//     See https://github.com/angularsen/OasysUnits/wiki/Adding-a-New-Unit for how to add or edit units.
 //
 //     Add CustomCode\Quantities\MyQuantity.extra.cs files to add code to generated quantities.
 //     Add UnitDefinitions\MyQuantity.json and run generate-code.bat to generate new units or quantities.
@@ -15,9 +15,13 @@
 //------------------------------------------------------------------------------
 
 // Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using System;
+
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
 
 #nullable enable
 
@@ -28,65 +32,141 @@ namespace OasysUnits.NumberExtensions.NumberToAmountOfSubstance
     /// </summary>
     public static class NumberToAmountOfSubstanceExtensions
     {
-        /// <inheritdoc cref="AmountOfSubstance.FromCentimoles(OasysUnits.QuantityValue)" />
-        public static AmountOfSubstance Centimoles<T>(this T value) =>
-            AmountOfSubstance.FromCentimoles(Convert.ToDouble(value));
+        /// <inheritdoc cref="AmountOfSubstance.FromCentimoles(double)" />
+        public static AmountOfSubstance Centimoles<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => AmountOfSubstance.FromCentimoles(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="AmountOfSubstance.FromCentipoundMoles(OasysUnits.QuantityValue)" />
-        public static AmountOfSubstance CentipoundMoles<T>(this T value) =>
-            AmountOfSubstance.FromCentipoundMoles(Convert.ToDouble(value));
+        /// <inheritdoc cref="AmountOfSubstance.FromCentipoundMoles(double)" />
+        public static AmountOfSubstance CentipoundMoles<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => AmountOfSubstance.FromCentipoundMoles(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="AmountOfSubstance.FromDecimoles(OasysUnits.QuantityValue)" />
-        public static AmountOfSubstance Decimoles<T>(this T value) =>
-            AmountOfSubstance.FromDecimoles(Convert.ToDouble(value));
+        /// <inheritdoc cref="AmountOfSubstance.FromDecimoles(double)" />
+        public static AmountOfSubstance Decimoles<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => AmountOfSubstance.FromDecimoles(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="AmountOfSubstance.FromDecipoundMoles(OasysUnits.QuantityValue)" />
-        public static AmountOfSubstance DecipoundMoles<T>(this T value) =>
-            AmountOfSubstance.FromDecipoundMoles(Convert.ToDouble(value));
+        /// <inheritdoc cref="AmountOfSubstance.FromDecipoundMoles(double)" />
+        public static AmountOfSubstance DecipoundMoles<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => AmountOfSubstance.FromDecipoundMoles(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="AmountOfSubstance.FromKilomoles(OasysUnits.QuantityValue)" />
-        public static AmountOfSubstance Kilomoles<T>(this T value) =>
-            AmountOfSubstance.FromKilomoles(Convert.ToDouble(value));
+        /// <inheritdoc cref="AmountOfSubstance.FromFemtomoles(double)" />
+        public static AmountOfSubstance Femtomoles<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => AmountOfSubstance.FromFemtomoles(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="AmountOfSubstance.FromKilopoundMoles(OasysUnits.QuantityValue)" />
-        public static AmountOfSubstance KilopoundMoles<T>(this T value) =>
-            AmountOfSubstance.FromKilopoundMoles(Convert.ToDouble(value));
+        /// <inheritdoc cref="AmountOfSubstance.FromKilomoles(double)" />
+        public static AmountOfSubstance Kilomoles<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => AmountOfSubstance.FromKilomoles(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="AmountOfSubstance.FromMegamoles(OasysUnits.QuantityValue)" />
-        public static AmountOfSubstance Megamoles<T>(this T value) =>
-            AmountOfSubstance.FromMegamoles(Convert.ToDouble(value));
+        /// <inheritdoc cref="AmountOfSubstance.FromKilopoundMoles(double)" />
+        public static AmountOfSubstance KilopoundMoles<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => AmountOfSubstance.FromKilopoundMoles(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="AmountOfSubstance.FromMicromoles(OasysUnits.QuantityValue)" />
-        public static AmountOfSubstance Micromoles<T>(this T value) =>
-            AmountOfSubstance.FromMicromoles(Convert.ToDouble(value));
+        /// <inheritdoc cref="AmountOfSubstance.FromMegamoles(double)" />
+        public static AmountOfSubstance Megamoles<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => AmountOfSubstance.FromMegamoles(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="AmountOfSubstance.FromMicropoundMoles(OasysUnits.QuantityValue)" />
-        public static AmountOfSubstance MicropoundMoles<T>(this T value) =>
-            AmountOfSubstance.FromMicropoundMoles(Convert.ToDouble(value));
+        /// <inheritdoc cref="AmountOfSubstance.FromMicromoles(double)" />
+        public static AmountOfSubstance Micromoles<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => AmountOfSubstance.FromMicromoles(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="AmountOfSubstance.FromMillimoles(OasysUnits.QuantityValue)" />
-        public static AmountOfSubstance Millimoles<T>(this T value) =>
-            AmountOfSubstance.FromMillimoles(Convert.ToDouble(value));
+        /// <inheritdoc cref="AmountOfSubstance.FromMicropoundMoles(double)" />
+        public static AmountOfSubstance MicropoundMoles<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => AmountOfSubstance.FromMicropoundMoles(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="AmountOfSubstance.FromMillipoundMoles(OasysUnits.QuantityValue)" />
-        public static AmountOfSubstance MillipoundMoles<T>(this T value) =>
-            AmountOfSubstance.FromMillipoundMoles(Convert.ToDouble(value));
+        /// <inheritdoc cref="AmountOfSubstance.FromMillimoles(double)" />
+        public static AmountOfSubstance Millimoles<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => AmountOfSubstance.FromMillimoles(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="AmountOfSubstance.FromMoles(OasysUnits.QuantityValue)" />
-        public static AmountOfSubstance Moles<T>(this T value) =>
-            AmountOfSubstance.FromMoles(Convert.ToDouble(value));
+        /// <inheritdoc cref="AmountOfSubstance.FromMillipoundMoles(double)" />
+        public static AmountOfSubstance MillipoundMoles<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => AmountOfSubstance.FromMillipoundMoles(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="AmountOfSubstance.FromNanomoles(OasysUnits.QuantityValue)" />
-        public static AmountOfSubstance Nanomoles<T>(this T value) =>
-            AmountOfSubstance.FromNanomoles(Convert.ToDouble(value));
+        /// <inheritdoc cref="AmountOfSubstance.FromMoles(double)" />
+        public static AmountOfSubstance Moles<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => AmountOfSubstance.FromMoles(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="AmountOfSubstance.FromNanopoundMoles(OasysUnits.QuantityValue)" />
-        public static AmountOfSubstance NanopoundMoles<T>(this T value) =>
-            AmountOfSubstance.FromNanopoundMoles(Convert.ToDouble(value));
+        /// <inheritdoc cref="AmountOfSubstance.FromNanomoles(double)" />
+        public static AmountOfSubstance Nanomoles<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => AmountOfSubstance.FromNanomoles(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="AmountOfSubstance.FromPoundMoles(OasysUnits.QuantityValue)" />
-        public static AmountOfSubstance PoundMoles<T>(this T value) =>
-            AmountOfSubstance.FromPoundMoles(Convert.ToDouble(value));
+        /// <inheritdoc cref="AmountOfSubstance.FromNanopoundMoles(double)" />
+        public static AmountOfSubstance NanopoundMoles<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => AmountOfSubstance.FromNanopoundMoles(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="AmountOfSubstance.FromPicomoles(double)" />
+        public static AmountOfSubstance Picomoles<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => AmountOfSubstance.FromPicomoles(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="AmountOfSubstance.FromPoundMoles(double)" />
+        public static AmountOfSubstance PoundMoles<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => AmountOfSubstance.FromPoundMoles(Convert.ToDouble(value));
 
     }
 }

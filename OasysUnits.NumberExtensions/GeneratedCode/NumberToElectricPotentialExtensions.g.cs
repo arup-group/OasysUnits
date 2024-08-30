@@ -6,7 +6,7 @@
 //     The build server regenerates the code before each build and a pre-build
 //     step will regenerate the code on each local build.
 //
-//     See https://github.com/angularsen/UnitsNet/wiki/Adding-a-New-Unit for how to add or edit units.
+//     See https://github.com/angularsen/OasysUnits/wiki/Adding-a-New-Unit for how to add or edit units.
 //
 //     Add CustomCode\Quantities\MyQuantity.extra.cs files to add code to generated quantities.
 //     Add UnitDefinitions\MyQuantity.json and run generate-code.bat to generate new units or quantities.
@@ -15,9 +15,13 @@
 //------------------------------------------------------------------------------
 
 // Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using System;
+
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
 
 #nullable enable
 
@@ -28,29 +32,53 @@ namespace OasysUnits.NumberExtensions.NumberToElectricPotential
     /// </summary>
     public static class NumberToElectricPotentialExtensions
     {
-        /// <inheritdoc cref="ElectricPotential.FromKilovolts(OasysUnits.QuantityValue)" />
-        public static ElectricPotential Kilovolts<T>(this T value) =>
-            ElectricPotential.FromKilovolts(Convert.ToDouble(value));
+        /// <inheritdoc cref="ElectricPotential.FromKilovolts(double)" />
+        public static ElectricPotential Kilovolts<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ElectricPotential.FromKilovolts(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="ElectricPotential.FromMegavolts(OasysUnits.QuantityValue)" />
-        public static ElectricPotential Megavolts<T>(this T value) =>
-            ElectricPotential.FromMegavolts(Convert.ToDouble(value));
+        /// <inheritdoc cref="ElectricPotential.FromMegavolts(double)" />
+        public static ElectricPotential Megavolts<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ElectricPotential.FromMegavolts(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="ElectricPotential.FromMicrovolts(OasysUnits.QuantityValue)" />
-        public static ElectricPotential Microvolts<T>(this T value) =>
-            ElectricPotential.FromMicrovolts(Convert.ToDouble(value));
+        /// <inheritdoc cref="ElectricPotential.FromMicrovolts(double)" />
+        public static ElectricPotential Microvolts<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ElectricPotential.FromMicrovolts(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="ElectricPotential.FromMillivolts(OasysUnits.QuantityValue)" />
-        public static ElectricPotential Millivolts<T>(this T value) =>
-            ElectricPotential.FromMillivolts(Convert.ToDouble(value));
+        /// <inheritdoc cref="ElectricPotential.FromMillivolts(double)" />
+        public static ElectricPotential Millivolts<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ElectricPotential.FromMillivolts(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="ElectricPotential.FromNanovolts(OasysUnits.QuantityValue)" />
-        public static ElectricPotential Nanovolts<T>(this T value) =>
-            ElectricPotential.FromNanovolts(Convert.ToDouble(value));
+        /// <inheritdoc cref="ElectricPotential.FromNanovolts(double)" />
+        public static ElectricPotential Nanovolts<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ElectricPotential.FromNanovolts(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="ElectricPotential.FromVolts(OasysUnits.QuantityValue)" />
-        public static ElectricPotential Volts<T>(this T value) =>
-            ElectricPotential.FromVolts(Convert.ToDouble(value));
+        /// <inheritdoc cref="ElectricPotential.FromVolts(double)" />
+        public static ElectricPotential Volts<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ElectricPotential.FromVolts(Convert.ToDouble(value));
 
     }
 }

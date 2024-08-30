@@ -9,7 +9,7 @@
 //     in this derived class, reminding the developer to implement the test case
 //     for the new unit.
 //
-//     See https://github.com/angularsen/UnitsNet/wiki/Adding-a-New-Unit for how to add or edit units.
+//     See https://github.com/angularsen/OasysUnits/wiki/Adding-a-New-Unit for how to add or edit units.
 //
 //     Add CustomCode\Quantities\MyQuantity.extra.cs files to add code to generated quantities.
 //     Add UnitDefinitions\MyQuantity.json and run GeneratUnits.bat to generate new units or quantities.
@@ -18,7 +18,7 @@
 //------------------------------------------------------------------------------
 
 // Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 
 using System;
@@ -46,6 +46,11 @@ namespace OasysUnits.Tests.CustomCode
         protected override double KilogramsPerMeterInOneKilogramPerMeter => 1;
         protected override double KilogramsPerMillimeterInOneKilogramPerMeter => 1e-3;
 
+        protected override double MicrogramsPerFootInOneKilogramPerMeter => 3.048e8;
+        protected override double MilligramsPerFootInOneKilogramPerMeter => 3.048e5;
+        protected override double GramsPerFootInOneKilogramPerMeter => 3.048e2;
+        protected override double KilogramsPerFootInOneKilogramPerMeter => 3.048e-1;
+
         protected override double PoundsPerInchInOneKilogramPerMeter => 5.599741459E-02;
 
         protected override double PoundsPerFootInOneKilogramPerMeter => 6.71968975e-1;
@@ -62,6 +67,13 @@ namespace OasysUnits.Tests.CustomCode
         {
             Area area = LinearDensity.FromGramsPerCentimeter(10) / Density.FromGramsPerCubicCentimeter(2);
             Assert.Equal(5, area.SquareCentimeters);
+        }
+
+        [Fact]
+        public void LinearDensityTimesLengthEqualsMass()
+        {
+            Mass mass = LinearDensity.FromGramsPerCentimeter(10) * Length.FromCentimeters(2);
+            Assert.Equal(20, mass.Grams);
         }
     }
 }

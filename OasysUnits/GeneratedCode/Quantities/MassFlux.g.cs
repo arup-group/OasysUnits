@@ -6,7 +6,7 @@
 //     The build server regenerates the code before each build and a pre-build
 //     step will regenerate the code on each local build.
 //
-//     See https://github.com/angularsen/UnitsNet/wiki/Adding-a-New-Unit for how to add or edit units.
+//     See https://github.com/angularsen/OasysUnits/wiki/Adding-a-New-Unit for how to add or edit units.
 //
 //     Add CustomCode\Quantities\MyQuantity.extra.cs files to add code to generated quantities.
 //     Add UnitDefinitions\MyQuantity.json and run generate-code.bat to generate new units or quantities.
@@ -15,12 +15,16 @@
 //------------------------------------------------------------------------------
 
 // Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using System;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
 using System.Runtime.Serialization;
 using OasysUnits.InternalHelpers;
 using OasysUnits.Units;
@@ -36,8 +40,14 @@ namespace OasysUnits
     ///     Mass flux is the mass flow rate per unit area.
     /// </summary>
     [DataContract]
+    [DebuggerTypeProxy(typeof(QuantityDisplay))]
     public readonly partial struct MassFlux :
-        IArithmeticQuantity<MassFlux, MassFluxUnit, double>,
+        IArithmeticQuantity<MassFlux, MassFluxUnit>,
+#if NET7_0_OR_GREATER
+        IDivisionOperators<MassFlux, Speed, Density>,
+        IMultiplyOperators<MassFlux, Area, MassFlow>,
+        IDivisionOperators<MassFlux, Density, Speed>,
+#endif
         IComparable,
         IComparable<MassFlux>,
         IConvertible,
@@ -47,13 +57,13 @@ namespace OasysUnits
         /// <summary>
         ///     The numeric value this quantity was constructed with.
         /// </summary>
-        [DataMember(Name = "Value", Order = 0)]
+        [DataMember(Name = "Value", Order = 1)]
         private readonly double _value;
 
         /// <summary>
         ///     The unit this quantity was constructed with.
         /// </summary>
-        [DataMember(Name = "Unit", Order = 1)]
+        [DataMember(Name = "Unit", Order = 2)]
         private readonly MassFluxUnit? _unit;
 
         static MassFlux()
@@ -65,18 +75,18 @@ namespace OasysUnits
             Info = new QuantityInfo<MassFluxUnit>("MassFlux",
                 new UnitInfo<MassFluxUnit>[]
                 {
-                    new UnitInfo<MassFluxUnit>(MassFluxUnit.GramPerHourPerSquareCentimeter, "GramsPerHourPerSquareCentimeter", BaseUnits.Undefined),
-                    new UnitInfo<MassFluxUnit>(MassFluxUnit.GramPerHourPerSquareMeter, "GramsPerHourPerSquareMeter", BaseUnits.Undefined),
-                    new UnitInfo<MassFluxUnit>(MassFluxUnit.GramPerHourPerSquareMillimeter, "GramsPerHourPerSquareMillimeter", BaseUnits.Undefined),
-                    new UnitInfo<MassFluxUnit>(MassFluxUnit.GramPerSecondPerSquareCentimeter, "GramsPerSecondPerSquareCentimeter", BaseUnits.Undefined),
-                    new UnitInfo<MassFluxUnit>(MassFluxUnit.GramPerSecondPerSquareMeter, "GramsPerSecondPerSquareMeter", BaseUnits.Undefined),
-                    new UnitInfo<MassFluxUnit>(MassFluxUnit.GramPerSecondPerSquareMillimeter, "GramsPerSecondPerSquareMillimeter", BaseUnits.Undefined),
-                    new UnitInfo<MassFluxUnit>(MassFluxUnit.KilogramPerHourPerSquareCentimeter, "KilogramsPerHourPerSquareCentimeter", BaseUnits.Undefined),
-                    new UnitInfo<MassFluxUnit>(MassFluxUnit.KilogramPerHourPerSquareMeter, "KilogramsPerHourPerSquareMeter", BaseUnits.Undefined),
-                    new UnitInfo<MassFluxUnit>(MassFluxUnit.KilogramPerHourPerSquareMillimeter, "KilogramsPerHourPerSquareMillimeter", BaseUnits.Undefined),
-                    new UnitInfo<MassFluxUnit>(MassFluxUnit.KilogramPerSecondPerSquareCentimeter, "KilogramsPerSecondPerSquareCentimeter", BaseUnits.Undefined),
-                    new UnitInfo<MassFluxUnit>(MassFluxUnit.KilogramPerSecondPerSquareMeter, "KilogramsPerSecondPerSquareMeter", BaseUnits.Undefined),
-                    new UnitInfo<MassFluxUnit>(MassFluxUnit.KilogramPerSecondPerSquareMillimeter, "KilogramsPerSecondPerSquareMillimeter", BaseUnits.Undefined),
+                    new UnitInfo<MassFluxUnit>(MassFluxUnit.GramPerHourPerSquareCentimeter, "GramsPerHourPerSquareCentimeter", BaseUnits.Undefined, "MassFlux"),
+                    new UnitInfo<MassFluxUnit>(MassFluxUnit.GramPerHourPerSquareMeter, "GramsPerHourPerSquareMeter", BaseUnits.Undefined, "MassFlux"),
+                    new UnitInfo<MassFluxUnit>(MassFluxUnit.GramPerHourPerSquareMillimeter, "GramsPerHourPerSquareMillimeter", BaseUnits.Undefined, "MassFlux"),
+                    new UnitInfo<MassFluxUnit>(MassFluxUnit.GramPerSecondPerSquareCentimeter, "GramsPerSecondPerSquareCentimeter", BaseUnits.Undefined, "MassFlux"),
+                    new UnitInfo<MassFluxUnit>(MassFluxUnit.GramPerSecondPerSquareMeter, "GramsPerSecondPerSquareMeter", BaseUnits.Undefined, "MassFlux"),
+                    new UnitInfo<MassFluxUnit>(MassFluxUnit.GramPerSecondPerSquareMillimeter, "GramsPerSecondPerSquareMillimeter", BaseUnits.Undefined, "MassFlux"),
+                    new UnitInfo<MassFluxUnit>(MassFluxUnit.KilogramPerHourPerSquareCentimeter, "KilogramsPerHourPerSquareCentimeter", BaseUnits.Undefined, "MassFlux"),
+                    new UnitInfo<MassFluxUnit>(MassFluxUnit.KilogramPerHourPerSquareMeter, "KilogramsPerHourPerSquareMeter", BaseUnits.Undefined, "MassFlux"),
+                    new UnitInfo<MassFluxUnit>(MassFluxUnit.KilogramPerHourPerSquareMillimeter, "KilogramsPerHourPerSquareMillimeter", BaseUnits.Undefined, "MassFlux"),
+                    new UnitInfo<MassFluxUnit>(MassFluxUnit.KilogramPerSecondPerSquareCentimeter, "KilogramsPerSecondPerSquareCentimeter", BaseUnits.Undefined, "MassFlux"),
+                    new UnitInfo<MassFluxUnit>(MassFluxUnit.KilogramPerSecondPerSquareMeter, "KilogramsPerSecondPerSquareMeter", BaseUnits.Undefined, "MassFlux"),
+                    new UnitInfo<MassFluxUnit>(MassFluxUnit.KilogramPerSecondPerSquareMillimeter, "KilogramsPerSecondPerSquareMillimeter", BaseUnits.Undefined, "MassFlux"),
                 },
                 BaseUnit, Zero, BaseDimensions);
 
@@ -89,10 +99,9 @@ namespace OasysUnits
         /// </summary>
         /// <param name="value">The numeric value to construct this quantity with.</param>
         /// <param name="unit">The unit representation to construct this quantity with.</param>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
         public MassFlux(double value, MassFluxUnit unit)
         {
-            _value = Guard.EnsureValidNumber(value, nameof(value));
+            _value = value;
             _unit = unit;
         }
 
@@ -111,7 +120,7 @@ namespace OasysUnits
             var unitInfos = Info.GetUnitInfosFor(unitSystem.BaseUnits);
             var firstUnitInfo = unitInfos.FirstOrDefault();
 
-            _value = Guard.EnsureValidNumber(value, nameof(value));
+            _value = value;
             _unit = firstUnitInfo?.Value ?? throw new ArgumentException("No units were found for the given UnitSystem.", nameof(unitSystem));
         }
 
@@ -149,7 +158,7 @@ namespace OasysUnits
         public static MassFlux AdditiveIdentity => Zero;
 
         #endregion
- 
+
         #region Properties
 
         /// <summary>
@@ -158,7 +167,7 @@ namespace OasysUnits
         public double Value => _value;
 
         /// <inheritdoc />
-        QuantityValue IQuantity.Value => _value;
+        double IQuantity.Value => _value;
 
         Enum IQuantity.Unit => Unit;
 
@@ -280,22 +289,6 @@ namespace OasysUnits
             unitConverter.SetConversionFunction<MassFlux>(MassFluxUnit.KilogramPerSecondPerSquareMeter, MassFluxUnit.KilogramPerSecondPerSquareMillimeter, quantity => quantity.ToUnit(MassFluxUnit.KilogramPerSecondPerSquareMillimeter));
         }
 
-        internal static void MapGeneratedLocalizations(UnitAbbreviationsCache unitAbbreviationsCache)
-        {
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassFluxUnit.GramPerHourPerSquareCentimeter, new CultureInfo("en-US"), false, true, new string[]{"g·h⁻¹·cm⁻²"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassFluxUnit.GramPerHourPerSquareMeter, new CultureInfo("en-US"), false, true, new string[]{"g·h⁻¹·m⁻²"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassFluxUnit.GramPerHourPerSquareMillimeter, new CultureInfo("en-US"), false, true, new string[]{"g·h⁻¹·mm⁻²"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassFluxUnit.GramPerSecondPerSquareCentimeter, new CultureInfo("en-US"), false, true, new string[]{"g·s⁻¹·cm⁻²"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassFluxUnit.GramPerSecondPerSquareMeter, new CultureInfo("en-US"), false, true, new string[]{"g·s⁻¹·m⁻²"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassFluxUnit.GramPerSecondPerSquareMillimeter, new CultureInfo("en-US"), false, true, new string[]{"g·s⁻¹·mm⁻²"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassFluxUnit.KilogramPerHourPerSquareCentimeter, new CultureInfo("en-US"), false, true, new string[]{"kg·h⁻¹·cm⁻²"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassFluxUnit.KilogramPerHourPerSquareMeter, new CultureInfo("en-US"), false, true, new string[]{"kg·h⁻¹·m⁻²"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassFluxUnit.KilogramPerHourPerSquareMillimeter, new CultureInfo("en-US"), false, true, new string[]{"kg·h⁻¹·mm⁻²"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassFluxUnit.KilogramPerSecondPerSquareCentimeter, new CultureInfo("en-US"), false, true, new string[]{"kg·s⁻¹·cm⁻²"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassFluxUnit.KilogramPerSecondPerSquareMeter, new CultureInfo("en-US"), false, true, new string[]{"kg·s⁻¹·m⁻²"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassFluxUnit.KilogramPerSecondPerSquareMillimeter, new CultureInfo("en-US"), false, true, new string[]{"kg·s⁻¹·mm⁻²"});
-        }
-
         /// <summary>
         ///     Get unit abbreviation string.
         /// </summary>
@@ -324,120 +317,96 @@ namespace OasysUnits
         /// <summary>
         ///     Creates a <see cref="MassFlux"/> from <see cref="MassFluxUnit.GramPerHourPerSquareCentimeter"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static MassFlux FromGramsPerHourPerSquareCentimeter(QuantityValue gramsperhourpersquarecentimeter)
+        public static MassFlux FromGramsPerHourPerSquareCentimeter(double value)
         {
-            double value = (double) gramsperhourpersquarecentimeter;
             return new MassFlux(value, MassFluxUnit.GramPerHourPerSquareCentimeter);
         }
 
         /// <summary>
         ///     Creates a <see cref="MassFlux"/> from <see cref="MassFluxUnit.GramPerHourPerSquareMeter"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static MassFlux FromGramsPerHourPerSquareMeter(QuantityValue gramsperhourpersquaremeter)
+        public static MassFlux FromGramsPerHourPerSquareMeter(double value)
         {
-            double value = (double) gramsperhourpersquaremeter;
             return new MassFlux(value, MassFluxUnit.GramPerHourPerSquareMeter);
         }
 
         /// <summary>
         ///     Creates a <see cref="MassFlux"/> from <see cref="MassFluxUnit.GramPerHourPerSquareMillimeter"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static MassFlux FromGramsPerHourPerSquareMillimeter(QuantityValue gramsperhourpersquaremillimeter)
+        public static MassFlux FromGramsPerHourPerSquareMillimeter(double value)
         {
-            double value = (double) gramsperhourpersquaremillimeter;
             return new MassFlux(value, MassFluxUnit.GramPerHourPerSquareMillimeter);
         }
 
         /// <summary>
         ///     Creates a <see cref="MassFlux"/> from <see cref="MassFluxUnit.GramPerSecondPerSquareCentimeter"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static MassFlux FromGramsPerSecondPerSquareCentimeter(QuantityValue gramspersecondpersquarecentimeter)
+        public static MassFlux FromGramsPerSecondPerSquareCentimeter(double value)
         {
-            double value = (double) gramspersecondpersquarecentimeter;
             return new MassFlux(value, MassFluxUnit.GramPerSecondPerSquareCentimeter);
         }
 
         /// <summary>
         ///     Creates a <see cref="MassFlux"/> from <see cref="MassFluxUnit.GramPerSecondPerSquareMeter"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static MassFlux FromGramsPerSecondPerSquareMeter(QuantityValue gramspersecondpersquaremeter)
+        public static MassFlux FromGramsPerSecondPerSquareMeter(double value)
         {
-            double value = (double) gramspersecondpersquaremeter;
             return new MassFlux(value, MassFluxUnit.GramPerSecondPerSquareMeter);
         }
 
         /// <summary>
         ///     Creates a <see cref="MassFlux"/> from <see cref="MassFluxUnit.GramPerSecondPerSquareMillimeter"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static MassFlux FromGramsPerSecondPerSquareMillimeter(QuantityValue gramspersecondpersquaremillimeter)
+        public static MassFlux FromGramsPerSecondPerSquareMillimeter(double value)
         {
-            double value = (double) gramspersecondpersquaremillimeter;
             return new MassFlux(value, MassFluxUnit.GramPerSecondPerSquareMillimeter);
         }
 
         /// <summary>
         ///     Creates a <see cref="MassFlux"/> from <see cref="MassFluxUnit.KilogramPerHourPerSquareCentimeter"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static MassFlux FromKilogramsPerHourPerSquareCentimeter(QuantityValue kilogramsperhourpersquarecentimeter)
+        public static MassFlux FromKilogramsPerHourPerSquareCentimeter(double value)
         {
-            double value = (double) kilogramsperhourpersquarecentimeter;
             return new MassFlux(value, MassFluxUnit.KilogramPerHourPerSquareCentimeter);
         }
 
         /// <summary>
         ///     Creates a <see cref="MassFlux"/> from <see cref="MassFluxUnit.KilogramPerHourPerSquareMeter"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static MassFlux FromKilogramsPerHourPerSquareMeter(QuantityValue kilogramsperhourpersquaremeter)
+        public static MassFlux FromKilogramsPerHourPerSquareMeter(double value)
         {
-            double value = (double) kilogramsperhourpersquaremeter;
             return new MassFlux(value, MassFluxUnit.KilogramPerHourPerSquareMeter);
         }
 
         /// <summary>
         ///     Creates a <see cref="MassFlux"/> from <see cref="MassFluxUnit.KilogramPerHourPerSquareMillimeter"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static MassFlux FromKilogramsPerHourPerSquareMillimeter(QuantityValue kilogramsperhourpersquaremillimeter)
+        public static MassFlux FromKilogramsPerHourPerSquareMillimeter(double value)
         {
-            double value = (double) kilogramsperhourpersquaremillimeter;
             return new MassFlux(value, MassFluxUnit.KilogramPerHourPerSquareMillimeter);
         }
 
         /// <summary>
         ///     Creates a <see cref="MassFlux"/> from <see cref="MassFluxUnit.KilogramPerSecondPerSquareCentimeter"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static MassFlux FromKilogramsPerSecondPerSquareCentimeter(QuantityValue kilogramspersecondpersquarecentimeter)
+        public static MassFlux FromKilogramsPerSecondPerSquareCentimeter(double value)
         {
-            double value = (double) kilogramspersecondpersquarecentimeter;
             return new MassFlux(value, MassFluxUnit.KilogramPerSecondPerSquareCentimeter);
         }
 
         /// <summary>
         ///     Creates a <see cref="MassFlux"/> from <see cref="MassFluxUnit.KilogramPerSecondPerSquareMeter"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static MassFlux FromKilogramsPerSecondPerSquareMeter(QuantityValue kilogramspersecondpersquaremeter)
+        public static MassFlux FromKilogramsPerSecondPerSquareMeter(double value)
         {
-            double value = (double) kilogramspersecondpersquaremeter;
             return new MassFlux(value, MassFluxUnit.KilogramPerSecondPerSquareMeter);
         }
 
         /// <summary>
         ///     Creates a <see cref="MassFlux"/> from <see cref="MassFluxUnit.KilogramPerSecondPerSquareMillimeter"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static MassFlux FromKilogramsPerSecondPerSquareMillimeter(QuantityValue kilogramspersecondpersquaremillimeter)
+        public static MassFlux FromKilogramsPerSecondPerSquareMillimeter(double value)
         {
-            double value = (double) kilogramspersecondpersquaremillimeter;
             return new MassFlux(value, MassFluxUnit.KilogramPerSecondPerSquareMillimeter);
         }
 
@@ -447,9 +416,9 @@ namespace OasysUnits
         /// <param name="value">Value to convert from.</param>
         /// <param name="fromUnit">Unit to convert from.</param>
         /// <returns>MassFlux unit value.</returns>
-        public static MassFlux From(QuantityValue value, MassFluxUnit fromUnit)
+        public static MassFlux From(double value, MassFluxUnit fromUnit)
         {
-            return new MassFlux((double)value, fromUnit);
+            return new MassFlux(value, fromUnit);
         }
 
         #endregion
@@ -461,7 +430,7 @@ namespace OasysUnits
         /// </summary>
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <example>
-        ///     Length.Parse("5.5 m", new CultureInfo("en-US"));
+        ///     Length.Parse("5.5 m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <exception cref="ArgumentNullException">The value of 'str' cannot be null. </exception>
         /// <exception cref="ArgumentException">
@@ -488,7 +457,7 @@ namespace OasysUnits
         /// </summary>
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <example>
-        ///     Length.Parse("5.5 m", new CultureInfo("en-US"));
+        ///     Length.Parse("5.5 m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <exception cref="ArgumentNullException">The value of 'str' cannot be null. </exception>
         /// <exception cref="ArgumentException">
@@ -520,7 +489,7 @@ namespace OasysUnits
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <param name="result">Resulting unit quantity if successful.</param>
         /// <example>
-        ///     Length.Parse("5.5 m", new CultureInfo("en-US"));
+        ///     Length.Parse("5.5 m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         public static bool TryParse(string? str, out MassFlux result)
         {
@@ -534,7 +503,7 @@ namespace OasysUnits
         /// <param name="result">Resulting unit quantity if successful.</param>
         /// <returns>True if successful, otherwise false.</returns>
         /// <example>
-        ///     Length.Parse("5.5 m", new CultureInfo("en-US"));
+        ///     Length.Parse("5.5 m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <param name="provider">Format to use when parsing number and unit. Defaults to <see cref="CultureInfo.CurrentCulture" /> if null.</param>
         public static bool TryParse(string? str, IFormatProvider? provider, out MassFlux result)
@@ -551,7 +520,7 @@ namespace OasysUnits
         /// </summary>
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <example>
-        ///     Length.ParseUnit("m", new CultureInfo("en-US"));
+        ///     Length.ParseUnit("m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <exception cref="ArgumentNullException">The value of 'str' cannot be null. </exception>
         /// <exception cref="OasysUnitsException">Error parsing string.</exception>
@@ -566,7 +535,7 @@ namespace OasysUnits
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <param name="provider">Format to use when parsing number and unit. Defaults to <see cref="CultureInfo.CurrentCulture" /> if null.</param>
         /// <example>
-        ///     Length.ParseUnit("m", new CultureInfo("en-US"));
+        ///     Length.ParseUnit("m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <exception cref="ArgumentNullException">The value of 'str' cannot be null. </exception>
         /// <exception cref="OasysUnitsException">Error parsing string.</exception>
@@ -588,7 +557,7 @@ namespace OasysUnits
         /// <param name="unit">The parsed unit if successful.</param>
         /// <returns>True if successful, otherwise false.</returns>
         /// <example>
-        ///     Length.TryParseUnit("m", new CultureInfo("en-US"));
+        ///     Length.TryParseUnit("m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <param name="provider">Format to use when parsing number and unit. Defaults to <see cref="CultureInfo.CurrentCulture" /> if null.</param>
         public static bool TryParseUnit(string str, IFormatProvider? provider, out MassFluxUnit unit)
@@ -644,6 +613,28 @@ namespace OasysUnits
 
         #endregion
 
+        #region Relational Operators
+
+        /// <summary>Get <see cref="Density"/> from <see cref="MassFlux"/> / <see cref="Speed"/>.</summary>
+        public static Density operator /(MassFlux massFlux, Speed speed)
+        {
+            return Density.FromKilogramsPerCubicMeter(massFlux.KilogramsPerSecondPerSquareMeter / speed.MetersPerSecond);
+        }
+
+        /// <summary>Get <see cref="MassFlow"/> from <see cref="MassFlux"/> * <see cref="Area"/>.</summary>
+        public static MassFlow operator *(MassFlux massFlux, Area area)
+        {
+            return MassFlow.FromKilogramsPerSecond(massFlux.KilogramsPerSecondPerSquareMeter * area.SquareMeters);
+        }
+
+        /// <summary>Get <see cref="Speed"/> from <see cref="MassFlux"/> / <see cref="Density"/>.</summary>
+        public static Speed operator /(MassFlux massFlux, Density density)
+        {
+            return Speed.FromMetersPerSecond(massFlux.KilogramsPerSecondPerSquareMeter / density.KilogramsPerCubicMeter);
+        }
+
+        #endregion
+
         #region Equality / IComparable
 
         /// <summary>Returns true if less or equal to.</summary>
@@ -675,16 +666,14 @@ namespace OasysUnits
         #pragma warning disable CS0809
 
         /// <summary>Indicates strict equality of two <see cref="MassFlux"/> quantities, where both <see cref="Value" /> and <see cref="Unit" /> are exactly equal.</summary>
-        /// <remarks>Consider using <see cref="Equals(MassFlux, double, ComparisonType)"/> to check equality across different units and to specify a floating-point number error tolerance.</remarks>
-        [Obsolete("For null checks, use `x is null` syntax to not invoke overloads. For quantity comparisons, use Equals(MassFlux, double, ComparisonType) to check equality across different units and to specify a floating-point number error tolerance.")]
+        [Obsolete("For null checks, use `x is null` syntax to not invoke overloads. For equality checks, use Equals(MassFlux other, MassFlux tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public static bool operator ==(MassFlux left, MassFlux right)
         {
             return left.Equals(right);
         }
 
         /// <summary>Indicates strict inequality of two <see cref="MassFlux"/> quantities, where both <see cref="Value" /> and <see cref="Unit" /> are exactly equal.</summary>
-        /// <remarks>Consider using <see cref="Equals(MassFlux, double, ComparisonType)"/> to check equality across different units and to specify a floating-point number error tolerance.</remarks>
-        [Obsolete("For null checks, use `x is not null` syntax to not invoke overloads. For quantity comparisons, use Equals(MassFlux, double, ComparisonType) to check equality across different units and to specify a floating-point number error tolerance.")]
+        [Obsolete("For null checks, use `x is null` syntax to not invoke overloads. For equality checks, use Equals(MassFlux other, MassFlux tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public static bool operator !=(MassFlux left, MassFlux right)
         {
             return !(left == right);
@@ -692,8 +681,7 @@ namespace OasysUnits
 
         /// <inheritdoc />
         /// <summary>Indicates strict equality of two <see cref="MassFlux"/> quantities, where both <see cref="Value" /> and <see cref="Unit" /> are exactly equal.</summary>
-        /// <remarks>Consider using <see cref="Equals(MassFlux, double, ComparisonType)"/> to check equality across different units and to specify a floating-point number error tolerance.</remarks>
-        [Obsolete("Consider using Equals(MassFlux, double, ComparisonType) to check equality across different units and to specify a floating-point number error tolerance.")]
+        [Obsolete("Use Equals(MassFlux other, MassFlux tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public override bool Equals(object? obj)
         {
             if (obj is null || !(obj is MassFlux otherQuantity))
@@ -704,8 +692,7 @@ namespace OasysUnits
 
         /// <inheritdoc />
         /// <summary>Indicates strict equality of two <see cref="MassFlux"/> quantities, where both <see cref="Value" /> and <see cref="Unit" /> are exactly equal.</summary>
-        /// <remarks>Consider using <see cref="Equals(MassFlux, double, ComparisonType)"/> to check equality across different units and to specify a floating-point number error tolerance.</remarks>
-        [Obsolete("Consider using Equals(MassFlux, double, ComparisonType) to check equality across different units and to specify a floating-point number error tolerance.")]
+        [Obsolete("Use Equals(MassFlux other, MassFlux tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public bool Equals(MassFlux other)
         {
             return new { Value, Unit }.Equals(new { other.Value, other.Unit });
@@ -789,15 +776,37 @@ namespace OasysUnits
         /// <param name="tolerance">The absolute or relative tolerance value. Must be greater than or equal to 0.</param>
         /// <param name="comparisonType">The comparison type: either relative or absolute.</param>
         /// <returns>True if the absolute difference between the two values is not greater than the specified relative or absolute tolerance.</returns>
+        [Obsolete("Use Equals(MassFlux other, MassFlux tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public bool Equals(MassFlux other, double tolerance, ComparisonType comparisonType)
         {
             if (tolerance < 0)
-                throw new ArgumentOutOfRangeException("tolerance", "Tolerance must be greater than or equal to 0.");
+                throw new ArgumentOutOfRangeException(nameof(tolerance), "Tolerance must be greater than or equal to 0.");
 
-            double thisValue = this.Value;
-            double otherValueInThisUnits = other.As(this.Unit);
+            return OasysUnits.Comparison.Equals(
+                referenceValue: this.Value,
+                otherValue: other.As(this.Unit),
+                tolerance: tolerance,
+                comparisonType: comparisonType);
+        }
 
-            return OasysUnits.Comparison.Equals(thisValue, otherValueInThisUnits, tolerance, comparisonType);
+        /// <inheritdoc />
+        public bool Equals(IQuantity? other, IQuantity tolerance)
+        {
+            return other is MassFlux otherTyped
+                   && (tolerance is MassFlux toleranceTyped
+                       ? true
+                       : throw new ArgumentException($"Tolerance quantity ({tolerance.QuantityInfo.Name}) did not match the other quantities of type 'MassFlux'.", nameof(tolerance)))
+                   && Equals(otherTyped, toleranceTyped);
+        }
+
+        /// <inheritdoc />
+        public bool Equals(MassFlux other, MassFlux tolerance)
+        {
+            return OasysUnits.Comparison.Equals(
+                referenceValue: this.Value,
+                otherValue: other.As(this.Unit),
+                tolerance: tolerance.As(this.Unit),
+                comparisonType: ComparisonType.Absolute);
         }
 
         /// <summary>
@@ -842,15 +851,6 @@ namespace OasysUnits
 
         /// <inheritdoc />
         double IQuantity.As(Enum unit)
-        {
-            if (!(unit is MassFluxUnit typedUnit))
-                throw new ArgumentException($"The given unit is of type {unit.GetType()}. Only {typeof(MassFluxUnit)} is supported.", nameof(unit));
-
-            return (double)As(typedUnit);
-        }
-
-        /// <inheritdoc />
-        double IValueQuantity<double>.As(Enum unit)
         {
             if (!(unit is MassFluxUnit typedUnit))
                 throw new ArgumentException($"The given unit is of type {unit.GetType()}. Only {typeof(MassFluxUnit)} is supported.", nameof(unit));
@@ -986,18 +986,6 @@ namespace OasysUnits
 
         /// <inheritdoc />
         IQuantity<MassFluxUnit> IQuantity<MassFluxUnit>.ToUnit(UnitSystem unitSystem) => ToUnit(unitSystem);
-
-        /// <inheritdoc />
-        IValueQuantity<double> IValueQuantity<double>.ToUnit(Enum unit)
-        {
-            if (unit is not MassFluxUnit typedUnit)
-                throw new ArgumentException($"The given unit is of type {unit.GetType()}. Only {typeof(MassFluxUnit)} is supported.", nameof(unit));
-
-            return ToUnit(typedUnit);
-        }
-
-        /// <inheritdoc />
-        IValueQuantity<double> IValueQuantity<double>.ToUnit(UnitSystem unitSystem) => ToUnit(unitSystem);
 
         #endregion
 

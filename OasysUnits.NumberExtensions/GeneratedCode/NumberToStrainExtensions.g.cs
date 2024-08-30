@@ -6,7 +6,7 @@
 //     The build server regenerates the code before each build and a pre-build
 //     step will regenerate the code on each local build.
 //
-//     See https://github.com/angularsen/UnitsNet/wiki/Adding-a-New-Unit for how to add or edit units.
+//     See https://github.com/angularsen/OasysUnits/wiki/Adding-a-New-Unit for how to add or edit units.
 //
 //     Add CustomCode\Quantities\MyQuantity.extra.cs files to add code to generated quantities.
 //     Add UnitDefinitions\MyQuantity.json and run generate-code.bat to generate new units or quantities.
@@ -15,9 +15,13 @@
 //------------------------------------------------------------------------------
 
 // Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using System;
+
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
 
 #nullable enable
 
@@ -28,21 +32,37 @@ namespace OasysUnits.NumberExtensions.NumberToStrain
     /// </summary>
     public static class NumberToStrainExtensions
     {
-        /// <inheritdoc cref="Strain.FromMicroStrain(OasysUnits.QuantityValue)" />
-        public static Strain MicroStrain<T>(this T value) =>
-            Strain.FromMicroStrain(Convert.ToDouble(value));
+        /// <inheritdoc cref="Strain.FromMicroStrain(double)" />
+        public static Strain MicroStrain<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Strain.FromMicroStrain(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Strain.FromMilliStrain(OasysUnits.QuantityValue)" />
-        public static Strain MilliStrain<T>(this T value) =>
-            Strain.FromMilliStrain(Convert.ToDouble(value));
+        /// <inheritdoc cref="Strain.FromMilliStrain(double)" />
+        public static Strain MilliStrain<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Strain.FromMilliStrain(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Strain.FromPercent(OasysUnits.QuantityValue)" />
-        public static Strain Percent<T>(this T value) =>
-            Strain.FromPercent(Convert.ToDouble(value));
+        /// <inheritdoc cref="Strain.FromPercent(double)" />
+        public static Strain Percent<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Strain.FromPercent(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Strain.FromRatio(OasysUnits.QuantityValue)" />
-        public static Strain Ratio<T>(this T value) =>
-            Strain.FromRatio(Convert.ToDouble(value));
+        /// <inheritdoc cref="Strain.FromRatio(double)" />
+        public static Strain Ratio<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Strain.FromRatio(Convert.ToDouble(value));
 
     }
 }

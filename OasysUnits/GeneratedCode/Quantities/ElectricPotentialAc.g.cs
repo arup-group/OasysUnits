@@ -6,7 +6,7 @@
 //     The build server regenerates the code before each build and a pre-build
 //     step will regenerate the code on each local build.
 //
-//     See https://github.com/angularsen/UnitsNet/wiki/Adding-a-New-Unit for how to add or edit units.
+//     See https://github.com/angularsen/OasysUnits/wiki/Adding-a-New-Unit for how to add or edit units.
 //
 //     Add CustomCode\Quantities\MyQuantity.extra.cs files to add code to generated quantities.
 //     Add UnitDefinitions\MyQuantity.json and run generate-code.bat to generate new units or quantities.
@@ -15,9 +15,10 @@
 //------------------------------------------------------------------------------
 
 // Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using System;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
@@ -36,8 +37,9 @@ namespace OasysUnits
     ///     The Electric Potential of a system known to use Alternating Current.
     /// </summary>
     [DataContract]
+    [DebuggerTypeProxy(typeof(QuantityDisplay))]
     public readonly partial struct ElectricPotentialAc :
-        IArithmeticQuantity<ElectricPotentialAc, ElectricPotentialAcUnit, double>,
+        IArithmeticQuantity<ElectricPotentialAc, ElectricPotentialAcUnit>,
         IComparable,
         IComparable<ElectricPotentialAc>,
         IConvertible,
@@ -47,13 +49,13 @@ namespace OasysUnits
         /// <summary>
         ///     The numeric value this quantity was constructed with.
         /// </summary>
-        [DataMember(Name = "Value", Order = 0)]
+        [DataMember(Name = "Value", Order = 1)]
         private readonly double _value;
 
         /// <summary>
         ///     The unit this quantity was constructed with.
         /// </summary>
-        [DataMember(Name = "Unit", Order = 1)]
+        [DataMember(Name = "Unit", Order = 2)]
         private readonly ElectricPotentialAcUnit? _unit;
 
         static ElectricPotentialAc()
@@ -65,11 +67,11 @@ namespace OasysUnits
             Info = new QuantityInfo<ElectricPotentialAcUnit>("ElectricPotentialAc",
                 new UnitInfo<ElectricPotentialAcUnit>[]
                 {
-                    new UnitInfo<ElectricPotentialAcUnit>(ElectricPotentialAcUnit.KilovoltAc, "KilovoltsAc", BaseUnits.Undefined),
-                    new UnitInfo<ElectricPotentialAcUnit>(ElectricPotentialAcUnit.MegavoltAc, "MegavoltsAc", BaseUnits.Undefined),
-                    new UnitInfo<ElectricPotentialAcUnit>(ElectricPotentialAcUnit.MicrovoltAc, "MicrovoltsAc", BaseUnits.Undefined),
-                    new UnitInfo<ElectricPotentialAcUnit>(ElectricPotentialAcUnit.MillivoltAc, "MillivoltsAc", BaseUnits.Undefined),
-                    new UnitInfo<ElectricPotentialAcUnit>(ElectricPotentialAcUnit.VoltAc, "VoltsAc", BaseUnits.Undefined),
+                    new UnitInfo<ElectricPotentialAcUnit>(ElectricPotentialAcUnit.KilovoltAc, "KilovoltsAc", BaseUnits.Undefined, "ElectricPotentialAc"),
+                    new UnitInfo<ElectricPotentialAcUnit>(ElectricPotentialAcUnit.MegavoltAc, "MegavoltsAc", BaseUnits.Undefined, "ElectricPotentialAc"),
+                    new UnitInfo<ElectricPotentialAcUnit>(ElectricPotentialAcUnit.MicrovoltAc, "MicrovoltsAc", BaseUnits.Undefined, "ElectricPotentialAc"),
+                    new UnitInfo<ElectricPotentialAcUnit>(ElectricPotentialAcUnit.MillivoltAc, "MillivoltsAc", BaseUnits.Undefined, "ElectricPotentialAc"),
+                    new UnitInfo<ElectricPotentialAcUnit>(ElectricPotentialAcUnit.VoltAc, "VoltsAc", BaseUnits.Undefined, "ElectricPotentialAc"),
                 },
                 BaseUnit, Zero, BaseDimensions);
 
@@ -82,10 +84,9 @@ namespace OasysUnits
         /// </summary>
         /// <param name="value">The numeric value to construct this quantity with.</param>
         /// <param name="unit">The unit representation to construct this quantity with.</param>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
         public ElectricPotentialAc(double value, ElectricPotentialAcUnit unit)
         {
-            _value = Guard.EnsureValidNumber(value, nameof(value));
+            _value = value;
             _unit = unit;
         }
 
@@ -104,7 +105,7 @@ namespace OasysUnits
             var unitInfos = Info.GetUnitInfosFor(unitSystem.BaseUnits);
             var firstUnitInfo = unitInfos.FirstOrDefault();
 
-            _value = Guard.EnsureValidNumber(value, nameof(value));
+            _value = value;
             _unit = firstUnitInfo?.Value ?? throw new ArgumentException("No units were found for the given UnitSystem.", nameof(unitSystem));
         }
 
@@ -142,7 +143,7 @@ namespace OasysUnits
         public static ElectricPotentialAc AdditiveIdentity => Zero;
 
         #endregion
- 
+
         #region Properties
 
         /// <summary>
@@ -151,7 +152,7 @@ namespace OasysUnits
         public double Value => _value;
 
         /// <inheritdoc />
-        QuantityValue IQuantity.Value => _value;
+        double IQuantity.Value => _value;
 
         Enum IQuantity.Unit => Unit;
 
@@ -224,15 +225,6 @@ namespace OasysUnits
             unitConverter.SetConversionFunction<ElectricPotentialAc>(ElectricPotentialAcUnit.VoltAc, ElectricPotentialAcUnit.MillivoltAc, quantity => quantity.ToUnit(ElectricPotentialAcUnit.MillivoltAc));
         }
 
-        internal static void MapGeneratedLocalizations(UnitAbbreviationsCache unitAbbreviationsCache)
-        {
-            unitAbbreviationsCache.PerformAbbreviationMapping(ElectricPotentialAcUnit.KilovoltAc, new CultureInfo("en-US"), false, true, new string[]{"kVac"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(ElectricPotentialAcUnit.MegavoltAc, new CultureInfo("en-US"), false, true, new string[]{"MVac"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(ElectricPotentialAcUnit.MicrovoltAc, new CultureInfo("en-US"), false, true, new string[]{"µVac"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(ElectricPotentialAcUnit.MillivoltAc, new CultureInfo("en-US"), false, true, new string[]{"mVac"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(ElectricPotentialAcUnit.VoltAc, new CultureInfo("en-US"), false, true, new string[]{"Vac"});
-        }
-
         /// <summary>
         ///     Get unit abbreviation string.
         /// </summary>
@@ -261,50 +253,40 @@ namespace OasysUnits
         /// <summary>
         ///     Creates a <see cref="ElectricPotentialAc"/> from <see cref="ElectricPotentialAcUnit.KilovoltAc"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static ElectricPotentialAc FromKilovoltsAc(QuantityValue kilovoltsac)
+        public static ElectricPotentialAc FromKilovoltsAc(double value)
         {
-            double value = (double) kilovoltsac;
             return new ElectricPotentialAc(value, ElectricPotentialAcUnit.KilovoltAc);
         }
 
         /// <summary>
         ///     Creates a <see cref="ElectricPotentialAc"/> from <see cref="ElectricPotentialAcUnit.MegavoltAc"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static ElectricPotentialAc FromMegavoltsAc(QuantityValue megavoltsac)
+        public static ElectricPotentialAc FromMegavoltsAc(double value)
         {
-            double value = (double) megavoltsac;
             return new ElectricPotentialAc(value, ElectricPotentialAcUnit.MegavoltAc);
         }
 
         /// <summary>
         ///     Creates a <see cref="ElectricPotentialAc"/> from <see cref="ElectricPotentialAcUnit.MicrovoltAc"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static ElectricPotentialAc FromMicrovoltsAc(QuantityValue microvoltsac)
+        public static ElectricPotentialAc FromMicrovoltsAc(double value)
         {
-            double value = (double) microvoltsac;
             return new ElectricPotentialAc(value, ElectricPotentialAcUnit.MicrovoltAc);
         }
 
         /// <summary>
         ///     Creates a <see cref="ElectricPotentialAc"/> from <see cref="ElectricPotentialAcUnit.MillivoltAc"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static ElectricPotentialAc FromMillivoltsAc(QuantityValue millivoltsac)
+        public static ElectricPotentialAc FromMillivoltsAc(double value)
         {
-            double value = (double) millivoltsac;
             return new ElectricPotentialAc(value, ElectricPotentialAcUnit.MillivoltAc);
         }
 
         /// <summary>
         ///     Creates a <see cref="ElectricPotentialAc"/> from <see cref="ElectricPotentialAcUnit.VoltAc"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static ElectricPotentialAc FromVoltsAc(QuantityValue voltsac)
+        public static ElectricPotentialAc FromVoltsAc(double value)
         {
-            double value = (double) voltsac;
             return new ElectricPotentialAc(value, ElectricPotentialAcUnit.VoltAc);
         }
 
@@ -314,9 +296,9 @@ namespace OasysUnits
         /// <param name="value">Value to convert from.</param>
         /// <param name="fromUnit">Unit to convert from.</param>
         /// <returns>ElectricPotentialAc unit value.</returns>
-        public static ElectricPotentialAc From(QuantityValue value, ElectricPotentialAcUnit fromUnit)
+        public static ElectricPotentialAc From(double value, ElectricPotentialAcUnit fromUnit)
         {
-            return new ElectricPotentialAc((double)value, fromUnit);
+            return new ElectricPotentialAc(value, fromUnit);
         }
 
         #endregion
@@ -328,7 +310,7 @@ namespace OasysUnits
         /// </summary>
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <example>
-        ///     Length.Parse("5.5 m", new CultureInfo("en-US"));
+        ///     Length.Parse("5.5 m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <exception cref="ArgumentNullException">The value of 'str' cannot be null. </exception>
         /// <exception cref="ArgumentException">
@@ -355,7 +337,7 @@ namespace OasysUnits
         /// </summary>
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <example>
-        ///     Length.Parse("5.5 m", new CultureInfo("en-US"));
+        ///     Length.Parse("5.5 m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <exception cref="ArgumentNullException">The value of 'str' cannot be null. </exception>
         /// <exception cref="ArgumentException">
@@ -387,7 +369,7 @@ namespace OasysUnits
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <param name="result">Resulting unit quantity if successful.</param>
         /// <example>
-        ///     Length.Parse("5.5 m", new CultureInfo("en-US"));
+        ///     Length.Parse("5.5 m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         public static bool TryParse(string? str, out ElectricPotentialAc result)
         {
@@ -401,7 +383,7 @@ namespace OasysUnits
         /// <param name="result">Resulting unit quantity if successful.</param>
         /// <returns>True if successful, otherwise false.</returns>
         /// <example>
-        ///     Length.Parse("5.5 m", new CultureInfo("en-US"));
+        ///     Length.Parse("5.5 m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <param name="provider">Format to use when parsing number and unit. Defaults to <see cref="CultureInfo.CurrentCulture" /> if null.</param>
         public static bool TryParse(string? str, IFormatProvider? provider, out ElectricPotentialAc result)
@@ -418,7 +400,7 @@ namespace OasysUnits
         /// </summary>
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <example>
-        ///     Length.ParseUnit("m", new CultureInfo("en-US"));
+        ///     Length.ParseUnit("m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <exception cref="ArgumentNullException">The value of 'str' cannot be null. </exception>
         /// <exception cref="OasysUnitsException">Error parsing string.</exception>
@@ -433,7 +415,7 @@ namespace OasysUnits
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <param name="provider">Format to use when parsing number and unit. Defaults to <see cref="CultureInfo.CurrentCulture" /> if null.</param>
         /// <example>
-        ///     Length.ParseUnit("m", new CultureInfo("en-US"));
+        ///     Length.ParseUnit("m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <exception cref="ArgumentNullException">The value of 'str' cannot be null. </exception>
         /// <exception cref="OasysUnitsException">Error parsing string.</exception>
@@ -455,7 +437,7 @@ namespace OasysUnits
         /// <param name="unit">The parsed unit if successful.</param>
         /// <returns>True if successful, otherwise false.</returns>
         /// <example>
-        ///     Length.TryParseUnit("m", new CultureInfo("en-US"));
+        ///     Length.TryParseUnit("m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <param name="provider">Format to use when parsing number and unit. Defaults to <see cref="CultureInfo.CurrentCulture" /> if null.</param>
         public static bool TryParseUnit(string str, IFormatProvider? provider, out ElectricPotentialAcUnit unit)
@@ -542,16 +524,14 @@ namespace OasysUnits
         #pragma warning disable CS0809
 
         /// <summary>Indicates strict equality of two <see cref="ElectricPotentialAc"/> quantities, where both <see cref="Value" /> and <see cref="Unit" /> are exactly equal.</summary>
-        /// <remarks>Consider using <see cref="Equals(ElectricPotentialAc, double, ComparisonType)"/> to check equality across different units and to specify a floating-point number error tolerance.</remarks>
-        [Obsolete("For null checks, use `x is null` syntax to not invoke overloads. For quantity comparisons, use Equals(ElectricPotentialAc, double, ComparisonType) to check equality across different units and to specify a floating-point number error tolerance.")]
+        [Obsolete("For null checks, use `x is null` syntax to not invoke overloads. For equality checks, use Equals(ElectricPotentialAc other, ElectricPotentialAc tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public static bool operator ==(ElectricPotentialAc left, ElectricPotentialAc right)
         {
             return left.Equals(right);
         }
 
         /// <summary>Indicates strict inequality of two <see cref="ElectricPotentialAc"/> quantities, where both <see cref="Value" /> and <see cref="Unit" /> are exactly equal.</summary>
-        /// <remarks>Consider using <see cref="Equals(ElectricPotentialAc, double, ComparisonType)"/> to check equality across different units and to specify a floating-point number error tolerance.</remarks>
-        [Obsolete("For null checks, use `x is not null` syntax to not invoke overloads. For quantity comparisons, use Equals(ElectricPotentialAc, double, ComparisonType) to check equality across different units and to specify a floating-point number error tolerance.")]
+        [Obsolete("For null checks, use `x is null` syntax to not invoke overloads. For equality checks, use Equals(ElectricPotentialAc other, ElectricPotentialAc tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public static bool operator !=(ElectricPotentialAc left, ElectricPotentialAc right)
         {
             return !(left == right);
@@ -559,8 +539,7 @@ namespace OasysUnits
 
         /// <inheritdoc />
         /// <summary>Indicates strict equality of two <see cref="ElectricPotentialAc"/> quantities, where both <see cref="Value" /> and <see cref="Unit" /> are exactly equal.</summary>
-        /// <remarks>Consider using <see cref="Equals(ElectricPotentialAc, double, ComparisonType)"/> to check equality across different units and to specify a floating-point number error tolerance.</remarks>
-        [Obsolete("Consider using Equals(ElectricPotentialAc, double, ComparisonType) to check equality across different units and to specify a floating-point number error tolerance.")]
+        [Obsolete("Use Equals(ElectricPotentialAc other, ElectricPotentialAc tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public override bool Equals(object? obj)
         {
             if (obj is null || !(obj is ElectricPotentialAc otherQuantity))
@@ -571,8 +550,7 @@ namespace OasysUnits
 
         /// <inheritdoc />
         /// <summary>Indicates strict equality of two <see cref="ElectricPotentialAc"/> quantities, where both <see cref="Value" /> and <see cref="Unit" /> are exactly equal.</summary>
-        /// <remarks>Consider using <see cref="Equals(ElectricPotentialAc, double, ComparisonType)"/> to check equality across different units and to specify a floating-point number error tolerance.</remarks>
-        [Obsolete("Consider using Equals(ElectricPotentialAc, double, ComparisonType) to check equality across different units and to specify a floating-point number error tolerance.")]
+        [Obsolete("Use Equals(ElectricPotentialAc other, ElectricPotentialAc tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public bool Equals(ElectricPotentialAc other)
         {
             return new { Value, Unit }.Equals(new { other.Value, other.Unit });
@@ -656,15 +634,37 @@ namespace OasysUnits
         /// <param name="tolerance">The absolute or relative tolerance value. Must be greater than or equal to 0.</param>
         /// <param name="comparisonType">The comparison type: either relative or absolute.</param>
         /// <returns>True if the absolute difference between the two values is not greater than the specified relative or absolute tolerance.</returns>
+        [Obsolete("Use Equals(ElectricPotentialAc other, ElectricPotentialAc tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public bool Equals(ElectricPotentialAc other, double tolerance, ComparisonType comparisonType)
         {
             if (tolerance < 0)
-                throw new ArgumentOutOfRangeException("tolerance", "Tolerance must be greater than or equal to 0.");
+                throw new ArgumentOutOfRangeException(nameof(tolerance), "Tolerance must be greater than or equal to 0.");
 
-            double thisValue = this.Value;
-            double otherValueInThisUnits = other.As(this.Unit);
+            return OasysUnits.Comparison.Equals(
+                referenceValue: this.Value,
+                otherValue: other.As(this.Unit),
+                tolerance: tolerance,
+                comparisonType: comparisonType);
+        }
 
-            return OasysUnits.Comparison.Equals(thisValue, otherValueInThisUnits, tolerance, comparisonType);
+        /// <inheritdoc />
+        public bool Equals(IQuantity? other, IQuantity tolerance)
+        {
+            return other is ElectricPotentialAc otherTyped
+                   && (tolerance is ElectricPotentialAc toleranceTyped
+                       ? true
+                       : throw new ArgumentException($"Tolerance quantity ({tolerance.QuantityInfo.Name}) did not match the other quantities of type 'ElectricPotentialAc'.", nameof(tolerance)))
+                   && Equals(otherTyped, toleranceTyped);
+        }
+
+        /// <inheritdoc />
+        public bool Equals(ElectricPotentialAc other, ElectricPotentialAc tolerance)
+        {
+            return OasysUnits.Comparison.Equals(
+                referenceValue: this.Value,
+                otherValue: other.As(this.Unit),
+                tolerance: tolerance.As(this.Unit),
+                comparisonType: ComparisonType.Absolute);
         }
 
         /// <summary>
@@ -709,15 +709,6 @@ namespace OasysUnits
 
         /// <inheritdoc />
         double IQuantity.As(Enum unit)
-        {
-            if (!(unit is ElectricPotentialAcUnit typedUnit))
-                throw new ArgumentException($"The given unit is of type {unit.GetType()}. Only {typeof(ElectricPotentialAcUnit)} is supported.", nameof(unit));
-
-            return (double)As(typedUnit);
-        }
-
-        /// <inheritdoc />
-        double IValueQuantity<double>.As(Enum unit)
         {
             if (!(unit is ElectricPotentialAcUnit typedUnit))
                 throw new ArgumentException($"The given unit is of type {unit.GetType()}. Only {typeof(ElectricPotentialAcUnit)} is supported.", nameof(unit));
@@ -839,18 +830,6 @@ namespace OasysUnits
 
         /// <inheritdoc />
         IQuantity<ElectricPotentialAcUnit> IQuantity<ElectricPotentialAcUnit>.ToUnit(UnitSystem unitSystem) => ToUnit(unitSystem);
-
-        /// <inheritdoc />
-        IValueQuantity<double> IValueQuantity<double>.ToUnit(Enum unit)
-        {
-            if (unit is not ElectricPotentialAcUnit typedUnit)
-                throw new ArgumentException($"The given unit is of type {unit.GetType()}. Only {typeof(ElectricPotentialAcUnit)} is supported.", nameof(unit));
-
-            return ToUnit(typedUnit);
-        }
-
-        /// <inheritdoc />
-        IValueQuantity<double> IValueQuantity<double>.ToUnit(UnitSystem unitSystem) => ToUnit(unitSystem);
 
         #endregion
 

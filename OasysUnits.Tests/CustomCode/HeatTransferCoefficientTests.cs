@@ -9,7 +9,7 @@
 //     in this derived class, reminding the developer to implement the test case
 //     for the new unit.
 //
-//     See https://github.com/angularsen/UnitsNet/wiki/Adding-a-New-Unit for how to add or edit units.
+//     See https://github.com/angularsen/OasysUnits/wiki/Adding-a-New-Unit for how to add or edit units.
 //
 //     Add CustomCode\Quantities\MyQuantity.extra.cs files to add code to generated quantities.
 //     Add UnitDefinitions\MyQuantity.json and run GeneratUnits.bat to generate new units or quantities.
@@ -18,7 +18,7 @@
 //------------------------------------------------------------------------------
 
 // Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 
 using System;
@@ -32,7 +32,6 @@ namespace OasysUnits.Tests.CustomCode
         protected override double WattsPerSquareMeterKelvinInOneWattPerSquareMeterKelvin => 1;
         protected override double BtusPerHourSquareFootDegreeFahrenheitInOneWattPerSquareMeterKelvin => 1.7611018368230584e-1;
         protected override double KilocaloriesPerHourSquareMeterDegreeCelsiusInOneWattPerSquareMeterKelvin => 0.859845227859;
-        protected override double BtusPerSquareFootDegreeFahrenheitInOneWattPerSquareMeterKelvin => 1.7611018368230584e-1;
         protected override double CaloriesPerHourSquareMeterDegreeCelsiusInOneWattPerSquareMeterKelvin => 859.845227859;
     }
 }

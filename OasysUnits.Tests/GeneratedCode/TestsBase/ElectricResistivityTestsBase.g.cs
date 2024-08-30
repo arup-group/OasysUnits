@@ -6,7 +6,7 @@
 //     The build server regenerates the code before each build and a pre-build
 //     step will regenerate the code on each local build.
 //
-//     See https://github.com/angularsen/UnitsNet/wiki/Adding-a-New-Unit for how to add or edit units.
+//     See https://github.com/angularsen/OasysUnits/wiki/Adding-a-New-Unit for how to add or edit units.
 //
 //     Add CustomCode\Quantities\MyQuantity.extra.cs files to add code to generated quantities.
 //     Add UnitDefinitions\MyQuantity.json and run generate-code.bat to generate new units or quantities.
@@ -15,7 +15,7 @@
 //------------------------------------------------------------------------------
 
 // Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using System;
 using System.Collections.Generic;
@@ -119,16 +119,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void Ctor_WithInfinityValue_ThrowsArgumentException()
+        public void Ctor_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new ElectricResistivity(double.PositiveInfinity, ElectricResistivityUnit.OhmMeter));
-            Assert.Throws<ArgumentException>(() => new ElectricResistivity(double.NegativeInfinity, ElectricResistivityUnit.OhmMeter));
+            var exception1 = Record.Exception(() => new ElectricResistivity(double.PositiveInfinity, ElectricResistivityUnit.OhmMeter));
+            var exception2 = Record.Exception(() => new ElectricResistivity(double.NegativeInfinity, ElectricResistivityUnit.OhmMeter));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void Ctor_WithNaNValue_ThrowsArgumentException()
+        public void Ctor_WithNaNValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new ElectricResistivity(double.NaN, ElectricResistivityUnit.OhmMeter));
+            var exception = Record.Exception(() => new ElectricResistivity(double.NaN, ElectricResistivityUnit.OhmMeter));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -248,16 +253,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void FromOhmMeters_WithInfinityValue_ThrowsArgumentException()
+        public void FromOhmMeters_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => ElectricResistivity.FromOhmMeters(double.PositiveInfinity));
-            Assert.Throws<ArgumentException>(() => ElectricResistivity.FromOhmMeters(double.NegativeInfinity));
+            var exception1 = Record.Exception(() => ElectricResistivity.FromOhmMeters(double.PositiveInfinity));
+            var exception2 = Record.Exception(() => ElectricResistivity.FromOhmMeters(double.NegativeInfinity));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void FromOhmMeters_WithNanValue_ThrowsArgumentException()
+        public void FromOhmMeters_WithNanValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => ElectricResistivity.FromOhmMeters(double.NaN));
+            var exception = Record.Exception(() => ElectricResistivity.FromOhmMeters(double.NaN));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -771,6 +781,8 @@ namespace OasysUnits.Tests
             var v = ElectricResistivity.FromOhmMeters(1);
             Assert.True(v.Equals(ElectricResistivity.FromOhmMeters(1), OhmMetersTolerance, ComparisonType.Relative));
             Assert.False(v.Equals(ElectricResistivity.Zero, OhmMetersTolerance, ComparisonType.Relative));
+            Assert.True(ElectricResistivity.FromOhmMeters(100).Equals(ElectricResistivity.FromOhmMeters(120), 0.3, ComparisonType.Relative));
+            Assert.False(ElectricResistivity.FromOhmMeters(100).Equals(ElectricResistivity.FromOhmMeters(120), 0.1, ComparisonType.Relative));
         }
 
         [Fact]

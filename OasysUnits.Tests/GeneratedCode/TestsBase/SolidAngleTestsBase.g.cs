@@ -6,7 +6,7 @@
 //     The build server regenerates the code before each build and a pre-build
 //     step will regenerate the code on each local build.
 //
-//     See https://github.com/angularsen/UnitsNet/wiki/Adding-a-New-Unit for how to add or edit units.
+//     See https://github.com/angularsen/OasysUnits/wiki/Adding-a-New-Unit for how to add or edit units.
 //
 //     Add CustomCode\Quantities\MyQuantity.extra.cs files to add code to generated quantities.
 //     Add UnitDefinitions\MyQuantity.json and run generate-code.bat to generate new units or quantities.
@@ -15,7 +15,7 @@
 //------------------------------------------------------------------------------
 
 // Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using System;
 using System.Collections.Generic;
@@ -67,16 +67,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void Ctor_WithInfinityValue_ThrowsArgumentException()
+        public void Ctor_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new SolidAngle(double.PositiveInfinity, SolidAngleUnit.Steradian));
-            Assert.Throws<ArgumentException>(() => new SolidAngle(double.NegativeInfinity, SolidAngleUnit.Steradian));
+            var exception1 = Record.Exception(() => new SolidAngle(double.PositiveInfinity, SolidAngleUnit.Steradian));
+            var exception2 = Record.Exception(() => new SolidAngle(double.NegativeInfinity, SolidAngleUnit.Steradian));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void Ctor_WithNaNValue_ThrowsArgumentException()
+        public void Ctor_WithNaNValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new SolidAngle(double.NaN, SolidAngleUnit.Steradian));
+            var exception = Record.Exception(() => new SolidAngle(double.NaN, SolidAngleUnit.Steradian));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -131,16 +136,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void FromSteradians_WithInfinityValue_ThrowsArgumentException()
+        public void FromSteradians_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => SolidAngle.FromSteradians(double.PositiveInfinity));
-            Assert.Throws<ArgumentException>(() => SolidAngle.FromSteradians(double.NegativeInfinity));
+            var exception1 = Record.Exception(() => SolidAngle.FromSteradians(double.PositiveInfinity));
+            var exception2 = Record.Exception(() => SolidAngle.FromSteradians(double.NegativeInfinity));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void FromSteradians_WithNanValue_ThrowsArgumentException()
+        public void FromSteradians_WithNanValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => SolidAngle.FromSteradians(double.NaN));
+            var exception = Record.Exception(() => SolidAngle.FromSteradians(double.NaN));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -359,6 +369,8 @@ namespace OasysUnits.Tests
             var v = SolidAngle.FromSteradians(1);
             Assert.True(v.Equals(SolidAngle.FromSteradians(1), SteradiansTolerance, ComparisonType.Relative));
             Assert.False(v.Equals(SolidAngle.Zero, SteradiansTolerance, ComparisonType.Relative));
+            Assert.True(SolidAngle.FromSteradians(100).Equals(SolidAngle.FromSteradians(120), 0.3, ComparisonType.Relative));
+            Assert.False(SolidAngle.FromSteradians(100).Equals(SolidAngle.FromSteradians(120), 0.1, ComparisonType.Relative));
         }
 
         [Fact]

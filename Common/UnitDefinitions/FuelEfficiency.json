@@ -11,7 +11,7 @@
         "Localization": [{
           "Culture": "en-US",
           "Abbreviations": [
-            "L/100km"
+            "l/100km"
           ]
         }]
       },
@@ -41,13 +41,13 @@
       },
       {
         "SingularName": "KilometerPerLiter",
-        "PluralName": "KilometersPerLiters",
+        "PluralName": "KilometersPerLiter",
         "FromUnitToBaseFunc": "100 / {x}",
         "FromBaseToUnitFunc": "100 / {x}",
         "Localization": [{
           "Culture": "en-US",
           "Abbreviations": [
-            "km/L"
+            "km/l"
           ]
         }]
       }

@@ -6,7 +6,7 @@
 //     The build server regenerates the code before each build and a pre-build
 //     step will regenerate the code on each local build.
 //
-//     See https://github.com/angularsen/UnitsNet/wiki/Adding-a-New-Unit for how to add or edit units.
+//     See https://github.com/angularsen/OasysUnits/wiki/Adding-a-New-Unit for how to add or edit units.
 //
 //     Add CustomCode\Quantities\MyQuantity.extra.cs files to add code to generated quantities.
 //     Add UnitDefinitions\MyQuantity.json and run generate-code.bat to generate new units or quantities.
@@ -15,9 +15,13 @@
 //------------------------------------------------------------------------------
 
 // Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using System;
+
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
 
 #nullable enable
 
@@ -28,153 +32,341 @@ namespace OasysUnits.NumberExtensions.NumberToLength
     /// </summary>
     public static class NumberToLengthExtensions
     {
-        /// <inheritdoc cref="Length.FromAngstroms(OasysUnits.QuantityValue)" />
-        public static Length Angstroms<T>(this T value) =>
-            Length.FromAngstroms(Convert.ToDouble(value));
+        /// <inheritdoc cref="Length.FromAngstroms(double)" />
+        public static Length Angstroms<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Length.FromAngstroms(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Length.FromAstronomicalUnits(OasysUnits.QuantityValue)" />
-        public static Length AstronomicalUnits<T>(this T value) =>
-            Length.FromAstronomicalUnits(Convert.ToDouble(value));
+        /// <inheritdoc cref="Length.FromAstronomicalUnits(double)" />
+        public static Length AstronomicalUnits<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Length.FromAstronomicalUnits(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Length.FromCentimeters(OasysUnits.QuantityValue)" />
-        public static Length Centimeters<T>(this T value) =>
-            Length.FromCentimeters(Convert.ToDouble(value));
+        /// <inheritdoc cref="Length.FromCentimeters(double)" />
+        public static Length Centimeters<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Length.FromCentimeters(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Length.FromChains(OasysUnits.QuantityValue)" />
-        public static Length Chains<T>(this T value) =>
-            Length.FromChains(Convert.ToDouble(value));
+        /// <inheritdoc cref="Length.FromChains(double)" />
+        public static Length Chains<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Length.FromChains(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Length.FromDataMiles(OasysUnits.QuantityValue)" />
-        public static Length DataMiles<T>(this T value) =>
-            Length.FromDataMiles(Convert.ToDouble(value));
+        /// <inheritdoc cref="Length.FromDataMiles(double)" />
+        public static Length DataMiles<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Length.FromDataMiles(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Length.FromDecameters(OasysUnits.QuantityValue)" />
-        public static Length Decameters<T>(this T value) =>
-            Length.FromDecameters(Convert.ToDouble(value));
+        /// <inheritdoc cref="Length.FromDecameters(double)" />
+        public static Length Decameters<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Length.FromDecameters(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Length.FromDecimeters(OasysUnits.QuantityValue)" />
-        public static Length Decimeters<T>(this T value) =>
-            Length.FromDecimeters(Convert.ToDouble(value));
+        /// <inheritdoc cref="Length.FromDecimeters(double)" />
+        public static Length Decimeters<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Length.FromDecimeters(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Length.FromDtpPicas(OasysUnits.QuantityValue)" />
-        public static Length DtpPicas<T>(this T value) =>
-            Length.FromDtpPicas(Convert.ToDouble(value));
+        /// <inheritdoc cref="Length.FromDtpPicas(double)" />
+        public static Length DtpPicas<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Length.FromDtpPicas(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Length.FromDtpPoints(OasysUnits.QuantityValue)" />
-        public static Length DtpPoints<T>(this T value) =>
-            Length.FromDtpPoints(Convert.ToDouble(value));
+        /// <inheritdoc cref="Length.FromDtpPoints(double)" />
+        public static Length DtpPoints<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Length.FromDtpPoints(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Length.FromFathoms(OasysUnits.QuantityValue)" />
-        public static Length Fathoms<T>(this T value) =>
-            Length.FromFathoms(Convert.ToDouble(value));
+        /// <inheritdoc cref="Length.FromFathoms(double)" />
+        public static Length Fathoms<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Length.FromFathoms(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Length.FromFeet(OasysUnits.QuantityValue)" />
-        public static Length Feet<T>(this T value) =>
-            Length.FromFeet(Convert.ToDouble(value));
+        /// <inheritdoc cref="Length.FromFemtometers(double)" />
+        public static Length Femtometers<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Length.FromFemtometers(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Length.FromHands(OasysUnits.QuantityValue)" />
-        public static Length Hands<T>(this T value) =>
-            Length.FromHands(Convert.ToDouble(value));
+        /// <inheritdoc cref="Length.FromFeet(double)" />
+        public static Length Feet<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Length.FromFeet(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Length.FromHectometers(OasysUnits.QuantityValue)" />
-        public static Length Hectometers<T>(this T value) =>
-            Length.FromHectometers(Convert.ToDouble(value));
+        /// <inheritdoc cref="Length.FromGigameters(double)" />
+        public static Length Gigameters<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Length.FromGigameters(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Length.FromInches(OasysUnits.QuantityValue)" />
-        public static Length Inches<T>(this T value) =>
-            Length.FromInches(Convert.ToDouble(value));
+        /// <inheritdoc cref="Length.FromHands(double)" />
+        public static Length Hands<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Length.FromHands(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Length.FromKilolightYears(OasysUnits.QuantityValue)" />
-        public static Length KilolightYears<T>(this T value) =>
-            Length.FromKilolightYears(Convert.ToDouble(value));
+        /// <inheritdoc cref="Length.FromHectometers(double)" />
+        public static Length Hectometers<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Length.FromHectometers(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Length.FromKilometers(OasysUnits.QuantityValue)" />
-        public static Length Kilometers<T>(this T value) =>
-            Length.FromKilometers(Convert.ToDouble(value));
+        /// <inheritdoc cref="Length.FromInches(double)" />
+        public static Length Inches<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Length.FromInches(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Length.FromKiloparsecs(OasysUnits.QuantityValue)" />
-        public static Length Kiloparsecs<T>(this T value) =>
-            Length.FromKiloparsecs(Convert.ToDouble(value));
+        /// <inheritdoc cref="Length.FromKilofeet(double)" />
+        public static Length Kilofeet<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Length.FromKilofeet(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Length.FromLightYears(OasysUnits.QuantityValue)" />
-        public static Length LightYears<T>(this T value) =>
-            Length.FromLightYears(Convert.ToDouble(value));
+        /// <inheritdoc cref="Length.FromKilolightYears(double)" />
+        public static Length KilolightYears<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Length.FromKilolightYears(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Length.FromMegalightYears(OasysUnits.QuantityValue)" />
-        public static Length MegalightYears<T>(this T value) =>
-            Length.FromMegalightYears(Convert.ToDouble(value));
+        /// <inheritdoc cref="Length.FromKilometers(double)" />
+        public static Length Kilometers<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Length.FromKilometers(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Length.FromMegameters(OasysUnits.QuantityValue)" />
-        public static Length Megameters<T>(this T value) =>
-            Length.FromMegameters(Convert.ToDouble(value));
+        /// <inheritdoc cref="Length.FromKiloparsecs(double)" />
+        public static Length Kiloparsecs<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Length.FromKiloparsecs(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Length.FromMegaparsecs(OasysUnits.QuantityValue)" />
-        public static Length Megaparsecs<T>(this T value) =>
-            Length.FromMegaparsecs(Convert.ToDouble(value));
+        /// <inheritdoc cref="Length.FromKiloyards(double)" />
+        public static Length Kiloyards<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Length.FromKiloyards(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Length.FromMeters(OasysUnits.QuantityValue)" />
-        public static Length Meters<T>(this T value) =>
-            Length.FromMeters(Convert.ToDouble(value));
+        /// <inheritdoc cref="Length.FromLightYears(double)" />
+        public static Length LightYears<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Length.FromLightYears(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Length.FromMicroinches(OasysUnits.QuantityValue)" />
-        public static Length Microinches<T>(this T value) =>
-            Length.FromMicroinches(Convert.ToDouble(value));
+        /// <inheritdoc cref="Length.FromMegalightYears(double)" />
+        public static Length MegalightYears<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Length.FromMegalightYears(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Length.FromMicrometers(OasysUnits.QuantityValue)" />
-        public static Length Micrometers<T>(this T value) =>
-            Length.FromMicrometers(Convert.ToDouble(value));
+        /// <inheritdoc cref="Length.FromMegameters(double)" />
+        public static Length Megameters<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Length.FromMegameters(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Length.FromMils(OasysUnits.QuantityValue)" />
-        public static Length Mils<T>(this T value) =>
-            Length.FromMils(Convert.ToDouble(value));
+        /// <inheritdoc cref="Length.FromMegaparsecs(double)" />
+        public static Length Megaparsecs<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Length.FromMegaparsecs(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Length.FromMiles(OasysUnits.QuantityValue)" />
-        public static Length Miles<T>(this T value) =>
-            Length.FromMiles(Convert.ToDouble(value));
+        /// <inheritdoc cref="Length.FromMeters(double)" />
+        public static Length Meters<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Length.FromMeters(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Length.FromMillimeters(OasysUnits.QuantityValue)" />
-        public static Length Millimeters<T>(this T value) =>
-            Length.FromMillimeters(Convert.ToDouble(value));
+        /// <inheritdoc cref="Length.FromMicroinches(double)" />
+        public static Length Microinches<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Length.FromMicroinches(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Length.FromNanometers(OasysUnits.QuantityValue)" />
-        public static Length Nanometers<T>(this T value) =>
-            Length.FromNanometers(Convert.ToDouble(value));
+        /// <inheritdoc cref="Length.FromMicrometers(double)" />
+        public static Length Micrometers<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Length.FromMicrometers(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Length.FromNauticalMiles(OasysUnits.QuantityValue)" />
-        public static Length NauticalMiles<T>(this T value) =>
-            Length.FromNauticalMiles(Convert.ToDouble(value));
+        /// <inheritdoc cref="Length.FromMils(double)" />
+        public static Length Mils<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Length.FromMils(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Length.FromParsecs(OasysUnits.QuantityValue)" />
-        public static Length Parsecs<T>(this T value) =>
-            Length.FromParsecs(Convert.ToDouble(value));
+        /// <inheritdoc cref="Length.FromMiles(double)" />
+        public static Length Miles<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Length.FromMiles(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Length.FromPrinterPicas(OasysUnits.QuantityValue)" />
-        public static Length PrinterPicas<T>(this T value) =>
-            Length.FromPrinterPicas(Convert.ToDouble(value));
+        /// <inheritdoc cref="Length.FromMillimeters(double)" />
+        public static Length Millimeters<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Length.FromMillimeters(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Length.FromPrinterPoints(OasysUnits.QuantityValue)" />
-        public static Length PrinterPoints<T>(this T value) =>
-            Length.FromPrinterPoints(Convert.ToDouble(value));
+        /// <inheritdoc cref="Length.FromNanometers(double)" />
+        public static Length Nanometers<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Length.FromNanometers(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Length.FromShackles(OasysUnits.QuantityValue)" />
-        public static Length Shackles<T>(this T value) =>
-            Length.FromShackles(Convert.ToDouble(value));
+        /// <inheritdoc cref="Length.FromNauticalMiles(double)" />
+        public static Length NauticalMiles<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Length.FromNauticalMiles(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Length.FromSolarRadiuses(OasysUnits.QuantityValue)" />
-        public static Length SolarRadiuses<T>(this T value) =>
-            Length.FromSolarRadiuses(Convert.ToDouble(value));
+        /// <inheritdoc cref="Length.FromParsecs(double)" />
+        public static Length Parsecs<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Length.FromParsecs(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Length.FromTwips(OasysUnits.QuantityValue)" />
-        public static Length Twips<T>(this T value) =>
-            Length.FromTwips(Convert.ToDouble(value));
+        /// <inheritdoc cref="Length.FromPicometers(double)" />
+        public static Length Picometers<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Length.FromPicometers(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Length.FromUsSurveyFeet(OasysUnits.QuantityValue)" />
-        public static Length UsSurveyFeet<T>(this T value) =>
-            Length.FromUsSurveyFeet(Convert.ToDouble(value));
+        /// <inheritdoc cref="Length.FromPrinterPicas(double)" />
+        public static Length PrinterPicas<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Length.FromPrinterPicas(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Length.FromYards(OasysUnits.QuantityValue)" />
-        public static Length Yards<T>(this T value) =>
-            Length.FromYards(Convert.ToDouble(value));
+        /// <inheritdoc cref="Length.FromPrinterPoints(double)" />
+        public static Length PrinterPoints<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Length.FromPrinterPoints(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="Length.FromShackles(double)" />
+        public static Length Shackles<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Length.FromShackles(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="Length.FromSolarRadiuses(double)" />
+        public static Length SolarRadiuses<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Length.FromSolarRadiuses(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="Length.FromTwips(double)" />
+        public static Length Twips<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Length.FromTwips(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="Length.FromUsSurveyFeet(double)" />
+        public static Length UsSurveyFeet<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Length.FromUsSurveyFeet(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="Length.FromYards(double)" />
+        public static Length Yards<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Length.FromYards(Convert.ToDouble(value));
 
     }
 }

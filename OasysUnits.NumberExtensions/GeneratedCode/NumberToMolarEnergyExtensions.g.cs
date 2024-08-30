@@ -6,7 +6,7 @@
 //     The build server regenerates the code before each build and a pre-build
 //     step will regenerate the code on each local build.
 //
-//     See https://github.com/angularsen/UnitsNet/wiki/Adding-a-New-Unit for how to add or edit units.
+//     See https://github.com/angularsen/OasysUnits/wiki/Adding-a-New-Unit for how to add or edit units.
 //
 //     Add CustomCode\Quantities\MyQuantity.extra.cs files to add code to generated quantities.
 //     Add UnitDefinitions\MyQuantity.json and run generate-code.bat to generate new units or quantities.
@@ -15,9 +15,13 @@
 //------------------------------------------------------------------------------
 
 // Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using System;
+
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
 
 #nullable enable
 
@@ -28,17 +32,29 @@ namespace OasysUnits.NumberExtensions.NumberToMolarEnergy
     /// </summary>
     public static class NumberToMolarEnergyExtensions
     {
-        /// <inheritdoc cref="MolarEnergy.FromJoulesPerMole(OasysUnits.QuantityValue)" />
-        public static MolarEnergy JoulesPerMole<T>(this T value) =>
-            MolarEnergy.FromJoulesPerMole(Convert.ToDouble(value));
+        /// <inheritdoc cref="MolarEnergy.FromJoulesPerMole(double)" />
+        public static MolarEnergy JoulesPerMole<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MolarEnergy.FromJoulesPerMole(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MolarEnergy.FromKilojoulesPerMole(OasysUnits.QuantityValue)" />
-        public static MolarEnergy KilojoulesPerMole<T>(this T value) =>
-            MolarEnergy.FromKilojoulesPerMole(Convert.ToDouble(value));
+        /// <inheritdoc cref="MolarEnergy.FromKilojoulesPerMole(double)" />
+        public static MolarEnergy KilojoulesPerMole<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MolarEnergy.FromKilojoulesPerMole(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MolarEnergy.FromMegajoulesPerMole(OasysUnits.QuantityValue)" />
-        public static MolarEnergy MegajoulesPerMole<T>(this T value) =>
-            MolarEnergy.FromMegajoulesPerMole(Convert.ToDouble(value));
+        /// <inheritdoc cref="MolarEnergy.FromMegajoulesPerMole(double)" />
+        public static MolarEnergy MegajoulesPerMole<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MolarEnergy.FromMegajoulesPerMole(Convert.ToDouble(value));
 
     }
 }

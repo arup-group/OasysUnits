@@ -1,5 +1,5 @@
 ﻿// Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using Xunit;
 
@@ -38,6 +38,18 @@ namespace OasysUnits.Tests
         {
             ElectricCurrent i = ElectricCharge.FromAmpereHours(20) / Duration.FromHours(4);
             Assert.Equal(5, i.Amperes);
+        }
+        
+        [Theory]
+        [InlineData(1, 1, 1)]
+        [InlineData(0, int.MaxValue, 0)]
+        [InlineData(10, 2, 20)]
+        [InlineData(-10, 2, -20)]
+        [InlineData(-10, -2, 20)]
+        public void ElectricChargeMultipliedByElectricPotentialEqualsEnergy(float current, float potential, float expected)
+        {
+            Energy j = ElectricCharge.FromCoulombs(current) * ElectricPotential.FromVolts(potential);
+            Assert.Equal(expected, j.Joules);
         }
     }
 }

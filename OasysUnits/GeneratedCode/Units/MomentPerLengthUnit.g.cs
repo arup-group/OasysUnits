@@ -6,7 +6,7 @@
 //     The build server regenerates the code before each build and a pre-build
 //     step will regenerate the code on each local build.
 //
-//     See https://github.com/angularsen/UnitsNet/wiki/Adding-a-New-Unit for how to add or edit units.
+//     See https://github.com/angularsen/OasysUnits/wiki/Adding-a-New-Unit for how to add or edit units.
 //
 //     Add CustomCode\Quantities\MyQuantity.extra.cs files to add code to generated quantities.
 //     Add UnitDefinitions\MyQuantity.json and run generate-code.bat to generate new units or quantities.
@@ -15,7 +15,7 @@
 //------------------------------------------------------------------------------
 
 // Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 // ReSharper disable once CheckNamespace
 namespace OasysUnits.Units
@@ -25,40 +25,38 @@ namespace OasysUnits.Units
 
     public enum MomentPerLengthUnit
     {
-        KilogramForceCentimeterPerCentimeter = 16,
-        KilogramForceMeterPerCentimeter = 11,
-        KilogramForceMeterPerMeter = 17,
-        KilogramForceMeterPerMillimeter = 15,
-        KilogramForceMillimeterPerMillimeter = 14,
-        KilonewtonCentimeterPerCentimeter = 26,
-        KilonewtonMeterPerCentimeter = 27,
-        KilonewtonMeterPerMeter = 28,
-        KilonewtonMeterPerMillimeter = 25,
-        KilonewtonMillimeterPerMillimeter = 24,
-        KilopoundForceFootPerFoot = 21,
-        KilopoundForceFootPerInch = 22,
-        KilopoundForceInchPerFoot = 65,
-        KilopoundForceInchPerInch = 30,
-        MeganewtonCentimeterPerCentimeter = 23,
-        MeganewtonMeterPerCentimeter = 29,
-        MeganewtonMeterPerMeter = 39,
-        MeganewtonMeterPerMillimeter = 40,
-        MeganewtonMillimeterPerMillimeter = 34,
-        NewtonCentimeterPerCentimeter = 45,
-        NewtonMeterPerCentimeter = 41,
-        NewtonMeterPerMeter = 59,
-        NewtonMeterPerMillimeter = 54,
-        NewtonMillimeterPerMillimeter = 57,
-        PoundForceFootPerFoot = 52,
-        PoundForceFootPerInch = 55,
-        PoundForceFootPerYard = 58,
-        PoundForceInchPerFoot = 61,
-        PoundForceInchPerInch = 56,
-        TonneForceCentimeterPerCentimeter = 51,
-        TonneForceMeterPerCentimeter = 60,
-        TonneForceMeterPerMeter = 62,
-        TonneForceMeterPerMillimeter = 63,
-        TonneForceMillimeterPerMillimeter = 70,
+        KilogramForceCentimeterPerCentimeter = 4,
+        KilogramForceMeterPerCentimeter = 3,
+        KilogramForceMeterPerMeter = 8,
+        KilogramForceMeterPerMillimeter = 6,
+        KilogramForceMillimeterPerMillimeter = 10,
+        KilonewtonCentimeterPerCentimeter = 7,
+        KilonewtonMeterPerCentimeter = 5,
+        KilonewtonMeterPerMeter = 9,
+        KilonewtonMeterPerMillimeter = 2,
+        KilonewtonMillimeterPerMillimeter = 1,
+        KilopoundForceFootPerFoot = 14,
+        KilopoundForceFootPerInch = 13,
+        KilopoundForceInchPerInch = 17,
+        MeganewtonCentimeterPerCentimeter = 18,
+        MeganewtonMeterPerCentimeter = 19,
+        MeganewtonMeterPerMeter = 11,
+        MeganewtonMeterPerMillimeter = 20,
+        MeganewtonMillimeterPerMillimeter = 12,
+        NewtonCentimeterPerCentimeter = 16,
+        NewtonMeterPerCentimeter = 15,
+        NewtonMeterPerMeter = 30,
+        NewtonMeterPerMillimeter = 21,
+        NewtonMillimeterPerMillimeter = 28,
+        PoundForceFootPerFoot = 22,
+        PoundForceFootPerInch = 27,
+        PoundForceFootPerYard = 23,
+        PoundForceInchPerInch = 25,
+        TonneForceCentimeterPerCentimeter = 24,
+        TonneForceMeterPerCentimeter = 29,
+        TonneForceMeterPerMeter = 26,
+        TonneForceMeterPerMillimeter = 33,
+        TonneForceMillimeterPerMillimeter = 35,
     }
 
     #pragma warning restore 1591

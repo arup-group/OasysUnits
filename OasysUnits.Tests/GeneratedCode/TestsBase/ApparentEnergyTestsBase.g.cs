@@ -6,7 +6,7 @@
 //     The build server regenerates the code before each build and a pre-build
 //     step will regenerate the code on each local build.
 //
-//     See https://github.com/angularsen/UnitsNet/wiki/Adding-a-New-Unit for how to add or edit units.
+//     See https://github.com/angularsen/OasysUnits/wiki/Adding-a-New-Unit for how to add or edit units.
 //
 //     Add CustomCode\Quantities\MyQuantity.extra.cs files to add code to generated quantities.
 //     Add UnitDefinitions\MyQuantity.json and run generate-code.bat to generate new units or quantities.
@@ -15,7 +15,7 @@
 //------------------------------------------------------------------------------
 
 // Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using System;
 using System.Collections.Generic;
@@ -75,16 +75,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void Ctor_WithInfinityValue_ThrowsArgumentException()
+        public void Ctor_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new ApparentEnergy(double.PositiveInfinity, ApparentEnergyUnit.VoltampereHour));
-            Assert.Throws<ArgumentException>(() => new ApparentEnergy(double.NegativeInfinity, ApparentEnergyUnit.VoltampereHour));
+            var exception1 = Record.Exception(() => new ApparentEnergy(double.PositiveInfinity, ApparentEnergyUnit.VoltampereHour));
+            var exception2 = Record.Exception(() => new ApparentEnergy(double.NegativeInfinity, ApparentEnergyUnit.VoltampereHour));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void Ctor_WithNaNValue_ThrowsArgumentException()
+        public void Ctor_WithNaNValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new ApparentEnergy(double.NaN, ApparentEnergyUnit.VoltampereHour));
+            var exception = Record.Exception(() => new ApparentEnergy(double.NaN, ApparentEnergyUnit.VoltampereHour));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -149,16 +154,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void FromVoltampereHours_WithInfinityValue_ThrowsArgumentException()
+        public void FromVoltampereHours_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => ApparentEnergy.FromVoltampereHours(double.PositiveInfinity));
-            Assert.Throws<ArgumentException>(() => ApparentEnergy.FromVoltampereHours(double.NegativeInfinity));
+            var exception1 = Record.Exception(() => ApparentEnergy.FromVoltampereHours(double.PositiveInfinity));
+            var exception2 = Record.Exception(() => ApparentEnergy.FromVoltampereHours(double.NegativeInfinity));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void FromVoltampereHours_WithNanValue_ThrowsArgumentException()
+        public void FromVoltampereHours_WithNanValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => ApparentEnergy.FromVoltampereHours(double.NaN));
+            var exception = Record.Exception(() => ApparentEnergy.FromVoltampereHours(double.NaN));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -430,6 +440,8 @@ namespace OasysUnits.Tests
             var v = ApparentEnergy.FromVoltampereHours(1);
             Assert.True(v.Equals(ApparentEnergy.FromVoltampereHours(1), VoltampereHoursTolerance, ComparisonType.Relative));
             Assert.False(v.Equals(ApparentEnergy.Zero, VoltampereHoursTolerance, ComparisonType.Relative));
+            Assert.True(ApparentEnergy.FromVoltampereHours(100).Equals(ApparentEnergy.FromVoltampereHours(120), 0.3, ComparisonType.Relative));
+            Assert.False(ApparentEnergy.FromVoltampereHours(100).Equals(ApparentEnergy.FromVoltampereHours(120), 0.1, ComparisonType.Relative));
         }
 
         [Fact]

@@ -9,7 +9,7 @@
 //     in this derived class, reminding the developer to implement the test case
 //     for the new unit.
 //
-//     See https://github.com/angularsen/UnitsNet/wiki/Adding-a-New-Unit for how to add or edit units.
+//     See https://github.com/angularsen/OasysUnits/wiki/Adding-a-New-Unit for how to add or edit units.
 //
 //     Add CustomCode\Quantities\MyQuantity.extra.cs files to add code to generated quantities.
 //     Add UnitDefinitions\MyQuantity.json and run GeneratUnits.bat to generate new units or quantities.
@@ -18,7 +18,7 @@
 //------------------------------------------------------------------------------
 
 // Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using System;
 using OasysUnits.Units;
@@ -45,6 +45,8 @@ namespace OasysUnits.Tests.CustomCode
         protected override double NanopoundMolesInOneMole => 0.002204622621848776 * 1e9;
         protected override double PoundMolesInOneMole => 0.002204622621848776;
         protected override double MegamolesInOneMole => 1e-6;
+        protected override double PicomolesInOneMole => 1e12;
+        protected override double FemtomolesInOneMole => 1e15;
 
         [Fact]
         public void NumberOfParticlesInOneMoleEqualsAvogadroConstant()

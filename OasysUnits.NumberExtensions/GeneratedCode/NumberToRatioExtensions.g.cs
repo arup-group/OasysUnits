@@ -6,7 +6,7 @@
 //     The build server regenerates the code before each build and a pre-build
 //     step will regenerate the code on each local build.
 //
-//     See https://github.com/angularsen/UnitsNet/wiki/Adding-a-New-Unit for how to add or edit units.
+//     See https://github.com/angularsen/OasysUnits/wiki/Adding-a-New-Unit for how to add or edit units.
 //
 //     Add CustomCode\Quantities\MyQuantity.extra.cs files to add code to generated quantities.
 //     Add UnitDefinitions\MyQuantity.json and run generate-code.bat to generate new units or quantities.
@@ -15,9 +15,13 @@
 //------------------------------------------------------------------------------
 
 // Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using System;
+
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
 
 #nullable enable
 
@@ -28,29 +32,53 @@ namespace OasysUnits.NumberExtensions.NumberToRatio
     /// </summary>
     public static class NumberToRatioExtensions
     {
-        /// <inheritdoc cref="Ratio.FromDecimalFractions(OasysUnits.QuantityValue)" />
-        public static Ratio DecimalFractions<T>(this T value) =>
-            Ratio.FromDecimalFractions(Convert.ToDouble(value));
+        /// <inheritdoc cref="Ratio.FromDecimalFractions(double)" />
+        public static Ratio DecimalFractions<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Ratio.FromDecimalFractions(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Ratio.FromPartsPerBillion(OasysUnits.QuantityValue)" />
-        public static Ratio PartsPerBillion<T>(this T value) =>
-            Ratio.FromPartsPerBillion(Convert.ToDouble(value));
+        /// <inheritdoc cref="Ratio.FromPartsPerBillion(double)" />
+        public static Ratio PartsPerBillion<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Ratio.FromPartsPerBillion(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Ratio.FromPartsPerMillion(OasysUnits.QuantityValue)" />
-        public static Ratio PartsPerMillion<T>(this T value) =>
-            Ratio.FromPartsPerMillion(Convert.ToDouble(value));
+        /// <inheritdoc cref="Ratio.FromPartsPerMillion(double)" />
+        public static Ratio PartsPerMillion<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Ratio.FromPartsPerMillion(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Ratio.FromPartsPerThousand(OasysUnits.QuantityValue)" />
-        public static Ratio PartsPerThousand<T>(this T value) =>
-            Ratio.FromPartsPerThousand(Convert.ToDouble(value));
+        /// <inheritdoc cref="Ratio.FromPartsPerThousand(double)" />
+        public static Ratio PartsPerThousand<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Ratio.FromPartsPerThousand(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Ratio.FromPartsPerTrillion(OasysUnits.QuantityValue)" />
-        public static Ratio PartsPerTrillion<T>(this T value) =>
-            Ratio.FromPartsPerTrillion(Convert.ToDouble(value));
+        /// <inheritdoc cref="Ratio.FromPartsPerTrillion(double)" />
+        public static Ratio PartsPerTrillion<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Ratio.FromPartsPerTrillion(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Ratio.FromPercent(OasysUnits.QuantityValue)" />
-        public static Ratio Percent<T>(this T value) =>
-            Ratio.FromPercent(Convert.ToDouble(value));
+        /// <inheritdoc cref="Ratio.FromPercent(double)" />
+        public static Ratio Percent<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Ratio.FromPercent(Convert.ToDouble(value));
 
     }
 }

@@ -6,7 +6,7 @@
 //     The build server regenerates the code before each build and a pre-build
 //     step will regenerate the code on each local build.
 //
-//     See https://github.com/angularsen/UnitsNet/wiki/Adding-a-New-Unit for how to add or edit units.
+//     See https://github.com/angularsen/OasysUnits/wiki/Adding-a-New-Unit for how to add or edit units.
 //
 //     Add CustomCode\Quantities\MyQuantity.extra.cs files to add code to generated quantities.
 //     Add UnitDefinitions\MyQuantity.json and run generate-code.bat to generate new units or quantities.
@@ -15,7 +15,7 @@
 //------------------------------------------------------------------------------
 
 // Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 // ReSharper disable once CheckNamespace
 namespace OasysUnits.Units
@@ -25,25 +25,25 @@ namespace OasysUnits.Units
 
     public enum AxialStiffnessUnit
     {
-        Decanewton = 3,
-        Dyn = 2,
-        KilogramForce = 1,
-        Kilonewton = 7,
+        Decanewton = 2,
+        Dyn = 8,
+        KilogramForce = 3,
+        Kilonewton = 1,
         KiloPond = 10,
-        KilopoundForce = 8,
-        Meganewton = 9,
-        Micronewton = 6,
-        Millinewton = 5,
+        KilopoundForce = 7,
+        Meganewton = 5,
+        Micronewton = 9,
+        Millinewton = 6,
         Newton = 4,
-        OunceForce = 13,
-        Poundal = 12,
-        PoundForce = 18,
+        OunceForce = 18,
+        Poundal = 17,
+        PoundForce = 16,
 
         /// <summary>
         ///     The short ton-force is a unit of force equal to 2,000 pounds-force (907.18474 kgf), that is most commonly used in the United States – known there simply as the ton or US ton.
         /// </summary>
         /// <remarks>https://en.wikipedia.org/wiki/Ton-force#Short_ton-force</remarks>
-        ShortTonForce = 17,
+        ShortTonForce = 15,
         TonneForce = 11,
     }
 

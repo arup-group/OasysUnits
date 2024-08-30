@@ -6,7 +6,7 @@
 //     The build server regenerates the code before each build and a pre-build
 //     step will regenerate the code on each local build.
 //
-//     See https://github.com/angularsen/UnitsNet/wiki/Adding-a-New-Unit for how to add or edit units.
+//     See https://github.com/angularsen/OasysUnits/wiki/Adding-a-New-Unit for how to add or edit units.
 //
 //     Add CustomCode\Quantities\MyQuantity.extra.cs files to add code to generated quantities.
 //     Add UnitDefinitions\MyQuantity.json and run generate-code.bat to generate new units or quantities.
@@ -15,9 +15,13 @@
 //------------------------------------------------------------------------------
 
 // Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using System;
+
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
 
 #nullable enable
 
@@ -28,21 +32,37 @@ namespace OasysUnits.NumberExtensions.NumberToSpecificFuelConsumption
     /// </summary>
     public static class NumberToSpecificFuelConsumptionExtensions
     {
-        /// <inheritdoc cref="SpecificFuelConsumption.FromGramsPerKiloNewtonSecond(OasysUnits.QuantityValue)" />
-        public static SpecificFuelConsumption GramsPerKiloNewtonSecond<T>(this T value) =>
-            SpecificFuelConsumption.FromGramsPerKiloNewtonSecond(Convert.ToDouble(value));
+        /// <inheritdoc cref="SpecificFuelConsumption.FromGramsPerKiloNewtonSecond(double)" />
+        public static SpecificFuelConsumption GramsPerKiloNewtonSecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => SpecificFuelConsumption.FromGramsPerKiloNewtonSecond(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="SpecificFuelConsumption.FromKilogramsPerKilogramForceHour(OasysUnits.QuantityValue)" />
-        public static SpecificFuelConsumption KilogramsPerKilogramForceHour<T>(this T value) =>
-            SpecificFuelConsumption.FromKilogramsPerKilogramForceHour(Convert.ToDouble(value));
+        /// <inheritdoc cref="SpecificFuelConsumption.FromKilogramsPerKilogramForceHour(double)" />
+        public static SpecificFuelConsumption KilogramsPerKilogramForceHour<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => SpecificFuelConsumption.FromKilogramsPerKilogramForceHour(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="SpecificFuelConsumption.FromKilogramsPerKiloNewtonSecond(OasysUnits.QuantityValue)" />
-        public static SpecificFuelConsumption KilogramsPerKiloNewtonSecond<T>(this T value) =>
-            SpecificFuelConsumption.FromKilogramsPerKiloNewtonSecond(Convert.ToDouble(value));
+        /// <inheritdoc cref="SpecificFuelConsumption.FromKilogramsPerKiloNewtonSecond(double)" />
+        public static SpecificFuelConsumption KilogramsPerKiloNewtonSecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => SpecificFuelConsumption.FromKilogramsPerKiloNewtonSecond(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="SpecificFuelConsumption.FromPoundsMassPerPoundForceHour(OasysUnits.QuantityValue)" />
-        public static SpecificFuelConsumption PoundsMassPerPoundForceHour<T>(this T value) =>
-            SpecificFuelConsumption.FromPoundsMassPerPoundForceHour(Convert.ToDouble(value));
+        /// <inheritdoc cref="SpecificFuelConsumption.FromPoundsMassPerPoundForceHour(double)" />
+        public static SpecificFuelConsumption PoundsMassPerPoundForceHour<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => SpecificFuelConsumption.FromPoundsMassPerPoundForceHour(Convert.ToDouble(value));
 
     }
 }

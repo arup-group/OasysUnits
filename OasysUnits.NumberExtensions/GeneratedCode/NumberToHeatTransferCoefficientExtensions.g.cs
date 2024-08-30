@@ -6,7 +6,7 @@
 //     The build server regenerates the code before each build and a pre-build
 //     step will regenerate the code on each local build.
 //
-//     See https://github.com/angularsen/UnitsNet/wiki/Adding-a-New-Unit for how to add or edit units.
+//     See https://github.com/angularsen/OasysUnits/wiki/Adding-a-New-Unit for how to add or edit units.
 //
 //     Add CustomCode\Quantities\MyQuantity.extra.cs files to add code to generated quantities.
 //     Add UnitDefinitions\MyQuantity.json and run generate-code.bat to generate new units or quantities.
@@ -15,9 +15,13 @@
 //------------------------------------------------------------------------------
 
 // Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using System;
+
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
 
 #nullable enable
 
@@ -28,30 +32,45 @@ namespace OasysUnits.NumberExtensions.NumberToHeatTransferCoefficient
     /// </summary>
     public static class NumberToHeatTransferCoefficientExtensions
     {
-        /// <inheritdoc cref="HeatTransferCoefficient.FromBtusPerHourSquareFootDegreeFahrenheit(OasysUnits.QuantityValue)" />
-        public static HeatTransferCoefficient BtusPerHourSquareFootDegreeFahrenheit<T>(this T value) =>
-            HeatTransferCoefficient.FromBtusPerHourSquareFootDegreeFahrenheit(Convert.ToDouble(value));
+        /// <inheritdoc cref="HeatTransferCoefficient.FromBtusPerHourSquareFootDegreeFahrenheit(double)" />
+        public static HeatTransferCoefficient BtusPerHourSquareFootDegreeFahrenheit<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => HeatTransferCoefficient.FromBtusPerHourSquareFootDegreeFahrenheit(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="HeatTransferCoefficient.FromBtusPerSquareFootDegreeFahrenheit(OasysUnits.QuantityValue)" />
-        [Obsolete("The name of this definition incorrectly omitted time as divisor, please use BtuPerHourSquareFootDegreeFahrenheit instead")]
-        public static HeatTransferCoefficient BtusPerSquareFootDegreeFahrenheit<T>(this T value) =>
-            HeatTransferCoefficient.FromBtusPerSquareFootDegreeFahrenheit(Convert.ToDouble(value));
+        /// <inheritdoc cref="HeatTransferCoefficient.FromCaloriesPerHourSquareMeterDegreeCelsius(double)" />
+        public static HeatTransferCoefficient CaloriesPerHourSquareMeterDegreeCelsius<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => HeatTransferCoefficient.FromCaloriesPerHourSquareMeterDegreeCelsius(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="HeatTransferCoefficient.FromCaloriesPerHourSquareMeterDegreeCelsius(OasysUnits.QuantityValue)" />
-        public static HeatTransferCoefficient CaloriesPerHourSquareMeterDegreeCelsius<T>(this T value) =>
-            HeatTransferCoefficient.FromCaloriesPerHourSquareMeterDegreeCelsius(Convert.ToDouble(value));
+        /// <inheritdoc cref="HeatTransferCoefficient.FromKilocaloriesPerHourSquareMeterDegreeCelsius(double)" />
+        public static HeatTransferCoefficient KilocaloriesPerHourSquareMeterDegreeCelsius<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => HeatTransferCoefficient.FromKilocaloriesPerHourSquareMeterDegreeCelsius(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="HeatTransferCoefficient.FromKilocaloriesPerHourSquareMeterDegreeCelsius(OasysUnits.QuantityValue)" />
-        public static HeatTransferCoefficient KilocaloriesPerHourSquareMeterDegreeCelsius<T>(this T value) =>
-            HeatTransferCoefficient.FromKilocaloriesPerHourSquareMeterDegreeCelsius(Convert.ToDouble(value));
+        /// <inheritdoc cref="HeatTransferCoefficient.FromWattsPerSquareMeterCelsius(double)" />
+        public static HeatTransferCoefficient WattsPerSquareMeterCelsius<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => HeatTransferCoefficient.FromWattsPerSquareMeterCelsius(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="HeatTransferCoefficient.FromWattsPerSquareMeterCelsius(OasysUnits.QuantityValue)" />
-        public static HeatTransferCoefficient WattsPerSquareMeterCelsius<T>(this T value) =>
-            HeatTransferCoefficient.FromWattsPerSquareMeterCelsius(Convert.ToDouble(value));
-
-        /// <inheritdoc cref="HeatTransferCoefficient.FromWattsPerSquareMeterKelvin(OasysUnits.QuantityValue)" />
-        public static HeatTransferCoefficient WattsPerSquareMeterKelvin<T>(this T value) =>
-            HeatTransferCoefficient.FromWattsPerSquareMeterKelvin(Convert.ToDouble(value));
+        /// <inheritdoc cref="HeatTransferCoefficient.FromWattsPerSquareMeterKelvin(double)" />
+        public static HeatTransferCoefficient WattsPerSquareMeterKelvin<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => HeatTransferCoefficient.FromWattsPerSquareMeterKelvin(Convert.ToDouble(value));
 
     }
 }

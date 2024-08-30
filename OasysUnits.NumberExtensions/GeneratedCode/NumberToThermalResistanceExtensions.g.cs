@@ -6,7 +6,7 @@
 //     The build server regenerates the code before each build and a pre-build
 //     step will regenerate the code on each local build.
 //
-//     See https://github.com/angularsen/UnitsNet/wiki/Adding-a-New-Unit for how to add or edit units.
+//     See https://github.com/angularsen/OasysUnits/wiki/Adding-a-New-Unit for how to add or edit units.
 //
 //     Add CustomCode\Quantities\MyQuantity.extra.cs files to add code to generated quantities.
 //     Add UnitDefinitions\MyQuantity.json and run generate-code.bat to generate new units or quantities.
@@ -15,9 +15,13 @@
 //------------------------------------------------------------------------------
 
 // Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using System;
+
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
 
 #nullable enable
 
@@ -28,29 +32,53 @@ namespace OasysUnits.NumberExtensions.NumberToThermalResistance
     /// </summary>
     public static class NumberToThermalResistanceExtensions
     {
-        /// <inheritdoc cref="ThermalResistance.FromHourSquareFeetDegreesFahrenheitPerBtu(OasysUnits.QuantityValue)" />
-        public static ThermalResistance HourSquareFeetDegreesFahrenheitPerBtu<T>(this T value) =>
-            ThermalResistance.FromHourSquareFeetDegreesFahrenheitPerBtu(Convert.ToDouble(value));
+        /// <inheritdoc cref="ThermalResistance.FromHourSquareFeetDegreesFahrenheitPerBtu(double)" />
+        public static ThermalResistance HourSquareFeetDegreesFahrenheitPerBtu<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ThermalResistance.FromHourSquareFeetDegreesFahrenheitPerBtu(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="ThermalResistance.FromSquareCentimeterHourDegreesCelsiusPerKilocalorie(OasysUnits.QuantityValue)" />
-        public static ThermalResistance SquareCentimeterHourDegreesCelsiusPerKilocalorie<T>(this T value) =>
-            ThermalResistance.FromSquareCentimeterHourDegreesCelsiusPerKilocalorie(Convert.ToDouble(value));
+        /// <inheritdoc cref="ThermalResistance.FromSquareCentimeterHourDegreesCelsiusPerKilocalorie(double)" />
+        public static ThermalResistance SquareCentimeterHourDegreesCelsiusPerKilocalorie<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ThermalResistance.FromSquareCentimeterHourDegreesCelsiusPerKilocalorie(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="ThermalResistance.FromSquareCentimeterKelvinsPerWatt(OasysUnits.QuantityValue)" />
-        public static ThermalResistance SquareCentimeterKelvinsPerWatt<T>(this T value) =>
-            ThermalResistance.FromSquareCentimeterKelvinsPerWatt(Convert.ToDouble(value));
+        /// <inheritdoc cref="ThermalResistance.FromSquareCentimeterKelvinsPerWatt(double)" />
+        public static ThermalResistance SquareCentimeterKelvinsPerWatt<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ThermalResistance.FromSquareCentimeterKelvinsPerWatt(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="ThermalResistance.FromSquareMeterDegreesCelsiusPerWatt(OasysUnits.QuantityValue)" />
-        public static ThermalResistance SquareMeterDegreesCelsiusPerWatt<T>(this T value) =>
-            ThermalResistance.FromSquareMeterDegreesCelsiusPerWatt(Convert.ToDouble(value));
+        /// <inheritdoc cref="ThermalResistance.FromSquareMeterDegreesCelsiusPerWatt(double)" />
+        public static ThermalResistance SquareMeterDegreesCelsiusPerWatt<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ThermalResistance.FromSquareMeterDegreesCelsiusPerWatt(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="ThermalResistance.FromSquareMeterKelvinsPerKilowatt(OasysUnits.QuantityValue)" />
-        public static ThermalResistance SquareMeterKelvinsPerKilowatt<T>(this T value) =>
-            ThermalResistance.FromSquareMeterKelvinsPerKilowatt(Convert.ToDouble(value));
+        /// <inheritdoc cref="ThermalResistance.FromSquareMeterKelvinsPerKilowatt(double)" />
+        public static ThermalResistance SquareMeterKelvinsPerKilowatt<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ThermalResistance.FromSquareMeterKelvinsPerKilowatt(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="ThermalResistance.FromSquareMeterKelvinsPerWatt(OasysUnits.QuantityValue)" />
-        public static ThermalResistance SquareMeterKelvinsPerWatt<T>(this T value) =>
-            ThermalResistance.FromSquareMeterKelvinsPerWatt(Convert.ToDouble(value));
+        /// <inheritdoc cref="ThermalResistance.FromSquareMeterKelvinsPerWatt(double)" />
+        public static ThermalResistance SquareMeterKelvinsPerWatt<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ThermalResistance.FromSquareMeterKelvinsPerWatt(Convert.ToDouble(value));
 
     }
 }

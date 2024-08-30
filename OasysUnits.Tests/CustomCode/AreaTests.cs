@@ -1,5 +1,5 @@
 ﻿// Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using OasysUnits.Units;
 using Xunit;
@@ -43,6 +43,13 @@ namespace OasysUnits.Tests
         {
             Length length = Area.FromSquareMeters(50)/Length.FromMeters(5);
             Assert.Equal(length, Length.FromMeters(10));
+        }
+
+        [Fact]
+        public void AreaDividedByVolumeEqualsReciprocalLength()
+        {
+            ReciprocalLength reciprocalLength = Area.FromSquareMeters(50) / Volume.FromCubicMeters(5);
+            Assert.Equal(reciprocalLength, ReciprocalLength.FromInverseMeters(10));
         }
 
         [Fact]

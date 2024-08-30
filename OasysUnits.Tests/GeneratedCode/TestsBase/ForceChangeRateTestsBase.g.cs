@@ -6,7 +6,7 @@
 //     The build server regenerates the code before each build and a pre-build
 //     step will regenerate the code on each local build.
 //
-//     See https://github.com/angularsen/UnitsNet/wiki/Adding-a-New-Unit for how to add or edit units.
+//     See https://github.com/angularsen/OasysUnits/wiki/Adding-a-New-Unit for how to add or edit units.
 //
 //     Add CustomCode\Quantities\MyQuantity.extra.cs files to add code to generated quantities.
 //     Add UnitDefinitions\MyQuantity.json and run generate-code.bat to generate new units or quantities.
@@ -15,7 +15,7 @@
 //------------------------------------------------------------------------------
 
 // Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using System;
 using System.Collections.Generic;
@@ -123,16 +123,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void Ctor_WithInfinityValue_ThrowsArgumentException()
+        public void Ctor_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new ForceChangeRate(double.PositiveInfinity, ForceChangeRateUnit.NewtonPerSecond));
-            Assert.Throws<ArgumentException>(() => new ForceChangeRate(double.NegativeInfinity, ForceChangeRateUnit.NewtonPerSecond));
+            var exception1 = Record.Exception(() => new ForceChangeRate(double.PositiveInfinity, ForceChangeRateUnit.NewtonPerSecond));
+            var exception2 = Record.Exception(() => new ForceChangeRate(double.NegativeInfinity, ForceChangeRateUnit.NewtonPerSecond));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void Ctor_WithNaNValue_ThrowsArgumentException()
+        public void Ctor_WithNaNValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new ForceChangeRate(double.NaN, ForceChangeRateUnit.NewtonPerSecond));
+            var exception = Record.Exception(() => new ForceChangeRate(double.NaN, ForceChangeRateUnit.NewtonPerSecond));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -257,16 +262,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void FromNewtonsPerSecond_WithInfinityValue_ThrowsArgumentException()
+        public void FromNewtonsPerSecond_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => ForceChangeRate.FromNewtonsPerSecond(double.PositiveInfinity));
-            Assert.Throws<ArgumentException>(() => ForceChangeRate.FromNewtonsPerSecond(double.NegativeInfinity));
+            var exception1 = Record.Exception(() => ForceChangeRate.FromNewtonsPerSecond(double.PositiveInfinity));
+            var exception2 = Record.Exception(() => ForceChangeRate.FromNewtonsPerSecond(double.NegativeInfinity));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void FromNewtonsPerSecond_WithNanValue_ThrowsArgumentException()
+        public void FromNewtonsPerSecond_WithNanValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => ForceChangeRate.FromNewtonsPerSecond(double.NaN));
+            var exception = Record.Exception(() => ForceChangeRate.FromNewtonsPerSecond(double.NaN));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -946,6 +956,8 @@ namespace OasysUnits.Tests
             var v = ForceChangeRate.FromNewtonsPerSecond(1);
             Assert.True(v.Equals(ForceChangeRate.FromNewtonsPerSecond(1), NewtonsPerSecondTolerance, ComparisonType.Relative));
             Assert.False(v.Equals(ForceChangeRate.Zero, NewtonsPerSecondTolerance, ComparisonType.Relative));
+            Assert.True(ForceChangeRate.FromNewtonsPerSecond(100).Equals(ForceChangeRate.FromNewtonsPerSecond(120), 0.3, ComparisonType.Relative));
+            Assert.False(ForceChangeRate.FromNewtonsPerSecond(100).Equals(ForceChangeRate.FromNewtonsPerSecond(120), 0.1, ComparisonType.Relative));
         }
 
         [Fact]

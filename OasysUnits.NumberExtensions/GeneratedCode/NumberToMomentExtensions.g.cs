@@ -6,7 +6,7 @@
 //     The build server regenerates the code before each build and a pre-build
 //     step will regenerate the code on each local build.
 //
-//     See https://github.com/angularsen/UnitsNet/wiki/Adding-a-New-Unit for how to add or edit units.
+//     See https://github.com/angularsen/OasysUnits/wiki/Adding-a-New-Unit for how to add or edit units.
 //
 //     Add CustomCode\Quantities\MyQuantity.extra.cs files to add code to generated quantities.
 //     Add UnitDefinitions\MyQuantity.json and run generate-code.bat to generate new units or quantities.
@@ -15,9 +15,13 @@
 //------------------------------------------------------------------------------
 
 // Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using System;
+
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
 
 #nullable enable
 
@@ -28,93 +32,181 @@ namespace OasysUnits.NumberExtensions.NumberToMoment
     /// </summary>
     public static class NumberToMomentExtensions
     {
-        /// <inheritdoc cref="Moment.FromKilogramForceCentimeters(OasysUnits.QuantityValue)" />
-        public static Moment KilogramForceCentimeters<T>(this T value) =>
-            Moment.FromKilogramForceCentimeters(Convert.ToDouble(value));
+        /// <inheritdoc cref="Moment.FromKilogramForceCentimeters(double)" />
+        public static Moment KilogramForceCentimeters<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Moment.FromKilogramForceCentimeters(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Moment.FromKilogramForceMeters(OasysUnits.QuantityValue)" />
-        public static Moment KilogramForceMeters<T>(this T value) =>
-            Moment.FromKilogramForceMeters(Convert.ToDouble(value));
+        /// <inheritdoc cref="Moment.FromKilogramForceMeters(double)" />
+        public static Moment KilogramForceMeters<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Moment.FromKilogramForceMeters(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Moment.FromKilogramForceMillimeters(OasysUnits.QuantityValue)" />
-        public static Moment KilogramForceMillimeters<T>(this T value) =>
-            Moment.FromKilogramForceMillimeters(Convert.ToDouble(value));
+        /// <inheritdoc cref="Moment.FromKilogramForceMillimeters(double)" />
+        public static Moment KilogramForceMillimeters<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Moment.FromKilogramForceMillimeters(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Moment.FromKilonewtonCentimeters(OasysUnits.QuantityValue)" />
-        public static Moment KilonewtonCentimeters<T>(this T value) =>
-            Moment.FromKilonewtonCentimeters(Convert.ToDouble(value));
+        /// <inheritdoc cref="Moment.FromKilonewtonCentimeters(double)" />
+        public static Moment KilonewtonCentimeters<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Moment.FromKilonewtonCentimeters(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Moment.FromKilonewtonMeters(OasysUnits.QuantityValue)" />
-        public static Moment KilonewtonMeters<T>(this T value) =>
-            Moment.FromKilonewtonMeters(Convert.ToDouble(value));
+        /// <inheritdoc cref="Moment.FromKilonewtonMeters(double)" />
+        public static Moment KilonewtonMeters<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Moment.FromKilonewtonMeters(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Moment.FromKilonewtonMillimeters(OasysUnits.QuantityValue)" />
-        public static Moment KilonewtonMillimeters<T>(this T value) =>
-            Moment.FromKilonewtonMillimeters(Convert.ToDouble(value));
+        /// <inheritdoc cref="Moment.FromKilonewtonMillimeters(double)" />
+        public static Moment KilonewtonMillimeters<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Moment.FromKilonewtonMillimeters(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Moment.FromKilopoundForceFeet(OasysUnits.QuantityValue)" />
-        public static Moment KilopoundForceFeet<T>(this T value) =>
-            Moment.FromKilopoundForceFeet(Convert.ToDouble(value));
+        /// <inheritdoc cref="Moment.FromKilopoundForceFeet(double)" />
+        public static Moment KilopoundForceFeet<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Moment.FromKilopoundForceFeet(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Moment.FromKilopoundForceInches(OasysUnits.QuantityValue)" />
-        public static Moment KilopoundForceInches<T>(this T value) =>
-            Moment.FromKilopoundForceInches(Convert.ToDouble(value));
+        /// <inheritdoc cref="Moment.FromKilopoundForceInches(double)" />
+        public static Moment KilopoundForceInches<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Moment.FromKilopoundForceInches(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Moment.FromMeganewtonCentimeters(OasysUnits.QuantityValue)" />
-        public static Moment MeganewtonCentimeters<T>(this T value) =>
-            Moment.FromMeganewtonCentimeters(Convert.ToDouble(value));
+        /// <inheritdoc cref="Moment.FromMeganewtonCentimeters(double)" />
+        public static Moment MeganewtonCentimeters<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Moment.FromMeganewtonCentimeters(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Moment.FromMeganewtonMeters(OasysUnits.QuantityValue)" />
-        public static Moment MeganewtonMeters<T>(this T value) =>
-            Moment.FromMeganewtonMeters(Convert.ToDouble(value));
+        /// <inheritdoc cref="Moment.FromMeganewtonMeters(double)" />
+        public static Moment MeganewtonMeters<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Moment.FromMeganewtonMeters(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Moment.FromMeganewtonMillimeters(OasysUnits.QuantityValue)" />
-        public static Moment MeganewtonMillimeters<T>(this T value) =>
-            Moment.FromMeganewtonMillimeters(Convert.ToDouble(value));
+        /// <inheritdoc cref="Moment.FromMeganewtonMillimeters(double)" />
+        public static Moment MeganewtonMillimeters<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Moment.FromMeganewtonMillimeters(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Moment.FromMegapoundForceFeet(OasysUnits.QuantityValue)" />
-        public static Moment MegapoundForceFeet<T>(this T value) =>
-            Moment.FromMegapoundForceFeet(Convert.ToDouble(value));
+        /// <inheritdoc cref="Moment.FromMegapoundForceFeet(double)" />
+        public static Moment MegapoundForceFeet<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Moment.FromMegapoundForceFeet(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Moment.FromMegapoundForceInches(OasysUnits.QuantityValue)" />
-        public static Moment MegapoundForceInches<T>(this T value) =>
-            Moment.FromMegapoundForceInches(Convert.ToDouble(value));
+        /// <inheritdoc cref="Moment.FromMegapoundForceInches(double)" />
+        public static Moment MegapoundForceInches<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Moment.FromMegapoundForceInches(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Moment.FromNewtonCentimeters(OasysUnits.QuantityValue)" />
-        public static Moment NewtonCentimeters<T>(this T value) =>
-            Moment.FromNewtonCentimeters(Convert.ToDouble(value));
+        /// <inheritdoc cref="Moment.FromNewtonCentimeters(double)" />
+        public static Moment NewtonCentimeters<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Moment.FromNewtonCentimeters(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Moment.FromNewtonMeters(OasysUnits.QuantityValue)" />
-        public static Moment NewtonMeters<T>(this T value) =>
-            Moment.FromNewtonMeters(Convert.ToDouble(value));
+        /// <inheritdoc cref="Moment.FromNewtonMeters(double)" />
+        public static Moment NewtonMeters<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Moment.FromNewtonMeters(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Moment.FromNewtonMillimeters(OasysUnits.QuantityValue)" />
-        public static Moment NewtonMillimeters<T>(this T value) =>
-            Moment.FromNewtonMillimeters(Convert.ToDouble(value));
+        /// <inheritdoc cref="Moment.FromNewtonMillimeters(double)" />
+        public static Moment NewtonMillimeters<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Moment.FromNewtonMillimeters(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Moment.FromPoundalFeet(OasysUnits.QuantityValue)" />
-        public static Moment PoundalFeet<T>(this T value) =>
-            Moment.FromPoundalFeet(Convert.ToDouble(value));
+        /// <inheritdoc cref="Moment.FromPoundalFeet(double)" />
+        public static Moment PoundalFeet<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Moment.FromPoundalFeet(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Moment.FromPoundForceFeet(OasysUnits.QuantityValue)" />
-        public static Moment PoundForceFeet<T>(this T value) =>
-            Moment.FromPoundForceFeet(Convert.ToDouble(value));
+        /// <inheritdoc cref="Moment.FromPoundForceFeet(double)" />
+        public static Moment PoundForceFeet<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Moment.FromPoundForceFeet(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Moment.FromPoundForceInches(OasysUnits.QuantityValue)" />
-        public static Moment PoundForceInches<T>(this T value) =>
-            Moment.FromPoundForceInches(Convert.ToDouble(value));
+        /// <inheritdoc cref="Moment.FromPoundForceInches(double)" />
+        public static Moment PoundForceInches<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Moment.FromPoundForceInches(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Moment.FromTonneForceCentimeters(OasysUnits.QuantityValue)" />
-        public static Moment TonneForceCentimeters<T>(this T value) =>
-            Moment.FromTonneForceCentimeters(Convert.ToDouble(value));
+        /// <inheritdoc cref="Moment.FromTonneForceCentimeters(double)" />
+        public static Moment TonneForceCentimeters<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Moment.FromTonneForceCentimeters(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Moment.FromTonneForceMeters(OasysUnits.QuantityValue)" />
-        public static Moment TonneForceMeters<T>(this T value) =>
-            Moment.FromTonneForceMeters(Convert.ToDouble(value));
+        /// <inheritdoc cref="Moment.FromTonneForceMeters(double)" />
+        public static Moment TonneForceMeters<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Moment.FromTonneForceMeters(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Moment.FromTonneForceMillimeters(OasysUnits.QuantityValue)" />
-        public static Moment TonneForceMillimeters<T>(this T value) =>
-            Moment.FromTonneForceMillimeters(Convert.ToDouble(value));
+        /// <inheritdoc cref="Moment.FromTonneForceMillimeters(double)" />
+        public static Moment TonneForceMillimeters<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Moment.FromTonneForceMillimeters(Convert.ToDouble(value));
 
     }
 }

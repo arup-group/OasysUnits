@@ -6,7 +6,7 @@
 //     The build server regenerates the code before each build and a pre-build
 //     step will regenerate the code on each local build.
 //
-//     See https://github.com/angularsen/UnitsNet/wiki/Adding-a-New-Unit for how to add or edit units.
+//     See https://github.com/angularsen/OasysUnits/wiki/Adding-a-New-Unit for how to add or edit units.
 //
 //     Add CustomCode\Quantities\MyQuantity.extra.cs files to add code to generated quantities.
 //     Add UnitDefinitions\MyQuantity.json and run generate-code.bat to generate new units or quantities.
@@ -15,7 +15,7 @@
 //------------------------------------------------------------------------------
 
 // Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using OasysUnits.NumberExtensions.NumberToEnergy;
 using Xunit;
@@ -133,8 +133,16 @@ namespace OasysUnits.Tests
             Assert.Equal(Energy.FromMegawattHours(2), 2.MegawattHours());
 
         [Fact]
+        public void NumberToMicrojoulesTest() =>
+            Assert.Equal(Energy.FromMicrojoules(2), 2.Microjoules());
+
+        [Fact]
         public void NumberToMillijoulesTest() =>
             Assert.Equal(Energy.FromMillijoules(2), 2.Millijoules());
+
+        [Fact]
+        public void NumberToNanojoulesTest() =>
+            Assert.Equal(Energy.FromNanojoules(2), 2.Nanojoules());
 
         [Fact]
         public void NumberToPetajoulesTest() =>

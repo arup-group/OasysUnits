@@ -1,5 +1,5 @@
 ﻿// Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using System;
 using System.Globalization;
@@ -72,8 +72,8 @@ namespace OasysUnits.Tests
         [InlineData("m^3", typeof(VolumeUnit), VolumeUnit.CubicMeter)]
         [InlineData("m⁴", typeof(AreaMomentOfInertiaUnit), AreaMomentOfInertiaUnit.MeterToTheFourth)]
         [InlineData("m^4", typeof(AreaMomentOfInertiaUnit), AreaMomentOfInertiaUnit.MeterToTheFourth)]
-        [InlineData("K⁻¹", typeof(CoefficientOfThermalExpansionUnit), CoefficientOfThermalExpansionUnit.InverseKelvin)]
-        [InlineData("K^-1", typeof(CoefficientOfThermalExpansionUnit), CoefficientOfThermalExpansionUnit.InverseKelvin)]
+        [InlineData("K⁻¹", typeof(CoefficientOfThermalExpansionUnit), CoefficientOfThermalExpansionUnit.PerKelvin)]
+        [InlineData("K^-1", typeof(CoefficientOfThermalExpansionUnit), CoefficientOfThermalExpansionUnit.PerKelvin)]
         [InlineData("kg·s⁻¹·m⁻²", typeof(MassFluxUnit), MassFluxUnit.KilogramPerSecondPerSquareMeter)]
         [InlineData("kg·s^-1·m^-2", typeof(MassFluxUnit), MassFluxUnit.KilogramPerSecondPerSquareMeter)]
         public void Parse_CanParseUnitsWithPowers(string unitAbbreviation, Type unitType, Enum resultUnitType)
@@ -107,7 +107,7 @@ namespace OasysUnits.Tests
             var exception1 = Assert.Throws<AmbiguousUnitParseException>(() => UnitParser.Default.Parse<LengthUnit>("pt"));
 
             // Act 2
-            var exception2 = Assert.Throws<AmbiguousUnitParseException>(() => Length.Parse("1 pt"));
+            var exception2 = Assert.Throws<AmbiguousUnitParseException>(() => Length.Parse("1 pt", CultureInfo.InvariantCulture));
 
             // Assert
             Assert.Equal("Cannot parse \"pt\" since it could be either of these: DtpPoint, PrinterPoint", exception1.Message);
@@ -123,7 +123,7 @@ namespace OasysUnits.Tests
         [InlineData("кг", "ru-RU", MassUnit.Kilogram)]
         public void ParseMassUnit_GivenCulture(string str, string cultureName, Enum expectedUnit)
         {
-            Assert.Equal(expectedUnit, UnitParser.Default.Parse<MassUnit>(str, new CultureInfo(cultureName)));
+            Assert.Equal(expectedUnit, UnitParser.Default.Parse<MassUnit>(str, CultureInfo.GetCultureInfo(cultureName)));
         }
 
         [Fact]

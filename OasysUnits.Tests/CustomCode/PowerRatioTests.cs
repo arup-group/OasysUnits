@@ -1,5 +1,5 @@
 ﻿// Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using System;
 using Xunit;
@@ -46,7 +46,6 @@ namespace OasysUnits.Tests
         }
 
         [Theory]
-        // Note: Attribute arguments cannot be of type decimal.
         [InlineData(-20, 0.01)]
         [InlineData(-10, 0.1)]
         [InlineData(0, 1)]
@@ -55,8 +54,8 @@ namespace OasysUnits.Tests
         public void ExpectPowerRatioConvertedCorrectly(double powerRatio, double expected)
         {
             PowerRatio pr = PowerRatio.FromDecibelWatts(powerRatio);
-            decimal actual = pr.ToPower().Watts;
-            Assert.Equal((decimal)expected, actual);
+            var actual = pr.ToPower().Watts;
+            Assert.Equal(expected, actual);
         }
 
         // http://www.maximintegrated.com/en/app-notes/index.mvp/id/808

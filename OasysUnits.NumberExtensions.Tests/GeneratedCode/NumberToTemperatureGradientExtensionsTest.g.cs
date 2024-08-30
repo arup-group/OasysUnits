@@ -6,7 +6,7 @@
 //     The build server regenerates the code before each build and a pre-build
 //     step will regenerate the code on each local build.
 //
-//     See https://github.com/angularsen/UnitsNet/wiki/Adding-a-New-Unit for how to add or edit units.
+//     See https://github.com/angularsen/OasysUnits/wiki/Adding-a-New-Unit for how to add or edit units.
 //
 //     Add CustomCode\Quantities\MyQuantity.extra.cs files to add code to generated quantities.
 //     Add UnitDefinitions\MyQuantity.json and run generate-code.bat to generate new units or quantities.
@@ -15,7 +15,7 @@
 //------------------------------------------------------------------------------
 
 // Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using OasysUnits.NumberExtensions.NumberToTemperatureGradient;
 using Xunit;
@@ -25,12 +25,12 @@ namespace OasysUnits.Tests
     public class NumberToTemperatureGradientExtensionsTests
     {
         [Fact]
-        public void NumberToDegreesCelciusPerKilometerTest() =>
-            Assert.Equal(TemperatureGradient.FromDegreesCelciusPerKilometer(2), 2.DegreesCelciusPerKilometer());
+        public void NumberToDegreesCelsiusPerKilometerTest() =>
+            Assert.Equal(TemperatureGradient.FromDegreesCelsiusPerKilometer(2), 2.DegreesCelsiusPerKilometer());
 
         [Fact]
-        public void NumberToDegreesCelciusPerMeterTest() =>
-            Assert.Equal(TemperatureGradient.FromDegreesCelciusPerMeter(2), 2.DegreesCelciusPerMeter());
+        public void NumberToDegreesCelsiusPerMeterTest() =>
+            Assert.Equal(TemperatureGradient.FromDegreesCelsiusPerMeter(2), 2.DegreesCelsiusPerMeter());
 
         [Fact]
         public void NumberToDegreesFahrenheitPerFootTest() =>

@@ -6,7 +6,7 @@
 //     The build server regenerates the code before each build and a pre-build
 //     step will regenerate the code on each local build.
 //
-//     See https://github.com/angularsen/UnitsNet/wiki/Adding-a-New-Unit for how to add or edit units.
+//     See https://github.com/angularsen/OasysUnits/wiki/Adding-a-New-Unit for how to add or edit units.
 //
 //     Add CustomCode\Quantities\MyQuantity.extra.cs files to add code to generated quantities.
 //     Add UnitDefinitions\MyQuantity.json and run generate-code.bat to generate new units or quantities.
@@ -15,7 +15,7 @@
 //------------------------------------------------------------------------------
 
 // Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using System;
 using System.Collections.Generic;
@@ -159,16 +159,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void Ctor_WithInfinityValue_ThrowsArgumentException()
+        public void Ctor_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new MassFraction(double.PositiveInfinity, MassFractionUnit.DecimalFraction));
-            Assert.Throws<ArgumentException>(() => new MassFraction(double.NegativeInfinity, MassFractionUnit.DecimalFraction));
+            var exception1 = Record.Exception(() => new MassFraction(double.PositiveInfinity, MassFractionUnit.DecimalFraction));
+            var exception2 = Record.Exception(() => new MassFraction(double.NegativeInfinity, MassFractionUnit.DecimalFraction));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void Ctor_WithNaNValue_ThrowsArgumentException()
+        public void Ctor_WithNaNValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new MassFraction(double.NaN, MassFractionUnit.DecimalFraction));
+            var exception = Record.Exception(() => new MassFraction(double.NaN, MassFractionUnit.DecimalFraction));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -338,16 +343,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void FromDecimalFractions_WithInfinityValue_ThrowsArgumentException()
+        public void FromDecimalFractions_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => MassFraction.FromDecimalFractions(double.PositiveInfinity));
-            Assert.Throws<ArgumentException>(() => MassFraction.FromDecimalFractions(double.NegativeInfinity));
+            var exception1 = Record.Exception(() => MassFraction.FromDecimalFractions(double.PositiveInfinity));
+            var exception2 = Record.Exception(() => MassFraction.FromDecimalFractions(double.NegativeInfinity));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void FromDecimalFractions_WithNanValue_ThrowsArgumentException()
+        public void FromDecimalFractions_WithNanValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => MassFraction.FromDecimalFractions(double.NaN));
+            var exception = Record.Exception(() => MassFraction.FromDecimalFractions(double.NaN));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -1189,6 +1199,8 @@ namespace OasysUnits.Tests
             var v = MassFraction.FromDecimalFractions(1);
             Assert.True(v.Equals(MassFraction.FromDecimalFractions(1), DecimalFractionsTolerance, ComparisonType.Relative));
             Assert.False(v.Equals(MassFraction.Zero, DecimalFractionsTolerance, ComparisonType.Relative));
+            Assert.True(MassFraction.FromDecimalFractions(100).Equals(MassFraction.FromDecimalFractions(120), 0.3, ComparisonType.Relative));
+            Assert.False(MassFraction.FromDecimalFractions(100).Equals(MassFraction.FromDecimalFractions(120), 0.1, ComparisonType.Relative));
         }
 
         [Fact]

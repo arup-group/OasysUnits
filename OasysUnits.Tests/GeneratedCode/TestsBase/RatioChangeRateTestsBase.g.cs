@@ -6,7 +6,7 @@
 //     The build server regenerates the code before each build and a pre-build
 //     step will regenerate the code on each local build.
 //
-//     See https://github.com/angularsen/UnitsNet/wiki/Adding-a-New-Unit for how to add or edit units.
+//     See https://github.com/angularsen/OasysUnits/wiki/Adding-a-New-Unit for how to add or edit units.
 //
 //     Add CustomCode\Quantities\MyQuantity.extra.cs files to add code to generated quantities.
 //     Add UnitDefinitions\MyQuantity.json and run generate-code.bat to generate new units or quantities.
@@ -15,7 +15,7 @@
 //------------------------------------------------------------------------------
 
 // Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using System;
 using System.Collections.Generic;
@@ -71,16 +71,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void Ctor_WithInfinityValue_ThrowsArgumentException()
+        public void Ctor_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new RatioChangeRate(double.PositiveInfinity, RatioChangeRateUnit.DecimalFractionPerSecond));
-            Assert.Throws<ArgumentException>(() => new RatioChangeRate(double.NegativeInfinity, RatioChangeRateUnit.DecimalFractionPerSecond));
+            var exception1 = Record.Exception(() => new RatioChangeRate(double.PositiveInfinity, RatioChangeRateUnit.DecimalFractionPerSecond));
+            var exception2 = Record.Exception(() => new RatioChangeRate(double.NegativeInfinity, RatioChangeRateUnit.DecimalFractionPerSecond));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void Ctor_WithNaNValue_ThrowsArgumentException()
+        public void Ctor_WithNaNValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new RatioChangeRate(double.NaN, RatioChangeRateUnit.DecimalFractionPerSecond));
+            var exception = Record.Exception(() => new RatioChangeRate(double.NaN, RatioChangeRateUnit.DecimalFractionPerSecond));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -140,16 +145,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void FromDecimalFractionsPerSecond_WithInfinityValue_ThrowsArgumentException()
+        public void FromDecimalFractionsPerSecond_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => RatioChangeRate.FromDecimalFractionsPerSecond(double.PositiveInfinity));
-            Assert.Throws<ArgumentException>(() => RatioChangeRate.FromDecimalFractionsPerSecond(double.NegativeInfinity));
+            var exception1 = Record.Exception(() => RatioChangeRate.FromDecimalFractionsPerSecond(double.PositiveInfinity));
+            var exception2 = Record.Exception(() => RatioChangeRate.FromDecimalFractionsPerSecond(double.NegativeInfinity));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void FromDecimalFractionsPerSecond_WithNanValue_ThrowsArgumentException()
+        public void FromDecimalFractionsPerSecond_WithNanValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => RatioChangeRate.FromDecimalFractionsPerSecond(double.NaN));
+            var exception = Record.Exception(() => RatioChangeRate.FromDecimalFractionsPerSecond(double.NaN));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -395,6 +405,8 @@ namespace OasysUnits.Tests
             var v = RatioChangeRate.FromDecimalFractionsPerSecond(1);
             Assert.True(v.Equals(RatioChangeRate.FromDecimalFractionsPerSecond(1), DecimalFractionsPerSecondTolerance, ComparisonType.Relative));
             Assert.False(v.Equals(RatioChangeRate.Zero, DecimalFractionsPerSecondTolerance, ComparisonType.Relative));
+            Assert.True(RatioChangeRate.FromDecimalFractionsPerSecond(100).Equals(RatioChangeRate.FromDecimalFractionsPerSecond(120), 0.3, ComparisonType.Relative));
+            Assert.False(RatioChangeRate.FromDecimalFractionsPerSecond(100).Equals(RatioChangeRate.FromDecimalFractionsPerSecond(120), 0.1, ComparisonType.Relative));
         }
 
         [Fact]

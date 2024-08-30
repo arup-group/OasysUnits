@@ -90,20 +90,6 @@ namespace CodeGen.Generators
                 GenerateQuantity(quantity, Path.Combine(outputQuantities, $"{quantity.Name}.g.cs"));
                 GenerateProject(quantity, Path.Combine(projectPath, $"{quantity.Name}.nfproj"), versions);
 
-                // Convert decimal based units to floats; decimals are not supported by nanoFramework
-                if (quantity.ValueType == "decimal")
-                {
-                    var replacements = new Dictionary<string, string>
-                    {
-                        { "(\\d)m", "$1d" },
-                        { "(\\d)M", "$1d" },
-                        { " decimal ", " double " },
-                        { "(decimal ", "(double " }
-                    };
-                    new FileInfo(Path.Combine(outputDir, "Units", $"{quantity.Name}Unit.g.cs")).EditFile(replacements);
-                    new FileInfo(Path.Combine(outputDir, "Quantities", $"{quantity.Name}.g.cs")).EditFile(replacements);
-                }
-
                 Log.Information("✅ {Quantity} (nanoFramework)", quantity.Name);
             }
             Log.Information("");
@@ -137,7 +123,7 @@ namespace CodeGen.Generators
             {
                 StartInfo = new ProcessStartInfo
                 {
-                    FileName = Path.Combine(rootDir, "Tools/nuget.exe"),
+                    FileName = Path.Combine(rootDir, ".tools/nuget.exe"),
                     Arguments = $"restore {path}\\OasysUnits.nanoFramework.sln",
                     UseShellExecute = false,
                     CreateNoWindow = true,
@@ -188,7 +174,7 @@ namespace CodeGen.Generators
             {
                 StartInfo = new ProcessStartInfo
                 {
-                    FileName = Path.Combine(rootDir, "Tools/nuget.exe"),
+                    FileName = Path.Combine(rootDir, ".tools/NuGet.exe"),
                     Arguments = $"update {path}\\OasysUnits.nanoFramework.sln -PreRelease",
                     UseShellExecute = false,
                     CreateNoWindow = true,

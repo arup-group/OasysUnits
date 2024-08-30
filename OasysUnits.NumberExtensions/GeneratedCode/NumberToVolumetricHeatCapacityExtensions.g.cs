@@ -6,7 +6,7 @@
 //     The build server regenerates the code before each build and a pre-build
 //     step will regenerate the code on each local build.
 //
-//     See https://github.com/angularsen/UnitsNet/wiki/Adding-a-New-Unit for how to add or edit units.
+//     See https://github.com/angularsen/OasysUnits/wiki/Adding-a-New-Unit for how to add or edit units.
 //
 //     Add CustomCode\Quantities\MyQuantity.extra.cs files to add code to generated quantities.
 //     Add UnitDefinitions\MyQuantity.json and run generate-code.bat to generate new units or quantities.
@@ -15,9 +15,13 @@
 //------------------------------------------------------------------------------
 
 // Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using System;
+
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
 
 #nullable enable
 
@@ -28,41 +32,77 @@ namespace OasysUnits.NumberExtensions.NumberToVolumetricHeatCapacity
     /// </summary>
     public static class NumberToVolumetricHeatCapacityExtensions
     {
-        /// <inheritdoc cref="VolumetricHeatCapacity.FromBtusPerCubicFootDegreeFahrenheit(OasysUnits.QuantityValue)" />
-        public static VolumetricHeatCapacity BtusPerCubicFootDegreeFahrenheit<T>(this T value) =>
-            VolumetricHeatCapacity.FromBtusPerCubicFootDegreeFahrenheit(Convert.ToDouble(value));
+        /// <inheritdoc cref="VolumetricHeatCapacity.FromBtusPerCubicFootDegreeFahrenheit(double)" />
+        public static VolumetricHeatCapacity BtusPerCubicFootDegreeFahrenheit<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumetricHeatCapacity.FromBtusPerCubicFootDegreeFahrenheit(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="VolumetricHeatCapacity.FromCaloriesPerCubicCentimeterDegreeCelsius(OasysUnits.QuantityValue)" />
-        public static VolumetricHeatCapacity CaloriesPerCubicCentimeterDegreeCelsius<T>(this T value) =>
-            VolumetricHeatCapacity.FromCaloriesPerCubicCentimeterDegreeCelsius(Convert.ToDouble(value));
+        /// <inheritdoc cref="VolumetricHeatCapacity.FromCaloriesPerCubicCentimeterDegreeCelsius(double)" />
+        public static VolumetricHeatCapacity CaloriesPerCubicCentimeterDegreeCelsius<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumetricHeatCapacity.FromCaloriesPerCubicCentimeterDegreeCelsius(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="VolumetricHeatCapacity.FromJoulesPerCubicMeterDegreeCelsius(OasysUnits.QuantityValue)" />
-        public static VolumetricHeatCapacity JoulesPerCubicMeterDegreeCelsius<T>(this T value) =>
-            VolumetricHeatCapacity.FromJoulesPerCubicMeterDegreeCelsius(Convert.ToDouble(value));
+        /// <inheritdoc cref="VolumetricHeatCapacity.FromJoulesPerCubicMeterDegreeCelsius(double)" />
+        public static VolumetricHeatCapacity JoulesPerCubicMeterDegreeCelsius<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumetricHeatCapacity.FromJoulesPerCubicMeterDegreeCelsius(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="VolumetricHeatCapacity.FromJoulesPerCubicMeterKelvin(OasysUnits.QuantityValue)" />
-        public static VolumetricHeatCapacity JoulesPerCubicMeterKelvin<T>(this T value) =>
-            VolumetricHeatCapacity.FromJoulesPerCubicMeterKelvin(Convert.ToDouble(value));
+        /// <inheritdoc cref="VolumetricHeatCapacity.FromJoulesPerCubicMeterKelvin(double)" />
+        public static VolumetricHeatCapacity JoulesPerCubicMeterKelvin<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumetricHeatCapacity.FromJoulesPerCubicMeterKelvin(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="VolumetricHeatCapacity.FromKilocaloriesPerCubicCentimeterDegreeCelsius(OasysUnits.QuantityValue)" />
-        public static VolumetricHeatCapacity KilocaloriesPerCubicCentimeterDegreeCelsius<T>(this T value) =>
-            VolumetricHeatCapacity.FromKilocaloriesPerCubicCentimeterDegreeCelsius(Convert.ToDouble(value));
+        /// <inheritdoc cref="VolumetricHeatCapacity.FromKilocaloriesPerCubicCentimeterDegreeCelsius(double)" />
+        public static VolumetricHeatCapacity KilocaloriesPerCubicCentimeterDegreeCelsius<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumetricHeatCapacity.FromKilocaloriesPerCubicCentimeterDegreeCelsius(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="VolumetricHeatCapacity.FromKilojoulesPerCubicMeterDegreeCelsius(OasysUnits.QuantityValue)" />
-        public static VolumetricHeatCapacity KilojoulesPerCubicMeterDegreeCelsius<T>(this T value) =>
-            VolumetricHeatCapacity.FromKilojoulesPerCubicMeterDegreeCelsius(Convert.ToDouble(value));
+        /// <inheritdoc cref="VolumetricHeatCapacity.FromKilojoulesPerCubicMeterDegreeCelsius(double)" />
+        public static VolumetricHeatCapacity KilojoulesPerCubicMeterDegreeCelsius<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumetricHeatCapacity.FromKilojoulesPerCubicMeterDegreeCelsius(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="VolumetricHeatCapacity.FromKilojoulesPerCubicMeterKelvin(OasysUnits.QuantityValue)" />
-        public static VolumetricHeatCapacity KilojoulesPerCubicMeterKelvin<T>(this T value) =>
-            VolumetricHeatCapacity.FromKilojoulesPerCubicMeterKelvin(Convert.ToDouble(value));
+        /// <inheritdoc cref="VolumetricHeatCapacity.FromKilojoulesPerCubicMeterKelvin(double)" />
+        public static VolumetricHeatCapacity KilojoulesPerCubicMeterKelvin<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumetricHeatCapacity.FromKilojoulesPerCubicMeterKelvin(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="VolumetricHeatCapacity.FromMegajoulesPerCubicMeterDegreeCelsius(OasysUnits.QuantityValue)" />
-        public static VolumetricHeatCapacity MegajoulesPerCubicMeterDegreeCelsius<T>(this T value) =>
-            VolumetricHeatCapacity.FromMegajoulesPerCubicMeterDegreeCelsius(Convert.ToDouble(value));
+        /// <inheritdoc cref="VolumetricHeatCapacity.FromMegajoulesPerCubicMeterDegreeCelsius(double)" />
+        public static VolumetricHeatCapacity MegajoulesPerCubicMeterDegreeCelsius<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumetricHeatCapacity.FromMegajoulesPerCubicMeterDegreeCelsius(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="VolumetricHeatCapacity.FromMegajoulesPerCubicMeterKelvin(OasysUnits.QuantityValue)" />
-        public static VolumetricHeatCapacity MegajoulesPerCubicMeterKelvin<T>(this T value) =>
-            VolumetricHeatCapacity.FromMegajoulesPerCubicMeterKelvin(Convert.ToDouble(value));
+        /// <inheritdoc cref="VolumetricHeatCapacity.FromMegajoulesPerCubicMeterKelvin(double)" />
+        public static VolumetricHeatCapacity MegajoulesPerCubicMeterKelvin<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VolumetricHeatCapacity.FromMegajoulesPerCubicMeterKelvin(Convert.ToDouble(value));
 
     }
 }

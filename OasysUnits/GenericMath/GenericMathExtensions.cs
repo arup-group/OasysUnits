@@ -1,5 +1,5 @@
 ﻿// Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 #if NET7_0_OR_GREATER
 using System.Collections.Generic;
@@ -12,10 +12,6 @@ namespace OasysUnits.GenericMath;
 ///     Provides generic math operations to test out the new generic math interfaces implemented in .NET7 for OasysUnits
 ///     quantities using <see cref="double" /> as the internal value type, which is the majority of quantities.
 /// </summary>
-/// <remarks>
-///     See <see cref="DecimalGenericMathExtensions" /> for quantities using <see cref="decimal" /> as the internal value
-///     type.
-/// </remarks>
 public static class GenericMathExtensions
 {
     /// <summary>

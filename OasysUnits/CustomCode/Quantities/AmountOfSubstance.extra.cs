@@ -1,5 +1,5 @@
 ﻿// Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 // ReSharper disable once CheckNamespace
 
@@ -39,30 +39,5 @@ namespace OasysUnits
         {
             return mass / molarMass;
         }
-
-        /// <summary>Get <see cref="Mass" /> from <see cref="AmountOfSubstance" /> for a given <see cref="MolarMass" />.</summary>
-        public static Mass operator *(AmountOfSubstance amountOfSubstance, MolarMass molarMass)
-        {
-            return Mass.FromGrams(amountOfSubstance.Moles * molarMass.GramsPerMole);
-        }
-
-        /// <summary>Get <see cref="Mass" /> from <see cref="AmountOfSubstance" /> for a given <see cref="MolarMass" />.</summary>
-        public static Mass operator *(MolarMass molarMass, AmountOfSubstance amountOfSubstance)
-        {
-            return Mass.FromGrams(amountOfSubstance.Moles * molarMass.GramsPerMole);
-        }
-
-        /// <summary>Get <see cref="Molarity" /> from <see cref="AmountOfSubstance" /> divided by <see cref="Volume" />.</summary>
-        public static Molarity operator /(AmountOfSubstance amountOfComponent, Volume mixtureVolume)
-        {
-            return Molarity.FromMolesPerCubicMeter(amountOfComponent.Moles / mixtureVolume.CubicMeters);
-        }
-
-        /// <summary>Get <see cref="Volume" /> from <see cref="AmountOfSubstance" /> divided by <see cref="Molarity" />.</summary>
-        public static Volume operator /(AmountOfSubstance amountOfSubstance, Molarity molarity)
-        {
-            return Volume.FromCubicMeters(amountOfSubstance.Moles / molarity.MolesPerCubicMeter);
-        }
-
     }
 }

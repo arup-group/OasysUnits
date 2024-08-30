@@ -6,7 +6,7 @@
 //     The build server regenerates the code before each build and a pre-build
 //     step will regenerate the code on each local build.
 //
-//     See https://github.com/angularsen/UnitsNet/wiki/Adding-a-New-Unit for how to add or edit units.
+//     See https://github.com/angularsen/OasysUnits/wiki/Adding-a-New-Unit for how to add or edit units.
 //
 //     Add CustomCode\Quantities\MyQuantity.extra.cs files to add code to generated quantities.
 //     Add UnitDefinitions\MyQuantity.json and run generate-code.bat to generate new units or quantities.
@@ -15,7 +15,7 @@
 //------------------------------------------------------------------------------
 
 // Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 // ReSharper disable once CheckNamespace
 namespace OasysUnits.Units
@@ -25,28 +25,28 @@ namespace OasysUnits.Units
 
     public enum MomentUnit
     {
-        KilogramForceCentimeter = 6,
-        KilogramForceMeter = 4,
-        KilogramForceMillimeter = 1,
-        KilonewtonCentimeter = 7,
+        KilogramForceCentimeter = 9,
+        KilogramForceMeter = 6,
+        KilogramForceMillimeter = 5,
+        KilonewtonCentimeter = 8,
         KilonewtonMeter = 3,
-        KilonewtonMillimeter = 10,
-        KilopoundForceFoot = 8,
-        KilopoundForceInch = 2,
-        MeganewtonCentimeter = 9,
-        MeganewtonMeter = 5,
-        MeganewtonMillimeter = 14,
-        MegapoundForceFoot = 20,
-        MegapoundForceInch = 17,
-        NewtonCentimeter = 15,
-        NewtonMeter = 12,
-        NewtonMillimeter = 11,
-        PoundalFoot = 18,
-        PoundForceFoot = 19,
-        PoundForceInch = 13,
-        TonneForceCentimeter = 16,
-        TonneForceMeter = 22,
-        TonneForceMillimeter = 26,
+        KilonewtonMillimeter = 2,
+        KilopoundForceFoot = 1,
+        KilopoundForceInch = 4,
+        MeganewtonCentimeter = 10,
+        MeganewtonMeter = 7,
+        MeganewtonMillimeter = 15,
+        MegapoundForceFoot = 13,
+        MegapoundForceInch = 16,
+        NewtonCentimeter = 19,
+        NewtonMeter = 11,
+        NewtonMillimeter = 14,
+        PoundalFoot = 20,
+        PoundForceFoot = 17,
+        PoundForceInch = 12,
+        TonneForceCentimeter = 18,
+        TonneForceMeter = 21,
+        TonneForceMillimeter = 28,
     }
 
     #pragma warning restore 1591

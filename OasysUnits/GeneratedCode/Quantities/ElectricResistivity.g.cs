@@ -6,7 +6,7 @@
 //     The build server regenerates the code before each build and a pre-build
 //     step will regenerate the code on each local build.
 //
-//     See https://github.com/angularsen/UnitsNet/wiki/Adding-a-New-Unit for how to add or edit units.
+//     See https://github.com/angularsen/OasysUnits/wiki/Adding-a-New-Unit for how to add or edit units.
 //
 //     Add CustomCode\Quantities\MyQuantity.extra.cs files to add code to generated quantities.
 //     Add UnitDefinitions\MyQuantity.json and run generate-code.bat to generate new units or quantities.
@@ -15,9 +15,10 @@
 //------------------------------------------------------------------------------
 
 // Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using System;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
@@ -39,8 +40,9 @@ namespace OasysUnits
     ///     https://en.wikipedia.org/wiki/Electrical_resistivity_and_conductivity
     /// </remarks>
     [DataContract]
+    [DebuggerTypeProxy(typeof(QuantityDisplay))]
     public readonly partial struct ElectricResistivity :
-        IArithmeticQuantity<ElectricResistivity, ElectricResistivityUnit, double>,
+        IArithmeticQuantity<ElectricResistivity, ElectricResistivityUnit>,
         IComparable,
         IComparable<ElectricResistivity>,
         IConvertible,
@@ -50,13 +52,13 @@ namespace OasysUnits
         /// <summary>
         ///     The numeric value this quantity was constructed with.
         /// </summary>
-        [DataMember(Name = "Value", Order = 0)]
+        [DataMember(Name = "Value", Order = 1)]
         private readonly double _value;
 
         /// <summary>
         ///     The unit this quantity was constructed with.
         /// </summary>
-        [DataMember(Name = "Unit", Order = 1)]
+        [DataMember(Name = "Unit", Order = 2)]
         private readonly ElectricResistivityUnit? _unit;
 
         static ElectricResistivity()
@@ -68,20 +70,20 @@ namespace OasysUnits
             Info = new QuantityInfo<ElectricResistivityUnit>("ElectricResistivity",
                 new UnitInfo<ElectricResistivityUnit>[]
                 {
-                    new UnitInfo<ElectricResistivityUnit>(ElectricResistivityUnit.KiloohmCentimeter, "KiloohmsCentimeter", BaseUnits.Undefined),
-                    new UnitInfo<ElectricResistivityUnit>(ElectricResistivityUnit.KiloohmMeter, "KiloohmMeters", BaseUnits.Undefined),
-                    new UnitInfo<ElectricResistivityUnit>(ElectricResistivityUnit.MegaohmCentimeter, "MegaohmsCentimeter", BaseUnits.Undefined),
-                    new UnitInfo<ElectricResistivityUnit>(ElectricResistivityUnit.MegaohmMeter, "MegaohmMeters", BaseUnits.Undefined),
-                    new UnitInfo<ElectricResistivityUnit>(ElectricResistivityUnit.MicroohmCentimeter, "MicroohmsCentimeter", BaseUnits.Undefined),
-                    new UnitInfo<ElectricResistivityUnit>(ElectricResistivityUnit.MicroohmMeter, "MicroohmMeters", BaseUnits.Undefined),
-                    new UnitInfo<ElectricResistivityUnit>(ElectricResistivityUnit.MilliohmCentimeter, "MilliohmsCentimeter", BaseUnits.Undefined),
-                    new UnitInfo<ElectricResistivityUnit>(ElectricResistivityUnit.MilliohmMeter, "MilliohmMeters", BaseUnits.Undefined),
-                    new UnitInfo<ElectricResistivityUnit>(ElectricResistivityUnit.NanoohmCentimeter, "NanoohmsCentimeter", BaseUnits.Undefined),
-                    new UnitInfo<ElectricResistivityUnit>(ElectricResistivityUnit.NanoohmMeter, "NanoohmMeters", BaseUnits.Undefined),
-                    new UnitInfo<ElectricResistivityUnit>(ElectricResistivityUnit.OhmCentimeter, "OhmsCentimeter", BaseUnits.Undefined),
-                    new UnitInfo<ElectricResistivityUnit>(ElectricResistivityUnit.OhmMeter, "OhmMeters", BaseUnits.Undefined),
-                    new UnitInfo<ElectricResistivityUnit>(ElectricResistivityUnit.PicoohmCentimeter, "PicoohmsCentimeter", BaseUnits.Undefined),
-                    new UnitInfo<ElectricResistivityUnit>(ElectricResistivityUnit.PicoohmMeter, "PicoohmMeters", BaseUnits.Undefined),
+                    new UnitInfo<ElectricResistivityUnit>(ElectricResistivityUnit.KiloohmCentimeter, "KiloohmsCentimeter", BaseUnits.Undefined, "ElectricResistivity"),
+                    new UnitInfo<ElectricResistivityUnit>(ElectricResistivityUnit.KiloohmMeter, "KiloohmMeters", BaseUnits.Undefined, "ElectricResistivity"),
+                    new UnitInfo<ElectricResistivityUnit>(ElectricResistivityUnit.MegaohmCentimeter, "MegaohmsCentimeter", BaseUnits.Undefined, "ElectricResistivity"),
+                    new UnitInfo<ElectricResistivityUnit>(ElectricResistivityUnit.MegaohmMeter, "MegaohmMeters", BaseUnits.Undefined, "ElectricResistivity"),
+                    new UnitInfo<ElectricResistivityUnit>(ElectricResistivityUnit.MicroohmCentimeter, "MicroohmsCentimeter", BaseUnits.Undefined, "ElectricResistivity"),
+                    new UnitInfo<ElectricResistivityUnit>(ElectricResistivityUnit.MicroohmMeter, "MicroohmMeters", BaseUnits.Undefined, "ElectricResistivity"),
+                    new UnitInfo<ElectricResistivityUnit>(ElectricResistivityUnit.MilliohmCentimeter, "MilliohmsCentimeter", BaseUnits.Undefined, "ElectricResistivity"),
+                    new UnitInfo<ElectricResistivityUnit>(ElectricResistivityUnit.MilliohmMeter, "MilliohmMeters", BaseUnits.Undefined, "ElectricResistivity"),
+                    new UnitInfo<ElectricResistivityUnit>(ElectricResistivityUnit.NanoohmCentimeter, "NanoohmsCentimeter", BaseUnits.Undefined, "ElectricResistivity"),
+                    new UnitInfo<ElectricResistivityUnit>(ElectricResistivityUnit.NanoohmMeter, "NanoohmMeters", BaseUnits.Undefined, "ElectricResistivity"),
+                    new UnitInfo<ElectricResistivityUnit>(ElectricResistivityUnit.OhmCentimeter, "OhmsCentimeter", BaseUnits.Undefined, "ElectricResistivity"),
+                    new UnitInfo<ElectricResistivityUnit>(ElectricResistivityUnit.OhmMeter, "OhmMeters", BaseUnits.Undefined, "ElectricResistivity"),
+                    new UnitInfo<ElectricResistivityUnit>(ElectricResistivityUnit.PicoohmCentimeter, "PicoohmsCentimeter", BaseUnits.Undefined, "ElectricResistivity"),
+                    new UnitInfo<ElectricResistivityUnit>(ElectricResistivityUnit.PicoohmMeter, "PicoohmMeters", BaseUnits.Undefined, "ElectricResistivity"),
                 },
                 BaseUnit, Zero, BaseDimensions);
 
@@ -94,10 +96,9 @@ namespace OasysUnits
         /// </summary>
         /// <param name="value">The numeric value to construct this quantity with.</param>
         /// <param name="unit">The unit representation to construct this quantity with.</param>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
         public ElectricResistivity(double value, ElectricResistivityUnit unit)
         {
-            _value = Guard.EnsureValidNumber(value, nameof(value));
+            _value = value;
             _unit = unit;
         }
 
@@ -116,7 +117,7 @@ namespace OasysUnits
             var unitInfos = Info.GetUnitInfosFor(unitSystem.BaseUnits);
             var firstUnitInfo = unitInfos.FirstOrDefault();
 
-            _value = Guard.EnsureValidNumber(value, nameof(value));
+            _value = value;
             _unit = firstUnitInfo?.Value ?? throw new ArgumentException("No units were found for the given UnitSystem.", nameof(unitSystem));
         }
 
@@ -154,7 +155,7 @@ namespace OasysUnits
         public static ElectricResistivity AdditiveIdentity => Zero;
 
         #endregion
- 
+
         #region Properties
 
         /// <summary>
@@ -163,7 +164,7 @@ namespace OasysUnits
         public double Value => _value;
 
         /// <inheritdoc />
-        QuantityValue IQuantity.Value => _value;
+        double IQuantity.Value => _value;
 
         Enum IQuantity.Unit => Unit;
 
@@ -299,24 +300,6 @@ namespace OasysUnits
             unitConverter.SetConversionFunction<ElectricResistivity>(ElectricResistivityUnit.OhmMeter, ElectricResistivityUnit.PicoohmMeter, quantity => quantity.ToUnit(ElectricResistivityUnit.PicoohmMeter));
         }
 
-        internal static void MapGeneratedLocalizations(UnitAbbreviationsCache unitAbbreviationsCache)
-        {
-            unitAbbreviationsCache.PerformAbbreviationMapping(ElectricResistivityUnit.KiloohmCentimeter, new CultureInfo("en-US"), false, true, new string[]{"kΩ·cm"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(ElectricResistivityUnit.KiloohmMeter, new CultureInfo("en-US"), false, true, new string[]{"kΩ·m"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(ElectricResistivityUnit.MegaohmCentimeter, new CultureInfo("en-US"), false, true, new string[]{"MΩ·cm"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(ElectricResistivityUnit.MegaohmMeter, new CultureInfo("en-US"), false, true, new string[]{"MΩ·m"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(ElectricResistivityUnit.MicroohmCentimeter, new CultureInfo("en-US"), false, true, new string[]{"µΩ·cm"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(ElectricResistivityUnit.MicroohmMeter, new CultureInfo("en-US"), false, true, new string[]{"µΩ·m"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(ElectricResistivityUnit.MilliohmCentimeter, new CultureInfo("en-US"), false, true, new string[]{"mΩ·cm"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(ElectricResistivityUnit.MilliohmMeter, new CultureInfo("en-US"), false, true, new string[]{"mΩ·m"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(ElectricResistivityUnit.NanoohmCentimeter, new CultureInfo("en-US"), false, true, new string[]{"nΩ·cm"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(ElectricResistivityUnit.NanoohmMeter, new CultureInfo("en-US"), false, true, new string[]{"nΩ·m"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(ElectricResistivityUnit.OhmCentimeter, new CultureInfo("en-US"), false, true, new string[]{"Ω·cm"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(ElectricResistivityUnit.OhmMeter, new CultureInfo("en-US"), false, true, new string[]{"Ω·m"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(ElectricResistivityUnit.PicoohmCentimeter, new CultureInfo("en-US"), false, true, new string[]{"pΩ·cm"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(ElectricResistivityUnit.PicoohmMeter, new CultureInfo("en-US"), false, true, new string[]{"pΩ·m"});
-        }
-
         /// <summary>
         ///     Get unit abbreviation string.
         /// </summary>
@@ -345,140 +328,112 @@ namespace OasysUnits
         /// <summary>
         ///     Creates a <see cref="ElectricResistivity"/> from <see cref="ElectricResistivityUnit.KiloohmCentimeter"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static ElectricResistivity FromKiloohmsCentimeter(QuantityValue kiloohmscentimeter)
+        public static ElectricResistivity FromKiloohmsCentimeter(double value)
         {
-            double value = (double) kiloohmscentimeter;
             return new ElectricResistivity(value, ElectricResistivityUnit.KiloohmCentimeter);
         }
 
         /// <summary>
         ///     Creates a <see cref="ElectricResistivity"/> from <see cref="ElectricResistivityUnit.KiloohmMeter"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static ElectricResistivity FromKiloohmMeters(QuantityValue kiloohmmeters)
+        public static ElectricResistivity FromKiloohmMeters(double value)
         {
-            double value = (double) kiloohmmeters;
             return new ElectricResistivity(value, ElectricResistivityUnit.KiloohmMeter);
         }
 
         /// <summary>
         ///     Creates a <see cref="ElectricResistivity"/> from <see cref="ElectricResistivityUnit.MegaohmCentimeter"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static ElectricResistivity FromMegaohmsCentimeter(QuantityValue megaohmscentimeter)
+        public static ElectricResistivity FromMegaohmsCentimeter(double value)
         {
-            double value = (double) megaohmscentimeter;
             return new ElectricResistivity(value, ElectricResistivityUnit.MegaohmCentimeter);
         }
 
         /// <summary>
         ///     Creates a <see cref="ElectricResistivity"/> from <see cref="ElectricResistivityUnit.MegaohmMeter"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static ElectricResistivity FromMegaohmMeters(QuantityValue megaohmmeters)
+        public static ElectricResistivity FromMegaohmMeters(double value)
         {
-            double value = (double) megaohmmeters;
             return new ElectricResistivity(value, ElectricResistivityUnit.MegaohmMeter);
         }
 
         /// <summary>
         ///     Creates a <see cref="ElectricResistivity"/> from <see cref="ElectricResistivityUnit.MicroohmCentimeter"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static ElectricResistivity FromMicroohmsCentimeter(QuantityValue microohmscentimeter)
+        public static ElectricResistivity FromMicroohmsCentimeter(double value)
         {
-            double value = (double) microohmscentimeter;
             return new ElectricResistivity(value, ElectricResistivityUnit.MicroohmCentimeter);
         }
 
         /// <summary>
         ///     Creates a <see cref="ElectricResistivity"/> from <see cref="ElectricResistivityUnit.MicroohmMeter"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static ElectricResistivity FromMicroohmMeters(QuantityValue microohmmeters)
+        public static ElectricResistivity FromMicroohmMeters(double value)
         {
-            double value = (double) microohmmeters;
             return new ElectricResistivity(value, ElectricResistivityUnit.MicroohmMeter);
         }
 
         /// <summary>
         ///     Creates a <see cref="ElectricResistivity"/> from <see cref="ElectricResistivityUnit.MilliohmCentimeter"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static ElectricResistivity FromMilliohmsCentimeter(QuantityValue milliohmscentimeter)
+        public static ElectricResistivity FromMilliohmsCentimeter(double value)
         {
-            double value = (double) milliohmscentimeter;
             return new ElectricResistivity(value, ElectricResistivityUnit.MilliohmCentimeter);
         }
 
         /// <summary>
         ///     Creates a <see cref="ElectricResistivity"/> from <see cref="ElectricResistivityUnit.MilliohmMeter"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static ElectricResistivity FromMilliohmMeters(QuantityValue milliohmmeters)
+        public static ElectricResistivity FromMilliohmMeters(double value)
         {
-            double value = (double) milliohmmeters;
             return new ElectricResistivity(value, ElectricResistivityUnit.MilliohmMeter);
         }
 
         /// <summary>
         ///     Creates a <see cref="ElectricResistivity"/> from <see cref="ElectricResistivityUnit.NanoohmCentimeter"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static ElectricResistivity FromNanoohmsCentimeter(QuantityValue nanoohmscentimeter)
+        public static ElectricResistivity FromNanoohmsCentimeter(double value)
         {
-            double value = (double) nanoohmscentimeter;
             return new ElectricResistivity(value, ElectricResistivityUnit.NanoohmCentimeter);
         }
 
         /// <summary>
         ///     Creates a <see cref="ElectricResistivity"/> from <see cref="ElectricResistivityUnit.NanoohmMeter"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static ElectricResistivity FromNanoohmMeters(QuantityValue nanoohmmeters)
+        public static ElectricResistivity FromNanoohmMeters(double value)
         {
-            double value = (double) nanoohmmeters;
             return new ElectricResistivity(value, ElectricResistivityUnit.NanoohmMeter);
         }
 
         /// <summary>
         ///     Creates a <see cref="ElectricResistivity"/> from <see cref="ElectricResistivityUnit.OhmCentimeter"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static ElectricResistivity FromOhmsCentimeter(QuantityValue ohmscentimeter)
+        public static ElectricResistivity FromOhmsCentimeter(double value)
         {
-            double value = (double) ohmscentimeter;
             return new ElectricResistivity(value, ElectricResistivityUnit.OhmCentimeter);
         }
 
         /// <summary>
         ///     Creates a <see cref="ElectricResistivity"/> from <see cref="ElectricResistivityUnit.OhmMeter"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static ElectricResistivity FromOhmMeters(QuantityValue ohmmeters)
+        public static ElectricResistivity FromOhmMeters(double value)
         {
-            double value = (double) ohmmeters;
             return new ElectricResistivity(value, ElectricResistivityUnit.OhmMeter);
         }
 
         /// <summary>
         ///     Creates a <see cref="ElectricResistivity"/> from <see cref="ElectricResistivityUnit.PicoohmCentimeter"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static ElectricResistivity FromPicoohmsCentimeter(QuantityValue picoohmscentimeter)
+        public static ElectricResistivity FromPicoohmsCentimeter(double value)
         {
-            double value = (double) picoohmscentimeter;
             return new ElectricResistivity(value, ElectricResistivityUnit.PicoohmCentimeter);
         }
 
         /// <summary>
         ///     Creates a <see cref="ElectricResistivity"/> from <see cref="ElectricResistivityUnit.PicoohmMeter"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static ElectricResistivity FromPicoohmMeters(QuantityValue picoohmmeters)
+        public static ElectricResistivity FromPicoohmMeters(double value)
         {
-            double value = (double) picoohmmeters;
             return new ElectricResistivity(value, ElectricResistivityUnit.PicoohmMeter);
         }
 
@@ -488,9 +443,9 @@ namespace OasysUnits
         /// <param name="value">Value to convert from.</param>
         /// <param name="fromUnit">Unit to convert from.</param>
         /// <returns>ElectricResistivity unit value.</returns>
-        public static ElectricResistivity From(QuantityValue value, ElectricResistivityUnit fromUnit)
+        public static ElectricResistivity From(double value, ElectricResistivityUnit fromUnit)
         {
-            return new ElectricResistivity((double)value, fromUnit);
+            return new ElectricResistivity(value, fromUnit);
         }
 
         #endregion
@@ -502,7 +457,7 @@ namespace OasysUnits
         /// </summary>
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <example>
-        ///     Length.Parse("5.5 m", new CultureInfo("en-US"));
+        ///     Length.Parse("5.5 m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <exception cref="ArgumentNullException">The value of 'str' cannot be null. </exception>
         /// <exception cref="ArgumentException">
@@ -529,7 +484,7 @@ namespace OasysUnits
         /// </summary>
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <example>
-        ///     Length.Parse("5.5 m", new CultureInfo("en-US"));
+        ///     Length.Parse("5.5 m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <exception cref="ArgumentNullException">The value of 'str' cannot be null. </exception>
         /// <exception cref="ArgumentException">
@@ -561,7 +516,7 @@ namespace OasysUnits
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <param name="result">Resulting unit quantity if successful.</param>
         /// <example>
-        ///     Length.Parse("5.5 m", new CultureInfo("en-US"));
+        ///     Length.Parse("5.5 m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         public static bool TryParse(string? str, out ElectricResistivity result)
         {
@@ -575,7 +530,7 @@ namespace OasysUnits
         /// <param name="result">Resulting unit quantity if successful.</param>
         /// <returns>True if successful, otherwise false.</returns>
         /// <example>
-        ///     Length.Parse("5.5 m", new CultureInfo("en-US"));
+        ///     Length.Parse("5.5 m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <param name="provider">Format to use when parsing number and unit. Defaults to <see cref="CultureInfo.CurrentCulture" /> if null.</param>
         public static bool TryParse(string? str, IFormatProvider? provider, out ElectricResistivity result)
@@ -592,7 +547,7 @@ namespace OasysUnits
         /// </summary>
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <example>
-        ///     Length.ParseUnit("m", new CultureInfo("en-US"));
+        ///     Length.ParseUnit("m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <exception cref="ArgumentNullException">The value of 'str' cannot be null. </exception>
         /// <exception cref="OasysUnitsException">Error parsing string.</exception>
@@ -607,7 +562,7 @@ namespace OasysUnits
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <param name="provider">Format to use when parsing number and unit. Defaults to <see cref="CultureInfo.CurrentCulture" /> if null.</param>
         /// <example>
-        ///     Length.ParseUnit("m", new CultureInfo("en-US"));
+        ///     Length.ParseUnit("m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <exception cref="ArgumentNullException">The value of 'str' cannot be null. </exception>
         /// <exception cref="OasysUnitsException">Error parsing string.</exception>
@@ -629,7 +584,7 @@ namespace OasysUnits
         /// <param name="unit">The parsed unit if successful.</param>
         /// <returns>True if successful, otherwise false.</returns>
         /// <example>
-        ///     Length.TryParseUnit("m", new CultureInfo("en-US"));
+        ///     Length.TryParseUnit("m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <param name="provider">Format to use when parsing number and unit. Defaults to <see cref="CultureInfo.CurrentCulture" /> if null.</param>
         public static bool TryParseUnit(string str, IFormatProvider? provider, out ElectricResistivityUnit unit)
@@ -685,6 +640,17 @@ namespace OasysUnits
 
         #endregion
 
+        #region Relational Operators
+
+        /// <summary>Calculates the inverse of this quantity.</summary>
+        /// <returns>The corresponding inverse quantity, <see cref="ElectricConductivity"/>.</returns>
+        public ElectricConductivity Inverse()
+        {
+            return OhmMeters == 0.0 ? ElectricConductivity.Zero : ElectricConductivity.FromSiemensPerMeter(1 / OhmMeters);
+        }
+
+        #endregion
+
         #region Equality / IComparable
 
         /// <summary>Returns true if less or equal to.</summary>
@@ -716,16 +682,14 @@ namespace OasysUnits
         #pragma warning disable CS0809
 
         /// <summary>Indicates strict equality of two <see cref="ElectricResistivity"/> quantities, where both <see cref="Value" /> and <see cref="Unit" /> are exactly equal.</summary>
-        /// <remarks>Consider using <see cref="Equals(ElectricResistivity, double, ComparisonType)"/> to check equality across different units and to specify a floating-point number error tolerance.</remarks>
-        [Obsolete("For null checks, use `x is null` syntax to not invoke overloads. For quantity comparisons, use Equals(ElectricResistivity, double, ComparisonType) to check equality across different units and to specify a floating-point number error tolerance.")]
+        [Obsolete("For null checks, use `x is null` syntax to not invoke overloads. For equality checks, use Equals(ElectricResistivity other, ElectricResistivity tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public static bool operator ==(ElectricResistivity left, ElectricResistivity right)
         {
             return left.Equals(right);
         }
 
         /// <summary>Indicates strict inequality of two <see cref="ElectricResistivity"/> quantities, where both <see cref="Value" /> and <see cref="Unit" /> are exactly equal.</summary>
-        /// <remarks>Consider using <see cref="Equals(ElectricResistivity, double, ComparisonType)"/> to check equality across different units and to specify a floating-point number error tolerance.</remarks>
-        [Obsolete("For null checks, use `x is not null` syntax to not invoke overloads. For quantity comparisons, use Equals(ElectricResistivity, double, ComparisonType) to check equality across different units and to specify a floating-point number error tolerance.")]
+        [Obsolete("For null checks, use `x is null` syntax to not invoke overloads. For equality checks, use Equals(ElectricResistivity other, ElectricResistivity tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public static bool operator !=(ElectricResistivity left, ElectricResistivity right)
         {
             return !(left == right);
@@ -733,8 +697,7 @@ namespace OasysUnits
 
         /// <inheritdoc />
         /// <summary>Indicates strict equality of two <see cref="ElectricResistivity"/> quantities, where both <see cref="Value" /> and <see cref="Unit" /> are exactly equal.</summary>
-        /// <remarks>Consider using <see cref="Equals(ElectricResistivity, double, ComparisonType)"/> to check equality across different units and to specify a floating-point number error tolerance.</remarks>
-        [Obsolete("Consider using Equals(ElectricResistivity, double, ComparisonType) to check equality across different units and to specify a floating-point number error tolerance.")]
+        [Obsolete("Use Equals(ElectricResistivity other, ElectricResistivity tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public override bool Equals(object? obj)
         {
             if (obj is null || !(obj is ElectricResistivity otherQuantity))
@@ -745,8 +708,7 @@ namespace OasysUnits
 
         /// <inheritdoc />
         /// <summary>Indicates strict equality of two <see cref="ElectricResistivity"/> quantities, where both <see cref="Value" /> and <see cref="Unit" /> are exactly equal.</summary>
-        /// <remarks>Consider using <see cref="Equals(ElectricResistivity, double, ComparisonType)"/> to check equality across different units and to specify a floating-point number error tolerance.</remarks>
-        [Obsolete("Consider using Equals(ElectricResistivity, double, ComparisonType) to check equality across different units and to specify a floating-point number error tolerance.")]
+        [Obsolete("Use Equals(ElectricResistivity other, ElectricResistivity tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public bool Equals(ElectricResistivity other)
         {
             return new { Value, Unit }.Equals(new { other.Value, other.Unit });
@@ -830,15 +792,37 @@ namespace OasysUnits
         /// <param name="tolerance">The absolute or relative tolerance value. Must be greater than or equal to 0.</param>
         /// <param name="comparisonType">The comparison type: either relative or absolute.</param>
         /// <returns>True if the absolute difference between the two values is not greater than the specified relative or absolute tolerance.</returns>
+        [Obsolete("Use Equals(ElectricResistivity other, ElectricResistivity tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public bool Equals(ElectricResistivity other, double tolerance, ComparisonType comparisonType)
         {
             if (tolerance < 0)
-                throw new ArgumentOutOfRangeException("tolerance", "Tolerance must be greater than or equal to 0.");
+                throw new ArgumentOutOfRangeException(nameof(tolerance), "Tolerance must be greater than or equal to 0.");
 
-            double thisValue = this.Value;
-            double otherValueInThisUnits = other.As(this.Unit);
+            return OasysUnits.Comparison.Equals(
+                referenceValue: this.Value,
+                otherValue: other.As(this.Unit),
+                tolerance: tolerance,
+                comparisonType: comparisonType);
+        }
 
-            return OasysUnits.Comparison.Equals(thisValue, otherValueInThisUnits, tolerance, comparisonType);
+        /// <inheritdoc />
+        public bool Equals(IQuantity? other, IQuantity tolerance)
+        {
+            return other is ElectricResistivity otherTyped
+                   && (tolerance is ElectricResistivity toleranceTyped
+                       ? true
+                       : throw new ArgumentException($"Tolerance quantity ({tolerance.QuantityInfo.Name}) did not match the other quantities of type 'ElectricResistivity'.", nameof(tolerance)))
+                   && Equals(otherTyped, toleranceTyped);
+        }
+
+        /// <inheritdoc />
+        public bool Equals(ElectricResistivity other, ElectricResistivity tolerance)
+        {
+            return OasysUnits.Comparison.Equals(
+                referenceValue: this.Value,
+                otherValue: other.As(this.Unit),
+                tolerance: tolerance.As(this.Unit),
+                comparisonType: ComparisonType.Absolute);
         }
 
         /// <summary>
@@ -883,15 +867,6 @@ namespace OasysUnits
 
         /// <inheritdoc />
         double IQuantity.As(Enum unit)
-        {
-            if (!(unit is ElectricResistivityUnit typedUnit))
-                throw new ArgumentException($"The given unit is of type {unit.GetType()}. Only {typeof(ElectricResistivityUnit)} is supported.", nameof(unit));
-
-            return (double)As(typedUnit);
-        }
-
-        /// <inheritdoc />
-        double IValueQuantity<double>.As(Enum unit)
         {
             if (!(unit is ElectricResistivityUnit typedUnit))
                 throw new ArgumentException($"The given unit is of type {unit.GetType()}. Only {typeof(ElectricResistivityUnit)} is supported.", nameof(unit));
@@ -1031,18 +1006,6 @@ namespace OasysUnits
 
         /// <inheritdoc />
         IQuantity<ElectricResistivityUnit> IQuantity<ElectricResistivityUnit>.ToUnit(UnitSystem unitSystem) => ToUnit(unitSystem);
-
-        /// <inheritdoc />
-        IValueQuantity<double> IValueQuantity<double>.ToUnit(Enum unit)
-        {
-            if (unit is not ElectricResistivityUnit typedUnit)
-                throw new ArgumentException($"The given unit is of type {unit.GetType()}. Only {typeof(ElectricResistivityUnit)} is supported.", nameof(unit));
-
-            return ToUnit(typedUnit);
-        }
-
-        /// <inheritdoc />
-        IValueQuantity<double> IValueQuantity<double>.ToUnit(UnitSystem unitSystem) => ToUnit(unitSystem);
 
         #endregion
 

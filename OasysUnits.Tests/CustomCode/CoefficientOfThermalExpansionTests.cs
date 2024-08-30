@@ -9,7 +9,7 @@
 //     in this derived class, reminding the developer to implement the test case
 //     for the new unit.
 //
-//     See https://github.com/angularsen/UnitsNet/wiki/Adding-a-New-Unit for how to add or edit units.
+//     See https://github.com/angularsen/OasysUnits/wiki/Adding-a-New-Unit for how to add or edit units.
 //
 //     Add CustomCode\Quantities\MyQuantity.extra.cs files to add code to generated quantities.
 //     Add Extensions\MyQuantityExtensions.cs to decorate quantities with new behavior.
@@ -19,10 +19,9 @@
 //------------------------------------------------------------------------------
 
 // Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
-
-using System;
+using Xunit;
 
 namespace OasysUnits.Tests.CustomCode
 {
@@ -30,10 +29,36 @@ namespace OasysUnits.Tests.CustomCode
     {
         protected override bool SupportsSIUnitSystem => true;
 
-        protected override double InverseDegreeCelsiusInOneInverseKelvin => 1.0;
+        protected override double PerDegreeCelsiusInOnePerKelvin => 1.0;
 
-        protected override double InverseDegreeFahrenheitInOneInverseKelvin => 0.5555555555555556;
+        protected override double PerDegreeFahrenheitInOnePerKelvin => 0.5555555555555556;
 
-        protected override double InverseKelvinInOneInverseKelvin => 1.0;
+        protected override double PerKelvinInOnePerKelvin => 1.0;
+
+        protected override double PpmPerDegreeCelsiusInOnePerKelvin => 1e6;
+
+        protected override double PpmPerDegreeFahrenheitInOnePerKelvin => 5.5555555555555556e5;
+
+        protected override double PpmPerKelvinInOnePerKelvin => 1e6;
+
+        [Fact]
+        public void CoefficientOfThermalExpansionTimesTemperatureDelta()
+        {
+            double temperatureDeltaDegC = 2.0;
+            double ctePerDegC = 0.001;
+            CoefficientOfThermalExpansion cte = CoefficientOfThermalExpansion.FromPerDegreeCelsius(ctePerDegC);
+            TemperatureDelta dT = TemperatureDelta.FromDegreesCelsius(temperatureDeltaDegC);
+            AssertEx.EqualTolerance(cte * dT, ctePerDegC * temperatureDeltaDegC, 1e-10);
+        }
+
+        [Fact]
+        public void TemperatureDeltaTimesCoefficientOfThermalExpansion()
+        {
+            double temperatureDeltaDegC = 2.0;
+            double ctePerDegC = 0.001;
+            CoefficientOfThermalExpansion cte = CoefficientOfThermalExpansion.FromPerDegreeCelsius(ctePerDegC);
+            TemperatureDelta dT = TemperatureDelta.FromDegreesCelsius(temperatureDeltaDegC);
+            AssertEx.EqualTolerance(dT * cte, temperatureDeltaDegC * ctePerDegC, 1e-10);
+        }
     }
 }

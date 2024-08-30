@@ -1,5 +1,5 @@
 ﻿// Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using OasysUnits.Serialization.JsonNet.Tests.Infrastructure;
 using Xunit;
@@ -12,7 +12,7 @@ namespace OasysUnits.Serialization.JsonNet.Tests
         public void Information_CanSerializeVeryLargeValues()
         {
             Information i = Information.FromExabytes(1E+9);
-            var expectedJson = "{\n  \"Unit\": \"InformationUnit.Exabyte\",\n  \"Value\": 1000000000.0,\n  \"ValueString\": \"1000000000\",\n  \"ValueType\": \"decimal\"\n}";
+            var expectedJson = "{\n  \"Unit\": \"InformationUnit.Exabyte\",\n  \"Value\": 1000000000.0\n}";
 
             string json = SerializeObject(i);
 
@@ -34,7 +34,7 @@ namespace OasysUnits.Serialization.JsonNet.Tests
         public void Information_ExpectConstructedValueAndUnit()
         {
             Information quantity = Information.FromKilobytes(54);
-            var expectedJson = "{\n  \"Unit\": \"InformationUnit.Kilobyte\",\n  \"Value\": 54.0,\n  \"ValueString\": \"54\",\n  \"ValueType\": \"decimal\"\n}";
+            var expectedJson = "{\n  \"Unit\": \"InformationUnit.Kilobyte\",\n  \"Value\": 54.0\n}";
 
             string json = SerializeObject(quantity);
 

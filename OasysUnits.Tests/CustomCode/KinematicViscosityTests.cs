@@ -1,5 +1,5 @@
 ﻿// Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using System;
 using Xunit;
@@ -53,13 +53,6 @@ namespace OasysUnits.Tests
         public static void KinematicViscosityTimesTimeSpanEqualsArea()
         {
             Area area = KinematicViscosity.FromSquareMetersPerSecond(4)*TimeSpan.FromSeconds(2);
-            Assert.Equal(area, Area.FromSquareMeters(8));
-        }
-
-        [Fact]
-        public static void TimeSpanTimesKinematicViscosityEqualsArea()
-        {
-            Area area = TimeSpan.FromSeconds(2)*KinematicViscosity.FromSquareMetersPerSecond(4);
             Assert.Equal(area, Area.FromSquareMeters(8));
         }
 

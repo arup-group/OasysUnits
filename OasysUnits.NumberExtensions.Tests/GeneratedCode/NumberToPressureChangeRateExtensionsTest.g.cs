@@ -6,7 +6,7 @@
 //     The build server regenerates the code before each build and a pre-build
 //     step will regenerate the code on each local build.
 //
-//     See https://github.com/angularsen/UnitsNet/wiki/Adding-a-New-Unit for how to add or edit units.
+//     See https://github.com/angularsen/OasysUnits/wiki/Adding-a-New-Unit for how to add or edit units.
 //
 //     Add CustomCode\Quantities\MyQuantity.extra.cs files to add code to generated quantities.
 //     Add UnitDefinitions\MyQuantity.json and run generate-code.bat to generate new units or quantities.
@@ -15,7 +15,7 @@
 //------------------------------------------------------------------------------
 
 // Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using OasysUnits.NumberExtensions.NumberToPressureChangeRate;
 using Xunit;
@@ -27,6 +27,14 @@ namespace OasysUnits.Tests
         [Fact]
         public void NumberToAtmospheresPerSecondTest() =>
             Assert.Equal(PressureChangeRate.FromAtmospheresPerSecond(2), 2.AtmospheresPerSecond());
+
+        [Fact]
+        public void NumberToBarsPerMinuteTest() =>
+            Assert.Equal(PressureChangeRate.FromBarsPerMinute(2), 2.BarsPerMinute());
+
+        [Fact]
+        public void NumberToBarsPerSecondTest() =>
+            Assert.Equal(PressureChangeRate.FromBarsPerSecond(2), 2.BarsPerSecond());
 
         [Fact]
         public void NumberToKilopascalsPerMinuteTest() =>
@@ -59,6 +67,14 @@ namespace OasysUnits.Tests
         [Fact]
         public void NumberToMegapoundsForcePerSquareInchPerSecondTest() =>
             Assert.Equal(PressureChangeRate.FromMegapoundsForcePerSquareInchPerSecond(2), 2.MegapoundsForcePerSquareInchPerSecond());
+
+        [Fact]
+        public void NumberToMillibarsPerMinuteTest() =>
+            Assert.Equal(PressureChangeRate.FromMillibarsPerMinute(2), 2.MillibarsPerMinute());
+
+        [Fact]
+        public void NumberToMillibarsPerSecondTest() =>
+            Assert.Equal(PressureChangeRate.FromMillibarsPerSecond(2), 2.MillibarsPerSecond());
 
         [Fact]
         public void NumberToMillimetersOfMercuryPerSecondTest() =>

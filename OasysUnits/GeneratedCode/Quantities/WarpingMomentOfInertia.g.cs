@@ -6,7 +6,7 @@
 //     The build server regenerates the code before each build and a pre-build
 //     step will regenerate the code on each local build.
 //
-//     See https://github.com/angularsen/UnitsNet/wiki/Adding-a-New-Unit for how to add or edit units.
+//     See https://github.com/angularsen/OasysUnits/wiki/Adding-a-New-Unit for how to add or edit units.
 //
 //     Add CustomCode\Quantities\MyQuantity.extra.cs files to add code to generated quantities.
 //     Add UnitDefinitions\MyQuantity.json and run generate-code.bat to generate new units or quantities.
@@ -15,9 +15,10 @@
 //------------------------------------------------------------------------------
 
 // Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using System;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
@@ -36,8 +37,9 @@ namespace OasysUnits
     ///     A geometric property of an area that is used to determine the warping stress.
     /// </summary>
     [DataContract]
+    [DebuggerTypeProxy(typeof(QuantityDisplay))]
     public readonly partial struct WarpingMomentOfInertia :
-        IArithmeticQuantity<WarpingMomentOfInertia, WarpingMomentOfInertiaUnit, double>,
+        IArithmeticQuantity<WarpingMomentOfInertia, WarpingMomentOfInertiaUnit>,
         IComparable,
         IComparable<WarpingMomentOfInertia>,
         IConvertible,
@@ -47,13 +49,13 @@ namespace OasysUnits
         /// <summary>
         ///     The numeric value this quantity was constructed with.
         /// </summary>
-        [DataMember(Name = "Value", Order = 0)]
+        [DataMember(Name = "Value", Order = 1)]
         private readonly double _value;
 
         /// <summary>
         ///     The unit this quantity was constructed with.
         /// </summary>
-        [DataMember(Name = "Unit", Order = 1)]
+        [DataMember(Name = "Unit", Order = 2)]
         private readonly WarpingMomentOfInertiaUnit? _unit;
 
         static WarpingMomentOfInertia()
@@ -65,12 +67,12 @@ namespace OasysUnits
             Info = new QuantityInfo<WarpingMomentOfInertiaUnit>("WarpingMomentOfInertia",
                 new UnitInfo<WarpingMomentOfInertiaUnit>[]
                 {
-                    new UnitInfo<WarpingMomentOfInertiaUnit>(WarpingMomentOfInertiaUnit.CentimeterToTheSixth, "CentimetersToTheSixth", new BaseUnits(length: LengthUnit.Centimeter)),
-                    new UnitInfo<WarpingMomentOfInertiaUnit>(WarpingMomentOfInertiaUnit.DecimeterToTheSixth, "DecimetersToTheSixth", new BaseUnits(length: LengthUnit.Decimeter)),
-                    new UnitInfo<WarpingMomentOfInertiaUnit>(WarpingMomentOfInertiaUnit.FootToTheSixth, "FeetToTheSixth", new BaseUnits(length: LengthUnit.Foot)),
-                    new UnitInfo<WarpingMomentOfInertiaUnit>(WarpingMomentOfInertiaUnit.InchToTheSixth, "InchesToTheSixth", new BaseUnits(length: LengthUnit.Inch)),
-                    new UnitInfo<WarpingMomentOfInertiaUnit>(WarpingMomentOfInertiaUnit.MeterToTheSixth, "MetersToTheSixth", new BaseUnits(length: LengthUnit.Meter)),
-                    new UnitInfo<WarpingMomentOfInertiaUnit>(WarpingMomentOfInertiaUnit.MillimeterToTheSixth, "MillimetersToTheSixth", new BaseUnits(length: LengthUnit.Millimeter)),
+                    new UnitInfo<WarpingMomentOfInertiaUnit>(WarpingMomentOfInertiaUnit.CentimeterToTheSixth, "CentimetersToTheSixth", new BaseUnits(length: LengthUnit.Centimeter), "WarpingMomentOfInertia"),
+                    new UnitInfo<WarpingMomentOfInertiaUnit>(WarpingMomentOfInertiaUnit.DecimeterToTheSixth, "DecimetersToTheSixth", new BaseUnits(length: LengthUnit.Decimeter), "WarpingMomentOfInertia"),
+                    new UnitInfo<WarpingMomentOfInertiaUnit>(WarpingMomentOfInertiaUnit.FootToTheSixth, "FeetToTheSixth", new BaseUnits(length: LengthUnit.Foot), "WarpingMomentOfInertia"),
+                    new UnitInfo<WarpingMomentOfInertiaUnit>(WarpingMomentOfInertiaUnit.InchToTheSixth, "InchesToTheSixth", new BaseUnits(length: LengthUnit.Inch), "WarpingMomentOfInertia"),
+                    new UnitInfo<WarpingMomentOfInertiaUnit>(WarpingMomentOfInertiaUnit.MeterToTheSixth, "MetersToTheSixth", new BaseUnits(length: LengthUnit.Meter), "WarpingMomentOfInertia"),
+                    new UnitInfo<WarpingMomentOfInertiaUnit>(WarpingMomentOfInertiaUnit.MillimeterToTheSixth, "MillimetersToTheSixth", new BaseUnits(length: LengthUnit.Millimeter), "WarpingMomentOfInertia"),
                 },
                 BaseUnit, Zero, BaseDimensions);
 
@@ -83,10 +85,9 @@ namespace OasysUnits
         /// </summary>
         /// <param name="value">The numeric value to construct this quantity with.</param>
         /// <param name="unit">The unit representation to construct this quantity with.</param>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
         public WarpingMomentOfInertia(double value, WarpingMomentOfInertiaUnit unit)
         {
-            _value = Guard.EnsureValidNumber(value, nameof(value));
+            _value = value;
             _unit = unit;
         }
 
@@ -105,7 +106,7 @@ namespace OasysUnits
             var unitInfos = Info.GetUnitInfosFor(unitSystem.BaseUnits);
             var firstUnitInfo = unitInfos.FirstOrDefault();
 
-            _value = Guard.EnsureValidNumber(value, nameof(value));
+            _value = value;
             _unit = firstUnitInfo?.Value ?? throw new ArgumentException("No units were found for the given UnitSystem.", nameof(unitSystem));
         }
 
@@ -143,7 +144,7 @@ namespace OasysUnits
         public static WarpingMomentOfInertia AdditiveIdentity => Zero;
 
         #endregion
- 
+
         #region Properties
 
         /// <summary>
@@ -152,7 +153,7 @@ namespace OasysUnits
         public double Value => _value;
 
         /// <inheritdoc />
-        QuantityValue IQuantity.Value => _value;
+        double IQuantity.Value => _value;
 
         Enum IQuantity.Unit => Unit;
 
@@ -232,16 +233,6 @@ namespace OasysUnits
             unitConverter.SetConversionFunction<WarpingMomentOfInertia>(WarpingMomentOfInertiaUnit.MeterToTheSixth, WarpingMomentOfInertiaUnit.MillimeterToTheSixth, quantity => quantity.ToUnit(WarpingMomentOfInertiaUnit.MillimeterToTheSixth));
         }
 
-        internal static void MapGeneratedLocalizations(UnitAbbreviationsCache unitAbbreviationsCache)
-        {
-            unitAbbreviationsCache.PerformAbbreviationMapping(WarpingMomentOfInertiaUnit.CentimeterToTheSixth, new CultureInfo("en-US"), false, true, new string[]{"cm⁶", "cm^6"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(WarpingMomentOfInertiaUnit.DecimeterToTheSixth, new CultureInfo("en-US"), false, true, new string[]{"dm⁶", "dm^6"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(WarpingMomentOfInertiaUnit.FootToTheSixth, new CultureInfo("en-US"), false, true, new string[]{"ft⁶", "ft^6"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(WarpingMomentOfInertiaUnit.InchToTheSixth, new CultureInfo("en-US"), false, true, new string[]{"in⁶", "in^6"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(WarpingMomentOfInertiaUnit.MeterToTheSixth, new CultureInfo("en-US"), false, true, new string[]{"m⁶", "m^6"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(WarpingMomentOfInertiaUnit.MillimeterToTheSixth, new CultureInfo("en-US"), false, true, new string[]{"mm⁶", "mm^6"});
-        }
-
         /// <summary>
         ///     Get unit abbreviation string.
         /// </summary>
@@ -270,60 +261,48 @@ namespace OasysUnits
         /// <summary>
         ///     Creates a <see cref="WarpingMomentOfInertia"/> from <see cref="WarpingMomentOfInertiaUnit.CentimeterToTheSixth"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static WarpingMomentOfInertia FromCentimetersToTheSixth(QuantityValue centimeterstothesixth)
+        public static WarpingMomentOfInertia FromCentimetersToTheSixth(double value)
         {
-            double value = (double) centimeterstothesixth;
             return new WarpingMomentOfInertia(value, WarpingMomentOfInertiaUnit.CentimeterToTheSixth);
         }
 
         /// <summary>
         ///     Creates a <see cref="WarpingMomentOfInertia"/> from <see cref="WarpingMomentOfInertiaUnit.DecimeterToTheSixth"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static WarpingMomentOfInertia FromDecimetersToTheSixth(QuantityValue decimeterstothesixth)
+        public static WarpingMomentOfInertia FromDecimetersToTheSixth(double value)
         {
-            double value = (double) decimeterstothesixth;
             return new WarpingMomentOfInertia(value, WarpingMomentOfInertiaUnit.DecimeterToTheSixth);
         }
 
         /// <summary>
         ///     Creates a <see cref="WarpingMomentOfInertia"/> from <see cref="WarpingMomentOfInertiaUnit.FootToTheSixth"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static WarpingMomentOfInertia FromFeetToTheSixth(QuantityValue feettothesixth)
+        public static WarpingMomentOfInertia FromFeetToTheSixth(double value)
         {
-            double value = (double) feettothesixth;
             return new WarpingMomentOfInertia(value, WarpingMomentOfInertiaUnit.FootToTheSixth);
         }
 
         /// <summary>
         ///     Creates a <see cref="WarpingMomentOfInertia"/> from <see cref="WarpingMomentOfInertiaUnit.InchToTheSixth"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static WarpingMomentOfInertia FromInchesToTheSixth(QuantityValue inchestothesixth)
+        public static WarpingMomentOfInertia FromInchesToTheSixth(double value)
         {
-            double value = (double) inchestothesixth;
             return new WarpingMomentOfInertia(value, WarpingMomentOfInertiaUnit.InchToTheSixth);
         }
 
         /// <summary>
         ///     Creates a <see cref="WarpingMomentOfInertia"/> from <see cref="WarpingMomentOfInertiaUnit.MeterToTheSixth"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static WarpingMomentOfInertia FromMetersToTheSixth(QuantityValue meterstothesixth)
+        public static WarpingMomentOfInertia FromMetersToTheSixth(double value)
         {
-            double value = (double) meterstothesixth;
             return new WarpingMomentOfInertia(value, WarpingMomentOfInertiaUnit.MeterToTheSixth);
         }
 
         /// <summary>
         ///     Creates a <see cref="WarpingMomentOfInertia"/> from <see cref="WarpingMomentOfInertiaUnit.MillimeterToTheSixth"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static WarpingMomentOfInertia FromMillimetersToTheSixth(QuantityValue millimeterstothesixth)
+        public static WarpingMomentOfInertia FromMillimetersToTheSixth(double value)
         {
-            double value = (double) millimeterstothesixth;
             return new WarpingMomentOfInertia(value, WarpingMomentOfInertiaUnit.MillimeterToTheSixth);
         }
 
@@ -333,9 +312,9 @@ namespace OasysUnits
         /// <param name="value">Value to convert from.</param>
         /// <param name="fromUnit">Unit to convert from.</param>
         /// <returns>WarpingMomentOfInertia unit value.</returns>
-        public static WarpingMomentOfInertia From(QuantityValue value, WarpingMomentOfInertiaUnit fromUnit)
+        public static WarpingMomentOfInertia From(double value, WarpingMomentOfInertiaUnit fromUnit)
         {
-            return new WarpingMomentOfInertia((double)value, fromUnit);
+            return new WarpingMomentOfInertia(value, fromUnit);
         }
 
         #endregion
@@ -347,7 +326,7 @@ namespace OasysUnits
         /// </summary>
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <example>
-        ///     Length.Parse("5.5 m", new CultureInfo("en-US"));
+        ///     Length.Parse("5.5 m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <exception cref="ArgumentNullException">The value of 'str' cannot be null. </exception>
         /// <exception cref="ArgumentException">
@@ -374,7 +353,7 @@ namespace OasysUnits
         /// </summary>
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <example>
-        ///     Length.Parse("5.5 m", new CultureInfo("en-US"));
+        ///     Length.Parse("5.5 m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <exception cref="ArgumentNullException">The value of 'str' cannot be null. </exception>
         /// <exception cref="ArgumentException">
@@ -406,7 +385,7 @@ namespace OasysUnits
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <param name="result">Resulting unit quantity if successful.</param>
         /// <example>
-        ///     Length.Parse("5.5 m", new CultureInfo("en-US"));
+        ///     Length.Parse("5.5 m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         public static bool TryParse(string? str, out WarpingMomentOfInertia result)
         {
@@ -420,7 +399,7 @@ namespace OasysUnits
         /// <param name="result">Resulting unit quantity if successful.</param>
         /// <returns>True if successful, otherwise false.</returns>
         /// <example>
-        ///     Length.Parse("5.5 m", new CultureInfo("en-US"));
+        ///     Length.Parse("5.5 m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <param name="provider">Format to use when parsing number and unit. Defaults to <see cref="CultureInfo.CurrentCulture" /> if null.</param>
         public static bool TryParse(string? str, IFormatProvider? provider, out WarpingMomentOfInertia result)
@@ -437,7 +416,7 @@ namespace OasysUnits
         /// </summary>
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <example>
-        ///     Length.ParseUnit("m", new CultureInfo("en-US"));
+        ///     Length.ParseUnit("m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <exception cref="ArgumentNullException">The value of 'str' cannot be null. </exception>
         /// <exception cref="OasysUnitsException">Error parsing string.</exception>
@@ -452,7 +431,7 @@ namespace OasysUnits
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <param name="provider">Format to use when parsing number and unit. Defaults to <see cref="CultureInfo.CurrentCulture" /> if null.</param>
         /// <example>
-        ///     Length.ParseUnit("m", new CultureInfo("en-US"));
+        ///     Length.ParseUnit("m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <exception cref="ArgumentNullException">The value of 'str' cannot be null. </exception>
         /// <exception cref="OasysUnitsException">Error parsing string.</exception>
@@ -474,7 +453,7 @@ namespace OasysUnits
         /// <param name="unit">The parsed unit if successful.</param>
         /// <returns>True if successful, otherwise false.</returns>
         /// <example>
-        ///     Length.TryParseUnit("m", new CultureInfo("en-US"));
+        ///     Length.TryParseUnit("m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <param name="provider">Format to use when parsing number and unit. Defaults to <see cref="CultureInfo.CurrentCulture" /> if null.</param>
         public static bool TryParseUnit(string str, IFormatProvider? provider, out WarpingMomentOfInertiaUnit unit)
@@ -561,16 +540,14 @@ namespace OasysUnits
         #pragma warning disable CS0809
 
         /// <summary>Indicates strict equality of two <see cref="WarpingMomentOfInertia"/> quantities, where both <see cref="Value" /> and <see cref="Unit" /> are exactly equal.</summary>
-        /// <remarks>Consider using <see cref="Equals(WarpingMomentOfInertia, double, ComparisonType)"/> to check equality across different units and to specify a floating-point number error tolerance.</remarks>
-        [Obsolete("For null checks, use `x is null` syntax to not invoke overloads. For quantity comparisons, use Equals(WarpingMomentOfInertia, double, ComparisonType) to check equality across different units and to specify a floating-point number error tolerance.")]
+        [Obsolete("For null checks, use `x is null` syntax to not invoke overloads. For equality checks, use Equals(WarpingMomentOfInertia other, WarpingMomentOfInertia tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public static bool operator ==(WarpingMomentOfInertia left, WarpingMomentOfInertia right)
         {
             return left.Equals(right);
         }
 
         /// <summary>Indicates strict inequality of two <see cref="WarpingMomentOfInertia"/> quantities, where both <see cref="Value" /> and <see cref="Unit" /> are exactly equal.</summary>
-        /// <remarks>Consider using <see cref="Equals(WarpingMomentOfInertia, double, ComparisonType)"/> to check equality across different units and to specify a floating-point number error tolerance.</remarks>
-        [Obsolete("For null checks, use `x is not null` syntax to not invoke overloads. For quantity comparisons, use Equals(WarpingMomentOfInertia, double, ComparisonType) to check equality across different units and to specify a floating-point number error tolerance.")]
+        [Obsolete("For null checks, use `x is null` syntax to not invoke overloads. For equality checks, use Equals(WarpingMomentOfInertia other, WarpingMomentOfInertia tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public static bool operator !=(WarpingMomentOfInertia left, WarpingMomentOfInertia right)
         {
             return !(left == right);
@@ -578,8 +555,7 @@ namespace OasysUnits
 
         /// <inheritdoc />
         /// <summary>Indicates strict equality of two <see cref="WarpingMomentOfInertia"/> quantities, where both <see cref="Value" /> and <see cref="Unit" /> are exactly equal.</summary>
-        /// <remarks>Consider using <see cref="Equals(WarpingMomentOfInertia, double, ComparisonType)"/> to check equality across different units and to specify a floating-point number error tolerance.</remarks>
-        [Obsolete("Consider using Equals(WarpingMomentOfInertia, double, ComparisonType) to check equality across different units and to specify a floating-point number error tolerance.")]
+        [Obsolete("Use Equals(WarpingMomentOfInertia other, WarpingMomentOfInertia tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public override bool Equals(object? obj)
         {
             if (obj is null || !(obj is WarpingMomentOfInertia otherQuantity))
@@ -590,8 +566,7 @@ namespace OasysUnits
 
         /// <inheritdoc />
         /// <summary>Indicates strict equality of two <see cref="WarpingMomentOfInertia"/> quantities, where both <see cref="Value" /> and <see cref="Unit" /> are exactly equal.</summary>
-        /// <remarks>Consider using <see cref="Equals(WarpingMomentOfInertia, double, ComparisonType)"/> to check equality across different units and to specify a floating-point number error tolerance.</remarks>
-        [Obsolete("Consider using Equals(WarpingMomentOfInertia, double, ComparisonType) to check equality across different units and to specify a floating-point number error tolerance.")]
+        [Obsolete("Use Equals(WarpingMomentOfInertia other, WarpingMomentOfInertia tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public bool Equals(WarpingMomentOfInertia other)
         {
             return new { Value, Unit }.Equals(new { other.Value, other.Unit });
@@ -675,15 +650,37 @@ namespace OasysUnits
         /// <param name="tolerance">The absolute or relative tolerance value. Must be greater than or equal to 0.</param>
         /// <param name="comparisonType">The comparison type: either relative or absolute.</param>
         /// <returns>True if the absolute difference between the two values is not greater than the specified relative or absolute tolerance.</returns>
+        [Obsolete("Use Equals(WarpingMomentOfInertia other, WarpingMomentOfInertia tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public bool Equals(WarpingMomentOfInertia other, double tolerance, ComparisonType comparisonType)
         {
             if (tolerance < 0)
-                throw new ArgumentOutOfRangeException("tolerance", "Tolerance must be greater than or equal to 0.");
+                throw new ArgumentOutOfRangeException(nameof(tolerance), "Tolerance must be greater than or equal to 0.");
 
-            double thisValue = this.Value;
-            double otherValueInThisUnits = other.As(this.Unit);
+            return OasysUnits.Comparison.Equals(
+                referenceValue: this.Value,
+                otherValue: other.As(this.Unit),
+                tolerance: tolerance,
+                comparisonType: comparisonType);
+        }
 
-            return OasysUnits.Comparison.Equals(thisValue, otherValueInThisUnits, tolerance, comparisonType);
+        /// <inheritdoc />
+        public bool Equals(IQuantity? other, IQuantity tolerance)
+        {
+            return other is WarpingMomentOfInertia otherTyped
+                   && (tolerance is WarpingMomentOfInertia toleranceTyped
+                       ? true
+                       : throw new ArgumentException($"Tolerance quantity ({tolerance.QuantityInfo.Name}) did not match the other quantities of type 'WarpingMomentOfInertia'.", nameof(tolerance)))
+                   && Equals(otherTyped, toleranceTyped);
+        }
+
+        /// <inheritdoc />
+        public bool Equals(WarpingMomentOfInertia other, WarpingMomentOfInertia tolerance)
+        {
+            return OasysUnits.Comparison.Equals(
+                referenceValue: this.Value,
+                otherValue: other.As(this.Unit),
+                tolerance: tolerance.As(this.Unit),
+                comparisonType: ComparisonType.Absolute);
         }
 
         /// <summary>
@@ -728,15 +725,6 @@ namespace OasysUnits
 
         /// <inheritdoc />
         double IQuantity.As(Enum unit)
-        {
-            if (!(unit is WarpingMomentOfInertiaUnit typedUnit))
-                throw new ArgumentException($"The given unit is of type {unit.GetType()}. Only {typeof(WarpingMomentOfInertiaUnit)} is supported.", nameof(unit));
-
-            return (double)As(typedUnit);
-        }
-
-        /// <inheritdoc />
-        double IValueQuantity<double>.As(Enum unit)
         {
             if (!(unit is WarpingMomentOfInertiaUnit typedUnit))
                 throw new ArgumentException($"The given unit is of type {unit.GetType()}. Only {typeof(WarpingMomentOfInertiaUnit)} is supported.", nameof(unit));
@@ -860,18 +848,6 @@ namespace OasysUnits
 
         /// <inheritdoc />
         IQuantity<WarpingMomentOfInertiaUnit> IQuantity<WarpingMomentOfInertiaUnit>.ToUnit(UnitSystem unitSystem) => ToUnit(unitSystem);
-
-        /// <inheritdoc />
-        IValueQuantity<double> IValueQuantity<double>.ToUnit(Enum unit)
-        {
-            if (unit is not WarpingMomentOfInertiaUnit typedUnit)
-                throw new ArgumentException($"The given unit is of type {unit.GetType()}. Only {typeof(WarpingMomentOfInertiaUnit)} is supported.", nameof(unit));
-
-            return ToUnit(typedUnit);
-        }
-
-        /// <inheritdoc />
-        IValueQuantity<double> IValueQuantity<double>.ToUnit(UnitSystem unitSystem) => ToUnit(unitSystem);
 
         #endregion
 

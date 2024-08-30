@@ -6,7 +6,7 @@
 //     The build server regenerates the code before each build and a pre-build
 //     step will regenerate the code on each local build.
 //
-//     See https://github.com/angularsen/UnitsNet/wiki/Adding-a-New-Unit for how to add or edit units.
+//     See https://github.com/angularsen/OasysUnits/wiki/Adding-a-New-Unit for how to add or edit units.
 //
 //     Add CustomCode\Quantities\MyQuantity.extra.cs files to add code to generated quantities.
 //     Add UnitDefinitions\MyQuantity.json and run generate-code.bat to generate new units or quantities.
@@ -15,7 +15,7 @@
 //------------------------------------------------------------------------------
 
 // Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 // ReSharper disable once CheckNamespace
 namespace OasysUnits.Units
@@ -31,6 +31,9 @@ namespace OasysUnits.Units
         DecigramPerDeciliter = 4,
         DecigramPerLiter = 5,
         DecigramPerMilliliter = 6,
+        FemtogramPerDeciliter = 59,
+        FemtogramPerLiter = 56,
+        FemtogramPerMilliliter = 61,
         GramPerCubicCentimeter = 7,
         GramPerCubicFoot = 8,
         GramPerCubicInch = 9,
@@ -45,6 +48,7 @@ namespace OasysUnits.Units
         KilogramPerLiter = 18,
         KilopoundPerCubicFoot = 19,
         KilopoundPerCubicInch = 20,
+        KilopoundPerCubicYard = 64,
         MicrogramPerCubicMeter = 21,
         MicrogramPerDeciliter = 22,
         MicrogramPerLiter = 23,
@@ -64,6 +68,11 @@ namespace OasysUnits.Units
         PoundPerCubicInch = 37,
         PoundPerCubicMeter = 38,
         PoundPerCubicMillimeter = 39,
+
+        /// <summary>
+        ///     Calculated from the definition of <a href="https://en.wikipedia.org/wiki/Pound_(mass)">pound</a> and <a href="https://en.wikipedia.org/wiki/Yard">yard</a> compared to metric kilogram and meter.
+        /// </summary>
+        PoundPerCubicYard = 58,
         PoundPerImperialGallon = 40,
         PoundPerUSGallon = 41,
         SlugPerCubicCentimeter = 42,

@@ -6,7 +6,7 @@
 //     The build server regenerates the code before each build and a pre-build
 //     step will regenerate the code on each local build.
 //
-//     See https://github.com/angularsen/UnitsNet/wiki/Adding-a-New-Unit for how to add or edit units.
+//     See https://github.com/angularsen/OasysUnits/wiki/Adding-a-New-Unit for how to add or edit units.
 //
 //     Add CustomCode\Quantities\MyQuantity.extra.cs files to add code to generated quantities.
 //     Add UnitDefinitions\MyQuantity.json and run generate-code.bat to generate new units or quantities.
@@ -15,9 +15,10 @@
 //------------------------------------------------------------------------------
 
 // Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using System;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
@@ -36,8 +37,9 @@ namespace OasysUnits
     ///     
     /// </summary>
     [DataContract]
+    [DebuggerTypeProxy(typeof(QuantityDisplay))]
     public readonly partial struct Compressibility :
-        IArithmeticQuantity<Compressibility, CompressibilityUnit, double>,
+        IArithmeticQuantity<Compressibility, CompressibilityUnit>,
         IComparable,
         IComparable<Compressibility>,
         IConvertible,
@@ -47,13 +49,13 @@ namespace OasysUnits
         /// <summary>
         ///     The numeric value this quantity was constructed with.
         /// </summary>
-        [DataMember(Name = "Value", Order = 0)]
+        [DataMember(Name = "Value", Order = 1)]
         private readonly double _value;
 
         /// <summary>
         ///     The unit this quantity was constructed with.
         /// </summary>
-        [DataMember(Name = "Unit", Order = 1)]
+        [DataMember(Name = "Unit", Order = 2)]
         private readonly CompressibilityUnit? _unit;
 
         static Compressibility()
@@ -65,13 +67,13 @@ namespace OasysUnits
             Info = new QuantityInfo<CompressibilityUnit>("Compressibility",
                 new UnitInfo<CompressibilityUnit>[]
                 {
-                    new UnitInfo<CompressibilityUnit>(CompressibilityUnit.InverseAtmosphere, "InverseAtmospheres", BaseUnits.Undefined),
-                    new UnitInfo<CompressibilityUnit>(CompressibilityUnit.InverseBar, "InverseBars", BaseUnits.Undefined),
-                    new UnitInfo<CompressibilityUnit>(CompressibilityUnit.InverseKilopascal, "InverseKilopascals", BaseUnits.Undefined),
-                    new UnitInfo<CompressibilityUnit>(CompressibilityUnit.InverseMegapascal, "InverseMegapascals", BaseUnits.Undefined),
-                    new UnitInfo<CompressibilityUnit>(CompressibilityUnit.InverseMillibar, "InverseMillibars", BaseUnits.Undefined),
-                    new UnitInfo<CompressibilityUnit>(CompressibilityUnit.InversePascal, "InversePascals", new BaseUnits(length: LengthUnit.Meter, mass: MassUnit.Kilogram, time: DurationUnit.Second)),
-                    new UnitInfo<CompressibilityUnit>(CompressibilityUnit.InversePoundForcePerSquareInch, "InversePoundsForcePerSquareInch", BaseUnits.Undefined),
+                    new UnitInfo<CompressibilityUnit>(CompressibilityUnit.InverseAtmosphere, "InverseAtmospheres", BaseUnits.Undefined, "Compressibility"),
+                    new UnitInfo<CompressibilityUnit>(CompressibilityUnit.InverseBar, "InverseBars", BaseUnits.Undefined, "Compressibility"),
+                    new UnitInfo<CompressibilityUnit>(CompressibilityUnit.InverseKilopascal, "InverseKilopascals", BaseUnits.Undefined, "Compressibility"),
+                    new UnitInfo<CompressibilityUnit>(CompressibilityUnit.InverseMegapascal, "InverseMegapascals", BaseUnits.Undefined, "Compressibility"),
+                    new UnitInfo<CompressibilityUnit>(CompressibilityUnit.InverseMillibar, "InverseMillibars", BaseUnits.Undefined, "Compressibility"),
+                    new UnitInfo<CompressibilityUnit>(CompressibilityUnit.InversePascal, "InversePascals", new BaseUnits(length: LengthUnit.Meter, mass: MassUnit.Kilogram, time: DurationUnit.Second), "Compressibility"),
+                    new UnitInfo<CompressibilityUnit>(CompressibilityUnit.InversePoundForcePerSquareInch, "InversePoundsForcePerSquareInch", BaseUnits.Undefined, "Compressibility"),
                 },
                 BaseUnit, Zero, BaseDimensions);
 
@@ -84,10 +86,9 @@ namespace OasysUnits
         /// </summary>
         /// <param name="value">The numeric value to construct this quantity with.</param>
         /// <param name="unit">The unit representation to construct this quantity with.</param>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
         public Compressibility(double value, CompressibilityUnit unit)
         {
-            _value = Guard.EnsureValidNumber(value, nameof(value));
+            _value = value;
             _unit = unit;
         }
 
@@ -106,7 +107,7 @@ namespace OasysUnits
             var unitInfos = Info.GetUnitInfosFor(unitSystem.BaseUnits);
             var firstUnitInfo = unitInfos.FirstOrDefault();
 
-            _value = Guard.EnsureValidNumber(value, nameof(value));
+            _value = value;
             _unit = firstUnitInfo?.Value ?? throw new ArgumentException("No units were found for the given UnitSystem.", nameof(unitSystem));
         }
 
@@ -144,7 +145,7 @@ namespace OasysUnits
         public static Compressibility AdditiveIdentity => Zero;
 
         #endregion
- 
+
         #region Properties
 
         /// <summary>
@@ -153,7 +154,7 @@ namespace OasysUnits
         public double Value => _value;
 
         /// <inheritdoc />
-        QuantityValue IQuantity.Value => _value;
+        double IQuantity.Value => _value;
 
         Enum IQuantity.Unit => Unit;
 
@@ -240,17 +241,6 @@ namespace OasysUnits
             unitConverter.SetConversionFunction<Compressibility>(CompressibilityUnit.InversePascal, CompressibilityUnit.InversePoundForcePerSquareInch, quantity => quantity.ToUnit(CompressibilityUnit.InversePoundForcePerSquareInch));
         }
 
-        internal static void MapGeneratedLocalizations(UnitAbbreviationsCache unitAbbreviationsCache)
-        {
-            unitAbbreviationsCache.PerformAbbreviationMapping(CompressibilityUnit.InverseAtmosphere, new CultureInfo("en-US"), false, true, new string[]{"atm⁻¹", "1/atm"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(CompressibilityUnit.InverseBar, new CultureInfo("en-US"), false, true, new string[]{"bar⁻¹", "1/bar"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(CompressibilityUnit.InverseKilopascal, new CultureInfo("en-US"), false, true, new string[]{"kPa⁻¹", "1/kPa"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(CompressibilityUnit.InverseMegapascal, new CultureInfo("en-US"), false, true, new string[]{"MPa⁻¹", "1/MPa"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(CompressibilityUnit.InverseMillibar, new CultureInfo("en-US"), false, true, new string[]{"mbar⁻¹", "1/mbar"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(CompressibilityUnit.InversePascal, new CultureInfo("en-US"), false, true, new string[]{"Pa⁻¹", "1/Pa"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(CompressibilityUnit.InversePoundForcePerSquareInch, new CultureInfo("en-US"), false, true, new string[]{"psi⁻¹", "1/psi"});
-        }
-
         /// <summary>
         ///     Get unit abbreviation string.
         /// </summary>
@@ -279,70 +269,56 @@ namespace OasysUnits
         /// <summary>
         ///     Creates a <see cref="Compressibility"/> from <see cref="CompressibilityUnit.InverseAtmosphere"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Compressibility FromInverseAtmospheres(QuantityValue inverseatmospheres)
+        public static Compressibility FromInverseAtmospheres(double value)
         {
-            double value = (double) inverseatmospheres;
             return new Compressibility(value, CompressibilityUnit.InverseAtmosphere);
         }
 
         /// <summary>
         ///     Creates a <see cref="Compressibility"/> from <see cref="CompressibilityUnit.InverseBar"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Compressibility FromInverseBars(QuantityValue inversebars)
+        public static Compressibility FromInverseBars(double value)
         {
-            double value = (double) inversebars;
             return new Compressibility(value, CompressibilityUnit.InverseBar);
         }
 
         /// <summary>
         ///     Creates a <see cref="Compressibility"/> from <see cref="CompressibilityUnit.InverseKilopascal"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Compressibility FromInverseKilopascals(QuantityValue inversekilopascals)
+        public static Compressibility FromInverseKilopascals(double value)
         {
-            double value = (double) inversekilopascals;
             return new Compressibility(value, CompressibilityUnit.InverseKilopascal);
         }
 
         /// <summary>
         ///     Creates a <see cref="Compressibility"/> from <see cref="CompressibilityUnit.InverseMegapascal"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Compressibility FromInverseMegapascals(QuantityValue inversemegapascals)
+        public static Compressibility FromInverseMegapascals(double value)
         {
-            double value = (double) inversemegapascals;
             return new Compressibility(value, CompressibilityUnit.InverseMegapascal);
         }
 
         /// <summary>
         ///     Creates a <see cref="Compressibility"/> from <see cref="CompressibilityUnit.InverseMillibar"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Compressibility FromInverseMillibars(QuantityValue inversemillibars)
+        public static Compressibility FromInverseMillibars(double value)
         {
-            double value = (double) inversemillibars;
             return new Compressibility(value, CompressibilityUnit.InverseMillibar);
         }
 
         /// <summary>
         ///     Creates a <see cref="Compressibility"/> from <see cref="CompressibilityUnit.InversePascal"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Compressibility FromInversePascals(QuantityValue inversepascals)
+        public static Compressibility FromInversePascals(double value)
         {
-            double value = (double) inversepascals;
             return new Compressibility(value, CompressibilityUnit.InversePascal);
         }
 
         /// <summary>
         ///     Creates a <see cref="Compressibility"/> from <see cref="CompressibilityUnit.InversePoundForcePerSquareInch"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Compressibility FromInversePoundsForcePerSquareInch(QuantityValue inversepoundsforcepersquareinch)
+        public static Compressibility FromInversePoundsForcePerSquareInch(double value)
         {
-            double value = (double) inversepoundsforcepersquareinch;
             return new Compressibility(value, CompressibilityUnit.InversePoundForcePerSquareInch);
         }
 
@@ -352,9 +328,9 @@ namespace OasysUnits
         /// <param name="value">Value to convert from.</param>
         /// <param name="fromUnit">Unit to convert from.</param>
         /// <returns>Compressibility unit value.</returns>
-        public static Compressibility From(QuantityValue value, CompressibilityUnit fromUnit)
+        public static Compressibility From(double value, CompressibilityUnit fromUnit)
         {
-            return new Compressibility((double)value, fromUnit);
+            return new Compressibility(value, fromUnit);
         }
 
         #endregion
@@ -366,7 +342,7 @@ namespace OasysUnits
         /// </summary>
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <example>
-        ///     Length.Parse("5.5 m", new CultureInfo("en-US"));
+        ///     Length.Parse("5.5 m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <exception cref="ArgumentNullException">The value of 'str' cannot be null. </exception>
         /// <exception cref="ArgumentException">
@@ -393,7 +369,7 @@ namespace OasysUnits
         /// </summary>
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <example>
-        ///     Length.Parse("5.5 m", new CultureInfo("en-US"));
+        ///     Length.Parse("5.5 m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <exception cref="ArgumentNullException">The value of 'str' cannot be null. </exception>
         /// <exception cref="ArgumentException">
@@ -425,7 +401,7 @@ namespace OasysUnits
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <param name="result">Resulting unit quantity if successful.</param>
         /// <example>
-        ///     Length.Parse("5.5 m", new CultureInfo("en-US"));
+        ///     Length.Parse("5.5 m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         public static bool TryParse(string? str, out Compressibility result)
         {
@@ -439,7 +415,7 @@ namespace OasysUnits
         /// <param name="result">Resulting unit quantity if successful.</param>
         /// <returns>True if successful, otherwise false.</returns>
         /// <example>
-        ///     Length.Parse("5.5 m", new CultureInfo("en-US"));
+        ///     Length.Parse("5.5 m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <param name="provider">Format to use when parsing number and unit. Defaults to <see cref="CultureInfo.CurrentCulture" /> if null.</param>
         public static bool TryParse(string? str, IFormatProvider? provider, out Compressibility result)
@@ -456,7 +432,7 @@ namespace OasysUnits
         /// </summary>
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <example>
-        ///     Length.ParseUnit("m", new CultureInfo("en-US"));
+        ///     Length.ParseUnit("m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <exception cref="ArgumentNullException">The value of 'str' cannot be null. </exception>
         /// <exception cref="OasysUnitsException">Error parsing string.</exception>
@@ -471,7 +447,7 @@ namespace OasysUnits
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <param name="provider">Format to use when parsing number and unit. Defaults to <see cref="CultureInfo.CurrentCulture" /> if null.</param>
         /// <example>
-        ///     Length.ParseUnit("m", new CultureInfo("en-US"));
+        ///     Length.ParseUnit("m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <exception cref="ArgumentNullException">The value of 'str' cannot be null. </exception>
         /// <exception cref="OasysUnitsException">Error parsing string.</exception>
@@ -493,7 +469,7 @@ namespace OasysUnits
         /// <param name="unit">The parsed unit if successful.</param>
         /// <returns>True if successful, otherwise false.</returns>
         /// <example>
-        ///     Length.TryParseUnit("m", new CultureInfo("en-US"));
+        ///     Length.TryParseUnit("m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <param name="provider">Format to use when parsing number and unit. Defaults to <see cref="CultureInfo.CurrentCulture" /> if null.</param>
         public static bool TryParseUnit(string str, IFormatProvider? provider, out CompressibilityUnit unit)
@@ -580,16 +556,14 @@ namespace OasysUnits
         #pragma warning disable CS0809
 
         /// <summary>Indicates strict equality of two <see cref="Compressibility"/> quantities, where both <see cref="Value" /> and <see cref="Unit" /> are exactly equal.</summary>
-        /// <remarks>Consider using <see cref="Equals(Compressibility, double, ComparisonType)"/> to check equality across different units and to specify a floating-point number error tolerance.</remarks>
-        [Obsolete("For null checks, use `x is null` syntax to not invoke overloads. For quantity comparisons, use Equals(Compressibility, double, ComparisonType) to check equality across different units and to specify a floating-point number error tolerance.")]
+        [Obsolete("For null checks, use `x is null` syntax to not invoke overloads. For equality checks, use Equals(Compressibility other, Compressibility tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public static bool operator ==(Compressibility left, Compressibility right)
         {
             return left.Equals(right);
         }
 
         /// <summary>Indicates strict inequality of two <see cref="Compressibility"/> quantities, where both <see cref="Value" /> and <see cref="Unit" /> are exactly equal.</summary>
-        /// <remarks>Consider using <see cref="Equals(Compressibility, double, ComparisonType)"/> to check equality across different units and to specify a floating-point number error tolerance.</remarks>
-        [Obsolete("For null checks, use `x is not null` syntax to not invoke overloads. For quantity comparisons, use Equals(Compressibility, double, ComparisonType) to check equality across different units and to specify a floating-point number error tolerance.")]
+        [Obsolete("For null checks, use `x is null` syntax to not invoke overloads. For equality checks, use Equals(Compressibility other, Compressibility tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public static bool operator !=(Compressibility left, Compressibility right)
         {
             return !(left == right);
@@ -597,8 +571,7 @@ namespace OasysUnits
 
         /// <inheritdoc />
         /// <summary>Indicates strict equality of two <see cref="Compressibility"/> quantities, where both <see cref="Value" /> and <see cref="Unit" /> are exactly equal.</summary>
-        /// <remarks>Consider using <see cref="Equals(Compressibility, double, ComparisonType)"/> to check equality across different units and to specify a floating-point number error tolerance.</remarks>
-        [Obsolete("Consider using Equals(Compressibility, double, ComparisonType) to check equality across different units and to specify a floating-point number error tolerance.")]
+        [Obsolete("Use Equals(Compressibility other, Compressibility tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public override bool Equals(object? obj)
         {
             if (obj is null || !(obj is Compressibility otherQuantity))
@@ -609,8 +582,7 @@ namespace OasysUnits
 
         /// <inheritdoc />
         /// <summary>Indicates strict equality of two <see cref="Compressibility"/> quantities, where both <see cref="Value" /> and <see cref="Unit" /> are exactly equal.</summary>
-        /// <remarks>Consider using <see cref="Equals(Compressibility, double, ComparisonType)"/> to check equality across different units and to specify a floating-point number error tolerance.</remarks>
-        [Obsolete("Consider using Equals(Compressibility, double, ComparisonType) to check equality across different units and to specify a floating-point number error tolerance.")]
+        [Obsolete("Use Equals(Compressibility other, Compressibility tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public bool Equals(Compressibility other)
         {
             return new { Value, Unit }.Equals(new { other.Value, other.Unit });
@@ -694,15 +666,37 @@ namespace OasysUnits
         /// <param name="tolerance">The absolute or relative tolerance value. Must be greater than or equal to 0.</param>
         /// <param name="comparisonType">The comparison type: either relative or absolute.</param>
         /// <returns>True if the absolute difference between the two values is not greater than the specified relative or absolute tolerance.</returns>
+        [Obsolete("Use Equals(Compressibility other, Compressibility tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public bool Equals(Compressibility other, double tolerance, ComparisonType comparisonType)
         {
             if (tolerance < 0)
-                throw new ArgumentOutOfRangeException("tolerance", "Tolerance must be greater than or equal to 0.");
+                throw new ArgumentOutOfRangeException(nameof(tolerance), "Tolerance must be greater than or equal to 0.");
 
-            double thisValue = this.Value;
-            double otherValueInThisUnits = other.As(this.Unit);
+            return OasysUnits.Comparison.Equals(
+                referenceValue: this.Value,
+                otherValue: other.As(this.Unit),
+                tolerance: tolerance,
+                comparisonType: comparisonType);
+        }
 
-            return OasysUnits.Comparison.Equals(thisValue, otherValueInThisUnits, tolerance, comparisonType);
+        /// <inheritdoc />
+        public bool Equals(IQuantity? other, IQuantity tolerance)
+        {
+            return other is Compressibility otherTyped
+                   && (tolerance is Compressibility toleranceTyped
+                       ? true
+                       : throw new ArgumentException($"Tolerance quantity ({tolerance.QuantityInfo.Name}) did not match the other quantities of type 'Compressibility'.", nameof(tolerance)))
+                   && Equals(otherTyped, toleranceTyped);
+        }
+
+        /// <inheritdoc />
+        public bool Equals(Compressibility other, Compressibility tolerance)
+        {
+            return OasysUnits.Comparison.Equals(
+                referenceValue: this.Value,
+                otherValue: other.As(this.Unit),
+                tolerance: tolerance.As(this.Unit),
+                comparisonType: ComparisonType.Absolute);
         }
 
         /// <summary>
@@ -747,15 +741,6 @@ namespace OasysUnits
 
         /// <inheritdoc />
         double IQuantity.As(Enum unit)
-        {
-            if (!(unit is CompressibilityUnit typedUnit))
-                throw new ArgumentException($"The given unit is of type {unit.GetType()}. Only {typeof(CompressibilityUnit)} is supported.", nameof(unit));
-
-            return (double)As(typedUnit);
-        }
-
-        /// <inheritdoc />
-        double IValueQuantity<double>.As(Enum unit)
         {
             if (!(unit is CompressibilityUnit typedUnit))
                 throw new ArgumentException($"The given unit is of type {unit.GetType()}. Only {typeof(CompressibilityUnit)} is supported.", nameof(unit));
@@ -881,18 +866,6 @@ namespace OasysUnits
 
         /// <inheritdoc />
         IQuantity<CompressibilityUnit> IQuantity<CompressibilityUnit>.ToUnit(UnitSystem unitSystem) => ToUnit(unitSystem);
-
-        /// <inheritdoc />
-        IValueQuantity<double> IValueQuantity<double>.ToUnit(Enum unit)
-        {
-            if (unit is not CompressibilityUnit typedUnit)
-                throw new ArgumentException($"The given unit is of type {unit.GetType()}. Only {typeof(CompressibilityUnit)} is supported.", nameof(unit));
-
-            return ToUnit(typedUnit);
-        }
-
-        /// <inheritdoc />
-        IValueQuantity<double> IValueQuantity<double>.ToUnit(UnitSystem unitSystem) => ToUnit(unitSystem);
 
         #endregion
 

@@ -6,7 +6,7 @@
 //     The build server regenerates the code before each build and a pre-build
 //     step will regenerate the code on each local build.
 //
-//     See https://github.com/angularsen/UnitsNet/wiki/Adding-a-New-Unit for how to add or edit units.
+//     See https://github.com/angularsen/OasysUnits/wiki/Adding-a-New-Unit for how to add or edit units.
 //
 //     Add CustomCode\Quantities\MyQuantity.extra.cs files to add code to generated quantities.
 //     Add UnitDefinitions\MyQuantity.json and run generate-code.bat to generate new units or quantities.
@@ -15,7 +15,7 @@
 //------------------------------------------------------------------------------
 
 // Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using System;
 using System.Collections.Generic;
@@ -67,16 +67,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void Ctor_WithInfinityValue_ThrowsArgumentException()
+        public void Ctor_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new VitaminA(double.PositiveInfinity, VitaminAUnit.InternationalUnit));
-            Assert.Throws<ArgumentException>(() => new VitaminA(double.NegativeInfinity, VitaminAUnit.InternationalUnit));
+            var exception1 = Record.Exception(() => new VitaminA(double.PositiveInfinity, VitaminAUnit.InternationalUnit));
+            var exception2 = Record.Exception(() => new VitaminA(double.NegativeInfinity, VitaminAUnit.InternationalUnit));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void Ctor_WithNaNValue_ThrowsArgumentException()
+        public void Ctor_WithNaNValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new VitaminA(double.NaN, VitaminAUnit.InternationalUnit));
+            var exception = Record.Exception(() => new VitaminA(double.NaN, VitaminAUnit.InternationalUnit));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -131,16 +136,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void FromInternationalUnits_WithInfinityValue_ThrowsArgumentException()
+        public void FromInternationalUnits_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => VitaminA.FromInternationalUnits(double.PositiveInfinity));
-            Assert.Throws<ArgumentException>(() => VitaminA.FromInternationalUnits(double.NegativeInfinity));
+            var exception1 = Record.Exception(() => VitaminA.FromInternationalUnits(double.PositiveInfinity));
+            var exception2 = Record.Exception(() => VitaminA.FromInternationalUnits(double.NegativeInfinity));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void FromInternationalUnits_WithNanValue_ThrowsArgumentException()
+        public void FromInternationalUnits_WithNanValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => VitaminA.FromInternationalUnits(double.NaN));
+            var exception = Record.Exception(() => VitaminA.FromInternationalUnits(double.NaN));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -359,6 +369,8 @@ namespace OasysUnits.Tests
             var v = VitaminA.FromInternationalUnits(1);
             Assert.True(v.Equals(VitaminA.FromInternationalUnits(1), InternationalUnitsTolerance, ComparisonType.Relative));
             Assert.False(v.Equals(VitaminA.Zero, InternationalUnitsTolerance, ComparisonType.Relative));
+            Assert.True(VitaminA.FromInternationalUnits(100).Equals(VitaminA.FromInternationalUnits(120), 0.3, ComparisonType.Relative));
+            Assert.False(VitaminA.FromInternationalUnits(100).Equals(VitaminA.FromInternationalUnits(120), 0.1, ComparisonType.Relative));
         }
 
         [Fact]

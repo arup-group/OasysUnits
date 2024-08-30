@@ -6,7 +6,7 @@
 //     The build server regenerates the code before each build and a pre-build
 //     step will regenerate the code on each local build.
 //
-//     See https://github.com/angularsen/UnitsNet/wiki/Adding-a-New-Unit for how to add or edit units.
+//     See https://github.com/angularsen/OasysUnits/wiki/Adding-a-New-Unit for how to add or edit units.
 //
 //     Add CustomCode\Quantities\MyQuantity.extra.cs files to add code to generated quantities.
 //     Add UnitDefinitions\MyQuantity.json and run generate-code.bat to generate new units or quantities.
@@ -15,9 +15,13 @@
 //------------------------------------------------------------------------------
 
 // Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using System;
+
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
 
 #nullable enable
 
@@ -28,45 +32,85 @@ namespace OasysUnits.NumberExtensions.NumberToTemperatureChangeRate
     /// </summary>
     public static class NumberToTemperatureChangeRateExtensions
     {
-        /// <inheritdoc cref="TemperatureChangeRate.FromCentidegreesCelsiusPerSecond(OasysUnits.QuantityValue)" />
-        public static TemperatureChangeRate CentidegreesCelsiusPerSecond<T>(this T value) =>
-            TemperatureChangeRate.FromCentidegreesCelsiusPerSecond(Convert.ToDouble(value));
+        /// <inheritdoc cref="TemperatureChangeRate.FromCentidegreesCelsiusPerSecond(double)" />
+        public static TemperatureChangeRate CentidegreesCelsiusPerSecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => TemperatureChangeRate.FromCentidegreesCelsiusPerSecond(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="TemperatureChangeRate.FromDecadegreesCelsiusPerSecond(OasysUnits.QuantityValue)" />
-        public static TemperatureChangeRate DecadegreesCelsiusPerSecond<T>(this T value) =>
-            TemperatureChangeRate.FromDecadegreesCelsiusPerSecond(Convert.ToDouble(value));
+        /// <inheritdoc cref="TemperatureChangeRate.FromDecadegreesCelsiusPerSecond(double)" />
+        public static TemperatureChangeRate DecadegreesCelsiusPerSecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => TemperatureChangeRate.FromDecadegreesCelsiusPerSecond(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="TemperatureChangeRate.FromDecidegreesCelsiusPerSecond(OasysUnits.QuantityValue)" />
-        public static TemperatureChangeRate DecidegreesCelsiusPerSecond<T>(this T value) =>
-            TemperatureChangeRate.FromDecidegreesCelsiusPerSecond(Convert.ToDouble(value));
+        /// <inheritdoc cref="TemperatureChangeRate.FromDecidegreesCelsiusPerSecond(double)" />
+        public static TemperatureChangeRate DecidegreesCelsiusPerSecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => TemperatureChangeRate.FromDecidegreesCelsiusPerSecond(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="TemperatureChangeRate.FromDegreesCelsiusPerMinute(OasysUnits.QuantityValue)" />
-        public static TemperatureChangeRate DegreesCelsiusPerMinute<T>(this T value) =>
-            TemperatureChangeRate.FromDegreesCelsiusPerMinute(Convert.ToDouble(value));
+        /// <inheritdoc cref="TemperatureChangeRate.FromDegreesCelsiusPerMinute(double)" />
+        public static TemperatureChangeRate DegreesCelsiusPerMinute<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => TemperatureChangeRate.FromDegreesCelsiusPerMinute(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="TemperatureChangeRate.FromDegreesCelsiusPerSecond(OasysUnits.QuantityValue)" />
-        public static TemperatureChangeRate DegreesCelsiusPerSecond<T>(this T value) =>
-            TemperatureChangeRate.FromDegreesCelsiusPerSecond(Convert.ToDouble(value));
+        /// <inheritdoc cref="TemperatureChangeRate.FromDegreesCelsiusPerSecond(double)" />
+        public static TemperatureChangeRate DegreesCelsiusPerSecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => TemperatureChangeRate.FromDegreesCelsiusPerSecond(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="TemperatureChangeRate.FromHectodegreesCelsiusPerSecond(OasysUnits.QuantityValue)" />
-        public static TemperatureChangeRate HectodegreesCelsiusPerSecond<T>(this T value) =>
-            TemperatureChangeRate.FromHectodegreesCelsiusPerSecond(Convert.ToDouble(value));
+        /// <inheritdoc cref="TemperatureChangeRate.FromHectodegreesCelsiusPerSecond(double)" />
+        public static TemperatureChangeRate HectodegreesCelsiusPerSecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => TemperatureChangeRate.FromHectodegreesCelsiusPerSecond(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="TemperatureChangeRate.FromKilodegreesCelsiusPerSecond(OasysUnits.QuantityValue)" />
-        public static TemperatureChangeRate KilodegreesCelsiusPerSecond<T>(this T value) =>
-            TemperatureChangeRate.FromKilodegreesCelsiusPerSecond(Convert.ToDouble(value));
+        /// <inheritdoc cref="TemperatureChangeRate.FromKilodegreesCelsiusPerSecond(double)" />
+        public static TemperatureChangeRate KilodegreesCelsiusPerSecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => TemperatureChangeRate.FromKilodegreesCelsiusPerSecond(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="TemperatureChangeRate.FromMicrodegreesCelsiusPerSecond(OasysUnits.QuantityValue)" />
-        public static TemperatureChangeRate MicrodegreesCelsiusPerSecond<T>(this T value) =>
-            TemperatureChangeRate.FromMicrodegreesCelsiusPerSecond(Convert.ToDouble(value));
+        /// <inheritdoc cref="TemperatureChangeRate.FromMicrodegreesCelsiusPerSecond(double)" />
+        public static TemperatureChangeRate MicrodegreesCelsiusPerSecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => TemperatureChangeRate.FromMicrodegreesCelsiusPerSecond(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="TemperatureChangeRate.FromMillidegreesCelsiusPerSecond(OasysUnits.QuantityValue)" />
-        public static TemperatureChangeRate MillidegreesCelsiusPerSecond<T>(this T value) =>
-            TemperatureChangeRate.FromMillidegreesCelsiusPerSecond(Convert.ToDouble(value));
+        /// <inheritdoc cref="TemperatureChangeRate.FromMillidegreesCelsiusPerSecond(double)" />
+        public static TemperatureChangeRate MillidegreesCelsiusPerSecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => TemperatureChangeRate.FromMillidegreesCelsiusPerSecond(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="TemperatureChangeRate.FromNanodegreesCelsiusPerSecond(OasysUnits.QuantityValue)" />
-        public static TemperatureChangeRate NanodegreesCelsiusPerSecond<T>(this T value) =>
-            TemperatureChangeRate.FromNanodegreesCelsiusPerSecond(Convert.ToDouble(value));
+        /// <inheritdoc cref="TemperatureChangeRate.FromNanodegreesCelsiusPerSecond(double)" />
+        public static TemperatureChangeRate NanodegreesCelsiusPerSecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => TemperatureChangeRate.FromNanodegreesCelsiusPerSecond(Convert.ToDouble(value));
 
     }
 }

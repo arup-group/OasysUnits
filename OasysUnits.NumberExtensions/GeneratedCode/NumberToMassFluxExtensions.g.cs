@@ -6,7 +6,7 @@
 //     The build server regenerates the code before each build and a pre-build
 //     step will regenerate the code on each local build.
 //
-//     See https://github.com/angularsen/UnitsNet/wiki/Adding-a-New-Unit for how to add or edit units.
+//     See https://github.com/angularsen/OasysUnits/wiki/Adding-a-New-Unit for how to add or edit units.
 //
 //     Add CustomCode\Quantities\MyQuantity.extra.cs files to add code to generated quantities.
 //     Add UnitDefinitions\MyQuantity.json and run generate-code.bat to generate new units or quantities.
@@ -15,9 +15,13 @@
 //------------------------------------------------------------------------------
 
 // Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using System;
+
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
 
 #nullable enable
 
@@ -28,53 +32,101 @@ namespace OasysUnits.NumberExtensions.NumberToMassFlux
     /// </summary>
     public static class NumberToMassFluxExtensions
     {
-        /// <inheritdoc cref="MassFlux.FromGramsPerHourPerSquareCentimeter(OasysUnits.QuantityValue)" />
-        public static MassFlux GramsPerHourPerSquareCentimeter<T>(this T value) =>
-            MassFlux.FromGramsPerHourPerSquareCentimeter(Convert.ToDouble(value));
+        /// <inheritdoc cref="MassFlux.FromGramsPerHourPerSquareCentimeter(double)" />
+        public static MassFlux GramsPerHourPerSquareCentimeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MassFlux.FromGramsPerHourPerSquareCentimeter(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MassFlux.FromGramsPerHourPerSquareMeter(OasysUnits.QuantityValue)" />
-        public static MassFlux GramsPerHourPerSquareMeter<T>(this T value) =>
-            MassFlux.FromGramsPerHourPerSquareMeter(Convert.ToDouble(value));
+        /// <inheritdoc cref="MassFlux.FromGramsPerHourPerSquareMeter(double)" />
+        public static MassFlux GramsPerHourPerSquareMeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MassFlux.FromGramsPerHourPerSquareMeter(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MassFlux.FromGramsPerHourPerSquareMillimeter(OasysUnits.QuantityValue)" />
-        public static MassFlux GramsPerHourPerSquareMillimeter<T>(this T value) =>
-            MassFlux.FromGramsPerHourPerSquareMillimeter(Convert.ToDouble(value));
+        /// <inheritdoc cref="MassFlux.FromGramsPerHourPerSquareMillimeter(double)" />
+        public static MassFlux GramsPerHourPerSquareMillimeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MassFlux.FromGramsPerHourPerSquareMillimeter(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MassFlux.FromGramsPerSecondPerSquareCentimeter(OasysUnits.QuantityValue)" />
-        public static MassFlux GramsPerSecondPerSquareCentimeter<T>(this T value) =>
-            MassFlux.FromGramsPerSecondPerSquareCentimeter(Convert.ToDouble(value));
+        /// <inheritdoc cref="MassFlux.FromGramsPerSecondPerSquareCentimeter(double)" />
+        public static MassFlux GramsPerSecondPerSquareCentimeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MassFlux.FromGramsPerSecondPerSquareCentimeter(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MassFlux.FromGramsPerSecondPerSquareMeter(OasysUnits.QuantityValue)" />
-        public static MassFlux GramsPerSecondPerSquareMeter<T>(this T value) =>
-            MassFlux.FromGramsPerSecondPerSquareMeter(Convert.ToDouble(value));
+        /// <inheritdoc cref="MassFlux.FromGramsPerSecondPerSquareMeter(double)" />
+        public static MassFlux GramsPerSecondPerSquareMeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MassFlux.FromGramsPerSecondPerSquareMeter(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MassFlux.FromGramsPerSecondPerSquareMillimeter(OasysUnits.QuantityValue)" />
-        public static MassFlux GramsPerSecondPerSquareMillimeter<T>(this T value) =>
-            MassFlux.FromGramsPerSecondPerSquareMillimeter(Convert.ToDouble(value));
+        /// <inheritdoc cref="MassFlux.FromGramsPerSecondPerSquareMillimeter(double)" />
+        public static MassFlux GramsPerSecondPerSquareMillimeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MassFlux.FromGramsPerSecondPerSquareMillimeter(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MassFlux.FromKilogramsPerHourPerSquareCentimeter(OasysUnits.QuantityValue)" />
-        public static MassFlux KilogramsPerHourPerSquareCentimeter<T>(this T value) =>
-            MassFlux.FromKilogramsPerHourPerSquareCentimeter(Convert.ToDouble(value));
+        /// <inheritdoc cref="MassFlux.FromKilogramsPerHourPerSquareCentimeter(double)" />
+        public static MassFlux KilogramsPerHourPerSquareCentimeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MassFlux.FromKilogramsPerHourPerSquareCentimeter(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MassFlux.FromKilogramsPerHourPerSquareMeter(OasysUnits.QuantityValue)" />
-        public static MassFlux KilogramsPerHourPerSquareMeter<T>(this T value) =>
-            MassFlux.FromKilogramsPerHourPerSquareMeter(Convert.ToDouble(value));
+        /// <inheritdoc cref="MassFlux.FromKilogramsPerHourPerSquareMeter(double)" />
+        public static MassFlux KilogramsPerHourPerSquareMeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MassFlux.FromKilogramsPerHourPerSquareMeter(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MassFlux.FromKilogramsPerHourPerSquareMillimeter(OasysUnits.QuantityValue)" />
-        public static MassFlux KilogramsPerHourPerSquareMillimeter<T>(this T value) =>
-            MassFlux.FromKilogramsPerHourPerSquareMillimeter(Convert.ToDouble(value));
+        /// <inheritdoc cref="MassFlux.FromKilogramsPerHourPerSquareMillimeter(double)" />
+        public static MassFlux KilogramsPerHourPerSquareMillimeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MassFlux.FromKilogramsPerHourPerSquareMillimeter(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MassFlux.FromKilogramsPerSecondPerSquareCentimeter(OasysUnits.QuantityValue)" />
-        public static MassFlux KilogramsPerSecondPerSquareCentimeter<T>(this T value) =>
-            MassFlux.FromKilogramsPerSecondPerSquareCentimeter(Convert.ToDouble(value));
+        /// <inheritdoc cref="MassFlux.FromKilogramsPerSecondPerSquareCentimeter(double)" />
+        public static MassFlux KilogramsPerSecondPerSquareCentimeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MassFlux.FromKilogramsPerSecondPerSquareCentimeter(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MassFlux.FromKilogramsPerSecondPerSquareMeter(OasysUnits.QuantityValue)" />
-        public static MassFlux KilogramsPerSecondPerSquareMeter<T>(this T value) =>
-            MassFlux.FromKilogramsPerSecondPerSquareMeter(Convert.ToDouble(value));
+        /// <inheritdoc cref="MassFlux.FromKilogramsPerSecondPerSquareMeter(double)" />
+        public static MassFlux KilogramsPerSecondPerSquareMeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MassFlux.FromKilogramsPerSecondPerSquareMeter(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MassFlux.FromKilogramsPerSecondPerSquareMillimeter(OasysUnits.QuantityValue)" />
-        public static MassFlux KilogramsPerSecondPerSquareMillimeter<T>(this T value) =>
-            MassFlux.FromKilogramsPerSecondPerSquareMillimeter(Convert.ToDouble(value));
+        /// <inheritdoc cref="MassFlux.FromKilogramsPerSecondPerSquareMillimeter(double)" />
+        public static MassFlux KilogramsPerSecondPerSquareMillimeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MassFlux.FromKilogramsPerSecondPerSquareMillimeter(Convert.ToDouble(value));
 
     }
 }

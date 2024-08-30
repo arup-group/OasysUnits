@@ -1,5 +1,5 @@
 ﻿// Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using System;
 using System.Collections.Generic;
@@ -13,7 +13,7 @@ namespace OasysUnits.Serialization.JsonNet.Tests
 {
     public sealed class OasysUnitsIComparableJsonConverterTest
     {
-        private OasysUnitsIComparableJsonConverter _sut;
+        private readonly OasysUnitsIComparableJsonConverter _sut;
 
         public OasysUnitsIComparableJsonConverterTest()
         {
@@ -119,7 +119,7 @@ namespace OasysUnits.Serialization.JsonNet.Tests
 
             Assert.NotNull(result);
             Assert.IsType<Power>(result);
-            Assert.Equal(120M, ((Power)result).Watts);
+            Assert.Equal(120, ((Power)result).Watts);
         }
     }
 }

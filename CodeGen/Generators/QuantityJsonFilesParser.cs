@@ -1,5 +1,5 @@
 ﻿// Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using System;
 using System.Collections.Generic;
@@ -48,7 +48,6 @@ namespace CodeGen.Generators
                                ?? throw new OasysUnitsCodeGenException($"Unable to parse quantity from JSON file: {jsonFileName}");
 
                 AddPrefixUnits(quantity);
-                FixConversionFunctionsForDecimalValueTypes(quantity);
                 OrderUnitsByName(quantity);
                 return quantity;
             }
@@ -61,20 +60,6 @@ namespace CodeGen.Generators
         private static void OrderUnitsByName(Quantity quantity)
         {
             quantity.Units = quantity.Units.OrderBy(u => u.SingularName, StringComparer.OrdinalIgnoreCase).ToArray();
-        }
-
-        private static void FixConversionFunctionsForDecimalValueTypes(Quantity quantity)
-        {
-            foreach (Unit u in quantity.Units)
-                // Use decimal for internal calculations if base type is not double, such as for long or int.
-            {
-                if (string.Equals(quantity.ValueType, "decimal", StringComparison.OrdinalIgnoreCase))
-                {
-                    // Change any double literals like "1024d" to decimal literals "1024m"
-                    u.FromUnitToBaseFunc = u.FromUnitToBaseFunc.Replace("d", "m");
-                    u.FromBaseToUnitFunc = u.FromBaseToUnitFunc.Replace("d", "m");
-                }
-            }
         }
 
         private static void AddPrefixUnits(Quantity quantity)

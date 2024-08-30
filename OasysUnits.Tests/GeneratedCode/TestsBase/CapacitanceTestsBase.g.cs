@@ -6,7 +6,7 @@
 //     The build server regenerates the code before each build and a pre-build
 //     step will regenerate the code on each local build.
 //
-//     See https://github.com/angularsen/UnitsNet/wiki/Adding-a-New-Unit for how to add or edit units.
+//     See https://github.com/angularsen/OasysUnits/wiki/Adding-a-New-Unit for how to add or edit units.
 //
 //     Add CustomCode\Quantities\MyQuantity.extra.cs files to add code to generated quantities.
 //     Add UnitDefinitions\MyQuantity.json and run generate-code.bat to generate new units or quantities.
@@ -15,7 +15,7 @@
 //------------------------------------------------------------------------------
 
 // Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using System;
 using System.Collections.Generic;
@@ -91,16 +91,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void Ctor_WithInfinityValue_ThrowsArgumentException()
+        public void Ctor_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new Capacitance(double.PositiveInfinity, CapacitanceUnit.Farad));
-            Assert.Throws<ArgumentException>(() => new Capacitance(double.NegativeInfinity, CapacitanceUnit.Farad));
+            var exception1 = Record.Exception(() => new Capacitance(double.PositiveInfinity, CapacitanceUnit.Farad));
+            var exception2 = Record.Exception(() => new Capacitance(double.NegativeInfinity, CapacitanceUnit.Farad));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void Ctor_WithNaNValue_ThrowsArgumentException()
+        public void Ctor_WithNaNValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new Capacitance(double.NaN, CapacitanceUnit.Farad));
+            var exception = Record.Exception(() => new Capacitance(double.NaN, CapacitanceUnit.Farad));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -185,16 +190,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void FromFarads_WithInfinityValue_ThrowsArgumentException()
+        public void FromFarads_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => Capacitance.FromFarads(double.PositiveInfinity));
-            Assert.Throws<ArgumentException>(() => Capacitance.FromFarads(double.NegativeInfinity));
+            var exception1 = Record.Exception(() => Capacitance.FromFarads(double.PositiveInfinity));
+            var exception2 = Record.Exception(() => Capacitance.FromFarads(double.NegativeInfinity));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void FromFarads_WithNanValue_ThrowsArgumentException()
+        public void FromFarads_WithNanValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => Capacitance.FromFarads(double.NaN));
+            var exception = Record.Exception(() => Capacitance.FromFarads(double.NaN));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -548,6 +558,8 @@ namespace OasysUnits.Tests
             var v = Capacitance.FromFarads(1);
             Assert.True(v.Equals(Capacitance.FromFarads(1), FaradsTolerance, ComparisonType.Relative));
             Assert.False(v.Equals(Capacitance.Zero, FaradsTolerance, ComparisonType.Relative));
+            Assert.True(Capacitance.FromFarads(100).Equals(Capacitance.FromFarads(120), 0.3, ComparisonType.Relative));
+            Assert.False(Capacitance.FromFarads(100).Equals(Capacitance.FromFarads(120), 0.1, ComparisonType.Relative));
         }
 
         [Fact]

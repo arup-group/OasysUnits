@@ -6,7 +6,7 @@
 //     The build server regenerates the code before each build and a pre-build
 //     step will regenerate the code on each local build.
 //
-//     See https://github.com/angularsen/UnitsNet/wiki/Adding-a-New-Unit for how to add or edit units.
+//     See https://github.com/angularsen/OasysUnits/wiki/Adding-a-New-Unit for how to add or edit units.
 //
 //     Add CustomCode\Quantities\MyQuantity.extra.cs files to add code to generated quantities.
 //     Add UnitDefinitions\MyQuantity.json and run generate-code.bat to generate new units or quantities.
@@ -15,9 +15,13 @@
 //------------------------------------------------------------------------------
 
 // Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using System;
+
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
 
 #nullable enable
 
@@ -28,33 +32,61 @@ namespace OasysUnits.NumberExtensions.NumberToElectricResistance
     /// </summary>
     public static class NumberToElectricResistanceExtensions
     {
-        /// <inheritdoc cref="ElectricResistance.FromGigaohms(OasysUnits.QuantityValue)" />
-        public static ElectricResistance Gigaohms<T>(this T value) =>
-            ElectricResistance.FromGigaohms(Convert.ToDouble(value));
+        /// <inheritdoc cref="ElectricResistance.FromGigaohms(double)" />
+        public static ElectricResistance Gigaohms<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ElectricResistance.FromGigaohms(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="ElectricResistance.FromKiloohms(OasysUnits.QuantityValue)" />
-        public static ElectricResistance Kiloohms<T>(this T value) =>
-            ElectricResistance.FromKiloohms(Convert.ToDouble(value));
+        /// <inheritdoc cref="ElectricResistance.FromKiloohms(double)" />
+        public static ElectricResistance Kiloohms<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ElectricResistance.FromKiloohms(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="ElectricResistance.FromMegaohms(OasysUnits.QuantityValue)" />
-        public static ElectricResistance Megaohms<T>(this T value) =>
-            ElectricResistance.FromMegaohms(Convert.ToDouble(value));
+        /// <inheritdoc cref="ElectricResistance.FromMegaohms(double)" />
+        public static ElectricResistance Megaohms<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ElectricResistance.FromMegaohms(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="ElectricResistance.FromMicroohms(OasysUnits.QuantityValue)" />
-        public static ElectricResistance Microohms<T>(this T value) =>
-            ElectricResistance.FromMicroohms(Convert.ToDouble(value));
+        /// <inheritdoc cref="ElectricResistance.FromMicroohms(double)" />
+        public static ElectricResistance Microohms<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ElectricResistance.FromMicroohms(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="ElectricResistance.FromMilliohms(OasysUnits.QuantityValue)" />
-        public static ElectricResistance Milliohms<T>(this T value) =>
-            ElectricResistance.FromMilliohms(Convert.ToDouble(value));
+        /// <inheritdoc cref="ElectricResistance.FromMilliohms(double)" />
+        public static ElectricResistance Milliohms<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ElectricResistance.FromMilliohms(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="ElectricResistance.FromOhms(OasysUnits.QuantityValue)" />
-        public static ElectricResistance Ohms<T>(this T value) =>
-            ElectricResistance.FromOhms(Convert.ToDouble(value));
+        /// <inheritdoc cref="ElectricResistance.FromOhms(double)" />
+        public static ElectricResistance Ohms<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ElectricResistance.FromOhms(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="ElectricResistance.FromTeraohms(OasysUnits.QuantityValue)" />
-        public static ElectricResistance Teraohms<T>(this T value) =>
-            ElectricResistance.FromTeraohms(Convert.ToDouble(value));
+        /// <inheritdoc cref="ElectricResistance.FromTeraohms(double)" />
+        public static ElectricResistance Teraohms<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ElectricResistance.FromTeraohms(Convert.ToDouble(value));
 
     }
 }

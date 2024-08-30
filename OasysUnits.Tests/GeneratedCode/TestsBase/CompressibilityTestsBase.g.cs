@@ -6,7 +6,7 @@
 //     The build server regenerates the code before each build and a pre-build
 //     step will regenerate the code on each local build.
 //
-//     See https://github.com/angularsen/UnitsNet/wiki/Adding-a-New-Unit for how to add or edit units.
+//     See https://github.com/angularsen/OasysUnits/wiki/Adding-a-New-Unit for how to add or edit units.
 //
 //     Add CustomCode\Quantities\MyQuantity.extra.cs files to add code to generated quantities.
 //     Add UnitDefinitions\MyQuantity.json and run generate-code.bat to generate new units or quantities.
@@ -15,7 +15,7 @@
 //------------------------------------------------------------------------------
 
 // Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using System;
 using System.Collections.Generic;
@@ -91,16 +91,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void Ctor_WithInfinityValue_ThrowsArgumentException()
+        public void Ctor_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new Compressibility(double.PositiveInfinity, CompressibilityUnit.InversePascal));
-            Assert.Throws<ArgumentException>(() => new Compressibility(double.NegativeInfinity, CompressibilityUnit.InversePascal));
+            var exception1 = Record.Exception(() => new Compressibility(double.PositiveInfinity, CompressibilityUnit.InversePascal));
+            var exception2 = Record.Exception(() => new Compressibility(double.NegativeInfinity, CompressibilityUnit.InversePascal));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void Ctor_WithNaNValue_ThrowsArgumentException()
+        public void Ctor_WithNaNValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new Compressibility(double.NaN, CompressibilityUnit.InversePascal));
+            var exception = Record.Exception(() => new Compressibility(double.NaN, CompressibilityUnit.InversePascal));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -185,16 +190,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void FromInversePascals_WithInfinityValue_ThrowsArgumentException()
+        public void FromInversePascals_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => Compressibility.FromInversePascals(double.PositiveInfinity));
-            Assert.Throws<ArgumentException>(() => Compressibility.FromInversePascals(double.NegativeInfinity));
+            var exception1 = Record.Exception(() => Compressibility.FromInversePascals(double.PositiveInfinity));
+            var exception2 = Record.Exception(() => Compressibility.FromInversePascals(double.NegativeInfinity));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void FromInversePascals_WithNanValue_ThrowsArgumentException()
+        public void FromInversePascals_WithNanValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => Compressibility.FromInversePascals(double.NaN));
+            var exception = Record.Exception(() => Compressibility.FromInversePascals(double.NaN));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -738,6 +748,8 @@ namespace OasysUnits.Tests
             var v = Compressibility.FromInversePascals(1);
             Assert.True(v.Equals(Compressibility.FromInversePascals(1), InversePascalsTolerance, ComparisonType.Relative));
             Assert.False(v.Equals(Compressibility.Zero, InversePascalsTolerance, ComparisonType.Relative));
+            Assert.True(Compressibility.FromInversePascals(100).Equals(Compressibility.FromInversePascals(120), 0.3, ComparisonType.Relative));
+            Assert.False(Compressibility.FromInversePascals(100).Equals(Compressibility.FromInversePascals(120), 0.1, ComparisonType.Relative));
         }
 
         [Fact]

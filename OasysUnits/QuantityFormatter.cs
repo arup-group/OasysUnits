@@ -1,5 +1,5 @@
 ﻿// Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using System;
 using System.Globalization;
@@ -180,10 +180,8 @@ namespace OasysUnits
 
         private static string ToStringWithSignificantDigitsAfterRadix<TUnitType>(IQuantity<TUnitType> quantity, IFormatProvider formatProvider, int number) where TUnitType : Enum
         {
-            // When a fixed number of digits after the dot is expected, double and decimal behave the same.
-            var value = (double)quantity.Value;
-            string formatForSignificantDigits = UnitFormatter.GetFormat(value, number);
-            object[] formatArgs = UnitFormatter.GetFormatArgs(quantity.Unit, value, formatProvider, Enumerable.Empty<object>());
+            string formatForSignificantDigits = UnitFormatter.GetFormat(quantity.Value, number);
+            object[] formatArgs = UnitFormatter.GetFormatArgs(quantity.Unit, quantity.Value, formatProvider, Enumerable.Empty<object>());
             return string.Format(formatProvider, formatForSignificantDigits, formatArgs);
         }
     }

@@ -6,7 +6,7 @@
 //     The build server regenerates the code before each build and a pre-build
 //     step will regenerate the code on each local build.
 //
-//     See https://github.com/angularsen/UnitsNet/wiki/Adding-a-New-Unit for how to add or edit units.
+//     See https://github.com/angularsen/OasysUnits/wiki/Adding-a-New-Unit for how to add or edit units.
 //
 //     Add CustomCode\Quantities\MyQuantity.extra.cs files to add code to generated quantities.
 //     Add UnitDefinitions\MyQuantity.json and run generate-code.bat to generate new units or quantities.
@@ -15,7 +15,7 @@
 //------------------------------------------------------------------------------
 
 // Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 // ReSharper disable once CheckNamespace
 namespace OasysUnits.Units
@@ -50,13 +50,17 @@ namespace OasysUnits.Units
         DtpPica = 8,
         DtpPoint = 9,
         Fathom = 10,
+        Femtometer = 48,
         Foot = 11,
+        Gigameter = 44,
         Hand = 12,
         Hectometer = 13,
         Inch = 14,
+        Kilofoot = 45,
         KilolightYear = 15,
         Kilometer = 16,
         Kiloparsec = 17,
+        Kiloyard = 38,
 
         /// <summary>
         ///     A Light Year (ly) is the distance that light travel during an Earth year, ie 365 days.
@@ -85,6 +89,7 @@ namespace OasysUnits.Units
         /// </summary>
         /// <remarks>https://en.wikipedia.org/wiki/Parsec</remarks>
         Parsec = 29,
+        Picometer = 43,
         PrinterPica = 30,
         PrinterPoint = 31,
         Shackle = 32,

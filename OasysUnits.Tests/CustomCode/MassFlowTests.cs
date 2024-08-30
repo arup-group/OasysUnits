@@ -1,5 +1,5 @@
 ﻿// Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using System;
 using Xunit;
@@ -98,17 +98,10 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void TimeSpanTimesMassFlowEqualsMass()
-        {
-            Mass mass = TimeSpan.FromSeconds(4.0) * MassFlow.FromKilogramsPerSecond(20.0);
-            Assert.Equal(mass, Mass.FromKilograms(80.0));
-        }
-
-        [Fact]
         public void MassFlowDividedByBrakeSpecificFuelConsumptionEqualsPower()
         {
             Power power = MassFlow.FromTonnesPerDay(20) / BrakeSpecificFuelConsumption.FromGramsPerKiloWattHour(180.0);
-            AssertEx.EqualTolerance(20.0m / 24.0m * 1e6m / 180.0m, power.Kilowatts, 1E-11m);
+            AssertEx.EqualTolerance(20.0 / 24.0 * 1e6 / 180.0, power.Kilowatts, 1e-11);
         }
 
         [Fact]

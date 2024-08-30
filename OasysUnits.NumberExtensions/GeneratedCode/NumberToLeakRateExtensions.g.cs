@@ -6,7 +6,7 @@
 //     The build server regenerates the code before each build and a pre-build
 //     step will regenerate the code on each local build.
 //
-//     See https://github.com/angularsen/UnitsNet/wiki/Adding-a-New-Unit for how to add or edit units.
+//     See https://github.com/angularsen/OasysUnits/wiki/Adding-a-New-Unit for how to add or edit units.
 //
 //     Add CustomCode\Quantities\MyQuantity.extra.cs files to add code to generated quantities.
 //     Add UnitDefinitions\MyQuantity.json and run generate-code.bat to generate new units or quantities.
@@ -15,9 +15,13 @@
 //------------------------------------------------------------------------------
 
 // Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using System;
+
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
 
 #nullable enable
 
@@ -28,17 +32,29 @@ namespace OasysUnits.NumberExtensions.NumberToLeakRate
     /// </summary>
     public static class NumberToLeakRateExtensions
     {
-        /// <inheritdoc cref="LeakRate.FromMillibarLitersPerSecond(OasysUnits.QuantityValue)" />
-        public static LeakRate MillibarLitersPerSecond<T>(this T value) =>
-            LeakRate.FromMillibarLitersPerSecond(Convert.ToDouble(value));
+        /// <inheritdoc cref="LeakRate.FromMillibarLitersPerSecond(double)" />
+        public static LeakRate MillibarLitersPerSecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => LeakRate.FromMillibarLitersPerSecond(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="LeakRate.FromPascalCubicMetersPerSecond(OasysUnits.QuantityValue)" />
-        public static LeakRate PascalCubicMetersPerSecond<T>(this T value) =>
-            LeakRate.FromPascalCubicMetersPerSecond(Convert.ToDouble(value));
+        /// <inheritdoc cref="LeakRate.FromPascalCubicMetersPerSecond(double)" />
+        public static LeakRate PascalCubicMetersPerSecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => LeakRate.FromPascalCubicMetersPerSecond(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="LeakRate.FromTorrLitersPerSecond(OasysUnits.QuantityValue)" />
-        public static LeakRate TorrLitersPerSecond<T>(this T value) =>
-            LeakRate.FromTorrLitersPerSecond(Convert.ToDouble(value));
+        /// <inheritdoc cref="LeakRate.FromTorrLitersPerSecond(double)" />
+        public static LeakRate TorrLitersPerSecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => LeakRate.FromTorrLitersPerSecond(Convert.ToDouble(value));
 
     }
 }

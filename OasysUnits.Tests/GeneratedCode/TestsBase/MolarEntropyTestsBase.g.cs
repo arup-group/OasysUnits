@@ -6,7 +6,7 @@
 //     The build server regenerates the code before each build and a pre-build
 //     step will regenerate the code on each local build.
 //
-//     See https://github.com/angularsen/UnitsNet/wiki/Adding-a-New-Unit for how to add or edit units.
+//     See https://github.com/angularsen/OasysUnits/wiki/Adding-a-New-Unit for how to add or edit units.
 //
 //     Add CustomCode\Quantities\MyQuantity.extra.cs files to add code to generated quantities.
 //     Add UnitDefinitions\MyQuantity.json and run generate-code.bat to generate new units or quantities.
@@ -15,7 +15,7 @@
 //------------------------------------------------------------------------------
 
 // Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using System;
 using System.Collections.Generic;
@@ -75,16 +75,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void Ctor_WithInfinityValue_ThrowsArgumentException()
+        public void Ctor_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new MolarEntropy(double.PositiveInfinity, MolarEntropyUnit.JoulePerMoleKelvin));
-            Assert.Throws<ArgumentException>(() => new MolarEntropy(double.NegativeInfinity, MolarEntropyUnit.JoulePerMoleKelvin));
+            var exception1 = Record.Exception(() => new MolarEntropy(double.PositiveInfinity, MolarEntropyUnit.JoulePerMoleKelvin));
+            var exception2 = Record.Exception(() => new MolarEntropy(double.NegativeInfinity, MolarEntropyUnit.JoulePerMoleKelvin));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void Ctor_WithNaNValue_ThrowsArgumentException()
+        public void Ctor_WithNaNValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new MolarEntropy(double.NaN, MolarEntropyUnit.JoulePerMoleKelvin));
+            var exception = Record.Exception(() => new MolarEntropy(double.NaN, MolarEntropyUnit.JoulePerMoleKelvin));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -149,16 +154,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void FromJoulesPerMoleKelvin_WithInfinityValue_ThrowsArgumentException()
+        public void FromJoulesPerMoleKelvin_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => MolarEntropy.FromJoulesPerMoleKelvin(double.PositiveInfinity));
-            Assert.Throws<ArgumentException>(() => MolarEntropy.FromJoulesPerMoleKelvin(double.NegativeInfinity));
+            var exception1 = Record.Exception(() => MolarEntropy.FromJoulesPerMoleKelvin(double.PositiveInfinity));
+            var exception2 = Record.Exception(() => MolarEntropy.FromJoulesPerMoleKelvin(double.NegativeInfinity));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void FromJoulesPerMoleKelvin_WithNanValue_ThrowsArgumentException()
+        public void FromJoulesPerMoleKelvin_WithNanValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => MolarEntropy.FromJoulesPerMoleKelvin(double.NaN));
+            var exception = Record.Exception(() => MolarEntropy.FromJoulesPerMoleKelvin(double.NaN));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -430,6 +440,8 @@ namespace OasysUnits.Tests
             var v = MolarEntropy.FromJoulesPerMoleKelvin(1);
             Assert.True(v.Equals(MolarEntropy.FromJoulesPerMoleKelvin(1), JoulesPerMoleKelvinTolerance, ComparisonType.Relative));
             Assert.False(v.Equals(MolarEntropy.Zero, JoulesPerMoleKelvinTolerance, ComparisonType.Relative));
+            Assert.True(MolarEntropy.FromJoulesPerMoleKelvin(100).Equals(MolarEntropy.FromJoulesPerMoleKelvin(120), 0.3, ComparisonType.Relative));
+            Assert.False(MolarEntropy.FromJoulesPerMoleKelvin(100).Equals(MolarEntropy.FromJoulesPerMoleKelvin(120), 0.1, ComparisonType.Relative));
         }
 
         [Fact]

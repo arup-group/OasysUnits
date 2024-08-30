@@ -1,5 +1,5 @@
 ﻿// Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using System;
 using System.Diagnostics.CodeAnalysis;
@@ -19,8 +19,8 @@ namespace OasysUnits.Tests
         {
             var expectedZero = Length.FromCentimeters(10);
             UnitInfo[] expectedUnitInfos = {
-                new(LengthUnit.Centimeter, "Centimeters", new BaseUnits(LengthUnit.Centimeter)),
-                new(LengthUnit.Kilometer, "Kilometers", new BaseUnits(LengthUnit.Kilometer))
+                new(LengthUnit.Centimeter, "Centimeters", new BaseUnits(LengthUnit.Centimeter), nameof(Length)),
+                new(LengthUnit.Kilometer, "Kilometers", new BaseUnits(LengthUnit.Kilometer), nameof(Length))
             };
             var expectedBaseUnit = LengthUnit.Centimeter;
             var expectedBaseDimensions = Length.BaseDimensions;
@@ -39,9 +39,9 @@ namespace OasysUnits.Tests
         {
             var expectedZero = new HowMuch(10, HowMuchUnit.Some);
             UnitInfo[] expectedUnitInfos = {
-                new(HowMuchUnit.Some, "Some", BaseUnits.Undefined),
-                new(HowMuchUnit.ATon, "Tons", BaseUnits.Undefined),
-                new(HowMuchUnit.AShitTon, "ShitTons", BaseUnits.Undefined)
+                new(HowMuchUnit.Some, "Some", BaseUnits.Undefined, nameof(HowMuch)),
+                new(HowMuchUnit.ATon, "Tons", BaseUnits.Undefined, nameof(HowMuch)),
+                new(HowMuchUnit.AShitTon, "ShitTons", BaseUnits.Undefined, nameof(HowMuch))
             };
             var expectedBaseUnit = HowMuchUnit.Some;
             var expectedBaseDimensions = BaseDimensions.Dimensionless;
@@ -60,8 +60,8 @@ namespace OasysUnits.Tests
         {
             var expectedZero = Length.FromCentimeters(10);
             UnitInfo<LengthUnit>[] expectedUnitInfos = {
-                new(LengthUnit.Centimeter, "Centimeters", new BaseUnits(LengthUnit.Centimeter)),
-                new(LengthUnit.Kilometer,"Kilometers",  new BaseUnits(LengthUnit.Kilometer))
+                new(LengthUnit.Centimeter, "Centimeters", new BaseUnits(LengthUnit.Centimeter), nameof(Length)),
+                new(LengthUnit.Kilometer,"Kilometers",  new BaseUnits(LengthUnit.Kilometer), nameof(Length))
             };
             var expectedBaseUnit = LengthUnit.Centimeter;
             var expectedBaseDimensions = Length.BaseDimensions;
@@ -204,8 +204,8 @@ namespace OasysUnits.Tests
 
             var quantityInfo = new QuantityInfo<LengthUnit>(Length.Info.Name,
                 new UnitInfo<LengthUnit>[] {
-                    new(LengthUnit.Meter, "Meters", baseUnits),
-                    new(LengthUnit.Foot, "Feet", baseUnits)
+                    new(LengthUnit.Meter, "Meters", baseUnits, nameof(Length)),
+                    new(LengthUnit.Foot, "Feet", baseUnits, nameof(Length))
                 },
                 LengthUnit.Meter, Length.Zero, Length.BaseDimensions);
 
@@ -242,8 +242,8 @@ namespace OasysUnits.Tests
 
             var quantityInfo = new QuantityInfo<LengthUnit>(Length.Info.Name,
                 new UnitInfo<LengthUnit>[] {
-                    new(LengthUnit.Meter, "Meters", baseUnits),
-                    new(LengthUnit.Foot, "Feet", baseUnits) },
+                    new(LengthUnit.Meter, "Meters", baseUnits, nameof(Length)),
+                    new(LengthUnit.Foot, "Feet", baseUnits, nameof(Length)) },
                 LengthUnit.Meter, Length.Zero, Length.BaseDimensions);
 
             var result = quantityInfo.GetUnitInfosFor(baseUnits);

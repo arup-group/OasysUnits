@@ -6,7 +6,7 @@
 //     The build server regenerates the code before each build and a pre-build
 //     step will regenerate the code on each local build.
 //
-//     See https://github.com/angularsen/UnitsNet/wiki/Adding-a-New-Unit for how to add or edit units.
+//     See https://github.com/angularsen/OasysUnits/wiki/Adding-a-New-Unit for how to add or edit units.
 //
 //     Add CustomCode\Quantities\MyQuantity.extra.cs files to add code to generated quantities.
 //     Add UnitDefinitions\MyQuantity.json and run generate-code.bat to generate new units or quantities.
@@ -15,12 +15,16 @@
 //------------------------------------------------------------------------------
 
 // Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using System;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
 using System.Runtime.Serialization;
 using OasysUnits.InternalHelpers;
 using OasysUnits.Units;
@@ -36,8 +40,15 @@ namespace OasysUnits
     ///     Molar flow is the ratio of the amount of substance change to the time during which the change occurred (value of amount of substance changes per unit time).
     /// </summary>
     [DataContract]
+    [DebuggerTypeProxy(typeof(QuantityDisplay))]
     public readonly partial struct MolarFlow :
-        IArithmeticQuantity<MolarFlow, MolarFlowUnit, double>,
+        IArithmeticQuantity<MolarFlow, MolarFlowUnit>,
+#if NET7_0_OR_GREATER
+        IMultiplyOperators<MolarFlow, Duration, AmountOfSubstance>,
+        IMultiplyOperators<MolarFlow, MolarMass, MassFlow>,
+        IDivisionOperators<MolarFlow, VolumeFlow, Molarity>,
+        IDivisionOperators<MolarFlow, Molarity, VolumeFlow>,
+#endif
         IComparable,
         IComparable<MolarFlow>,
         IConvertible,
@@ -47,13 +58,13 @@ namespace OasysUnits
         /// <summary>
         ///     The numeric value this quantity was constructed with.
         /// </summary>
-        [DataMember(Name = "Value", Order = 0)]
+        [DataMember(Name = "Value", Order = 1)]
         private readonly double _value;
 
         /// <summary>
         ///     The unit this quantity was constructed with.
         /// </summary>
-        [DataMember(Name = "Unit", Order = 1)]
+        [DataMember(Name = "Unit", Order = 2)]
         private readonly MolarFlowUnit? _unit;
 
         static MolarFlow()
@@ -65,15 +76,15 @@ namespace OasysUnits
             Info = new QuantityInfo<MolarFlowUnit>("MolarFlow",
                 new UnitInfo<MolarFlowUnit>[]
                 {
-                    new UnitInfo<MolarFlowUnit>(MolarFlowUnit.KilomolePerHour, "KilomolesPerHour", BaseUnits.Undefined),
-                    new UnitInfo<MolarFlowUnit>(MolarFlowUnit.KilomolePerMinute, "KilomolesPerMinute", BaseUnits.Undefined),
-                    new UnitInfo<MolarFlowUnit>(MolarFlowUnit.KilomolePerSecond, "KilomolesPerSecond", BaseUnits.Undefined),
-                    new UnitInfo<MolarFlowUnit>(MolarFlowUnit.MolePerHour, "MolesPerHour", new BaseUnits(time: DurationUnit.Hour, amount: AmountOfSubstanceUnit.Mole)),
-                    new UnitInfo<MolarFlowUnit>(MolarFlowUnit.MolePerMinute, "MolesPerMinute", new BaseUnits(time: DurationUnit.Minute, amount: AmountOfSubstanceUnit.Mole)),
-                    new UnitInfo<MolarFlowUnit>(MolarFlowUnit.MolePerSecond, "MolesPerSecond", new BaseUnits(time: DurationUnit.Second, amount: AmountOfSubstanceUnit.Mole)),
-                    new UnitInfo<MolarFlowUnit>(MolarFlowUnit.PoundMolePerHour, "PoundMolesPerHour", new BaseUnits(time: DurationUnit.Hour, amount: AmountOfSubstanceUnit.PoundMole)),
-                    new UnitInfo<MolarFlowUnit>(MolarFlowUnit.PoundMolePerMinute, "PoundMolesPerMinute", new BaseUnits(time: DurationUnit.Minute, amount: AmountOfSubstanceUnit.PoundMole)),
-                    new UnitInfo<MolarFlowUnit>(MolarFlowUnit.PoundMolePerSecond, "PoundMolesPerSecond", new BaseUnits(time: DurationUnit.Second, amount: AmountOfSubstanceUnit.PoundMole)),
+                    new UnitInfo<MolarFlowUnit>(MolarFlowUnit.KilomolePerHour, "KilomolesPerHour", BaseUnits.Undefined, "MolarFlow"),
+                    new UnitInfo<MolarFlowUnit>(MolarFlowUnit.KilomolePerMinute, "KilomolesPerMinute", BaseUnits.Undefined, "MolarFlow"),
+                    new UnitInfo<MolarFlowUnit>(MolarFlowUnit.KilomolePerSecond, "KilomolesPerSecond", BaseUnits.Undefined, "MolarFlow"),
+                    new UnitInfo<MolarFlowUnit>(MolarFlowUnit.MolePerHour, "MolesPerHour", new BaseUnits(time: DurationUnit.Hour, amount: AmountOfSubstanceUnit.Mole), "MolarFlow"),
+                    new UnitInfo<MolarFlowUnit>(MolarFlowUnit.MolePerMinute, "MolesPerMinute", new BaseUnits(time: DurationUnit.Minute, amount: AmountOfSubstanceUnit.Mole), "MolarFlow"),
+                    new UnitInfo<MolarFlowUnit>(MolarFlowUnit.MolePerSecond, "MolesPerSecond", new BaseUnits(time: DurationUnit.Second, amount: AmountOfSubstanceUnit.Mole), "MolarFlow"),
+                    new UnitInfo<MolarFlowUnit>(MolarFlowUnit.PoundMolePerHour, "PoundMolesPerHour", new BaseUnits(time: DurationUnit.Hour, amount: AmountOfSubstanceUnit.PoundMole), "MolarFlow"),
+                    new UnitInfo<MolarFlowUnit>(MolarFlowUnit.PoundMolePerMinute, "PoundMolesPerMinute", new BaseUnits(time: DurationUnit.Minute, amount: AmountOfSubstanceUnit.PoundMole), "MolarFlow"),
+                    new UnitInfo<MolarFlowUnit>(MolarFlowUnit.PoundMolePerSecond, "PoundMolesPerSecond", new BaseUnits(time: DurationUnit.Second, amount: AmountOfSubstanceUnit.PoundMole), "MolarFlow"),
                 },
                 BaseUnit, Zero, BaseDimensions);
 
@@ -86,10 +97,9 @@ namespace OasysUnits
         /// </summary>
         /// <param name="value">The numeric value to construct this quantity with.</param>
         /// <param name="unit">The unit representation to construct this quantity with.</param>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
         public MolarFlow(double value, MolarFlowUnit unit)
         {
-            _value = Guard.EnsureValidNumber(value, nameof(value));
+            _value = value;
             _unit = unit;
         }
 
@@ -108,7 +118,7 @@ namespace OasysUnits
             var unitInfos = Info.GetUnitInfosFor(unitSystem.BaseUnits);
             var firstUnitInfo = unitInfos.FirstOrDefault();
 
-            _value = Guard.EnsureValidNumber(value, nameof(value));
+            _value = value;
             _unit = firstUnitInfo?.Value ?? throw new ArgumentException("No units were found for the given UnitSystem.", nameof(unitSystem));
         }
 
@@ -146,7 +156,7 @@ namespace OasysUnits
         public static MolarFlow AdditiveIdentity => Zero;
 
         #endregion
- 
+
         #region Properties
 
         /// <summary>
@@ -155,7 +165,7 @@ namespace OasysUnits
         public double Value => _value;
 
         /// <inheritdoc />
-        QuantityValue IQuantity.Value => _value;
+        double IQuantity.Value => _value;
 
         Enum IQuantity.Unit => Unit;
 
@@ -256,19 +266,6 @@ namespace OasysUnits
             unitConverter.SetConversionFunction<MolarFlow>(MolarFlowUnit.MolePerSecond, MolarFlowUnit.PoundMolePerSecond, quantity => quantity.ToUnit(MolarFlowUnit.PoundMolePerSecond));
         }
 
-        internal static void MapGeneratedLocalizations(UnitAbbreviationsCache unitAbbreviationsCache)
-        {
-            unitAbbreviationsCache.PerformAbbreviationMapping(MolarFlowUnit.KilomolePerHour, new CultureInfo("en-US"), false, true, new string[]{"kkmol/h"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MolarFlowUnit.KilomolePerMinute, new CultureInfo("en-US"), false, true, new string[]{"kmol/min"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MolarFlowUnit.KilomolePerSecond, new CultureInfo("en-US"), false, true, new string[]{"kmol/s"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MolarFlowUnit.MolePerHour, new CultureInfo("en-US"), false, true, new string[]{"kmol/h"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MolarFlowUnit.MolePerMinute, new CultureInfo("en-US"), false, true, new string[]{"mol/min"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MolarFlowUnit.MolePerSecond, new CultureInfo("en-US"), false, true, new string[]{"mol/s"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MolarFlowUnit.PoundMolePerHour, new CultureInfo("en-US"), false, true, new string[]{"lbmol/h"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MolarFlowUnit.PoundMolePerMinute, new CultureInfo("en-US"), false, true, new string[]{"lbmol/min"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MolarFlowUnit.PoundMolePerSecond, new CultureInfo("en-US"), false, true, new string[]{"lbmol/s"});
-        }
-
         /// <summary>
         ///     Get unit abbreviation string.
         /// </summary>
@@ -297,90 +294,72 @@ namespace OasysUnits
         /// <summary>
         ///     Creates a <see cref="MolarFlow"/> from <see cref="MolarFlowUnit.KilomolePerHour"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static MolarFlow FromKilomolesPerHour(QuantityValue kilomolesperhour)
+        public static MolarFlow FromKilomolesPerHour(double value)
         {
-            double value = (double) kilomolesperhour;
             return new MolarFlow(value, MolarFlowUnit.KilomolePerHour);
         }
 
         /// <summary>
         ///     Creates a <see cref="MolarFlow"/> from <see cref="MolarFlowUnit.KilomolePerMinute"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static MolarFlow FromKilomolesPerMinute(QuantityValue kilomolesperminute)
+        public static MolarFlow FromKilomolesPerMinute(double value)
         {
-            double value = (double) kilomolesperminute;
             return new MolarFlow(value, MolarFlowUnit.KilomolePerMinute);
         }
 
         /// <summary>
         ///     Creates a <see cref="MolarFlow"/> from <see cref="MolarFlowUnit.KilomolePerSecond"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static MolarFlow FromKilomolesPerSecond(QuantityValue kilomolespersecond)
+        public static MolarFlow FromKilomolesPerSecond(double value)
         {
-            double value = (double) kilomolespersecond;
             return new MolarFlow(value, MolarFlowUnit.KilomolePerSecond);
         }
 
         /// <summary>
         ///     Creates a <see cref="MolarFlow"/> from <see cref="MolarFlowUnit.MolePerHour"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static MolarFlow FromMolesPerHour(QuantityValue molesperhour)
+        public static MolarFlow FromMolesPerHour(double value)
         {
-            double value = (double) molesperhour;
             return new MolarFlow(value, MolarFlowUnit.MolePerHour);
         }
 
         /// <summary>
         ///     Creates a <see cref="MolarFlow"/> from <see cref="MolarFlowUnit.MolePerMinute"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static MolarFlow FromMolesPerMinute(QuantityValue molesperminute)
+        public static MolarFlow FromMolesPerMinute(double value)
         {
-            double value = (double) molesperminute;
             return new MolarFlow(value, MolarFlowUnit.MolePerMinute);
         }
 
         /// <summary>
         ///     Creates a <see cref="MolarFlow"/> from <see cref="MolarFlowUnit.MolePerSecond"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static MolarFlow FromMolesPerSecond(QuantityValue molespersecond)
+        public static MolarFlow FromMolesPerSecond(double value)
         {
-            double value = (double) molespersecond;
             return new MolarFlow(value, MolarFlowUnit.MolePerSecond);
         }
 
         /// <summary>
         ///     Creates a <see cref="MolarFlow"/> from <see cref="MolarFlowUnit.PoundMolePerHour"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static MolarFlow FromPoundMolesPerHour(QuantityValue poundmolesperhour)
+        public static MolarFlow FromPoundMolesPerHour(double value)
         {
-            double value = (double) poundmolesperhour;
             return new MolarFlow(value, MolarFlowUnit.PoundMolePerHour);
         }
 
         /// <summary>
         ///     Creates a <see cref="MolarFlow"/> from <see cref="MolarFlowUnit.PoundMolePerMinute"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static MolarFlow FromPoundMolesPerMinute(QuantityValue poundmolesperminute)
+        public static MolarFlow FromPoundMolesPerMinute(double value)
         {
-            double value = (double) poundmolesperminute;
             return new MolarFlow(value, MolarFlowUnit.PoundMolePerMinute);
         }
 
         /// <summary>
         ///     Creates a <see cref="MolarFlow"/> from <see cref="MolarFlowUnit.PoundMolePerSecond"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static MolarFlow FromPoundMolesPerSecond(QuantityValue poundmolespersecond)
+        public static MolarFlow FromPoundMolesPerSecond(double value)
         {
-            double value = (double) poundmolespersecond;
             return new MolarFlow(value, MolarFlowUnit.PoundMolePerSecond);
         }
 
@@ -390,9 +369,9 @@ namespace OasysUnits
         /// <param name="value">Value to convert from.</param>
         /// <param name="fromUnit">Unit to convert from.</param>
         /// <returns>MolarFlow unit value.</returns>
-        public static MolarFlow From(QuantityValue value, MolarFlowUnit fromUnit)
+        public static MolarFlow From(double value, MolarFlowUnit fromUnit)
         {
-            return new MolarFlow((double)value, fromUnit);
+            return new MolarFlow(value, fromUnit);
         }
 
         #endregion
@@ -404,7 +383,7 @@ namespace OasysUnits
         /// </summary>
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <example>
-        ///     Length.Parse("5.5 m", new CultureInfo("en-US"));
+        ///     Length.Parse("5.5 m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <exception cref="ArgumentNullException">The value of 'str' cannot be null. </exception>
         /// <exception cref="ArgumentException">
@@ -431,7 +410,7 @@ namespace OasysUnits
         /// </summary>
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <example>
-        ///     Length.Parse("5.5 m", new CultureInfo("en-US"));
+        ///     Length.Parse("5.5 m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <exception cref="ArgumentNullException">The value of 'str' cannot be null. </exception>
         /// <exception cref="ArgumentException">
@@ -463,7 +442,7 @@ namespace OasysUnits
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <param name="result">Resulting unit quantity if successful.</param>
         /// <example>
-        ///     Length.Parse("5.5 m", new CultureInfo("en-US"));
+        ///     Length.Parse("5.5 m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         public static bool TryParse(string? str, out MolarFlow result)
         {
@@ -477,7 +456,7 @@ namespace OasysUnits
         /// <param name="result">Resulting unit quantity if successful.</param>
         /// <returns>True if successful, otherwise false.</returns>
         /// <example>
-        ///     Length.Parse("5.5 m", new CultureInfo("en-US"));
+        ///     Length.Parse("5.5 m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <param name="provider">Format to use when parsing number and unit. Defaults to <see cref="CultureInfo.CurrentCulture" /> if null.</param>
         public static bool TryParse(string? str, IFormatProvider? provider, out MolarFlow result)
@@ -494,7 +473,7 @@ namespace OasysUnits
         /// </summary>
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <example>
-        ///     Length.ParseUnit("m", new CultureInfo("en-US"));
+        ///     Length.ParseUnit("m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <exception cref="ArgumentNullException">The value of 'str' cannot be null. </exception>
         /// <exception cref="OasysUnitsException">Error parsing string.</exception>
@@ -509,7 +488,7 @@ namespace OasysUnits
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <param name="provider">Format to use when parsing number and unit. Defaults to <see cref="CultureInfo.CurrentCulture" /> if null.</param>
         /// <example>
-        ///     Length.ParseUnit("m", new CultureInfo("en-US"));
+        ///     Length.ParseUnit("m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <exception cref="ArgumentNullException">The value of 'str' cannot be null. </exception>
         /// <exception cref="OasysUnitsException">Error parsing string.</exception>
@@ -531,7 +510,7 @@ namespace OasysUnits
         /// <param name="unit">The parsed unit if successful.</param>
         /// <returns>True if successful, otherwise false.</returns>
         /// <example>
-        ///     Length.TryParseUnit("m", new CultureInfo("en-US"));
+        ///     Length.TryParseUnit("m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <param name="provider">Format to use when parsing number and unit. Defaults to <see cref="CultureInfo.CurrentCulture" /> if null.</param>
         public static bool TryParseUnit(string str, IFormatProvider? provider, out MolarFlowUnit unit)
@@ -587,6 +566,34 @@ namespace OasysUnits
 
         #endregion
 
+        #region Relational Operators
+
+        /// <summary>Get <see cref="AmountOfSubstance"/> from <see cref="MolarFlow"/> * <see cref="Duration"/>.</summary>
+        public static AmountOfSubstance operator *(MolarFlow molarFlow, Duration duration)
+        {
+            return AmountOfSubstance.FromKilomoles(molarFlow.KilomolesPerSecond * duration.Seconds);
+        }
+
+        /// <summary>Get <see cref="MassFlow"/> from <see cref="MolarFlow"/> * <see cref="MolarMass"/>.</summary>
+        public static MassFlow operator *(MolarFlow molarFlow, MolarMass molarMass)
+        {
+            return MassFlow.FromKilogramsPerSecond(molarFlow.KilomolesPerSecond * molarMass.KilogramsPerKilomole);
+        }
+
+        /// <summary>Get <see cref="Molarity"/> from <see cref="MolarFlow"/> / <see cref="VolumeFlow"/>.</summary>
+        public static Molarity operator /(MolarFlow molarFlow, VolumeFlow volumeFlow)
+        {
+            return Molarity.FromMolesPerCubicMeter(molarFlow.MolesPerSecond / volumeFlow.CubicMetersPerSecond);
+        }
+
+        /// <summary>Get <see cref="VolumeFlow"/> from <see cref="MolarFlow"/> / <see cref="Molarity"/>.</summary>
+        public static VolumeFlow operator /(MolarFlow molarFlow, Molarity molarity)
+        {
+            return VolumeFlow.FromCubicMetersPerSecond(molarFlow.MolesPerSecond / molarity.MolesPerCubicMeter);
+        }
+
+        #endregion
+
         #region Equality / IComparable
 
         /// <summary>Returns true if less or equal to.</summary>
@@ -618,16 +625,14 @@ namespace OasysUnits
         #pragma warning disable CS0809
 
         /// <summary>Indicates strict equality of two <see cref="MolarFlow"/> quantities, where both <see cref="Value" /> and <see cref="Unit" /> are exactly equal.</summary>
-        /// <remarks>Consider using <see cref="Equals(MolarFlow, double, ComparisonType)"/> to check equality across different units and to specify a floating-point number error tolerance.</remarks>
-        [Obsolete("For null checks, use `x is null` syntax to not invoke overloads. For quantity comparisons, use Equals(MolarFlow, double, ComparisonType) to check equality across different units and to specify a floating-point number error tolerance.")]
+        [Obsolete("For null checks, use `x is null` syntax to not invoke overloads. For equality checks, use Equals(MolarFlow other, MolarFlow tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public static bool operator ==(MolarFlow left, MolarFlow right)
         {
             return left.Equals(right);
         }
 
         /// <summary>Indicates strict inequality of two <see cref="MolarFlow"/> quantities, where both <see cref="Value" /> and <see cref="Unit" /> are exactly equal.</summary>
-        /// <remarks>Consider using <see cref="Equals(MolarFlow, double, ComparisonType)"/> to check equality across different units and to specify a floating-point number error tolerance.</remarks>
-        [Obsolete("For null checks, use `x is not null` syntax to not invoke overloads. For quantity comparisons, use Equals(MolarFlow, double, ComparisonType) to check equality across different units and to specify a floating-point number error tolerance.")]
+        [Obsolete("For null checks, use `x is null` syntax to not invoke overloads. For equality checks, use Equals(MolarFlow other, MolarFlow tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public static bool operator !=(MolarFlow left, MolarFlow right)
         {
             return !(left == right);
@@ -635,8 +640,7 @@ namespace OasysUnits
 
         /// <inheritdoc />
         /// <summary>Indicates strict equality of two <see cref="MolarFlow"/> quantities, where both <see cref="Value" /> and <see cref="Unit" /> are exactly equal.</summary>
-        /// <remarks>Consider using <see cref="Equals(MolarFlow, double, ComparisonType)"/> to check equality across different units and to specify a floating-point number error tolerance.</remarks>
-        [Obsolete("Consider using Equals(MolarFlow, double, ComparisonType) to check equality across different units and to specify a floating-point number error tolerance.")]
+        [Obsolete("Use Equals(MolarFlow other, MolarFlow tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public override bool Equals(object? obj)
         {
             if (obj is null || !(obj is MolarFlow otherQuantity))
@@ -647,8 +651,7 @@ namespace OasysUnits
 
         /// <inheritdoc />
         /// <summary>Indicates strict equality of two <see cref="MolarFlow"/> quantities, where both <see cref="Value" /> and <see cref="Unit" /> are exactly equal.</summary>
-        /// <remarks>Consider using <see cref="Equals(MolarFlow, double, ComparisonType)"/> to check equality across different units and to specify a floating-point number error tolerance.</remarks>
-        [Obsolete("Consider using Equals(MolarFlow, double, ComparisonType) to check equality across different units and to specify a floating-point number error tolerance.")]
+        [Obsolete("Use Equals(MolarFlow other, MolarFlow tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public bool Equals(MolarFlow other)
         {
             return new { Value, Unit }.Equals(new { other.Value, other.Unit });
@@ -732,15 +735,37 @@ namespace OasysUnits
         /// <param name="tolerance">The absolute or relative tolerance value. Must be greater than or equal to 0.</param>
         /// <param name="comparisonType">The comparison type: either relative or absolute.</param>
         /// <returns>True if the absolute difference between the two values is not greater than the specified relative or absolute tolerance.</returns>
+        [Obsolete("Use Equals(MolarFlow other, MolarFlow tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public bool Equals(MolarFlow other, double tolerance, ComparisonType comparisonType)
         {
             if (tolerance < 0)
-                throw new ArgumentOutOfRangeException("tolerance", "Tolerance must be greater than or equal to 0.");
+                throw new ArgumentOutOfRangeException(nameof(tolerance), "Tolerance must be greater than or equal to 0.");
 
-            double thisValue = this.Value;
-            double otherValueInThisUnits = other.As(this.Unit);
+            return OasysUnits.Comparison.Equals(
+                referenceValue: this.Value,
+                otherValue: other.As(this.Unit),
+                tolerance: tolerance,
+                comparisonType: comparisonType);
+        }
 
-            return OasysUnits.Comparison.Equals(thisValue, otherValueInThisUnits, tolerance, comparisonType);
+        /// <inheritdoc />
+        public bool Equals(IQuantity? other, IQuantity tolerance)
+        {
+            return other is MolarFlow otherTyped
+                   && (tolerance is MolarFlow toleranceTyped
+                       ? true
+                       : throw new ArgumentException($"Tolerance quantity ({tolerance.QuantityInfo.Name}) did not match the other quantities of type 'MolarFlow'.", nameof(tolerance)))
+                   && Equals(otherTyped, toleranceTyped);
+        }
+
+        /// <inheritdoc />
+        public bool Equals(MolarFlow other, MolarFlow tolerance)
+        {
+            return OasysUnits.Comparison.Equals(
+                referenceValue: this.Value,
+                otherValue: other.As(this.Unit),
+                tolerance: tolerance.As(this.Unit),
+                comparisonType: ComparisonType.Absolute);
         }
 
         /// <summary>
@@ -785,15 +810,6 @@ namespace OasysUnits
 
         /// <inheritdoc />
         double IQuantity.As(Enum unit)
-        {
-            if (!(unit is MolarFlowUnit typedUnit))
-                throw new ArgumentException($"The given unit is of type {unit.GetType()}. Only {typeof(MolarFlowUnit)} is supported.", nameof(unit));
-
-            return (double)As(typedUnit);
-        }
-
-        /// <inheritdoc />
-        double IValueQuantity<double>.As(Enum unit)
         {
             if (!(unit is MolarFlowUnit typedUnit))
                 throw new ArgumentException($"The given unit is of type {unit.GetType()}. Only {typeof(MolarFlowUnit)} is supported.", nameof(unit));
@@ -923,18 +939,6 @@ namespace OasysUnits
 
         /// <inheritdoc />
         IQuantity<MolarFlowUnit> IQuantity<MolarFlowUnit>.ToUnit(UnitSystem unitSystem) => ToUnit(unitSystem);
-
-        /// <inheritdoc />
-        IValueQuantity<double> IValueQuantity<double>.ToUnit(Enum unit)
-        {
-            if (unit is not MolarFlowUnit typedUnit)
-                throw new ArgumentException($"The given unit is of type {unit.GetType()}. Only {typeof(MolarFlowUnit)} is supported.", nameof(unit));
-
-            return ToUnit(typedUnit);
-        }
-
-        /// <inheritdoc />
-        IValueQuantity<double> IValueQuantity<double>.ToUnit(UnitSystem unitSystem) => ToUnit(unitSystem);
 
         #endregion
 

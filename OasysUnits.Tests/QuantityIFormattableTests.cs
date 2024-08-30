@@ -1,7 +1,8 @@
 ﻿// Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using System;
+using System.Globalization;
 using Xunit;
 
 namespace OasysUnits.Tests
@@ -26,11 +27,12 @@ namespace OasysUnits.Tests
         [Fact]
         public void AFormatGetsAbbreviations()
         {
-            Assert.Equal(UnitAbbreviationsCache.Default.GetDefaultAbbreviation(MyLength.Unit), MyLength.ToString("a"));
-            Assert.Equal(UnitAbbreviationsCache.Default.GetDefaultAbbreviation(MyLength.Unit), MyLength.ToString("a0"));
+            UnitAbbreviationsCache cache = OasysUnitsSetup.Default.UnitAbbreviations;
+            Assert.Equal(cache.GetDefaultAbbreviation(MyLength.Unit, CultureInfo.InvariantCulture), MyLength.ToString("a", CultureInfo.InvariantCulture));
+            Assert.Equal(cache.GetDefaultAbbreviation(MyLength.Unit, CultureInfo.InvariantCulture), MyLength.ToString("a0", CultureInfo.InvariantCulture));
 
-            Assert.Equal(UnitAbbreviationsCache.Default.GetUnitAbbreviations(MyLength.Unit)[1], MyLength.ToString("a1"));
-            Assert.Equal(UnitAbbreviationsCache.Default.GetUnitAbbreviations(MyLength.Unit)[2], MyLength.ToString("a2"));
+            Assert.Equal(cache.GetUnitAbbreviations(MyLength.Unit, CultureInfo.InvariantCulture)[1], MyLength.ToString("a1", CultureInfo.InvariantCulture));
+            Assert.Equal(cache.GetUnitAbbreviations(MyLength.Unit, CultureInfo.InvariantCulture)[2], MyLength.ToString("a2", CultureInfo.InvariantCulture));
         }
 
         [Fact]

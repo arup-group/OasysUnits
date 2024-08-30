@@ -6,7 +6,7 @@
 //     The build server regenerates the code before each build and a pre-build
 //     step will regenerate the code on each local build.
 //
-//     See https://github.com/angularsen/UnitsNet/wiki/Adding-a-New-Unit for how to add or edit units.
+//     See https://github.com/angularsen/OasysUnits/wiki/Adding-a-New-Unit for how to add or edit units.
 //
 //     Add CustomCode\Quantities\MyQuantity.extra.cs files to add code to generated quantities.
 //     Add UnitDefinitions\MyQuantity.json and run generate-code.bat to generate new units or quantities.
@@ -15,7 +15,7 @@
 //------------------------------------------------------------------------------
 
 // Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using System;
 using System.Collections.Generic;
@@ -103,16 +103,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void Ctor_WithInfinityValue_ThrowsArgumentException()
+        public void Ctor_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new DynamicViscosity(double.PositiveInfinity, DynamicViscosityUnit.NewtonSecondPerMeterSquared));
-            Assert.Throws<ArgumentException>(() => new DynamicViscosity(double.NegativeInfinity, DynamicViscosityUnit.NewtonSecondPerMeterSquared));
+            var exception1 = Record.Exception(() => new DynamicViscosity(double.PositiveInfinity, DynamicViscosityUnit.NewtonSecondPerMeterSquared));
+            var exception2 = Record.Exception(() => new DynamicViscosity(double.NegativeInfinity, DynamicViscosityUnit.NewtonSecondPerMeterSquared));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void Ctor_WithNaNValue_ThrowsArgumentException()
+        public void Ctor_WithNaNValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new DynamicViscosity(double.NaN, DynamicViscosityUnit.NewtonSecondPerMeterSquared));
+            var exception = Record.Exception(() => new DynamicViscosity(double.NaN, DynamicViscosityUnit.NewtonSecondPerMeterSquared));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -212,16 +217,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void FromNewtonSecondsPerMeterSquared_WithInfinityValue_ThrowsArgumentException()
+        public void FromNewtonSecondsPerMeterSquared_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => DynamicViscosity.FromNewtonSecondsPerMeterSquared(double.PositiveInfinity));
-            Assert.Throws<ArgumentException>(() => DynamicViscosity.FromNewtonSecondsPerMeterSquared(double.NegativeInfinity));
+            var exception1 = Record.Exception(() => DynamicViscosity.FromNewtonSecondsPerMeterSquared(double.PositiveInfinity));
+            var exception2 = Record.Exception(() => DynamicViscosity.FromNewtonSecondsPerMeterSquared(double.NegativeInfinity));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void FromNewtonSecondsPerMeterSquared_WithNanValue_ThrowsArgumentException()
+        public void FromNewtonSecondsPerMeterSquared_WithNanValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => DynamicViscosity.FromNewtonSecondsPerMeterSquared(double.NaN));
+            var exception = Record.Exception(() => DynamicViscosity.FromNewtonSecondsPerMeterSquared(double.NaN));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -339,7 +349,7 @@ namespace OasysUnits.Tests
 
             try
             {
-                var parsed = DynamicViscosity.Parse("1 lb/ft·s", CultureInfo.GetCultureInfo("en-US"));
+                var parsed = DynamicViscosity.Parse("1 lb/(ft·s)", CultureInfo.GetCultureInfo("en-US"));
                 AssertEx.EqualTolerance(1, parsed.PoundsPerFootSecond, PoundsPerFootSecondTolerance);
                 Assert.Equal(DynamicViscosityUnit.PoundPerFootSecond, parsed.Unit);
             } catch (AmbiguousUnitParseException) { /* Some units have the same abbreviations */ }
@@ -423,7 +433,7 @@ namespace OasysUnits.Tests
             }
 
             {
-                Assert.True(DynamicViscosity.TryParse("1 lb/ft·s", CultureInfo.GetCultureInfo("en-US"), out var parsed));
+                Assert.True(DynamicViscosity.TryParse("1 lb/(ft·s)", CultureInfo.GetCultureInfo("en-US"), out var parsed));
                 AssertEx.EqualTolerance(1, parsed.PoundsPerFootSecond, PoundsPerFootSecondTolerance);
                 Assert.Equal(DynamicViscosityUnit.PoundPerFootSecond, parsed.Unit);
             }
@@ -507,7 +517,7 @@ namespace OasysUnits.Tests
 
             try
             {
-                var parsedUnit = DynamicViscosity.ParseUnit("lb/ft·s", CultureInfo.GetCultureInfo("en-US"));
+                var parsedUnit = DynamicViscosity.ParseUnit("lb/(ft·s)", CultureInfo.GetCultureInfo("en-US"));
                 Assert.Equal(DynamicViscosityUnit.PoundPerFootSecond, parsedUnit);
             } catch (AmbiguousUnitParseException) { /* Some units have the same abbreviations */ }
 
@@ -578,7 +588,7 @@ namespace OasysUnits.Tests
             }
 
             {
-                Assert.True(DynamicViscosity.TryParseUnit("lb/ft·s", CultureInfo.GetCultureInfo("en-US"), out var parsedUnit));
+                Assert.True(DynamicViscosity.TryParseUnit("lb/(ft·s)", CultureInfo.GetCultureInfo("en-US"), out var parsedUnit));
                 Assert.Equal(DynamicViscosityUnit.PoundPerFootSecond, parsedUnit);
             }
 
@@ -747,6 +757,8 @@ namespace OasysUnits.Tests
             var v = DynamicViscosity.FromNewtonSecondsPerMeterSquared(1);
             Assert.True(v.Equals(DynamicViscosity.FromNewtonSecondsPerMeterSquared(1), NewtonSecondsPerMeterSquaredTolerance, ComparisonType.Relative));
             Assert.False(v.Equals(DynamicViscosity.Zero, NewtonSecondsPerMeterSquaredTolerance, ComparisonType.Relative));
+            Assert.True(DynamicViscosity.FromNewtonSecondsPerMeterSquared(100).Equals(DynamicViscosity.FromNewtonSecondsPerMeterSquared(120), 0.3, ComparisonType.Relative));
+            Assert.False(DynamicViscosity.FromNewtonSecondsPerMeterSquared(100).Equals(DynamicViscosity.FromNewtonSecondsPerMeterSquared(120), 0.1, ComparisonType.Relative));
         }
 
         [Fact]
@@ -800,7 +812,7 @@ namespace OasysUnits.Tests
                 Assert.Equal("1 P", new DynamicViscosity(1, DynamicViscosityUnit.Poise).ToString());
                 Assert.Equal("1 lbf·s/ft²", new DynamicViscosity(1, DynamicViscosityUnit.PoundForceSecondPerSquareFoot).ToString());
                 Assert.Equal("1 lbf·s/in²", new DynamicViscosity(1, DynamicViscosityUnit.PoundForceSecondPerSquareInch).ToString());
-                Assert.Equal("1 lb/ft·s", new DynamicViscosity(1, DynamicViscosityUnit.PoundPerFootSecond).ToString());
+                Assert.Equal("1 lb/(ft·s)", new DynamicViscosity(1, DynamicViscosityUnit.PoundPerFootSecond).ToString());
                 Assert.Equal("1 reyn", new DynamicViscosity(1, DynamicViscosityUnit.Reyn).ToString());
             }
             finally
@@ -823,7 +835,7 @@ namespace OasysUnits.Tests
             Assert.Equal("1 P", new DynamicViscosity(1, DynamicViscosityUnit.Poise).ToString(swedishCulture));
             Assert.Equal("1 lbf·s/ft²", new DynamicViscosity(1, DynamicViscosityUnit.PoundForceSecondPerSquareFoot).ToString(swedishCulture));
             Assert.Equal("1 lbf·s/in²", new DynamicViscosity(1, DynamicViscosityUnit.PoundForceSecondPerSquareInch).ToString(swedishCulture));
-            Assert.Equal("1 lb/ft·s", new DynamicViscosity(1, DynamicViscosityUnit.PoundPerFootSecond).ToString(swedishCulture));
+            Assert.Equal("1 lb/(ft·s)", new DynamicViscosity(1, DynamicViscosityUnit.PoundPerFootSecond).ToString(swedishCulture));
             Assert.Equal("1 reyn", new DynamicViscosity(1, DynamicViscosityUnit.Reyn).ToString(swedishCulture));
         }
 

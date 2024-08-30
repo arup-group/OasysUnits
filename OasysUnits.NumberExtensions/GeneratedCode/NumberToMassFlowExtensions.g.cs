@@ -6,7 +6,7 @@
 //     The build server regenerates the code before each build and a pre-build
 //     step will regenerate the code on each local build.
 //
-//     See https://github.com/angularsen/UnitsNet/wiki/Adding-a-New-Unit for how to add or edit units.
+//     See https://github.com/angularsen/OasysUnits/wiki/Adding-a-New-Unit for how to add or edit units.
 //
 //     Add CustomCode\Quantities\MyQuantity.extra.cs files to add code to generated quantities.
 //     Add UnitDefinitions\MyQuantity.json and run generate-code.bat to generate new units or quantities.
@@ -15,9 +15,13 @@
 //------------------------------------------------------------------------------
 
 // Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using System;
+
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
 
 #nullable enable
 
@@ -28,137 +32,269 @@ namespace OasysUnits.NumberExtensions.NumberToMassFlow
     /// </summary>
     public static class NumberToMassFlowExtensions
     {
-        /// <inheritdoc cref="MassFlow.FromCentigramsPerDay(OasysUnits.QuantityValue)" />
-        public static MassFlow CentigramsPerDay<T>(this T value) =>
-            MassFlow.FromCentigramsPerDay(Convert.ToDouble(value));
+        /// <inheritdoc cref="MassFlow.FromCentigramsPerDay(double)" />
+        public static MassFlow CentigramsPerDay<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MassFlow.FromCentigramsPerDay(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MassFlow.FromCentigramsPerSecond(OasysUnits.QuantityValue)" />
-        public static MassFlow CentigramsPerSecond<T>(this T value) =>
-            MassFlow.FromCentigramsPerSecond(Convert.ToDouble(value));
+        /// <inheritdoc cref="MassFlow.FromCentigramsPerSecond(double)" />
+        public static MassFlow CentigramsPerSecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MassFlow.FromCentigramsPerSecond(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MassFlow.FromDecagramsPerDay(OasysUnits.QuantityValue)" />
-        public static MassFlow DecagramsPerDay<T>(this T value) =>
-            MassFlow.FromDecagramsPerDay(Convert.ToDouble(value));
+        /// <inheritdoc cref="MassFlow.FromDecagramsPerDay(double)" />
+        public static MassFlow DecagramsPerDay<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MassFlow.FromDecagramsPerDay(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MassFlow.FromDecagramsPerSecond(OasysUnits.QuantityValue)" />
-        public static MassFlow DecagramsPerSecond<T>(this T value) =>
-            MassFlow.FromDecagramsPerSecond(Convert.ToDouble(value));
+        /// <inheritdoc cref="MassFlow.FromDecagramsPerSecond(double)" />
+        public static MassFlow DecagramsPerSecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MassFlow.FromDecagramsPerSecond(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MassFlow.FromDecigramsPerDay(OasysUnits.QuantityValue)" />
-        public static MassFlow DecigramsPerDay<T>(this T value) =>
-            MassFlow.FromDecigramsPerDay(Convert.ToDouble(value));
+        /// <inheritdoc cref="MassFlow.FromDecigramsPerDay(double)" />
+        public static MassFlow DecigramsPerDay<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MassFlow.FromDecigramsPerDay(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MassFlow.FromDecigramsPerSecond(OasysUnits.QuantityValue)" />
-        public static MassFlow DecigramsPerSecond<T>(this T value) =>
-            MassFlow.FromDecigramsPerSecond(Convert.ToDouble(value));
+        /// <inheritdoc cref="MassFlow.FromDecigramsPerSecond(double)" />
+        public static MassFlow DecigramsPerSecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MassFlow.FromDecigramsPerSecond(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MassFlow.FromGramsPerDay(OasysUnits.QuantityValue)" />
-        public static MassFlow GramsPerDay<T>(this T value) =>
-            MassFlow.FromGramsPerDay(Convert.ToDouble(value));
+        /// <inheritdoc cref="MassFlow.FromGramsPerDay(double)" />
+        public static MassFlow GramsPerDay<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MassFlow.FromGramsPerDay(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MassFlow.FromGramsPerHour(OasysUnits.QuantityValue)" />
-        public static MassFlow GramsPerHour<T>(this T value) =>
-            MassFlow.FromGramsPerHour(Convert.ToDouble(value));
+        /// <inheritdoc cref="MassFlow.FromGramsPerHour(double)" />
+        public static MassFlow GramsPerHour<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MassFlow.FromGramsPerHour(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MassFlow.FromGramsPerSecond(OasysUnits.QuantityValue)" />
-        public static MassFlow GramsPerSecond<T>(this T value) =>
-            MassFlow.FromGramsPerSecond(Convert.ToDouble(value));
+        /// <inheritdoc cref="MassFlow.FromGramsPerSecond(double)" />
+        public static MassFlow GramsPerSecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MassFlow.FromGramsPerSecond(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MassFlow.FromHectogramsPerDay(OasysUnits.QuantityValue)" />
-        public static MassFlow HectogramsPerDay<T>(this T value) =>
-            MassFlow.FromHectogramsPerDay(Convert.ToDouble(value));
+        /// <inheritdoc cref="MassFlow.FromHectogramsPerDay(double)" />
+        public static MassFlow HectogramsPerDay<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MassFlow.FromHectogramsPerDay(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MassFlow.FromHectogramsPerSecond(OasysUnits.QuantityValue)" />
-        public static MassFlow HectogramsPerSecond<T>(this T value) =>
-            MassFlow.FromHectogramsPerSecond(Convert.ToDouble(value));
+        /// <inheritdoc cref="MassFlow.FromHectogramsPerSecond(double)" />
+        public static MassFlow HectogramsPerSecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MassFlow.FromHectogramsPerSecond(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MassFlow.FromKilogramsPerDay(OasysUnits.QuantityValue)" />
-        public static MassFlow KilogramsPerDay<T>(this T value) =>
-            MassFlow.FromKilogramsPerDay(Convert.ToDouble(value));
+        /// <inheritdoc cref="MassFlow.FromKilogramsPerDay(double)" />
+        public static MassFlow KilogramsPerDay<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MassFlow.FromKilogramsPerDay(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MassFlow.FromKilogramsPerHour(OasysUnits.QuantityValue)" />
-        public static MassFlow KilogramsPerHour<T>(this T value) =>
-            MassFlow.FromKilogramsPerHour(Convert.ToDouble(value));
+        /// <inheritdoc cref="MassFlow.FromKilogramsPerHour(double)" />
+        public static MassFlow KilogramsPerHour<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MassFlow.FromKilogramsPerHour(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MassFlow.FromKilogramsPerMinute(OasysUnits.QuantityValue)" />
-        public static MassFlow KilogramsPerMinute<T>(this T value) =>
-            MassFlow.FromKilogramsPerMinute(Convert.ToDouble(value));
+        /// <inheritdoc cref="MassFlow.FromKilogramsPerMinute(double)" />
+        public static MassFlow KilogramsPerMinute<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MassFlow.FromKilogramsPerMinute(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MassFlow.FromKilogramsPerSecond(OasysUnits.QuantityValue)" />
-        public static MassFlow KilogramsPerSecond<T>(this T value) =>
-            MassFlow.FromKilogramsPerSecond(Convert.ToDouble(value));
+        /// <inheritdoc cref="MassFlow.FromKilogramsPerSecond(double)" />
+        public static MassFlow KilogramsPerSecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MassFlow.FromKilogramsPerSecond(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MassFlow.FromMegagramsPerDay(OasysUnits.QuantityValue)" />
-        public static MassFlow MegagramsPerDay<T>(this T value) =>
-            MassFlow.FromMegagramsPerDay(Convert.ToDouble(value));
+        /// <inheritdoc cref="MassFlow.FromMegagramsPerDay(double)" />
+        public static MassFlow MegagramsPerDay<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MassFlow.FromMegagramsPerDay(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MassFlow.FromMegapoundsPerDay(OasysUnits.QuantityValue)" />
-        public static MassFlow MegapoundsPerDay<T>(this T value) =>
-            MassFlow.FromMegapoundsPerDay(Convert.ToDouble(value));
+        /// <inheritdoc cref="MassFlow.FromMegapoundsPerDay(double)" />
+        public static MassFlow MegapoundsPerDay<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MassFlow.FromMegapoundsPerDay(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MassFlow.FromMegapoundsPerHour(OasysUnits.QuantityValue)" />
-        public static MassFlow MegapoundsPerHour<T>(this T value) =>
-            MassFlow.FromMegapoundsPerHour(Convert.ToDouble(value));
+        /// <inheritdoc cref="MassFlow.FromMegapoundsPerHour(double)" />
+        public static MassFlow MegapoundsPerHour<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MassFlow.FromMegapoundsPerHour(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MassFlow.FromMegapoundsPerMinute(OasysUnits.QuantityValue)" />
-        public static MassFlow MegapoundsPerMinute<T>(this T value) =>
-            MassFlow.FromMegapoundsPerMinute(Convert.ToDouble(value));
+        /// <inheritdoc cref="MassFlow.FromMegapoundsPerMinute(double)" />
+        public static MassFlow MegapoundsPerMinute<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MassFlow.FromMegapoundsPerMinute(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MassFlow.FromMegapoundsPerSecond(OasysUnits.QuantityValue)" />
-        public static MassFlow MegapoundsPerSecond<T>(this T value) =>
-            MassFlow.FromMegapoundsPerSecond(Convert.ToDouble(value));
+        /// <inheritdoc cref="MassFlow.FromMegapoundsPerSecond(double)" />
+        public static MassFlow MegapoundsPerSecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MassFlow.FromMegapoundsPerSecond(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MassFlow.FromMicrogramsPerDay(OasysUnits.QuantityValue)" />
-        public static MassFlow MicrogramsPerDay<T>(this T value) =>
-            MassFlow.FromMicrogramsPerDay(Convert.ToDouble(value));
+        /// <inheritdoc cref="MassFlow.FromMicrogramsPerDay(double)" />
+        public static MassFlow MicrogramsPerDay<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MassFlow.FromMicrogramsPerDay(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MassFlow.FromMicrogramsPerSecond(OasysUnits.QuantityValue)" />
-        public static MassFlow MicrogramsPerSecond<T>(this T value) =>
-            MassFlow.FromMicrogramsPerSecond(Convert.ToDouble(value));
+        /// <inheritdoc cref="MassFlow.FromMicrogramsPerSecond(double)" />
+        public static MassFlow MicrogramsPerSecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MassFlow.FromMicrogramsPerSecond(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MassFlow.FromMilligramsPerDay(OasysUnits.QuantityValue)" />
-        public static MassFlow MilligramsPerDay<T>(this T value) =>
-            MassFlow.FromMilligramsPerDay(Convert.ToDouble(value));
+        /// <inheritdoc cref="MassFlow.FromMilligramsPerDay(double)" />
+        public static MassFlow MilligramsPerDay<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MassFlow.FromMilligramsPerDay(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MassFlow.FromMilligramsPerSecond(OasysUnits.QuantityValue)" />
-        public static MassFlow MilligramsPerSecond<T>(this T value) =>
-            MassFlow.FromMilligramsPerSecond(Convert.ToDouble(value));
+        /// <inheritdoc cref="MassFlow.FromMilligramsPerSecond(double)" />
+        public static MassFlow MilligramsPerSecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MassFlow.FromMilligramsPerSecond(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MassFlow.FromNanogramsPerDay(OasysUnits.QuantityValue)" />
-        public static MassFlow NanogramsPerDay<T>(this T value) =>
-            MassFlow.FromNanogramsPerDay(Convert.ToDouble(value));
+        /// <inheritdoc cref="MassFlow.FromNanogramsPerDay(double)" />
+        public static MassFlow NanogramsPerDay<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MassFlow.FromNanogramsPerDay(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MassFlow.FromNanogramsPerSecond(OasysUnits.QuantityValue)" />
-        public static MassFlow NanogramsPerSecond<T>(this T value) =>
-            MassFlow.FromNanogramsPerSecond(Convert.ToDouble(value));
+        /// <inheritdoc cref="MassFlow.FromNanogramsPerSecond(double)" />
+        public static MassFlow NanogramsPerSecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MassFlow.FromNanogramsPerSecond(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MassFlow.FromPoundsPerDay(OasysUnits.QuantityValue)" />
-        public static MassFlow PoundsPerDay<T>(this T value) =>
-            MassFlow.FromPoundsPerDay(Convert.ToDouble(value));
+        /// <inheritdoc cref="MassFlow.FromPoundsPerDay(double)" />
+        public static MassFlow PoundsPerDay<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MassFlow.FromPoundsPerDay(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MassFlow.FromPoundsPerHour(OasysUnits.QuantityValue)" />
-        public static MassFlow PoundsPerHour<T>(this T value) =>
-            MassFlow.FromPoundsPerHour(Convert.ToDouble(value));
+        /// <inheritdoc cref="MassFlow.FromPoundsPerHour(double)" />
+        public static MassFlow PoundsPerHour<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MassFlow.FromPoundsPerHour(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MassFlow.FromPoundsPerMinute(OasysUnits.QuantityValue)" />
-        public static MassFlow PoundsPerMinute<T>(this T value) =>
-            MassFlow.FromPoundsPerMinute(Convert.ToDouble(value));
+        /// <inheritdoc cref="MassFlow.FromPoundsPerMinute(double)" />
+        public static MassFlow PoundsPerMinute<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MassFlow.FromPoundsPerMinute(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MassFlow.FromPoundsPerSecond(OasysUnits.QuantityValue)" />
-        public static MassFlow PoundsPerSecond<T>(this T value) =>
-            MassFlow.FromPoundsPerSecond(Convert.ToDouble(value));
+        /// <inheritdoc cref="MassFlow.FromPoundsPerSecond(double)" />
+        public static MassFlow PoundsPerSecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MassFlow.FromPoundsPerSecond(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MassFlow.FromShortTonsPerHour(OasysUnits.QuantityValue)" />
-        public static MassFlow ShortTonsPerHour<T>(this T value) =>
-            MassFlow.FromShortTonsPerHour(Convert.ToDouble(value));
+        /// <inheritdoc cref="MassFlow.FromShortTonsPerHour(double)" />
+        public static MassFlow ShortTonsPerHour<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MassFlow.FromShortTonsPerHour(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MassFlow.FromTonnesPerDay(OasysUnits.QuantityValue)" />
-        public static MassFlow TonnesPerDay<T>(this T value) =>
-            MassFlow.FromTonnesPerDay(Convert.ToDouble(value));
+        /// <inheritdoc cref="MassFlow.FromTonnesPerDay(double)" />
+        public static MassFlow TonnesPerDay<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MassFlow.FromTonnesPerDay(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MassFlow.FromTonnesPerHour(OasysUnits.QuantityValue)" />
-        public static MassFlow TonnesPerHour<T>(this T value) =>
-            MassFlow.FromTonnesPerHour(Convert.ToDouble(value));
+        /// <inheritdoc cref="MassFlow.FromTonnesPerHour(double)" />
+        public static MassFlow TonnesPerHour<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MassFlow.FromTonnesPerHour(Convert.ToDouble(value));
 
     }
 }

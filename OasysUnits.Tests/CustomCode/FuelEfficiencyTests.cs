@@ -6,7 +6,7 @@
 //     The build server regenerates the code before each build and a pre-build
 //     step will regenerate the code on each local build.
 //
-//     See https://github.com/angularsen/UnitsNet/wiki/Adding-a-New-Unit for how to add or edit units.
+//     See https://github.com/angularsen/OasysUnits/wiki/Adding-a-New-Unit for how to add or edit units.
 //
 //     Add CustomCode\Quantities\MyQuantity.extra.cs files to add code to generated quantities.
 //     Add UnitDefinitions\MyQuantity.json and run generate-code.bat to generate new units or quantities.
@@ -15,7 +15,7 @@
 //------------------------------------------------------------------------------
 
 // Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using System;
 using OasysUnits.Units;
@@ -26,7 +26,7 @@ namespace OasysUnits.Tests.CustomCode
     public class FuelEfficiencyTests : FuelEfficiencyTestsBase
     {
         protected override bool SupportsSIUnitSystem => false;
-        protected override double KilometersPerLitersInOneLiterPer100Kilometers => 100;
+        protected override double KilometersPerLiterInOneLiterPer100Kilometers => 100;
         protected override double LitersPer100KilometersInOneLiterPer100Kilometers => 1;
         protected override double MilesPerUkGallonInOneLiterPer100Kilometers => 282.4809363;
         protected override double MilesPerUsGallonInOneLiterPer100Kilometers => 235.2145833;

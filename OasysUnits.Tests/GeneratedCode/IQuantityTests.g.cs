@@ -6,7 +6,7 @@
 //     The build server regenerates the code before each build and a pre-build
 //     step will regenerate the code on each local build.
 //
-//     See https://github.com/angularsen/UnitsNet/wiki/Adding-a-New-Unit for how to add or edit units.
+//     See https://github.com/angularsen/OasysUnits/wiki/Adding-a-New-Unit for how to add or edit units.
 //
 //     Add CustomCode\Quantities\MyQuantity.extra.cs files to add code to generated quantities.
 //     Add UnitDefinitions\MyQuantity.json and run generate-code.bat to generate new units or quantities.
@@ -15,7 +15,7 @@
 //------------------------------------------------------------------------------
 
 // Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using System;
 using OasysUnits.Units;
@@ -34,6 +34,7 @@ namespace OasysUnits.Tests
                 Assert.Equal(expectedValue, quantity.Value);
             }
 
+            Assertion(3, AbsorbedDoseOfIonizingRadiationUnit.Teragray, Quantity.From(3, AbsorbedDoseOfIonizingRadiationUnit.Teragray));
             Assertion(3, AccelerationUnit.StandardGravity, Quantity.From(3, AccelerationUnit.StandardGravity));
             Assertion(3, AmountOfSubstanceUnit.PoundMole, Quantity.From(3, AmountOfSubstanceUnit.PoundMole));
             Assertion(3, AmplitudeRatioUnit.DecibelVolt, Quantity.From(3, AmplitudeRatioUnit.DecibelVolt));
@@ -48,7 +49,7 @@ namespace OasysUnits.Tests
             Assertion(3, BitRateUnit.TerabytePerSecond, Quantity.From(3, BitRateUnit.TerabytePerSecond));
             Assertion(3, BrakeSpecificFuelConsumptionUnit.PoundPerMechanicalHorsepowerHour, Quantity.From(3, BrakeSpecificFuelConsumptionUnit.PoundPerMechanicalHorsepowerHour));
             Assertion(3, CapacitanceUnit.Picofarad, Quantity.From(3, CapacitanceUnit.Picofarad));
-            Assertion(3, CoefficientOfThermalExpansionUnit.InverseKelvin, Quantity.From(3, CoefficientOfThermalExpansionUnit.InverseKelvin));
+            Assertion(3, CoefficientOfThermalExpansionUnit.PpmPerKelvin, Quantity.From(3, CoefficientOfThermalExpansionUnit.PpmPerKelvin));
             Assertion(3, CompressibilityUnit.InversePoundForcePerSquareInch, Quantity.From(3, CompressibilityUnit.InversePoundForcePerSquareInch));
             Assertion(3, CurvatureUnit.PerMillimeter, Quantity.From(3, CurvatureUnit.PerMillimeter));
             Assertion(3, DensityUnit.TonnePerCubicMillimeter, Quantity.From(3, DensityUnit.TonnePerCubicMillimeter));
@@ -61,7 +62,7 @@ namespace OasysUnits.Tests
             Assertion(3, ElectricConductivityUnit.SiemensPerMeter, Quantity.From(3, ElectricConductivityUnit.SiemensPerMeter));
             Assertion(3, ElectricCurrentUnit.Picoampere, Quantity.From(3, ElectricCurrentUnit.Picoampere));
             Assertion(3, ElectricCurrentDensityUnit.AmperePerSquareMeter, Quantity.From(3, ElectricCurrentDensityUnit.AmperePerSquareMeter));
-            Assertion(3, ElectricCurrentGradientUnit.AmperePerSecond, Quantity.From(3, ElectricCurrentGradientUnit.AmperePerSecond));
+            Assertion(3, ElectricCurrentGradientUnit.MilliamperePerSecond, Quantity.From(3, ElectricCurrentGradientUnit.MilliamperePerSecond));
             Assertion(3, ElectricFieldUnit.VoltPerMeter, Quantity.From(3, ElectricFieldUnit.VoltPerMeter));
             Assertion(3, ElectricInductanceUnit.Picohenry, Quantity.From(3, ElectricInductanceUnit.Picohenry));
             Assertion(3, ElectricPotentialUnit.Volt, Quantity.From(3, ElectricPotentialUnit.Volt));
@@ -88,7 +89,6 @@ namespace OasysUnits.Tests
             Assertion(3, IrradiationUnit.WattHourPerSquareMeter, Quantity.From(3, IrradiationUnit.WattHourPerSquareMeter));
             Assertion(3, JerkUnit.StandardGravitiesPerSecond, Quantity.From(3, JerkUnit.StandardGravitiesPerSecond));
             Assertion(3, KinematicViscosityUnit.Stokes, Quantity.From(3, KinematicViscosityUnit.Stokes));
-            Assertion(3, LapseRateUnit.DegreeCelsiusPerKilometer, Quantity.From(3, LapseRateUnit.DegreeCelsiusPerKilometer));
             Assertion(3, LeakRateUnit.TorrLiterPerSecond, Quantity.From(3, LeakRateUnit.TorrLiterPerSecond));
             Assertion(3, LengthUnit.Yard, Quantity.From(3, LengthUnit.Yard));
             Assertion(3, LevelUnit.Neper, Quantity.From(3, LevelUnit.Neper));
@@ -107,6 +107,7 @@ namespace OasysUnits.Tests
             Assertion(3, MassFluxUnit.KilogramPerSecondPerSquareMillimeter, Quantity.From(3, MassFluxUnit.KilogramPerSecondPerSquareMillimeter));
             Assertion(3, MassFractionUnit.Percent, Quantity.From(3, MassFractionUnit.Percent));
             Assertion(3, MassMomentOfInertiaUnit.TonneSquareMilimeter, Quantity.From(3, MassMomentOfInertiaUnit.TonneSquareMilimeter));
+            Assertion(3, MolalityUnit.MolePerKilogram, Quantity.From(3, MolalityUnit.MolePerKilogram));
             Assertion(3, MolarEnergyUnit.MegajoulePerMole, Quantity.From(3, MolarEnergyUnit.MegajoulePerMole));
             Assertion(3, MolarEntropyUnit.MegajoulePerMoleKelvin, Quantity.From(3, MolarEntropyUnit.MegajoulePerMoleKelvin));
             Assertion(3, MolarFlowUnit.PoundMolePerSecond, Quantity.From(3, MolarFlowUnit.PoundMolePerSecond));
@@ -122,6 +123,9 @@ namespace OasysUnits.Tests
             Assertion(3, PowerRatioUnit.DecibelWatt, Quantity.From(3, PowerRatioUnit.DecibelWatt));
             Assertion(3, PressureUnit.Torr, Quantity.From(3, PressureUnit.Torr));
             Assertion(3, PressureChangeRateUnit.PoundForcePerSquareInchPerSecond, Quantity.From(3, PressureChangeRateUnit.PoundForcePerSquareInchPerSecond));
+            Assertion(3, RadiationEquivalentDoseUnit.Sievert, Quantity.From(3, RadiationEquivalentDoseUnit.Sievert));
+            Assertion(3, RadiationExposureUnit.Roentgen, Quantity.From(3, RadiationExposureUnit.Roentgen));
+            Assertion(3, RadioactivityUnit.Terarutherford, Quantity.From(3, RadioactivityUnit.Terarutherford));
             Assertion(3, RatioUnit.Percent, Quantity.From(3, RatioUnit.Percent));
             Assertion(3, RatioChangeRateUnit.PercentPerSecond, Quantity.From(3, RatioChangeRateUnit.PercentPerSecond));
             Assertion(3, ReactiveEnergyUnit.VoltampereReactiveHour, Quantity.From(3, ReactiveEnergyUnit.VoltampereReactiveHour));
@@ -168,6 +172,7 @@ namespace OasysUnits.Tests
         {
             void Assertion(QuantityInfo expected, IQuantity quantity) => Assert.Same(expected, quantity.QuantityInfo);
 
+            Assertion(AbsorbedDoseOfIonizingRadiation.Info, AbsorbedDoseOfIonizingRadiation.Zero);
             Assertion(Acceleration.Info, Acceleration.Zero);
             Assertion(AmountOfSubstance.Info, AmountOfSubstance.Zero);
             Assertion(AmplitudeRatio.Info, AmplitudeRatio.Zero);
@@ -222,7 +227,6 @@ namespace OasysUnits.Tests
             Assertion(Irradiation.Info, Irradiation.Zero);
             Assertion(Jerk.Info, Jerk.Zero);
             Assertion(KinematicViscosity.Info, KinematicViscosity.Zero);
-            Assertion(LapseRate.Info, LapseRate.Zero);
             Assertion(LeakRate.Info, LeakRate.Zero);
             Assertion(Length.Info, Length.Zero);
             Assertion(Level.Info, Level.Zero);
@@ -241,6 +245,7 @@ namespace OasysUnits.Tests
             Assertion(MassFlux.Info, MassFlux.Zero);
             Assertion(MassFraction.Info, MassFraction.Zero);
             Assertion(MassMomentOfInertia.Info, MassMomentOfInertia.Zero);
+            Assertion(Molality.Info, Molality.Zero);
             Assertion(MolarEnergy.Info, MolarEnergy.Zero);
             Assertion(MolarEntropy.Info, MolarEntropy.Zero);
             Assertion(MolarFlow.Info, MolarFlow.Zero);
@@ -256,6 +261,9 @@ namespace OasysUnits.Tests
             Assertion(PowerRatio.Info, PowerRatio.Zero);
             Assertion(Pressure.Info, Pressure.Zero);
             Assertion(PressureChangeRate.Info, PressureChangeRate.Zero);
+            Assertion(RadiationEquivalentDose.Info, RadiationEquivalentDose.Zero);
+            Assertion(RadiationExposure.Info, RadiationExposure.Zero);
+            Assertion(Radioactivity.Info, Radioactivity.Zero);
             Assertion(Ratio.Info, Ratio.Zero);
             Assertion(RatioChangeRate.Info, RatioChangeRate.Zero);
             Assertion(ReactiveEnergy.Info, ReactiveEnergy.Zero);
@@ -302,6 +310,7 @@ namespace OasysUnits.Tests
         {
             void Assertion(BaseDimensions expected, IQuantity quantity) => Assert.Equal(expected, quantity.Dimensions);
 
+            Assertion(AbsorbedDoseOfIonizingRadiation.BaseDimensions, AbsorbedDoseOfIonizingRadiation.Zero);
             Assertion(Acceleration.BaseDimensions, Acceleration.Zero);
             Assertion(AmountOfSubstance.BaseDimensions, AmountOfSubstance.Zero);
             Assertion(AmplitudeRatio.BaseDimensions, AmplitudeRatio.Zero);
@@ -356,7 +365,6 @@ namespace OasysUnits.Tests
             Assertion(Irradiation.BaseDimensions, Irradiation.Zero);
             Assertion(Jerk.BaseDimensions, Jerk.Zero);
             Assertion(KinematicViscosity.BaseDimensions, KinematicViscosity.Zero);
-            Assertion(LapseRate.BaseDimensions, LapseRate.Zero);
             Assertion(LeakRate.BaseDimensions, LeakRate.Zero);
             Assertion(Length.BaseDimensions, Length.Zero);
             Assertion(Level.BaseDimensions, Level.Zero);
@@ -375,6 +383,7 @@ namespace OasysUnits.Tests
             Assertion(MassFlux.BaseDimensions, MassFlux.Zero);
             Assertion(MassFraction.BaseDimensions, MassFraction.Zero);
             Assertion(MassMomentOfInertia.BaseDimensions, MassMomentOfInertia.Zero);
+            Assertion(Molality.BaseDimensions, Molality.Zero);
             Assertion(MolarEnergy.BaseDimensions, MolarEnergy.Zero);
             Assertion(MolarEntropy.BaseDimensions, MolarEntropy.Zero);
             Assertion(MolarFlow.BaseDimensions, MolarFlow.Zero);
@@ -390,6 +399,9 @@ namespace OasysUnits.Tests
             Assertion(PowerRatio.BaseDimensions, PowerRatio.Zero);
             Assertion(Pressure.BaseDimensions, Pressure.Zero);
             Assertion(PressureChangeRate.BaseDimensions, PressureChangeRate.Zero);
+            Assertion(RadiationEquivalentDose.BaseDimensions, RadiationEquivalentDose.Zero);
+            Assertion(RadiationExposure.BaseDimensions, RadiationExposure.Zero);
+            Assertion(Radioactivity.BaseDimensions, Radioactivity.Zero);
             Assertion(Ratio.BaseDimensions, Ratio.Zero);
             Assertion(RatioChangeRate.BaseDimensions, RatioChangeRate.Zero);
             Assertion(ReactiveEnergy.BaseDimensions, ReactiveEnergy.Zero);

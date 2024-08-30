@@ -6,7 +6,7 @@
 //     The build server regenerates the code before each build and a pre-build
 //     step will regenerate the code on each local build.
 //
-//     See https://github.com/angularsen/UnitsNet/wiki/Adding-a-New-Unit for how to add or edit units.
+//     See https://github.com/angularsen/OasysUnits/wiki/Adding-a-New-Unit for how to add or edit units.
 //
 //     Add CustomCode\Quantities\MyQuantity.extra.cs files to add code to generated quantities.
 //     Add UnitDefinitions\MyQuantity.json and run generate-code.bat to generate new units or quantities.
@@ -15,9 +15,13 @@
 //------------------------------------------------------------------------------
 
 // Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using System;
+
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
 
 #nullable enable
 
@@ -28,33 +32,61 @@ namespace OasysUnits.NumberExtensions.NumberToCapacitance
     /// </summary>
     public static class NumberToCapacitanceExtensions
     {
-        /// <inheritdoc cref="Capacitance.FromFarads(OasysUnits.QuantityValue)" />
-        public static Capacitance Farads<T>(this T value) =>
-            Capacitance.FromFarads(Convert.ToDouble(value));
+        /// <inheritdoc cref="Capacitance.FromFarads(double)" />
+        public static Capacitance Farads<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Capacitance.FromFarads(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Capacitance.FromKilofarads(OasysUnits.QuantityValue)" />
-        public static Capacitance Kilofarads<T>(this T value) =>
-            Capacitance.FromKilofarads(Convert.ToDouble(value));
+        /// <inheritdoc cref="Capacitance.FromKilofarads(double)" />
+        public static Capacitance Kilofarads<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Capacitance.FromKilofarads(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Capacitance.FromMegafarads(OasysUnits.QuantityValue)" />
-        public static Capacitance Megafarads<T>(this T value) =>
-            Capacitance.FromMegafarads(Convert.ToDouble(value));
+        /// <inheritdoc cref="Capacitance.FromMegafarads(double)" />
+        public static Capacitance Megafarads<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Capacitance.FromMegafarads(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Capacitance.FromMicrofarads(OasysUnits.QuantityValue)" />
-        public static Capacitance Microfarads<T>(this T value) =>
-            Capacitance.FromMicrofarads(Convert.ToDouble(value));
+        /// <inheritdoc cref="Capacitance.FromMicrofarads(double)" />
+        public static Capacitance Microfarads<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Capacitance.FromMicrofarads(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Capacitance.FromMillifarads(OasysUnits.QuantityValue)" />
-        public static Capacitance Millifarads<T>(this T value) =>
-            Capacitance.FromMillifarads(Convert.ToDouble(value));
+        /// <inheritdoc cref="Capacitance.FromMillifarads(double)" />
+        public static Capacitance Millifarads<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Capacitance.FromMillifarads(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Capacitance.FromNanofarads(OasysUnits.QuantityValue)" />
-        public static Capacitance Nanofarads<T>(this T value) =>
-            Capacitance.FromNanofarads(Convert.ToDouble(value));
+        /// <inheritdoc cref="Capacitance.FromNanofarads(double)" />
+        public static Capacitance Nanofarads<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Capacitance.FromNanofarads(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Capacitance.FromPicofarads(OasysUnits.QuantityValue)" />
-        public static Capacitance Picofarads<T>(this T value) =>
-            Capacitance.FromPicofarads(Convert.ToDouble(value));
+        /// <inheritdoc cref="Capacitance.FromPicofarads(double)" />
+        public static Capacitance Picofarads<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Capacitance.FromPicofarads(Convert.ToDouble(value));
 
     }
 }

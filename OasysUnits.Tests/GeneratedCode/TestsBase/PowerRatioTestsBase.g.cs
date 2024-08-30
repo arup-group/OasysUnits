@@ -6,7 +6,7 @@
 //     The build server regenerates the code before each build and a pre-build
 //     step will regenerate the code on each local build.
 //
-//     See https://github.com/angularsen/UnitsNet/wiki/Adding-a-New-Unit for how to add or edit units.
+//     See https://github.com/angularsen/OasysUnits/wiki/Adding-a-New-Unit for how to add or edit units.
 //
 //     Add CustomCode\Quantities\MyQuantity.extra.cs files to add code to generated quantities.
 //     Add UnitDefinitions\MyQuantity.json and run generate-code.bat to generate new units or quantities.
@@ -15,7 +15,7 @@
 //------------------------------------------------------------------------------
 
 // Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using System;
 using System.Collections.Generic;
@@ -71,16 +71,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void Ctor_WithInfinityValue_ThrowsArgumentException()
+        public void Ctor_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new PowerRatio(double.PositiveInfinity, PowerRatioUnit.DecibelWatt));
-            Assert.Throws<ArgumentException>(() => new PowerRatio(double.NegativeInfinity, PowerRatioUnit.DecibelWatt));
+            var exception1 = Record.Exception(() => new PowerRatio(double.PositiveInfinity, PowerRatioUnit.DecibelWatt));
+            var exception2 = Record.Exception(() => new PowerRatio(double.NegativeInfinity, PowerRatioUnit.DecibelWatt));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void Ctor_WithNaNValue_ThrowsArgumentException()
+        public void Ctor_WithNaNValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new PowerRatio(double.NaN, PowerRatioUnit.DecibelWatt));
+            var exception = Record.Exception(() => new PowerRatio(double.NaN, PowerRatioUnit.DecibelWatt));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -140,16 +145,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void FromDecibelWatts_WithInfinityValue_ThrowsArgumentException()
+        public void FromDecibelWatts_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => PowerRatio.FromDecibelWatts(double.PositiveInfinity));
-            Assert.Throws<ArgumentException>(() => PowerRatio.FromDecibelWatts(double.NegativeInfinity));
+            var exception1 = Record.Exception(() => PowerRatio.FromDecibelWatts(double.PositiveInfinity));
+            var exception2 = Record.Exception(() => PowerRatio.FromDecibelWatts(double.NegativeInfinity));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void FromDecibelWatts_WithNanValue_ThrowsArgumentException()
+        public void FromDecibelWatts_WithNanValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => PowerRatio.FromDecibelWatts(double.NaN));
+            var exception = Record.Exception(() => PowerRatio.FromDecibelWatts(double.NaN));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -423,6 +433,8 @@ namespace OasysUnits.Tests
             var v = PowerRatio.FromDecibelWatts(1);
             Assert.True(v.Equals(PowerRatio.FromDecibelWatts(1), DecibelWattsTolerance, ComparisonType.Relative));
             Assert.False(v.Equals(PowerRatio.Zero, DecibelWattsTolerance, ComparisonType.Relative));
+            Assert.True(PowerRatio.FromDecibelWatts(100).Equals(PowerRatio.FromDecibelWatts(120), 0.3, ComparisonType.Relative));
+            Assert.False(PowerRatio.FromDecibelWatts(100).Equals(PowerRatio.FromDecibelWatts(120), 0.1, ComparisonType.Relative));
         }
 
         [Fact]

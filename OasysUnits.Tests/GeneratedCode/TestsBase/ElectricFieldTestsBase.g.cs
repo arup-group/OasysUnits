@@ -6,7 +6,7 @@
 //     The build server regenerates the code before each build and a pre-build
 //     step will regenerate the code on each local build.
 //
-//     See https://github.com/angularsen/UnitsNet/wiki/Adding-a-New-Unit for how to add or edit units.
+//     See https://github.com/angularsen/OasysUnits/wiki/Adding-a-New-Unit for how to add or edit units.
 //
 //     Add CustomCode\Quantities\MyQuantity.extra.cs files to add code to generated quantities.
 //     Add UnitDefinitions\MyQuantity.json and run generate-code.bat to generate new units or quantities.
@@ -15,7 +15,7 @@
 //------------------------------------------------------------------------------
 
 // Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using System;
 using System.Collections.Generic;
@@ -67,16 +67,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void Ctor_WithInfinityValue_ThrowsArgumentException()
+        public void Ctor_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new ElectricField(double.PositiveInfinity, ElectricFieldUnit.VoltPerMeter));
-            Assert.Throws<ArgumentException>(() => new ElectricField(double.NegativeInfinity, ElectricFieldUnit.VoltPerMeter));
+            var exception1 = Record.Exception(() => new ElectricField(double.PositiveInfinity, ElectricFieldUnit.VoltPerMeter));
+            var exception2 = Record.Exception(() => new ElectricField(double.NegativeInfinity, ElectricFieldUnit.VoltPerMeter));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void Ctor_WithNaNValue_ThrowsArgumentException()
+        public void Ctor_WithNaNValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new ElectricField(double.NaN, ElectricFieldUnit.VoltPerMeter));
+            var exception = Record.Exception(() => new ElectricField(double.NaN, ElectricFieldUnit.VoltPerMeter));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -131,16 +136,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void FromVoltsPerMeter_WithInfinityValue_ThrowsArgumentException()
+        public void FromVoltsPerMeter_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => ElectricField.FromVoltsPerMeter(double.PositiveInfinity));
-            Assert.Throws<ArgumentException>(() => ElectricField.FromVoltsPerMeter(double.NegativeInfinity));
+            var exception1 = Record.Exception(() => ElectricField.FromVoltsPerMeter(double.PositiveInfinity));
+            var exception2 = Record.Exception(() => ElectricField.FromVoltsPerMeter(double.NegativeInfinity));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void FromVoltsPerMeter_WithNanValue_ThrowsArgumentException()
+        public void FromVoltsPerMeter_WithNanValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => ElectricField.FromVoltsPerMeter(double.NaN));
+            var exception = Record.Exception(() => ElectricField.FromVoltsPerMeter(double.NaN));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -359,6 +369,8 @@ namespace OasysUnits.Tests
             var v = ElectricField.FromVoltsPerMeter(1);
             Assert.True(v.Equals(ElectricField.FromVoltsPerMeter(1), VoltsPerMeterTolerance, ComparisonType.Relative));
             Assert.False(v.Equals(ElectricField.Zero, VoltsPerMeterTolerance, ComparisonType.Relative));
+            Assert.True(ElectricField.FromVoltsPerMeter(100).Equals(ElectricField.FromVoltsPerMeter(120), 0.3, ComparisonType.Relative));
+            Assert.False(ElectricField.FromVoltsPerMeter(100).Equals(ElectricField.FromVoltsPerMeter(120), 0.1, ComparisonType.Relative));
         }
 
         [Fact]

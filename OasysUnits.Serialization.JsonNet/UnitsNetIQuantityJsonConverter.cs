@@ -1,5 +1,5 @@
 ﻿// Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
 
 using System;
 using Newtonsoft.Json;
@@ -31,7 +31,7 @@ namespace OasysUnits.Serialization.JsonNet
                 return;
             }
 
-            var valueUnit = ConvertIQuantity(value);
+            ValueUnit valueUnit = ConvertIQuantity(value);
 
             serializer.Serialize(writer, valueUnit);
         }
@@ -51,24 +51,28 @@ namespace OasysUnits.Serialization.JsonNet
         public override IQuantity? ReadJson(JsonReader reader, Type objectType, IQuantity? existingValue, bool hasExistingValue,
             JsonSerializer serializer)
         {
-            reader = reader ?? throw new ArgumentNullException(nameof(reader));
-            serializer = serializer ?? throw new ArgumentNullException(nameof(serializer));
+            if (reader == null) throw new ArgumentNullException(nameof(reader));
+            if (serializer == null) throw new ArgumentNullException(nameof(serializer));
 
-            if (reader.TokenType == JsonToken.Null)
+            var token = JToken.Load(reader);
+
+            if (token.Type is JTokenType.Null)
             {
                 return existingValue;
             }
 
-            var token = JToken.Load(reader);
+            // Try to read value and unit from JSON, otherwise throw.
+            ValueUnit? valueUnit = ReadValueUnit(token);
 
-            var valueUnit = ReadValueUnit(token);
-
-            if (valueUnit == null)
-            {
-                return token.ToObject<IQuantity>(serializer);
-            }
-
-            return ConvertValueUnit(valueUnit);
+            return valueUnit != null
+                ? ConvertValueUnit(valueUnit)
+                : throw new JsonSerializationException(
+                    $"Failed to deserialize IQuantity for target type {objectType} from JSON '{token.ToString().Truncate(100)}', expected properties Unit and Value.")
+                {
+                    HelpLink =
+                        "https://github.com/angularsen/OasysUnits/wiki/Serializing-to-JSON,-XML-and-more#OasysUnitsserializationjsonnet-with-jsonnet-newtonsoft",
+                    Data = { { "JsonToken", token.ToString() }, }
+                };
         }
     }
 }

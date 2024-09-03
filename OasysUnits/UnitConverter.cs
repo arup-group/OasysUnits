@@ -9,11 +9,10 @@ using System.Reflection;
 using System.Linq;
 using OasysUnits.InternalHelpers;
 using OasysUnits.Units;
+using ConversionFunctionLookupKey = System.ValueTuple<System.Type, System.Enum, System.Type, System.Enum>;
 
 namespace OasysUnits
 {
-    using ConversionFunctionLookupKey = ValueTuple<Type, Enum, Type, Enum>;
-
     /// <summary>
     ///
     /// </summary>

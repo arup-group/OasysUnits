@@ -1,5 +1,5 @@
 ﻿// Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
 
 using Newtonsoft.Json;
 using OasysUnits.Serialization.JsonNet.Tests.Infrastructure;
@@ -81,7 +81,7 @@ namespace OasysUnits.Serialization.JsonNet.Tests
         {
             var ex = Assert.Throws<JsonSerializationException>(() => DeserializeObject<Mass?>("{}"));
             Assert.Equal("Failed to deserialize IQuantity for target type System.Nullable`1[OasysUnits.Mass] from JSON '{}', expected properties Unit and Value.", ex.Message);
-            Assert.Equal("https://github.com/angularsen/OasysUnits/wiki/Serializing-to-JSON,-XML-and-more#OasysUnitsserializationjsonnet-with-jsonnet-newtonsoft", ex.HelpLink);
+            Assert.Equal("https://github.com/angularsen/UnitsNet/wiki/Serializing-to-JSON,-XML-and-more#OasysUnitsserializationjsonnet-with-jsonnet-newtonsoft", ex.HelpLink);
             Assert.Equal("{}", ex.Data["JsonToken"]);
         }
 
@@ -90,7 +90,7 @@ namespace OasysUnits.Serialization.JsonNet.Tests
         {
             var ex = Assert.Throws<JsonSerializationException>(() => DeserializeObject<Mass>("{}"));
             Assert.Equal("Failed to deserialize IQuantity for target type OasysUnits.Mass from JSON '{}', expected properties Unit and Value.", ex.Message);
-            Assert.Equal("https://github.com/angularsen/OasysUnits/wiki/Serializing-to-JSON,-XML-and-more#OasysUnitsserializationjsonnet-with-jsonnet-newtonsoft", ex.HelpLink);
+            Assert.Equal("https://github.com/angularsen/UnitsNet/wiki/Serializing-to-JSON,-XML-and-more#OasysUnitsserializationjsonnet-with-jsonnet-newtonsoft", ex.HelpLink);
             Assert.Equal("{}", ex.Data["JsonToken"]);
         }
 

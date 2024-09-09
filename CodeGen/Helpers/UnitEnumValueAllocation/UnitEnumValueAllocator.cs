@@ -1,5 +1,5 @@
 ﻿// Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
 
 using System;
 using System.Collections.Generic;
@@ -18,7 +18,7 @@ namespace CodeGen.Helpers.UnitEnumValueAllocation
     ///     change when adding new units.
     ///     <br/><br/>
     ///     Updating transitive OasysUnits dependency cause wrong unit · Issue #1068 · angularsen/OasysUnits
-    ///     https://github.com/angularsen/OasysUnits/issues/1068
+    ///     https://github.com/angularsen/UnitsNet/issues/1068
     /// </summary>
     internal class UnitEnumValueAllocator
     {
@@ -146,7 +146,7 @@ Conflicts:
 //------------------------------------------------------------------------------
 //
 // Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
 ");
 
             fileContentStringBuilder.AppendLine(JsonSerializer.Serialize(_quantityNameToUnitEnumValues, JsonOptions));

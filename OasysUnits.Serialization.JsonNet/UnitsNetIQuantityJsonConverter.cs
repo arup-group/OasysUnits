@@ -1,5 +1,5 @@
 ﻿// Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
 
 using System;
 using Newtonsoft.Json;
@@ -70,7 +70,7 @@ namespace OasysUnits.Serialization.JsonNet
                     $"Failed to deserialize IQuantity for target type {objectType} from JSON '{token.ToString().Truncate(100)}', expected properties Unit and Value.")
                 {
                     HelpLink =
-                        "https://github.com/angularsen/OasysUnits/wiki/Serializing-to-JSON,-XML-and-more#OasysUnitsserializationjsonnet-with-jsonnet-newtonsoft",
+                        "https://github.com/angularsen/UnitsNet/wiki/Serializing-to-JSON,-XML-and-more#OasysUnitsserializationjsonnet-with-jsonnet-newtonsoft",
                     Data = { { "JsonToken", token.ToString() }, }
                 };
         }

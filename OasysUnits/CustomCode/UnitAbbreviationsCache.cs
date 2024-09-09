@@ -1,5 +1,5 @@
 ﻿// Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
 
 using System;
 using System.Collections.Concurrent;
@@ -46,7 +46,7 @@ namespace OasysUnits
         /// <summary>
         ///     Create an instance of the cache and load all the abbreviations defined in the library.
         /// </summary>
-        // TODO Change this to create an empty cache in v6: https://github.com/angularsen/OasysUnits/issues/1200
+        // TODO Change this to create an empty cache in v6: https://github.com/angularsen/UnitsNet/issues/1200
         [Obsolete("Use CreateDefault() instead to create an instance that loads the built-in units. The default ctor will change to create an empty cache in OasysUnits v6.")]
         public UnitAbbreviationsCache()
             : this(new QuantityInfoLookup(Quantity.ByName.Values))
@@ -71,7 +71,7 @@ namespace OasysUnits
         ///     Workaround until v6 changes the default ctor to create an empty cache.<br/>
         /// </remarks>
         /// <returns>Instance with empty cache.</returns>
-        // TODO Remove in v6: https://github.com/angularsen/OasysUnits/issues/1200
+        // TODO Remove in v6: https://github.com/angularsen/UnitsNet/issues/1200
         public static UnitAbbreviationsCache CreateEmpty() => new(new QuantityInfoLookup(new List<QuantityInfo>()));
 
         /// <summary>

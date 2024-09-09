@@ -30,7 +30,7 @@ namespace CodeGen.Generators.NanoFrameworkGen
     <authors>Andreas Gullberg Larsen,nanoframework</authors>
     <owners>OasysUnits</owners>
     <license type=""expression"">MIT-0</license>
-    <projectUrl>https://github.com/angularsen/OasysUnits</projectUrl>
+    <projectUrl>https://github.com/angularsen/UnitsNet</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Adds {_quantity.Name} units for Units.NET on .NET nanoFramework. For .NET or .NET Core, use OasysUnits instead.</description>
     <iconUrl>https://raw.githubusercontent.com/angularsen/OasysUnits/ce85185429be345d77eb2ce09c99d59cc9ab8aed/Docs/Images/logo-32.png</iconUrl>

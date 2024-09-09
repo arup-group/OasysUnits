@@ -1,5 +1,5 @@
 ﻿// Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
 
 using System;
 using System.Diagnostics.CodeAnalysis;
@@ -30,7 +30,7 @@ namespace OasysUnits
         ///     Create a parser using the given unit abbreviations cache.
         /// </summary>
         /// <param name="unitAbbreviationsCache"></param>
-        // TODO Change this to not fallback to built-in units abbreviations when given null, in v6: https://github.com/angularsen/OasysUnits/issues/1200
+        // TODO Change this to not fallback to built-in units abbreviations when given null, in v6: https://github.com/angularsen/UnitsNet/issues/1200
         public UnitParser(UnitAbbreviationsCache? unitAbbreviationsCache)
         {
             _unitAbbreviationsCache = unitAbbreviationsCache ?? UnitAbbreviationsCache.Default;

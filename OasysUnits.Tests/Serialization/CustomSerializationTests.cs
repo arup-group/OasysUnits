@@ -1,5 +1,5 @@
 ﻿// Licensed under MIT No Attribution, see LICENSE file at the root.
-// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/OasysUnits.
+// Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
 
 using OasysUnits.Units;
 using Xunit;
@@ -13,7 +13,7 @@ public class CustomSerializationTests
 
     /// <summary>
     ///     This showcases how to serialize and deserialize a quantity to and from JSON using a custom DTO, as described in the wiki:<br />
-    ///     https://github.com/angularsen/OasysUnits/wiki/Serializing-to-JSON,-XML-and-more#-recommended-map-to-your-own-custom-dto-types
+    ///     https://github.com/angularsen/UnitsNet/wiki/Serializing-to-JSON,-XML-and-more#-recommended-map-to-your-own-custom-dto-types
     /// </summary>
     [Fact]
     public void CanMapToJsonAndBackViaCustomDto()

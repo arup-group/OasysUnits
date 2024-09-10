@@ -19,6 +19,10 @@
 
 using System;
 
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
+
 #nullable enable
 
 namespace OasysUnits.NumberExtensions.NumberToRelativeHumidity
@@ -28,9 +32,13 @@ namespace OasysUnits.NumberExtensions.NumberToRelativeHumidity
     /// </summary>
     public static class NumberToRelativeHumidityExtensions
     {
-        /// <inheritdoc cref="RelativeHumidity.FromPercent(OasysUnits.QuantityValue)" />
-        public static RelativeHumidity Percent<T>(this T value) =>
-            RelativeHumidity.FromPercent(Convert.ToDouble(value));
+        /// <inheritdoc cref="RelativeHumidity.FromPercent(double)" />
+        public static RelativeHumidity Percent<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => RelativeHumidity.FromPercent(Convert.ToDouble(value));
 
     }
 }

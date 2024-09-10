@@ -25,12 +25,12 @@ namespace OasysUnits.Units
 
     public enum BendingStiffnessUnit
     {
-        KilonewtonSquareMeter = 4,
-        KilonewtonSquareMillimeter = 9,
-        NewtonSquareMeter = 7,
-        NewtonSquareMillimeter = 6,
+        KilonewtonSquareMeter = 8,
+        KilonewtonSquareMillimeter = 7,
+        NewtonSquareMeter = 6,
+        NewtonSquareMillimeter = 2,
         PoundForceSquareFoot = 3,
-        PoundForceSquareInch = 8,
+        PoundForceSquareInch = 1,
     }
 
     #pragma warning restore 1591

@@ -19,6 +19,10 @@
 
 using System;
 
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
+
 #nullable enable
 
 namespace OasysUnits.NumberExtensions.NumberToPressure
@@ -28,201 +32,397 @@ namespace OasysUnits.NumberExtensions.NumberToPressure
     /// </summary>
     public static class NumberToPressureExtensions
     {
-        /// <inheritdoc cref="Pressure.FromAtmospheres(OasysUnits.QuantityValue)" />
-        public static Pressure Atmospheres<T>(this T value) =>
-            Pressure.FromAtmospheres(Convert.ToDouble(value));
+        /// <inheritdoc cref="Pressure.FromAtmospheres(double)" />
+        public static Pressure Atmospheres<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Pressure.FromAtmospheres(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Pressure.FromBars(OasysUnits.QuantityValue)" />
-        public static Pressure Bars<T>(this T value) =>
-            Pressure.FromBars(Convert.ToDouble(value));
+        /// <inheritdoc cref="Pressure.FromBars(double)" />
+        public static Pressure Bars<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Pressure.FromBars(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Pressure.FromCentibars(OasysUnits.QuantityValue)" />
-        public static Pressure Centibars<T>(this T value) =>
-            Pressure.FromCentibars(Convert.ToDouble(value));
+        /// <inheritdoc cref="Pressure.FromCentibars(double)" />
+        public static Pressure Centibars<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Pressure.FromCentibars(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Pressure.FromCentimetersOfWaterColumn(OasysUnits.QuantityValue)" />
-        public static Pressure CentimetersOfWaterColumn<T>(this T value) =>
-            Pressure.FromCentimetersOfWaterColumn(Convert.ToDouble(value));
+        /// <inheritdoc cref="Pressure.FromCentimetersOfWaterColumn(double)" />
+        public static Pressure CentimetersOfWaterColumn<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Pressure.FromCentimetersOfWaterColumn(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Pressure.FromDecapascals(OasysUnits.QuantityValue)" />
-        public static Pressure Decapascals<T>(this T value) =>
-            Pressure.FromDecapascals(Convert.ToDouble(value));
+        /// <inheritdoc cref="Pressure.FromDecapascals(double)" />
+        public static Pressure Decapascals<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Pressure.FromDecapascals(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Pressure.FromDecibars(OasysUnits.QuantityValue)" />
-        public static Pressure Decibars<T>(this T value) =>
-            Pressure.FromDecibars(Convert.ToDouble(value));
+        /// <inheritdoc cref="Pressure.FromDecibars(double)" />
+        public static Pressure Decibars<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Pressure.FromDecibars(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Pressure.FromDynesPerSquareCentimeter(OasysUnits.QuantityValue)" />
-        public static Pressure DynesPerSquareCentimeter<T>(this T value) =>
-            Pressure.FromDynesPerSquareCentimeter(Convert.ToDouble(value));
+        /// <inheritdoc cref="Pressure.FromDynesPerSquareCentimeter(double)" />
+        public static Pressure DynesPerSquareCentimeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Pressure.FromDynesPerSquareCentimeter(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Pressure.FromFeetOfElevation(OasysUnits.QuantityValue)" />
-        public static Pressure FeetOfElevation<T>(this T value) =>
-            Pressure.FromFeetOfElevation(Convert.ToDouble(value));
+        /// <inheritdoc cref="Pressure.FromFeetOfElevation(double)" />
+        public static Pressure FeetOfElevation<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Pressure.FromFeetOfElevation(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Pressure.FromFeetOfHead(OasysUnits.QuantityValue)" />
-        public static Pressure FeetOfHead<T>(this T value) =>
-            Pressure.FromFeetOfHead(Convert.ToDouble(value));
+        /// <inheritdoc cref="Pressure.FromFeetOfHead(double)" />
+        public static Pressure FeetOfHead<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Pressure.FromFeetOfHead(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Pressure.FromGigapascals(OasysUnits.QuantityValue)" />
-        public static Pressure Gigapascals<T>(this T value) =>
-            Pressure.FromGigapascals(Convert.ToDouble(value));
+        /// <inheritdoc cref="Pressure.FromGigapascals(double)" />
+        public static Pressure Gigapascals<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Pressure.FromGigapascals(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Pressure.FromHectopascals(OasysUnits.QuantityValue)" />
-        public static Pressure Hectopascals<T>(this T value) =>
-            Pressure.FromHectopascals(Convert.ToDouble(value));
+        /// <inheritdoc cref="Pressure.FromHectopascals(double)" />
+        public static Pressure Hectopascals<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Pressure.FromHectopascals(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Pressure.FromInchesOfMercury(OasysUnits.QuantityValue)" />
-        public static Pressure InchesOfMercury<T>(this T value) =>
-            Pressure.FromInchesOfMercury(Convert.ToDouble(value));
+        /// <inheritdoc cref="Pressure.FromInchesOfMercury(double)" />
+        public static Pressure InchesOfMercury<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Pressure.FromInchesOfMercury(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Pressure.FromInchesOfWaterColumn(OasysUnits.QuantityValue)" />
-        public static Pressure InchesOfWaterColumn<T>(this T value) =>
-            Pressure.FromInchesOfWaterColumn(Convert.ToDouble(value));
+        /// <inheritdoc cref="Pressure.FromInchesOfWaterColumn(double)" />
+        public static Pressure InchesOfWaterColumn<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Pressure.FromInchesOfWaterColumn(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Pressure.FromKilobars(OasysUnits.QuantityValue)" />
-        public static Pressure Kilobars<T>(this T value) =>
-            Pressure.FromKilobars(Convert.ToDouble(value));
+        /// <inheritdoc cref="Pressure.FromKilobars(double)" />
+        public static Pressure Kilobars<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Pressure.FromKilobars(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Pressure.FromKilogramsForcePerSquareCentimeter(OasysUnits.QuantityValue)" />
-        public static Pressure KilogramsForcePerSquareCentimeter<T>(this T value) =>
-            Pressure.FromKilogramsForcePerSquareCentimeter(Convert.ToDouble(value));
+        /// <inheritdoc cref="Pressure.FromKilogramsForcePerSquareCentimeter(double)" />
+        public static Pressure KilogramsForcePerSquareCentimeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Pressure.FromKilogramsForcePerSquareCentimeter(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Pressure.FromKilogramsForcePerSquareMeter(OasysUnits.QuantityValue)" />
-        public static Pressure KilogramsForcePerSquareMeter<T>(this T value) =>
-            Pressure.FromKilogramsForcePerSquareMeter(Convert.ToDouble(value));
+        /// <inheritdoc cref="Pressure.FromKilogramsForcePerSquareMeter(double)" />
+        public static Pressure KilogramsForcePerSquareMeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Pressure.FromKilogramsForcePerSquareMeter(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Pressure.FromKilogramsForcePerSquareMillimeter(OasysUnits.QuantityValue)" />
-        public static Pressure KilogramsForcePerSquareMillimeter<T>(this T value) =>
-            Pressure.FromKilogramsForcePerSquareMillimeter(Convert.ToDouble(value));
+        /// <inheritdoc cref="Pressure.FromKilogramsForcePerSquareMillimeter(double)" />
+        public static Pressure KilogramsForcePerSquareMillimeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Pressure.FromKilogramsForcePerSquareMillimeter(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Pressure.FromKilonewtonsPerSquareCentimeter(OasysUnits.QuantityValue)" />
-        public static Pressure KilonewtonsPerSquareCentimeter<T>(this T value) =>
-            Pressure.FromKilonewtonsPerSquareCentimeter(Convert.ToDouble(value));
+        /// <inheritdoc cref="Pressure.FromKilonewtonsPerSquareCentimeter(double)" />
+        public static Pressure KilonewtonsPerSquareCentimeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Pressure.FromKilonewtonsPerSquareCentimeter(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Pressure.FromKilonewtonsPerSquareMeter(OasysUnits.QuantityValue)" />
-        public static Pressure KilonewtonsPerSquareMeter<T>(this T value) =>
-            Pressure.FromKilonewtonsPerSquareMeter(Convert.ToDouble(value));
+        /// <inheritdoc cref="Pressure.FromKilonewtonsPerSquareMeter(double)" />
+        public static Pressure KilonewtonsPerSquareMeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Pressure.FromKilonewtonsPerSquareMeter(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Pressure.FromKilonewtonsPerSquareMillimeter(OasysUnits.QuantityValue)" />
-        public static Pressure KilonewtonsPerSquareMillimeter<T>(this T value) =>
-            Pressure.FromKilonewtonsPerSquareMillimeter(Convert.ToDouble(value));
+        /// <inheritdoc cref="Pressure.FromKilonewtonsPerSquareMillimeter(double)" />
+        public static Pressure KilonewtonsPerSquareMillimeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Pressure.FromKilonewtonsPerSquareMillimeter(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Pressure.FromKilopascals(OasysUnits.QuantityValue)" />
-        public static Pressure Kilopascals<T>(this T value) =>
-            Pressure.FromKilopascals(Convert.ToDouble(value));
+        /// <inheritdoc cref="Pressure.FromKilopascals(double)" />
+        public static Pressure Kilopascals<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Pressure.FromKilopascals(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Pressure.FromKilopoundsForcePerSquareFoot(OasysUnits.QuantityValue)" />
-        public static Pressure KilopoundsForcePerSquareFoot<T>(this T value) =>
-            Pressure.FromKilopoundsForcePerSquareFoot(Convert.ToDouble(value));
+        /// <inheritdoc cref="Pressure.FromKilopoundsForcePerSquareFoot(double)" />
+        public static Pressure KilopoundsForcePerSquareFoot<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Pressure.FromKilopoundsForcePerSquareFoot(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Pressure.FromKilopoundsForcePerSquareInch(OasysUnits.QuantityValue)" />
-        public static Pressure KilopoundsForcePerSquareInch<T>(this T value) =>
-            Pressure.FromKilopoundsForcePerSquareInch(Convert.ToDouble(value));
+        /// <inheritdoc cref="Pressure.FromKilopoundsForcePerSquareInch(double)" />
+        public static Pressure KilopoundsForcePerSquareInch<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Pressure.FromKilopoundsForcePerSquareInch(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Pressure.FromKilopoundsForcePerSquareMil(OasysUnits.QuantityValue)" />
-        public static Pressure KilopoundsForcePerSquareMil<T>(this T value) =>
-            Pressure.FromKilopoundsForcePerSquareMil(Convert.ToDouble(value));
+        /// <inheritdoc cref="Pressure.FromKilopoundsForcePerSquareMil(double)" />
+        public static Pressure KilopoundsForcePerSquareMil<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Pressure.FromKilopoundsForcePerSquareMil(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Pressure.FromMegabars(OasysUnits.QuantityValue)" />
-        public static Pressure Megabars<T>(this T value) =>
-            Pressure.FromMegabars(Convert.ToDouble(value));
+        /// <inheritdoc cref="Pressure.FromMegabars(double)" />
+        public static Pressure Megabars<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Pressure.FromMegabars(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Pressure.FromMeganewtonsPerSquareMeter(OasysUnits.QuantityValue)" />
-        public static Pressure MeganewtonsPerSquareMeter<T>(this T value) =>
-            Pressure.FromMeganewtonsPerSquareMeter(Convert.ToDouble(value));
+        /// <inheritdoc cref="Pressure.FromMeganewtonsPerSquareMeter(double)" />
+        public static Pressure MeganewtonsPerSquareMeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Pressure.FromMeganewtonsPerSquareMeter(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Pressure.FromMegapascals(OasysUnits.QuantityValue)" />
-        public static Pressure Megapascals<T>(this T value) =>
-            Pressure.FromMegapascals(Convert.ToDouble(value));
+        /// <inheritdoc cref="Pressure.FromMegapascals(double)" />
+        public static Pressure Megapascals<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Pressure.FromMegapascals(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Pressure.FromMetersOfElevation(OasysUnits.QuantityValue)" />
-        public static Pressure MetersOfElevation<T>(this T value) =>
-            Pressure.FromMetersOfElevation(Convert.ToDouble(value));
+        /// <inheritdoc cref="Pressure.FromMetersOfElevation(double)" />
+        public static Pressure MetersOfElevation<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Pressure.FromMetersOfElevation(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Pressure.FromMetersOfHead(OasysUnits.QuantityValue)" />
-        public static Pressure MetersOfHead<T>(this T value) =>
-            Pressure.FromMetersOfHead(Convert.ToDouble(value));
+        /// <inheritdoc cref="Pressure.FromMetersOfHead(double)" />
+        public static Pressure MetersOfHead<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Pressure.FromMetersOfHead(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Pressure.FromMetersOfWaterColumn(OasysUnits.QuantityValue)" />
-        public static Pressure MetersOfWaterColumn<T>(this T value) =>
-            Pressure.FromMetersOfWaterColumn(Convert.ToDouble(value));
+        /// <inheritdoc cref="Pressure.FromMetersOfWaterColumn(double)" />
+        public static Pressure MetersOfWaterColumn<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Pressure.FromMetersOfWaterColumn(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Pressure.FromMicrobars(OasysUnits.QuantityValue)" />
-        public static Pressure Microbars<T>(this T value) =>
-            Pressure.FromMicrobars(Convert.ToDouble(value));
+        /// <inheritdoc cref="Pressure.FromMicrobars(double)" />
+        public static Pressure Microbars<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Pressure.FromMicrobars(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Pressure.FromMicropascals(OasysUnits.QuantityValue)" />
-        public static Pressure Micropascals<T>(this T value) =>
-            Pressure.FromMicropascals(Convert.ToDouble(value));
+        /// <inheritdoc cref="Pressure.FromMicropascals(double)" />
+        public static Pressure Micropascals<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Pressure.FromMicropascals(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Pressure.FromMillibars(OasysUnits.QuantityValue)" />
-        public static Pressure Millibars<T>(this T value) =>
-            Pressure.FromMillibars(Convert.ToDouble(value));
+        /// <inheritdoc cref="Pressure.FromMillibars(double)" />
+        public static Pressure Millibars<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Pressure.FromMillibars(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Pressure.FromMillimetersOfMercury(OasysUnits.QuantityValue)" />
-        public static Pressure MillimetersOfMercury<T>(this T value) =>
-            Pressure.FromMillimetersOfMercury(Convert.ToDouble(value));
+        /// <inheritdoc cref="Pressure.FromMillimetersOfMercury(double)" />
+        public static Pressure MillimetersOfMercury<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Pressure.FromMillimetersOfMercury(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Pressure.FromMillimetersOfWaterColumn(OasysUnits.QuantityValue)" />
-        public static Pressure MillimetersOfWaterColumn<T>(this T value) =>
-            Pressure.FromMillimetersOfWaterColumn(Convert.ToDouble(value));
+        /// <inheritdoc cref="Pressure.FromMillimetersOfWaterColumn(double)" />
+        public static Pressure MillimetersOfWaterColumn<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Pressure.FromMillimetersOfWaterColumn(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Pressure.FromMillipascals(OasysUnits.QuantityValue)" />
-        public static Pressure Millipascals<T>(this T value) =>
-            Pressure.FromMillipascals(Convert.ToDouble(value));
+        /// <inheritdoc cref="Pressure.FromMillipascals(double)" />
+        public static Pressure Millipascals<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Pressure.FromMillipascals(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Pressure.FromNewtonsPerSquareCentimeter(OasysUnits.QuantityValue)" />
-        public static Pressure NewtonsPerSquareCentimeter<T>(this T value) =>
-            Pressure.FromNewtonsPerSquareCentimeter(Convert.ToDouble(value));
+        /// <inheritdoc cref="Pressure.FromNewtonsPerSquareCentimeter(double)" />
+        public static Pressure NewtonsPerSquareCentimeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Pressure.FromNewtonsPerSquareCentimeter(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Pressure.FromNewtonsPerSquareMeter(OasysUnits.QuantityValue)" />
-        public static Pressure NewtonsPerSquareMeter<T>(this T value) =>
-            Pressure.FromNewtonsPerSquareMeter(Convert.ToDouble(value));
+        /// <inheritdoc cref="Pressure.FromNewtonsPerSquareMeter(double)" />
+        public static Pressure NewtonsPerSquareMeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Pressure.FromNewtonsPerSquareMeter(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Pressure.FromNewtonsPerSquareMillimeter(OasysUnits.QuantityValue)" />
-        public static Pressure NewtonsPerSquareMillimeter<T>(this T value) =>
-            Pressure.FromNewtonsPerSquareMillimeter(Convert.ToDouble(value));
+        /// <inheritdoc cref="Pressure.FromNewtonsPerSquareMillimeter(double)" />
+        public static Pressure NewtonsPerSquareMillimeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Pressure.FromNewtonsPerSquareMillimeter(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Pressure.FromPascals(OasysUnits.QuantityValue)" />
-        public static Pressure Pascals<T>(this T value) =>
-            Pressure.FromPascals(Convert.ToDouble(value));
+        /// <inheritdoc cref="Pressure.FromPascals(double)" />
+        public static Pressure Pascals<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Pressure.FromPascals(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Pressure.FromPoundsForcePerSquareFoot(OasysUnits.QuantityValue)" />
-        public static Pressure PoundsForcePerSquareFoot<T>(this T value) =>
-            Pressure.FromPoundsForcePerSquareFoot(Convert.ToDouble(value));
+        /// <inheritdoc cref="Pressure.FromPoundsForcePerSquareFoot(double)" />
+        public static Pressure PoundsForcePerSquareFoot<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Pressure.FromPoundsForcePerSquareFoot(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Pressure.FromPoundsForcePerSquareInch(OasysUnits.QuantityValue)" />
-        public static Pressure PoundsForcePerSquareInch<T>(this T value) =>
-            Pressure.FromPoundsForcePerSquareInch(Convert.ToDouble(value));
+        /// <inheritdoc cref="Pressure.FromPoundsForcePerSquareInch(double)" />
+        public static Pressure PoundsForcePerSquareInch<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Pressure.FromPoundsForcePerSquareInch(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Pressure.FromPoundsForcePerSquareMil(OasysUnits.QuantityValue)" />
-        public static Pressure PoundsForcePerSquareMil<T>(this T value) =>
-            Pressure.FromPoundsForcePerSquareMil(Convert.ToDouble(value));
+        /// <inheritdoc cref="Pressure.FromPoundsForcePerSquareMil(double)" />
+        public static Pressure PoundsForcePerSquareMil<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Pressure.FromPoundsForcePerSquareMil(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Pressure.FromPoundsPerInchSecondSquared(OasysUnits.QuantityValue)" />
-        public static Pressure PoundsPerInchSecondSquared<T>(this T value) =>
-            Pressure.FromPoundsPerInchSecondSquared(Convert.ToDouble(value));
+        /// <inheritdoc cref="Pressure.FromPoundsPerInchSecondSquared(double)" />
+        public static Pressure PoundsPerInchSecondSquared<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Pressure.FromPoundsPerInchSecondSquared(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Pressure.FromTechnicalAtmospheres(OasysUnits.QuantityValue)" />
-        public static Pressure TechnicalAtmospheres<T>(this T value) =>
-            Pressure.FromTechnicalAtmospheres(Convert.ToDouble(value));
+        /// <inheritdoc cref="Pressure.FromTechnicalAtmospheres(double)" />
+        public static Pressure TechnicalAtmospheres<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Pressure.FromTechnicalAtmospheres(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Pressure.FromTonnesForcePerSquareCentimeter(OasysUnits.QuantityValue)" />
-        public static Pressure TonnesForcePerSquareCentimeter<T>(this T value) =>
-            Pressure.FromTonnesForcePerSquareCentimeter(Convert.ToDouble(value));
+        /// <inheritdoc cref="Pressure.FromTonnesForcePerSquareCentimeter(double)" />
+        public static Pressure TonnesForcePerSquareCentimeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Pressure.FromTonnesForcePerSquareCentimeter(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Pressure.FromTonnesForcePerSquareMeter(OasysUnits.QuantityValue)" />
-        public static Pressure TonnesForcePerSquareMeter<T>(this T value) =>
-            Pressure.FromTonnesForcePerSquareMeter(Convert.ToDouble(value));
+        /// <inheritdoc cref="Pressure.FromTonnesForcePerSquareMeter(double)" />
+        public static Pressure TonnesForcePerSquareMeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Pressure.FromTonnesForcePerSquareMeter(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Pressure.FromTonnesForcePerSquareMillimeter(OasysUnits.QuantityValue)" />
-        public static Pressure TonnesForcePerSquareMillimeter<T>(this T value) =>
-            Pressure.FromTonnesForcePerSquareMillimeter(Convert.ToDouble(value));
+        /// <inheritdoc cref="Pressure.FromTonnesForcePerSquareMillimeter(double)" />
+        public static Pressure TonnesForcePerSquareMillimeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Pressure.FromTonnesForcePerSquareMillimeter(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Pressure.FromTorrs(OasysUnits.QuantityValue)" />
-        public static Pressure Torrs<T>(this T value) =>
-            Pressure.FromTorrs(Convert.ToDouble(value));
+        /// <inheritdoc cref="Pressure.FromTorrs(double)" />
+        public static Pressure Torrs<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Pressure.FromTorrs(Convert.ToDouble(value));
 
     }
 }

@@ -19,6 +19,10 @@
 
 using System;
 
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
+
 #nullable enable
 
 namespace OasysUnits.NumberExtensions.NumberToLevel
@@ -28,13 +32,21 @@ namespace OasysUnits.NumberExtensions.NumberToLevel
     /// </summary>
     public static class NumberToLevelExtensions
     {
-        /// <inheritdoc cref="Level.FromDecibels(OasysUnits.QuantityValue)" />
-        public static Level Decibels<T>(this T value) =>
-            Level.FromDecibels(Convert.ToDouble(value));
+        /// <inheritdoc cref="Level.FromDecibels(double)" />
+        public static Level Decibels<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Level.FromDecibels(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Level.FromNepers(OasysUnits.QuantityValue)" />
-        public static Level Nepers<T>(this T value) =>
-            Level.FromNepers(Convert.ToDouble(value));
+        /// <inheritdoc cref="Level.FromNepers(double)" />
+        public static Level Nepers<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Level.FromNepers(Convert.ToDouble(value));
 
     }
 }

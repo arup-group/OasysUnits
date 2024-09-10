@@ -19,6 +19,10 @@
 
 using System;
 
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
+
 #nullable enable
 
 namespace OasysUnits.NumberExtensions.NumberToElectricAdmittance
@@ -28,21 +32,37 @@ namespace OasysUnits.NumberExtensions.NumberToElectricAdmittance
     /// </summary>
     public static class NumberToElectricAdmittanceExtensions
     {
-        /// <inheritdoc cref="ElectricAdmittance.FromMicrosiemens(OasysUnits.QuantityValue)" />
-        public static ElectricAdmittance Microsiemens<T>(this T value) =>
-            ElectricAdmittance.FromMicrosiemens(Convert.ToDouble(value));
+        /// <inheritdoc cref="ElectricAdmittance.FromMicrosiemens(double)" />
+        public static ElectricAdmittance Microsiemens<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ElectricAdmittance.FromMicrosiemens(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="ElectricAdmittance.FromMillisiemens(OasysUnits.QuantityValue)" />
-        public static ElectricAdmittance Millisiemens<T>(this T value) =>
-            ElectricAdmittance.FromMillisiemens(Convert.ToDouble(value));
+        /// <inheritdoc cref="ElectricAdmittance.FromMillisiemens(double)" />
+        public static ElectricAdmittance Millisiemens<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ElectricAdmittance.FromMillisiemens(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="ElectricAdmittance.FromNanosiemens(OasysUnits.QuantityValue)" />
-        public static ElectricAdmittance Nanosiemens<T>(this T value) =>
-            ElectricAdmittance.FromNanosiemens(Convert.ToDouble(value));
+        /// <inheritdoc cref="ElectricAdmittance.FromNanosiemens(double)" />
+        public static ElectricAdmittance Nanosiemens<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ElectricAdmittance.FromNanosiemens(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="ElectricAdmittance.FromSiemens(OasysUnits.QuantityValue)" />
-        public static ElectricAdmittance Siemens<T>(this T value) =>
-            ElectricAdmittance.FromSiemens(Convert.ToDouble(value));
+        /// <inheritdoc cref="ElectricAdmittance.FromSiemens(double)" />
+        public static ElectricAdmittance Siemens<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ElectricAdmittance.FromSiemens(Convert.ToDouble(value));
 
     }
 }

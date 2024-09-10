@@ -19,6 +19,10 @@
 
 using System;
 
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
+
 #nullable enable
 
 namespace OasysUnits.NumberExtensions.NumberToCurvature
@@ -28,25 +32,45 @@ namespace OasysUnits.NumberExtensions.NumberToCurvature
     /// </summary>
     public static class NumberToCurvatureExtensions
     {
-        /// <inheritdoc cref="Curvature.FromPerCentimeters(OasysUnits.QuantityValue)" />
-        public static Curvature PerCentimeters<T>(this T value) =>
-            Curvature.FromPerCentimeters(Convert.ToDouble(value));
+        /// <inheritdoc cref="Curvature.FromPerCentimeters(double)" />
+        public static Curvature PerCentimeters<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Curvature.FromPerCentimeters(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Curvature.FromPerFeet(OasysUnits.QuantityValue)" />
-        public static Curvature PerFeet<T>(this T value) =>
-            Curvature.FromPerFeet(Convert.ToDouble(value));
+        /// <inheritdoc cref="Curvature.FromPerFeet(double)" />
+        public static Curvature PerFeet<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Curvature.FromPerFeet(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Curvature.FromPerInches(OasysUnits.QuantityValue)" />
-        public static Curvature PerInches<T>(this T value) =>
-            Curvature.FromPerInches(Convert.ToDouble(value));
+        /// <inheritdoc cref="Curvature.FromPerInches(double)" />
+        public static Curvature PerInches<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Curvature.FromPerInches(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Curvature.FromPerMeters(OasysUnits.QuantityValue)" />
-        public static Curvature PerMeters<T>(this T value) =>
-            Curvature.FromPerMeters(Convert.ToDouble(value));
+        /// <inheritdoc cref="Curvature.FromPerMeters(double)" />
+        public static Curvature PerMeters<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Curvature.FromPerMeters(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Curvature.FromPerMillimeters(OasysUnits.QuantityValue)" />
-        public static Curvature PerMillimeters<T>(this T value) =>
-            Curvature.FromPerMillimeters(Convert.ToDouble(value));
+        /// <inheritdoc cref="Curvature.FromPerMillimeters(double)" />
+        public static Curvature PerMillimeters<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Curvature.FromPerMillimeters(Convert.ToDouble(value));
 
     }
 }

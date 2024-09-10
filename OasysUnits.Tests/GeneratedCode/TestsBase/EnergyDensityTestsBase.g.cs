@@ -111,16 +111,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void Ctor_WithInfinityValue_ThrowsArgumentException()
+        public void Ctor_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new EnergyDensity(double.PositiveInfinity, EnergyDensityUnit.JoulePerCubicMeter));
-            Assert.Throws<ArgumentException>(() => new EnergyDensity(double.NegativeInfinity, EnergyDensityUnit.JoulePerCubicMeter));
+            var exception1 = Record.Exception(() => new EnergyDensity(double.PositiveInfinity, EnergyDensityUnit.JoulePerCubicMeter));
+            var exception2 = Record.Exception(() => new EnergyDensity(double.NegativeInfinity, EnergyDensityUnit.JoulePerCubicMeter));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void Ctor_WithNaNValue_ThrowsArgumentException()
+        public void Ctor_WithNaNValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new EnergyDensity(double.NaN, EnergyDensityUnit.JoulePerCubicMeter));
+            var exception = Record.Exception(() => new EnergyDensity(double.NaN, EnergyDensityUnit.JoulePerCubicMeter));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -230,16 +235,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void FromJoulesPerCubicMeter_WithInfinityValue_ThrowsArgumentException()
+        public void FromJoulesPerCubicMeter_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => EnergyDensity.FromJoulesPerCubicMeter(double.PositiveInfinity));
-            Assert.Throws<ArgumentException>(() => EnergyDensity.FromJoulesPerCubicMeter(double.NegativeInfinity));
+            var exception1 = Record.Exception(() => EnergyDensity.FromJoulesPerCubicMeter(double.PositiveInfinity));
+            var exception2 = Record.Exception(() => EnergyDensity.FromJoulesPerCubicMeter(double.NegativeInfinity));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void FromJoulesPerCubicMeter_WithNanValue_ThrowsArgumentException()
+        public void FromJoulesPerCubicMeter_WithNanValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => EnergyDensity.FromJoulesPerCubicMeter(double.NaN));
+            var exception = Record.Exception(() => EnergyDensity.FromJoulesPerCubicMeter(double.NaN));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -745,6 +755,8 @@ namespace OasysUnits.Tests
             var v = EnergyDensity.FromJoulesPerCubicMeter(1);
             Assert.True(v.Equals(EnergyDensity.FromJoulesPerCubicMeter(1), JoulesPerCubicMeterTolerance, ComparisonType.Relative));
             Assert.False(v.Equals(EnergyDensity.Zero, JoulesPerCubicMeterTolerance, ComparisonType.Relative));
+            Assert.True(EnergyDensity.FromJoulesPerCubicMeter(100).Equals(EnergyDensity.FromJoulesPerCubicMeter(120), 0.3, ComparisonType.Relative));
+            Assert.False(EnergyDensity.FromJoulesPerCubicMeter(100).Equals(EnergyDensity.FromJoulesPerCubicMeter(120), 0.1, ComparisonType.Relative));
         }
 
         [Fact]

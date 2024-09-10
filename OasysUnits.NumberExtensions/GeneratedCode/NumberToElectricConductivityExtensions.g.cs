@@ -19,6 +19,10 @@
 
 using System;
 
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
+
 #nullable enable
 
 namespace OasysUnits.NumberExtensions.NumberToElectricConductivity
@@ -28,29 +32,53 @@ namespace OasysUnits.NumberExtensions.NumberToElectricConductivity
     /// </summary>
     public static class NumberToElectricConductivityExtensions
     {
-        /// <inheritdoc cref="ElectricConductivity.FromMicrosiemensPerCentimeter(OasysUnits.QuantityValue)" />
-        public static ElectricConductivity MicrosiemensPerCentimeter<T>(this T value) =>
-            ElectricConductivity.FromMicrosiemensPerCentimeter(Convert.ToDouble(value));
+        /// <inheritdoc cref="ElectricConductivity.FromMicrosiemensPerCentimeter(double)" />
+        public static ElectricConductivity MicrosiemensPerCentimeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ElectricConductivity.FromMicrosiemensPerCentimeter(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="ElectricConductivity.FromMillisiemensPerCentimeter(OasysUnits.QuantityValue)" />
-        public static ElectricConductivity MillisiemensPerCentimeter<T>(this T value) =>
-            ElectricConductivity.FromMillisiemensPerCentimeter(Convert.ToDouble(value));
+        /// <inheritdoc cref="ElectricConductivity.FromMillisiemensPerCentimeter(double)" />
+        public static ElectricConductivity MillisiemensPerCentimeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ElectricConductivity.FromMillisiemensPerCentimeter(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="ElectricConductivity.FromSiemensPerCentimeter(OasysUnits.QuantityValue)" />
-        public static ElectricConductivity SiemensPerCentimeter<T>(this T value) =>
-            ElectricConductivity.FromSiemensPerCentimeter(Convert.ToDouble(value));
+        /// <inheritdoc cref="ElectricConductivity.FromSiemensPerCentimeter(double)" />
+        public static ElectricConductivity SiemensPerCentimeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ElectricConductivity.FromSiemensPerCentimeter(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="ElectricConductivity.FromSiemensPerFoot(OasysUnits.QuantityValue)" />
-        public static ElectricConductivity SiemensPerFoot<T>(this T value) =>
-            ElectricConductivity.FromSiemensPerFoot(Convert.ToDouble(value));
+        /// <inheritdoc cref="ElectricConductivity.FromSiemensPerFoot(double)" />
+        public static ElectricConductivity SiemensPerFoot<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ElectricConductivity.FromSiemensPerFoot(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="ElectricConductivity.FromSiemensPerInch(OasysUnits.QuantityValue)" />
-        public static ElectricConductivity SiemensPerInch<T>(this T value) =>
-            ElectricConductivity.FromSiemensPerInch(Convert.ToDouble(value));
+        /// <inheritdoc cref="ElectricConductivity.FromSiemensPerInch(double)" />
+        public static ElectricConductivity SiemensPerInch<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ElectricConductivity.FromSiemensPerInch(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="ElectricConductivity.FromSiemensPerMeter(OasysUnits.QuantityValue)" />
-        public static ElectricConductivity SiemensPerMeter<T>(this T value) =>
-            ElectricConductivity.FromSiemensPerMeter(Convert.ToDouble(value));
+        /// <inheritdoc cref="ElectricConductivity.FromSiemensPerMeter(double)" />
+        public static ElectricConductivity SiemensPerMeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ElectricConductivity.FromSiemensPerMeter(Convert.ToDouble(value));
 
     }
 }

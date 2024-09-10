@@ -115,16 +115,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void Ctor_WithInfinityValue_ThrowsArgumentException()
+        public void Ctor_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new MolarMass(double.PositiveInfinity, MolarMassUnit.KilogramPerMole));
-            Assert.Throws<ArgumentException>(() => new MolarMass(double.NegativeInfinity, MolarMassUnit.KilogramPerMole));
+            var exception1 = Record.Exception(() => new MolarMass(double.PositiveInfinity, MolarMassUnit.KilogramPerMole));
+            var exception2 = Record.Exception(() => new MolarMass(double.NegativeInfinity, MolarMassUnit.KilogramPerMole));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void Ctor_WithNaNValue_ThrowsArgumentException()
+        public void Ctor_WithNaNValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new MolarMass(double.NaN, MolarMassUnit.KilogramPerMole));
+            var exception = Record.Exception(() => new MolarMass(double.NaN, MolarMassUnit.KilogramPerMole));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -239,16 +244,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void FromKilogramsPerMole_WithInfinityValue_ThrowsArgumentException()
+        public void FromKilogramsPerMole_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => MolarMass.FromKilogramsPerMole(double.PositiveInfinity));
-            Assert.Throws<ArgumentException>(() => MolarMass.FromKilogramsPerMole(double.NegativeInfinity));
+            var exception1 = Record.Exception(() => MolarMass.FromKilogramsPerMole(double.PositiveInfinity));
+            var exception2 = Record.Exception(() => MolarMass.FromKilogramsPerMole(double.NegativeInfinity));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void FromKilogramsPerMole_WithNanValue_ThrowsArgumentException()
+        public void FromKilogramsPerMole_WithNanValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => MolarMass.FromKilogramsPerMole(double.NaN));
+            var exception = Record.Exception(() => MolarMass.FromKilogramsPerMole(double.NaN));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -1068,6 +1078,8 @@ namespace OasysUnits.Tests
             var v = MolarMass.FromKilogramsPerMole(1);
             Assert.True(v.Equals(MolarMass.FromKilogramsPerMole(1), KilogramsPerMoleTolerance, ComparisonType.Relative));
             Assert.False(v.Equals(MolarMass.Zero, KilogramsPerMoleTolerance, ComparisonType.Relative));
+            Assert.True(MolarMass.FromKilogramsPerMole(100).Equals(MolarMass.FromKilogramsPerMole(120), 0.3, ComparisonType.Relative));
+            Assert.False(MolarMass.FromKilogramsPerMole(100).Equals(MolarMass.FromKilogramsPerMole(120), 0.1, ComparisonType.Relative));
         }
 
         [Fact]

@@ -87,16 +87,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void Ctor_WithInfinityValue_ThrowsArgumentException()
+        public void Ctor_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new ElectricPotential(double.PositiveInfinity, ElectricPotentialUnit.Volt));
-            Assert.Throws<ArgumentException>(() => new ElectricPotential(double.NegativeInfinity, ElectricPotentialUnit.Volt));
+            var exception1 = Record.Exception(() => new ElectricPotential(double.PositiveInfinity, ElectricPotentialUnit.Volt));
+            var exception2 = Record.Exception(() => new ElectricPotential(double.NegativeInfinity, ElectricPotentialUnit.Volt));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void Ctor_WithNaNValue_ThrowsArgumentException()
+        public void Ctor_WithNaNValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new ElectricPotential(double.NaN, ElectricPotentialUnit.Volt));
+            var exception = Record.Exception(() => new ElectricPotential(double.NaN, ElectricPotentialUnit.Volt));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -176,16 +181,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void FromVolts_WithInfinityValue_ThrowsArgumentException()
+        public void FromVolts_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => ElectricPotential.FromVolts(double.PositiveInfinity));
-            Assert.Throws<ArgumentException>(() => ElectricPotential.FromVolts(double.NegativeInfinity));
+            var exception1 = Record.Exception(() => ElectricPotential.FromVolts(double.PositiveInfinity));
+            var exception2 = Record.Exception(() => ElectricPotential.FromVolts(double.NegativeInfinity));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void FromVolts_WithNanValue_ThrowsArgumentException()
+        public void FromVolts_WithNanValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => ElectricPotential.FromVolts(double.NaN));
+            var exception = Record.Exception(() => ElectricPotential.FromVolts(double.NaN));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -635,6 +645,8 @@ namespace OasysUnits.Tests
             var v = ElectricPotential.FromVolts(1);
             Assert.True(v.Equals(ElectricPotential.FromVolts(1), VoltsTolerance, ComparisonType.Relative));
             Assert.False(v.Equals(ElectricPotential.Zero, VoltsTolerance, ComparisonType.Relative));
+            Assert.True(ElectricPotential.FromVolts(100).Equals(ElectricPotential.FromVolts(120), 0.3, ComparisonType.Relative));
+            Assert.False(ElectricPotential.FromVolts(100).Equals(ElectricPotential.FromVolts(120), 0.1, ComparisonType.Relative));
         }
 
         [Fact]

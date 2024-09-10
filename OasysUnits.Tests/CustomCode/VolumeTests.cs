@@ -17,7 +17,7 @@ namespace OasysUnits.Tests
 
         protected override double CubicFeetInOneCubicMeter => 35.314666721488590250438010354003;
 
-        protected override double CubicInchesInOneCubicMeter => 61023.98242;
+        protected override double CubicInchesInOneCubicMeter => 61_023.744094732283952756881891717;
 
         protected override double CubicKilometersInOneCubicMeter => 1E-9;
 
@@ -106,6 +106,11 @@ namespace OasysUnits.Tests
 
         protected override double DecalitersInOneCubicMeter => 1e2;
 
+        /// <summary>
+        /// https://www.legislation.gov.uk/uksi/1995/1804/made
+        /// </summary>
+        protected override double ImperialQuartsInOneCubicMeter => 879.876993196;
+
         [Fact]
         public void VolumeDividedByAreaEqualsLength()
         {
@@ -146,8 +151,8 @@ namespace OasysUnits.Tests
         [Fact]
         public void VolumeDividedByVolumeFlowEqualsTimeSpan()
         {
-            TimeSpan timeSpan = Volume.FromCubicMeters(20) / VolumeFlow.FromCubicMetersPerSecond(2);
-            Assert.Equal(TimeSpan.FromSeconds(10), timeSpan);
+            Duration duration = Volume.FromCubicMeters(20) / VolumeFlow.FromCubicMetersPerSecond(2);
+            Assert.Equal(Duration.FromSeconds(10), duration);
         }
     }
 }

@@ -18,6 +18,7 @@
 // Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
 
 using System;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
@@ -36,8 +37,9 @@ namespace OasysUnits
     ///     In classical mechanics, impulse is the integral of a force, F, over the time interval, t, for which it acts. Impulse applied to an object produces an equivalent vector change in its linear momentum, also in the resultant direction.
     /// </summary>
     [DataContract]
+    [DebuggerTypeProxy(typeof(QuantityDisplay))]
     public readonly partial struct Impulse :
-        IArithmeticQuantity<Impulse, ImpulseUnit, double>,
+        IArithmeticQuantity<Impulse, ImpulseUnit>,
         IComparable,
         IComparable<Impulse>,
         IConvertible,
@@ -47,13 +49,13 @@ namespace OasysUnits
         /// <summary>
         ///     The numeric value this quantity was constructed with.
         /// </summary>
-        [DataMember(Name = "Value", Order = 0)]
+        [DataMember(Name = "Value", Order = 1)]
         private readonly double _value;
 
         /// <summary>
         ///     The unit this quantity was constructed with.
         /// </summary>
-        [DataMember(Name = "Unit", Order = 1)]
+        [DataMember(Name = "Unit", Order = 2)]
         private readonly ImpulseUnit? _unit;
 
         static Impulse()
@@ -65,19 +67,19 @@ namespace OasysUnits
             Info = new QuantityInfo<ImpulseUnit>("Impulse",
                 new UnitInfo<ImpulseUnit>[]
                 {
-                    new UnitInfo<ImpulseUnit>(ImpulseUnit.CentinewtonSecond, "CentinewtonSeconds", BaseUnits.Undefined),
-                    new UnitInfo<ImpulseUnit>(ImpulseUnit.DecanewtonSecond, "DecanewtonSeconds", BaseUnits.Undefined),
-                    new UnitInfo<ImpulseUnit>(ImpulseUnit.DecinewtonSecond, "DecinewtonSeconds", BaseUnits.Undefined),
-                    new UnitInfo<ImpulseUnit>(ImpulseUnit.KilogramMeterPerSecond, "KilogramMetersPerSecond", BaseUnits.Undefined),
-                    new UnitInfo<ImpulseUnit>(ImpulseUnit.KilonewtonSecond, "KilonewtonSeconds", BaseUnits.Undefined),
-                    new UnitInfo<ImpulseUnit>(ImpulseUnit.MeganewtonSecond, "MeganewtonSeconds", BaseUnits.Undefined),
-                    new UnitInfo<ImpulseUnit>(ImpulseUnit.MicronewtonSecond, "MicronewtonSeconds", BaseUnits.Undefined),
-                    new UnitInfo<ImpulseUnit>(ImpulseUnit.MillinewtonSecond, "MillinewtonSeconds", BaseUnits.Undefined),
-                    new UnitInfo<ImpulseUnit>(ImpulseUnit.NanonewtonSecond, "NanonewtonSeconds", BaseUnits.Undefined),
-                    new UnitInfo<ImpulseUnit>(ImpulseUnit.NewtonSecond, "NewtonSeconds", BaseUnits.Undefined),
-                    new UnitInfo<ImpulseUnit>(ImpulseUnit.PoundFootPerSecond, "PoundFeetPerSecond", BaseUnits.Undefined),
-                    new UnitInfo<ImpulseUnit>(ImpulseUnit.PoundForceSecond, "PoundForceSeconds", BaseUnits.Undefined),
-                    new UnitInfo<ImpulseUnit>(ImpulseUnit.SlugFootPerSecond, "SlugFeetPerSecond", BaseUnits.Undefined),
+                    new UnitInfo<ImpulseUnit>(ImpulseUnit.CentinewtonSecond, "CentinewtonSeconds", BaseUnits.Undefined, "Impulse"),
+                    new UnitInfo<ImpulseUnit>(ImpulseUnit.DecanewtonSecond, "DecanewtonSeconds", BaseUnits.Undefined, "Impulse"),
+                    new UnitInfo<ImpulseUnit>(ImpulseUnit.DecinewtonSecond, "DecinewtonSeconds", BaseUnits.Undefined, "Impulse"),
+                    new UnitInfo<ImpulseUnit>(ImpulseUnit.KilogramMeterPerSecond, "KilogramMetersPerSecond", BaseUnits.Undefined, "Impulse"),
+                    new UnitInfo<ImpulseUnit>(ImpulseUnit.KilonewtonSecond, "KilonewtonSeconds", BaseUnits.Undefined, "Impulse"),
+                    new UnitInfo<ImpulseUnit>(ImpulseUnit.MeganewtonSecond, "MeganewtonSeconds", BaseUnits.Undefined, "Impulse"),
+                    new UnitInfo<ImpulseUnit>(ImpulseUnit.MicronewtonSecond, "MicronewtonSeconds", BaseUnits.Undefined, "Impulse"),
+                    new UnitInfo<ImpulseUnit>(ImpulseUnit.MillinewtonSecond, "MillinewtonSeconds", BaseUnits.Undefined, "Impulse"),
+                    new UnitInfo<ImpulseUnit>(ImpulseUnit.NanonewtonSecond, "NanonewtonSeconds", BaseUnits.Undefined, "Impulse"),
+                    new UnitInfo<ImpulseUnit>(ImpulseUnit.NewtonSecond, "NewtonSeconds", BaseUnits.Undefined, "Impulse"),
+                    new UnitInfo<ImpulseUnit>(ImpulseUnit.PoundFootPerSecond, "PoundFeetPerSecond", BaseUnits.Undefined, "Impulse"),
+                    new UnitInfo<ImpulseUnit>(ImpulseUnit.PoundForceSecond, "PoundForceSeconds", BaseUnits.Undefined, "Impulse"),
+                    new UnitInfo<ImpulseUnit>(ImpulseUnit.SlugFootPerSecond, "SlugFeetPerSecond", BaseUnits.Undefined, "Impulse"),
                 },
                 BaseUnit, Zero, BaseDimensions);
 
@@ -90,10 +92,9 @@ namespace OasysUnits
         /// </summary>
         /// <param name="value">The numeric value to construct this quantity with.</param>
         /// <param name="unit">The unit representation to construct this quantity with.</param>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
         public Impulse(double value, ImpulseUnit unit)
         {
-            _value = Guard.EnsureValidNumber(value, nameof(value));
+            _value = value;
             _unit = unit;
         }
 
@@ -112,7 +113,7 @@ namespace OasysUnits
             var unitInfos = Info.GetUnitInfosFor(unitSystem.BaseUnits);
             var firstUnitInfo = unitInfos.FirstOrDefault();
 
-            _value = Guard.EnsureValidNumber(value, nameof(value));
+            _value = value;
             _unit = firstUnitInfo?.Value ?? throw new ArgumentException("No units were found for the given UnitSystem.", nameof(unitSystem));
         }
 
@@ -150,7 +151,7 @@ namespace OasysUnits
         public static Impulse AdditiveIdentity => Zero;
 
         #endregion
- 
+
         #region Properties
 
         /// <summary>
@@ -159,7 +160,7 @@ namespace OasysUnits
         public double Value => _value;
 
         /// <inheritdoc />
-        QuantityValue IQuantity.Value => _value;
+        double IQuantity.Value => _value;
 
         Enum IQuantity.Unit => Unit;
 
@@ -288,23 +289,6 @@ namespace OasysUnits
             unitConverter.SetConversionFunction<Impulse>(ImpulseUnit.NewtonSecond, ImpulseUnit.SlugFootPerSecond, quantity => quantity.ToUnit(ImpulseUnit.SlugFootPerSecond));
         }
 
-        internal static void MapGeneratedLocalizations(UnitAbbreviationsCache unitAbbreviationsCache)
-        {
-            unitAbbreviationsCache.PerformAbbreviationMapping(ImpulseUnit.CentinewtonSecond, new CultureInfo("en-US"), false, true, new string[]{"cN·s"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(ImpulseUnit.DecanewtonSecond, new CultureInfo("en-US"), false, true, new string[]{"daN·s"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(ImpulseUnit.DecinewtonSecond, new CultureInfo("en-US"), false, true, new string[]{"dN·s"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(ImpulseUnit.KilogramMeterPerSecond, new CultureInfo("en-US"), false, true, new string[]{"kg·m/s"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(ImpulseUnit.KilonewtonSecond, new CultureInfo("en-US"), false, true, new string[]{"kN·s"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(ImpulseUnit.MeganewtonSecond, new CultureInfo("en-US"), false, true, new string[]{"MN·s"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(ImpulseUnit.MicronewtonSecond, new CultureInfo("en-US"), false, true, new string[]{"µN·s"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(ImpulseUnit.MillinewtonSecond, new CultureInfo("en-US"), false, true, new string[]{"mN·s"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(ImpulseUnit.NanonewtonSecond, new CultureInfo("en-US"), false, true, new string[]{"nN·s"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(ImpulseUnit.NewtonSecond, new CultureInfo("en-US"), false, true, new string[]{"N·s"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(ImpulseUnit.PoundFootPerSecond, new CultureInfo("en-US"), false, true, new string[]{"lb·ft/s"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(ImpulseUnit.PoundForceSecond, new CultureInfo("en-US"), false, true, new string[]{"lbf·s"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(ImpulseUnit.SlugFootPerSecond, new CultureInfo("en-US"), false, true, new string[]{"slug·ft/s"});
-        }
-
         /// <summary>
         ///     Get unit abbreviation string.
         /// </summary>
@@ -333,130 +317,104 @@ namespace OasysUnits
         /// <summary>
         ///     Creates a <see cref="Impulse"/> from <see cref="ImpulseUnit.CentinewtonSecond"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Impulse FromCentinewtonSeconds(QuantityValue centinewtonseconds)
+        public static Impulse FromCentinewtonSeconds(double value)
         {
-            double value = (double) centinewtonseconds;
             return new Impulse(value, ImpulseUnit.CentinewtonSecond);
         }
 
         /// <summary>
         ///     Creates a <see cref="Impulse"/> from <see cref="ImpulseUnit.DecanewtonSecond"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Impulse FromDecanewtonSeconds(QuantityValue decanewtonseconds)
+        public static Impulse FromDecanewtonSeconds(double value)
         {
-            double value = (double) decanewtonseconds;
             return new Impulse(value, ImpulseUnit.DecanewtonSecond);
         }
 
         /// <summary>
         ///     Creates a <see cref="Impulse"/> from <see cref="ImpulseUnit.DecinewtonSecond"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Impulse FromDecinewtonSeconds(QuantityValue decinewtonseconds)
+        public static Impulse FromDecinewtonSeconds(double value)
         {
-            double value = (double) decinewtonseconds;
             return new Impulse(value, ImpulseUnit.DecinewtonSecond);
         }
 
         /// <summary>
         ///     Creates a <see cref="Impulse"/> from <see cref="ImpulseUnit.KilogramMeterPerSecond"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Impulse FromKilogramMetersPerSecond(QuantityValue kilogrammeterspersecond)
+        public static Impulse FromKilogramMetersPerSecond(double value)
         {
-            double value = (double) kilogrammeterspersecond;
             return new Impulse(value, ImpulseUnit.KilogramMeterPerSecond);
         }
 
         /// <summary>
         ///     Creates a <see cref="Impulse"/> from <see cref="ImpulseUnit.KilonewtonSecond"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Impulse FromKilonewtonSeconds(QuantityValue kilonewtonseconds)
+        public static Impulse FromKilonewtonSeconds(double value)
         {
-            double value = (double) kilonewtonseconds;
             return new Impulse(value, ImpulseUnit.KilonewtonSecond);
         }
 
         /// <summary>
         ///     Creates a <see cref="Impulse"/> from <see cref="ImpulseUnit.MeganewtonSecond"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Impulse FromMeganewtonSeconds(QuantityValue meganewtonseconds)
+        public static Impulse FromMeganewtonSeconds(double value)
         {
-            double value = (double) meganewtonseconds;
             return new Impulse(value, ImpulseUnit.MeganewtonSecond);
         }
 
         /// <summary>
         ///     Creates a <see cref="Impulse"/> from <see cref="ImpulseUnit.MicronewtonSecond"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Impulse FromMicronewtonSeconds(QuantityValue micronewtonseconds)
+        public static Impulse FromMicronewtonSeconds(double value)
         {
-            double value = (double) micronewtonseconds;
             return new Impulse(value, ImpulseUnit.MicronewtonSecond);
         }
 
         /// <summary>
         ///     Creates a <see cref="Impulse"/> from <see cref="ImpulseUnit.MillinewtonSecond"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Impulse FromMillinewtonSeconds(QuantityValue millinewtonseconds)
+        public static Impulse FromMillinewtonSeconds(double value)
         {
-            double value = (double) millinewtonseconds;
             return new Impulse(value, ImpulseUnit.MillinewtonSecond);
         }
 
         /// <summary>
         ///     Creates a <see cref="Impulse"/> from <see cref="ImpulseUnit.NanonewtonSecond"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Impulse FromNanonewtonSeconds(QuantityValue nanonewtonseconds)
+        public static Impulse FromNanonewtonSeconds(double value)
         {
-            double value = (double) nanonewtonseconds;
             return new Impulse(value, ImpulseUnit.NanonewtonSecond);
         }
 
         /// <summary>
         ///     Creates a <see cref="Impulse"/> from <see cref="ImpulseUnit.NewtonSecond"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Impulse FromNewtonSeconds(QuantityValue newtonseconds)
+        public static Impulse FromNewtonSeconds(double value)
         {
-            double value = (double) newtonseconds;
             return new Impulse(value, ImpulseUnit.NewtonSecond);
         }
 
         /// <summary>
         ///     Creates a <see cref="Impulse"/> from <see cref="ImpulseUnit.PoundFootPerSecond"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Impulse FromPoundFeetPerSecond(QuantityValue poundfeetpersecond)
+        public static Impulse FromPoundFeetPerSecond(double value)
         {
-            double value = (double) poundfeetpersecond;
             return new Impulse(value, ImpulseUnit.PoundFootPerSecond);
         }
 
         /// <summary>
         ///     Creates a <see cref="Impulse"/> from <see cref="ImpulseUnit.PoundForceSecond"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Impulse FromPoundForceSeconds(QuantityValue poundforceseconds)
+        public static Impulse FromPoundForceSeconds(double value)
         {
-            double value = (double) poundforceseconds;
             return new Impulse(value, ImpulseUnit.PoundForceSecond);
         }
 
         /// <summary>
         ///     Creates a <see cref="Impulse"/> from <see cref="ImpulseUnit.SlugFootPerSecond"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Impulse FromSlugFeetPerSecond(QuantityValue slugfeetpersecond)
+        public static Impulse FromSlugFeetPerSecond(double value)
         {
-            double value = (double) slugfeetpersecond;
             return new Impulse(value, ImpulseUnit.SlugFootPerSecond);
         }
 
@@ -466,9 +424,9 @@ namespace OasysUnits
         /// <param name="value">Value to convert from.</param>
         /// <param name="fromUnit">Unit to convert from.</param>
         /// <returns>Impulse unit value.</returns>
-        public static Impulse From(QuantityValue value, ImpulseUnit fromUnit)
+        public static Impulse From(double value, ImpulseUnit fromUnit)
         {
-            return new Impulse((double)value, fromUnit);
+            return new Impulse(value, fromUnit);
         }
 
         #endregion
@@ -480,7 +438,7 @@ namespace OasysUnits
         /// </summary>
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <example>
-        ///     Length.Parse("5.5 m", new CultureInfo("en-US"));
+        ///     Length.Parse("5.5 m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <exception cref="ArgumentNullException">The value of 'str' cannot be null. </exception>
         /// <exception cref="ArgumentException">
@@ -507,7 +465,7 @@ namespace OasysUnits
         /// </summary>
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <example>
-        ///     Length.Parse("5.5 m", new CultureInfo("en-US"));
+        ///     Length.Parse("5.5 m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <exception cref="ArgumentNullException">The value of 'str' cannot be null. </exception>
         /// <exception cref="ArgumentException">
@@ -539,7 +497,7 @@ namespace OasysUnits
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <param name="result">Resulting unit quantity if successful.</param>
         /// <example>
-        ///     Length.Parse("5.5 m", new CultureInfo("en-US"));
+        ///     Length.Parse("5.5 m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         public static bool TryParse(string? str, out Impulse result)
         {
@@ -553,7 +511,7 @@ namespace OasysUnits
         /// <param name="result">Resulting unit quantity if successful.</param>
         /// <returns>True if successful, otherwise false.</returns>
         /// <example>
-        ///     Length.Parse("5.5 m", new CultureInfo("en-US"));
+        ///     Length.Parse("5.5 m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <param name="provider">Format to use when parsing number and unit. Defaults to <see cref="CultureInfo.CurrentCulture" /> if null.</param>
         public static bool TryParse(string? str, IFormatProvider? provider, out Impulse result)
@@ -570,7 +528,7 @@ namespace OasysUnits
         /// </summary>
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <example>
-        ///     Length.ParseUnit("m", new CultureInfo("en-US"));
+        ///     Length.ParseUnit("m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <exception cref="ArgumentNullException">The value of 'str' cannot be null. </exception>
         /// <exception cref="OasysUnitsException">Error parsing string.</exception>
@@ -585,7 +543,7 @@ namespace OasysUnits
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <param name="provider">Format to use when parsing number and unit. Defaults to <see cref="CultureInfo.CurrentCulture" /> if null.</param>
         /// <example>
-        ///     Length.ParseUnit("m", new CultureInfo("en-US"));
+        ///     Length.ParseUnit("m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <exception cref="ArgumentNullException">The value of 'str' cannot be null. </exception>
         /// <exception cref="OasysUnitsException">Error parsing string.</exception>
@@ -607,7 +565,7 @@ namespace OasysUnits
         /// <param name="unit">The parsed unit if successful.</param>
         /// <returns>True if successful, otherwise false.</returns>
         /// <example>
-        ///     Length.TryParseUnit("m", new CultureInfo("en-US"));
+        ///     Length.TryParseUnit("m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <param name="provider">Format to use when parsing number and unit. Defaults to <see cref="CultureInfo.CurrentCulture" /> if null.</param>
         public static bool TryParseUnit(string str, IFormatProvider? provider, out ImpulseUnit unit)
@@ -694,16 +652,14 @@ namespace OasysUnits
         #pragma warning disable CS0809
 
         /// <summary>Indicates strict equality of two <see cref="Impulse"/> quantities, where both <see cref="Value" /> and <see cref="Unit" /> are exactly equal.</summary>
-        /// <remarks>Consider using <see cref="Equals(Impulse, double, ComparisonType)"/> to check equality across different units and to specify a floating-point number error tolerance.</remarks>
-        [Obsolete("For null checks, use `x is null` syntax to not invoke overloads. For quantity comparisons, use Equals(Impulse, double, ComparisonType) to check equality across different units and to specify a floating-point number error tolerance.")]
+        [Obsolete("For null checks, use `x is null` syntax to not invoke overloads. For equality checks, use Equals(Impulse other, Impulse tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public static bool operator ==(Impulse left, Impulse right)
         {
             return left.Equals(right);
         }
 
         /// <summary>Indicates strict inequality of two <see cref="Impulse"/> quantities, where both <see cref="Value" /> and <see cref="Unit" /> are exactly equal.</summary>
-        /// <remarks>Consider using <see cref="Equals(Impulse, double, ComparisonType)"/> to check equality across different units and to specify a floating-point number error tolerance.</remarks>
-        [Obsolete("For null checks, use `x is not null` syntax to not invoke overloads. For quantity comparisons, use Equals(Impulse, double, ComparisonType) to check equality across different units and to specify a floating-point number error tolerance.")]
+        [Obsolete("For null checks, use `x is null` syntax to not invoke overloads. For equality checks, use Equals(Impulse other, Impulse tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public static bool operator !=(Impulse left, Impulse right)
         {
             return !(left == right);
@@ -711,8 +667,7 @@ namespace OasysUnits
 
         /// <inheritdoc />
         /// <summary>Indicates strict equality of two <see cref="Impulse"/> quantities, where both <see cref="Value" /> and <see cref="Unit" /> are exactly equal.</summary>
-        /// <remarks>Consider using <see cref="Equals(Impulse, double, ComparisonType)"/> to check equality across different units and to specify a floating-point number error tolerance.</remarks>
-        [Obsolete("Consider using Equals(Impulse, double, ComparisonType) to check equality across different units and to specify a floating-point number error tolerance.")]
+        [Obsolete("Use Equals(Impulse other, Impulse tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public override bool Equals(object? obj)
         {
             if (obj is null || !(obj is Impulse otherQuantity))
@@ -723,8 +678,7 @@ namespace OasysUnits
 
         /// <inheritdoc />
         /// <summary>Indicates strict equality of two <see cref="Impulse"/> quantities, where both <see cref="Value" /> and <see cref="Unit" /> are exactly equal.</summary>
-        /// <remarks>Consider using <see cref="Equals(Impulse, double, ComparisonType)"/> to check equality across different units and to specify a floating-point number error tolerance.</remarks>
-        [Obsolete("Consider using Equals(Impulse, double, ComparisonType) to check equality across different units and to specify a floating-point number error tolerance.")]
+        [Obsolete("Use Equals(Impulse other, Impulse tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public bool Equals(Impulse other)
         {
             return new { Value, Unit }.Equals(new { other.Value, other.Unit });
@@ -808,15 +762,37 @@ namespace OasysUnits
         /// <param name="tolerance">The absolute or relative tolerance value. Must be greater than or equal to 0.</param>
         /// <param name="comparisonType">The comparison type: either relative or absolute.</param>
         /// <returns>True if the absolute difference between the two values is not greater than the specified relative or absolute tolerance.</returns>
+        [Obsolete("Use Equals(Impulse other, Impulse tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public bool Equals(Impulse other, double tolerance, ComparisonType comparisonType)
         {
             if (tolerance < 0)
-                throw new ArgumentOutOfRangeException("tolerance", "Tolerance must be greater than or equal to 0.");
+                throw new ArgumentOutOfRangeException(nameof(tolerance), "Tolerance must be greater than or equal to 0.");
 
-            double thisValue = this.Value;
-            double otherValueInThisUnits = other.As(this.Unit);
+            return OasysUnits.Comparison.Equals(
+                referenceValue: this.Value,
+                otherValue: other.As(this.Unit),
+                tolerance: tolerance,
+                comparisonType: comparisonType);
+        }
 
-            return OasysUnits.Comparison.Equals(thisValue, otherValueInThisUnits, tolerance, comparisonType);
+        /// <inheritdoc />
+        public bool Equals(IQuantity? other, IQuantity tolerance)
+        {
+            return other is Impulse otherTyped
+                   && (tolerance is Impulse toleranceTyped
+                       ? true
+                       : throw new ArgumentException($"Tolerance quantity ({tolerance.QuantityInfo.Name}) did not match the other quantities of type 'Impulse'.", nameof(tolerance)))
+                   && Equals(otherTyped, toleranceTyped);
+        }
+
+        /// <inheritdoc />
+        public bool Equals(Impulse other, Impulse tolerance)
+        {
+            return OasysUnits.Comparison.Equals(
+                referenceValue: this.Value,
+                otherValue: other.As(this.Unit),
+                tolerance: tolerance.As(this.Unit),
+                comparisonType: ComparisonType.Absolute);
         }
 
         /// <summary>
@@ -861,15 +837,6 @@ namespace OasysUnits
 
         /// <inheritdoc />
         double IQuantity.As(Enum unit)
-        {
-            if (!(unit is ImpulseUnit typedUnit))
-                throw new ArgumentException($"The given unit is of type {unit.GetType()}. Only {typeof(ImpulseUnit)} is supported.", nameof(unit));
-
-            return (double)As(typedUnit);
-        }
-
-        /// <inheritdoc />
-        double IValueQuantity<double>.As(Enum unit)
         {
             if (!(unit is ImpulseUnit typedUnit))
                 throw new ArgumentException($"The given unit is of type {unit.GetType()}. Only {typeof(ImpulseUnit)} is supported.", nameof(unit));
@@ -1007,18 +974,6 @@ namespace OasysUnits
 
         /// <inheritdoc />
         IQuantity<ImpulseUnit> IQuantity<ImpulseUnit>.ToUnit(UnitSystem unitSystem) => ToUnit(unitSystem);
-
-        /// <inheritdoc />
-        IValueQuantity<double> IValueQuantity<double>.ToUnit(Enum unit)
-        {
-            if (unit is not ImpulseUnit typedUnit)
-                throw new ArgumentException($"The given unit is of type {unit.GetType()}. Only {typeof(ImpulseUnit)} is supported.", nameof(unit));
-
-            return ToUnit(typedUnit);
-        }
-
-        /// <inheritdoc />
-        IValueQuantity<double> IValueQuantity<double>.ToUnit(UnitSystem unitSystem) => ToUnit(unitSystem);
 
         #endregion
 

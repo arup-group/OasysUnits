@@ -119,16 +119,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void Ctor_WithInfinityValue_ThrowsArgumentException()
+        public void Ctor_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new Acceleration(double.PositiveInfinity, AccelerationUnit.MeterPerSecondSquared));
-            Assert.Throws<ArgumentException>(() => new Acceleration(double.NegativeInfinity, AccelerationUnit.MeterPerSecondSquared));
+            var exception1 = Record.Exception(() => new Acceleration(double.PositiveInfinity, AccelerationUnit.MeterPerSecondSquared));
+            var exception2 = Record.Exception(() => new Acceleration(double.NegativeInfinity, AccelerationUnit.MeterPerSecondSquared));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void Ctor_WithNaNValue_ThrowsArgumentException()
+        public void Ctor_WithNaNValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new Acceleration(double.NaN, AccelerationUnit.MeterPerSecondSquared));
+            var exception = Record.Exception(() => new Acceleration(double.NaN, AccelerationUnit.MeterPerSecondSquared));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -248,16 +253,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void FromMetersPerSecondSquared_WithInfinityValue_ThrowsArgumentException()
+        public void FromMetersPerSecondSquared_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => Acceleration.FromMetersPerSecondSquared(double.PositiveInfinity));
-            Assert.Throws<ArgumentException>(() => Acceleration.FromMetersPerSecondSquared(double.NegativeInfinity));
+            var exception1 = Record.Exception(() => Acceleration.FromMetersPerSecondSquared(double.PositiveInfinity));
+            var exception2 = Record.Exception(() => Acceleration.FromMetersPerSecondSquared(double.NegativeInfinity));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void FromMetersPerSecondSquared_WithNanValue_ThrowsArgumentException()
+        public void FromMetersPerSecondSquared_WithNanValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => Acceleration.FromMetersPerSecondSquared(double.NaN));
+            var exception = Record.Exception(() => Acceleration.FromMetersPerSecondSquared(double.NaN));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -1151,6 +1161,8 @@ namespace OasysUnits.Tests
             var v = Acceleration.FromMetersPerSecondSquared(1);
             Assert.True(v.Equals(Acceleration.FromMetersPerSecondSquared(1), MetersPerSecondSquaredTolerance, ComparisonType.Relative));
             Assert.False(v.Equals(Acceleration.Zero, MetersPerSecondSquaredTolerance, ComparisonType.Relative));
+            Assert.True(Acceleration.FromMetersPerSecondSquared(100).Equals(Acceleration.FromMetersPerSecondSquared(120), 0.3, ComparisonType.Relative));
+            Assert.False(Acceleration.FromMetersPerSecondSquared(100).Equals(Acceleration.FromMetersPerSecondSquared(120), 0.1, ComparisonType.Relative));
         }
 
         [Fact]

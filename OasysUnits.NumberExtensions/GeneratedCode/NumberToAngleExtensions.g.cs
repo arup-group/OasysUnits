@@ -19,6 +19,10 @@
 
 using System;
 
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
+
 #nullable enable
 
 namespace OasysUnits.NumberExtensions.NumberToAngle
@@ -28,69 +32,133 @@ namespace OasysUnits.NumberExtensions.NumberToAngle
     /// </summary>
     public static class NumberToAngleExtensions
     {
-        /// <inheritdoc cref="Angle.FromArcminutes(OasysUnits.QuantityValue)" />
-        public static Angle Arcminutes<T>(this T value) =>
-            Angle.FromArcminutes(Convert.ToDouble(value));
+        /// <inheritdoc cref="Angle.FromArcminutes(double)" />
+        public static Angle Arcminutes<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Angle.FromArcminutes(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Angle.FromArcseconds(OasysUnits.QuantityValue)" />
-        public static Angle Arcseconds<T>(this T value) =>
-            Angle.FromArcseconds(Convert.ToDouble(value));
+        /// <inheritdoc cref="Angle.FromArcseconds(double)" />
+        public static Angle Arcseconds<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Angle.FromArcseconds(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Angle.FromCentiradians(OasysUnits.QuantityValue)" />
-        public static Angle Centiradians<T>(this T value) =>
-            Angle.FromCentiradians(Convert.ToDouble(value));
+        /// <inheritdoc cref="Angle.FromCentiradians(double)" />
+        public static Angle Centiradians<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Angle.FromCentiradians(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Angle.FromDeciradians(OasysUnits.QuantityValue)" />
-        public static Angle Deciradians<T>(this T value) =>
-            Angle.FromDeciradians(Convert.ToDouble(value));
+        /// <inheritdoc cref="Angle.FromDeciradians(double)" />
+        public static Angle Deciradians<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Angle.FromDeciradians(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Angle.FromDegrees(OasysUnits.QuantityValue)" />
-        public static Angle Degrees<T>(this T value) =>
-            Angle.FromDegrees(Convert.ToDouble(value));
+        /// <inheritdoc cref="Angle.FromDegrees(double)" />
+        public static Angle Degrees<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Angle.FromDegrees(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Angle.FromGradians(OasysUnits.QuantityValue)" />
-        public static Angle Gradians<T>(this T value) =>
-            Angle.FromGradians(Convert.ToDouble(value));
+        /// <inheritdoc cref="Angle.FromGradians(double)" />
+        public static Angle Gradians<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Angle.FromGradians(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Angle.FromMicrodegrees(OasysUnits.QuantityValue)" />
-        public static Angle Microdegrees<T>(this T value) =>
-            Angle.FromMicrodegrees(Convert.ToDouble(value));
+        /// <inheritdoc cref="Angle.FromMicrodegrees(double)" />
+        public static Angle Microdegrees<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Angle.FromMicrodegrees(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Angle.FromMicroradians(OasysUnits.QuantityValue)" />
-        public static Angle Microradians<T>(this T value) =>
-            Angle.FromMicroradians(Convert.ToDouble(value));
+        /// <inheritdoc cref="Angle.FromMicroradians(double)" />
+        public static Angle Microradians<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Angle.FromMicroradians(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Angle.FromMillidegrees(OasysUnits.QuantityValue)" />
-        public static Angle Millidegrees<T>(this T value) =>
-            Angle.FromMillidegrees(Convert.ToDouble(value));
+        /// <inheritdoc cref="Angle.FromMillidegrees(double)" />
+        public static Angle Millidegrees<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Angle.FromMillidegrees(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Angle.FromMilliradians(OasysUnits.QuantityValue)" />
-        public static Angle Milliradians<T>(this T value) =>
-            Angle.FromMilliradians(Convert.ToDouble(value));
+        /// <inheritdoc cref="Angle.FromMilliradians(double)" />
+        public static Angle Milliradians<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Angle.FromMilliradians(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Angle.FromNanodegrees(OasysUnits.QuantityValue)" />
-        public static Angle Nanodegrees<T>(this T value) =>
-            Angle.FromNanodegrees(Convert.ToDouble(value));
+        /// <inheritdoc cref="Angle.FromNanodegrees(double)" />
+        public static Angle Nanodegrees<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Angle.FromNanodegrees(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Angle.FromNanoradians(OasysUnits.QuantityValue)" />
-        public static Angle Nanoradians<T>(this T value) =>
-            Angle.FromNanoradians(Convert.ToDouble(value));
+        /// <inheritdoc cref="Angle.FromNanoradians(double)" />
+        public static Angle Nanoradians<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Angle.FromNanoradians(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Angle.FromNatoMils(OasysUnits.QuantityValue)" />
-        public static Angle NatoMils<T>(this T value) =>
-            Angle.FromNatoMils(Convert.ToDouble(value));
+        /// <inheritdoc cref="Angle.FromNatoMils(double)" />
+        public static Angle NatoMils<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Angle.FromNatoMils(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Angle.FromRadians(OasysUnits.QuantityValue)" />
-        public static Angle Radians<T>(this T value) =>
-            Angle.FromRadians(Convert.ToDouble(value));
+        /// <inheritdoc cref="Angle.FromRadians(double)" />
+        public static Angle Radians<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Angle.FromRadians(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Angle.FromRevolutions(OasysUnits.QuantityValue)" />
-        public static Angle Revolutions<T>(this T value) =>
-            Angle.FromRevolutions(Convert.ToDouble(value));
+        /// <inheritdoc cref="Angle.FromRevolutions(double)" />
+        public static Angle Revolutions<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Angle.FromRevolutions(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Angle.FromTilt(OasysUnits.QuantityValue)" />
-        public static Angle Tilt<T>(this T value) =>
-            Angle.FromTilt(Convert.ToDouble(value));
+        /// <inheritdoc cref="Angle.FromTilt(double)" />
+        public static Angle Tilt<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Angle.FromTilt(Convert.ToDouble(value));
 
     }
 }

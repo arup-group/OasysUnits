@@ -103,16 +103,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void Ctor_WithInfinityValue_ThrowsArgumentException()
+        public void Ctor_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new Luminance(double.PositiveInfinity, LuminanceUnit.CandelaPerSquareMeter));
-            Assert.Throws<ArgumentException>(() => new Luminance(double.NegativeInfinity, LuminanceUnit.CandelaPerSquareMeter));
+            var exception1 = Record.Exception(() => new Luminance(double.PositiveInfinity, LuminanceUnit.CandelaPerSquareMeter));
+            var exception2 = Record.Exception(() => new Luminance(double.NegativeInfinity, LuminanceUnit.CandelaPerSquareMeter));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void Ctor_WithNaNValue_ThrowsArgumentException()
+        public void Ctor_WithNaNValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new Luminance(double.NaN, LuminanceUnit.CandelaPerSquareMeter));
+            var exception = Record.Exception(() => new Luminance(double.NaN, LuminanceUnit.CandelaPerSquareMeter));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -212,16 +217,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void FromCandelasPerSquareMeter_WithInfinityValue_ThrowsArgumentException()
+        public void FromCandelasPerSquareMeter_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => Luminance.FromCandelasPerSquareMeter(double.PositiveInfinity));
-            Assert.Throws<ArgumentException>(() => Luminance.FromCandelasPerSquareMeter(double.NegativeInfinity));
+            var exception1 = Record.Exception(() => Luminance.FromCandelasPerSquareMeter(double.PositiveInfinity));
+            var exception2 = Record.Exception(() => Luminance.FromCandelasPerSquareMeter(double.NegativeInfinity));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void FromCandelasPerSquareMeter_WithNanValue_ThrowsArgumentException()
+        public void FromCandelasPerSquareMeter_WithNanValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => Luminance.FromCandelasPerSquareMeter(double.NaN));
+            var exception = Record.Exception(() => Luminance.FromCandelasPerSquareMeter(double.NaN));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -675,6 +685,8 @@ namespace OasysUnits.Tests
             var v = Luminance.FromCandelasPerSquareMeter(1);
             Assert.True(v.Equals(Luminance.FromCandelasPerSquareMeter(1), CandelasPerSquareMeterTolerance, ComparisonType.Relative));
             Assert.False(v.Equals(Luminance.Zero, CandelasPerSquareMeterTolerance, ComparisonType.Relative));
+            Assert.True(Luminance.FromCandelasPerSquareMeter(100).Equals(Luminance.FromCandelasPerSquareMeter(120), 0.3, ComparisonType.Relative));
+            Assert.False(Luminance.FromCandelasPerSquareMeter(100).Equals(Luminance.FromCandelasPerSquareMeter(120), 0.1, ComparisonType.Relative));
         }
 
         [Fact]

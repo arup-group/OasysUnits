@@ -73,10 +73,6 @@ namespace OasysUnits.Tests
             Assert.Equal(MomentPerLength.FromKilopoundForceFeetPerInch(2), 2.KilopoundForceFeetPerInch());
 
         [Fact]
-        public void NumberToKilopoundForceInchesPerFootTest() =>
-            Assert.Equal(MomentPerLength.FromKilopoundForceInchesPerFoot(2), 2.KilopoundForceInchesPerFoot());
-
-        [Fact]
         public void NumberToKilopoundForceInchesPerInchTest() =>
             Assert.Equal(MomentPerLength.FromKilopoundForceInchesPerInch(2), 2.KilopoundForceInchesPerInch());
 
@@ -131,10 +127,6 @@ namespace OasysUnits.Tests
         [Fact]
         public void NumberToPoundForceFeetPerYardTest() =>
             Assert.Equal(MomentPerLength.FromPoundForceFeetPerYard(2), 2.PoundForceFeetPerYard());
-
-        [Fact]
-        public void NumberToPoundForceInchesPerFootTest() =>
-            Assert.Equal(MomentPerLength.FromPoundForceInchesPerFoot(2), 2.PoundForceInchesPerFoot());
 
         [Fact]
         public void NumberToPoundForceInchesPerInchTest() =>

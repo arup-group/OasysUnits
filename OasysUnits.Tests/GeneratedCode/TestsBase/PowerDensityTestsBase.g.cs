@@ -239,16 +239,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void Ctor_WithInfinityValue_ThrowsArgumentException()
+        public void Ctor_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new PowerDensity(double.PositiveInfinity, PowerDensityUnit.WattPerCubicMeter));
-            Assert.Throws<ArgumentException>(() => new PowerDensity(double.NegativeInfinity, PowerDensityUnit.WattPerCubicMeter));
+            var exception1 = Record.Exception(() => new PowerDensity(double.PositiveInfinity, PowerDensityUnit.WattPerCubicMeter));
+            var exception2 = Record.Exception(() => new PowerDensity(double.NegativeInfinity, PowerDensityUnit.WattPerCubicMeter));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void Ctor_WithNaNValue_ThrowsArgumentException()
+        public void Ctor_WithNaNValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new PowerDensity(double.NaN, PowerDensityUnit.WattPerCubicMeter));
+            var exception = Record.Exception(() => new PowerDensity(double.NaN, PowerDensityUnit.WattPerCubicMeter));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -518,16 +523,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void FromWattsPerCubicMeter_WithInfinityValue_ThrowsArgumentException()
+        public void FromWattsPerCubicMeter_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => PowerDensity.FromWattsPerCubicMeter(double.PositiveInfinity));
-            Assert.Throws<ArgumentException>(() => PowerDensity.FromWattsPerCubicMeter(double.NegativeInfinity));
+            var exception1 = Record.Exception(() => PowerDensity.FromWattsPerCubicMeter(double.PositiveInfinity));
+            var exception2 = Record.Exception(() => PowerDensity.FromWattsPerCubicMeter(double.NegativeInfinity));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void FromWattsPerCubicMeter_WithNanValue_ThrowsArgumentException()
+        public void FromWattsPerCubicMeter_WithNanValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => PowerDensity.FromWattsPerCubicMeter(double.NaN));
+            var exception = Record.Exception(() => PowerDensity.FromWattsPerCubicMeter(double.NaN));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -1777,6 +1787,8 @@ namespace OasysUnits.Tests
             var v = PowerDensity.FromWattsPerCubicMeter(1);
             Assert.True(v.Equals(PowerDensity.FromWattsPerCubicMeter(1), WattsPerCubicMeterTolerance, ComparisonType.Relative));
             Assert.False(v.Equals(PowerDensity.Zero, WattsPerCubicMeterTolerance, ComparisonType.Relative));
+            Assert.True(PowerDensity.FromWattsPerCubicMeter(100).Equals(PowerDensity.FromWattsPerCubicMeter(120), 0.3, ComparisonType.Relative));
+            Assert.False(PowerDensity.FromWattsPerCubicMeter(100).Equals(PowerDensity.FromWattsPerCubicMeter(120), 0.1, ComparisonType.Relative));
         }
 
         [Fact]

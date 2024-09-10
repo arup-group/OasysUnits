@@ -171,16 +171,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void Ctor_WithInfinityValue_ThrowsArgumentException()
+        public void Ctor_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new Mass(double.PositiveInfinity, MassUnit.Kilogram));
-            Assert.Throws<ArgumentException>(() => new Mass(double.NegativeInfinity, MassUnit.Kilogram));
+            var exception1 = Record.Exception(() => new Mass(double.PositiveInfinity, MassUnit.Kilogram));
+            var exception2 = Record.Exception(() => new Mass(double.NegativeInfinity, MassUnit.Kilogram));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void Ctor_WithNaNValue_ThrowsArgumentException()
+        public void Ctor_WithNaNValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new Mass(double.NaN, MassUnit.Kilogram));
+            var exception = Record.Exception(() => new Mass(double.NaN, MassUnit.Kilogram));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -365,16 +370,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void FromKilograms_WithInfinityValue_ThrowsArgumentException()
+        public void FromKilograms_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => Mass.FromKilograms(double.PositiveInfinity));
-            Assert.Throws<ArgumentException>(() => Mass.FromKilograms(double.NegativeInfinity));
+            var exception1 = Record.Exception(() => Mass.FromKilograms(double.PositiveInfinity));
+            var exception2 = Record.Exception(() => Mass.FromKilograms(double.NegativeInfinity));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void FromKilograms_WithNanValue_ThrowsArgumentException()
+        public void FromKilograms_WithNanValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => Mass.FromKilograms(double.NaN));
+            var exception = Record.Exception(() => Mass.FromKilograms(double.NaN));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -2378,6 +2388,8 @@ namespace OasysUnits.Tests
             var v = Mass.FromKilograms(1);
             Assert.True(v.Equals(Mass.FromKilograms(1), KilogramsTolerance, ComparisonType.Relative));
             Assert.False(v.Equals(Mass.Zero, KilogramsTolerance, ComparisonType.Relative));
+            Assert.True(Mass.FromKilograms(100).Equals(Mass.FromKilograms(120), 0.3, ComparisonType.Relative));
+            Assert.False(Mass.FromKilograms(100).Equals(Mass.FromKilograms(120), 0.1, ComparisonType.Relative));
         }
 
         [Fact]

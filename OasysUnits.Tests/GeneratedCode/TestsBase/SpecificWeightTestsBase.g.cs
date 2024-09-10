@@ -131,16 +131,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void Ctor_WithInfinityValue_ThrowsArgumentException()
+        public void Ctor_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new SpecificWeight(double.PositiveInfinity, SpecificWeightUnit.NewtonPerCubicMeter));
-            Assert.Throws<ArgumentException>(() => new SpecificWeight(double.NegativeInfinity, SpecificWeightUnit.NewtonPerCubicMeter));
+            var exception1 = Record.Exception(() => new SpecificWeight(double.PositiveInfinity, SpecificWeightUnit.NewtonPerCubicMeter));
+            var exception2 = Record.Exception(() => new SpecificWeight(double.NegativeInfinity, SpecificWeightUnit.NewtonPerCubicMeter));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void Ctor_WithNaNValue_ThrowsArgumentException()
+        public void Ctor_WithNaNValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new SpecificWeight(double.NaN, SpecificWeightUnit.NewtonPerCubicMeter));
+            var exception = Record.Exception(() => new SpecificWeight(double.NaN, SpecificWeightUnit.NewtonPerCubicMeter));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -275,16 +280,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void FromNewtonsPerCubicMeter_WithInfinityValue_ThrowsArgumentException()
+        public void FromNewtonsPerCubicMeter_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => SpecificWeight.FromNewtonsPerCubicMeter(double.PositiveInfinity));
-            Assert.Throws<ArgumentException>(() => SpecificWeight.FromNewtonsPerCubicMeter(double.NegativeInfinity));
+            var exception1 = Record.Exception(() => SpecificWeight.FromNewtonsPerCubicMeter(double.PositiveInfinity));
+            var exception2 = Record.Exception(() => SpecificWeight.FromNewtonsPerCubicMeter(double.NegativeInfinity));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void FromNewtonsPerCubicMeter_WithNanValue_ThrowsArgumentException()
+        public void FromNewtonsPerCubicMeter_WithNanValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => SpecificWeight.FromNewtonsPerCubicMeter(double.NaN));
+            var exception = Record.Exception(() => SpecificWeight.FromNewtonsPerCubicMeter(double.NaN));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -920,6 +930,8 @@ namespace OasysUnits.Tests
             var v = SpecificWeight.FromNewtonsPerCubicMeter(1);
             Assert.True(v.Equals(SpecificWeight.FromNewtonsPerCubicMeter(1), NewtonsPerCubicMeterTolerance, ComparisonType.Relative));
             Assert.False(v.Equals(SpecificWeight.Zero, NewtonsPerCubicMeterTolerance, ComparisonType.Relative));
+            Assert.True(SpecificWeight.FromNewtonsPerCubicMeter(100).Equals(SpecificWeight.FromNewtonsPerCubicMeter(120), 0.3, ComparisonType.Relative));
+            Assert.False(SpecificWeight.FromNewtonsPerCubicMeter(100).Equals(SpecificWeight.FromNewtonsPerCubicMeter(120), 0.1, ComparisonType.Relative));
         }
 
         [Fact]

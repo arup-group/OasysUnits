@@ -19,6 +19,10 @@
 
 using System;
 
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
+
 #nullable enable
 
 namespace OasysUnits.NumberExtensions.NumberToElectricPotentialDc
@@ -28,25 +32,45 @@ namespace OasysUnits.NumberExtensions.NumberToElectricPotentialDc
     /// </summary>
     public static class NumberToElectricPotentialDcExtensions
     {
-        /// <inheritdoc cref="ElectricPotentialDc.FromKilovoltsDc(OasysUnits.QuantityValue)" />
-        public static ElectricPotentialDc KilovoltsDc<T>(this T value) =>
-            ElectricPotentialDc.FromKilovoltsDc(Convert.ToDouble(value));
+        /// <inheritdoc cref="ElectricPotentialDc.FromKilovoltsDc(double)" />
+        public static ElectricPotentialDc KilovoltsDc<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ElectricPotentialDc.FromKilovoltsDc(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="ElectricPotentialDc.FromMegavoltsDc(OasysUnits.QuantityValue)" />
-        public static ElectricPotentialDc MegavoltsDc<T>(this T value) =>
-            ElectricPotentialDc.FromMegavoltsDc(Convert.ToDouble(value));
+        /// <inheritdoc cref="ElectricPotentialDc.FromMegavoltsDc(double)" />
+        public static ElectricPotentialDc MegavoltsDc<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ElectricPotentialDc.FromMegavoltsDc(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="ElectricPotentialDc.FromMicrovoltsDc(OasysUnits.QuantityValue)" />
-        public static ElectricPotentialDc MicrovoltsDc<T>(this T value) =>
-            ElectricPotentialDc.FromMicrovoltsDc(Convert.ToDouble(value));
+        /// <inheritdoc cref="ElectricPotentialDc.FromMicrovoltsDc(double)" />
+        public static ElectricPotentialDc MicrovoltsDc<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ElectricPotentialDc.FromMicrovoltsDc(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="ElectricPotentialDc.FromMillivoltsDc(OasysUnits.QuantityValue)" />
-        public static ElectricPotentialDc MillivoltsDc<T>(this T value) =>
-            ElectricPotentialDc.FromMillivoltsDc(Convert.ToDouble(value));
+        /// <inheritdoc cref="ElectricPotentialDc.FromMillivoltsDc(double)" />
+        public static ElectricPotentialDc MillivoltsDc<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ElectricPotentialDc.FromMillivoltsDc(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="ElectricPotentialDc.FromVoltsDc(OasysUnits.QuantityValue)" />
-        public static ElectricPotentialDc VoltsDc<T>(this T value) =>
-            ElectricPotentialDc.FromVoltsDc(Convert.ToDouble(value));
+        /// <inheritdoc cref="ElectricPotentialDc.FromVoltsDc(double)" />
+        public static ElectricPotentialDc VoltsDc<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ElectricPotentialDc.FromVoltsDc(Convert.ToDouble(value));
 
     }
 }

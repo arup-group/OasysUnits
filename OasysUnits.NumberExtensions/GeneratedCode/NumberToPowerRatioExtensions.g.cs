@@ -19,6 +19,10 @@
 
 using System;
 
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
+
 #nullable enable
 
 namespace OasysUnits.NumberExtensions.NumberToPowerRatio
@@ -28,13 +32,21 @@ namespace OasysUnits.NumberExtensions.NumberToPowerRatio
     /// </summary>
     public static class NumberToPowerRatioExtensions
     {
-        /// <inheritdoc cref="PowerRatio.FromDecibelMilliwatts(OasysUnits.QuantityValue)" />
-        public static PowerRatio DecibelMilliwatts<T>(this T value) =>
-            PowerRatio.FromDecibelMilliwatts(Convert.ToDouble(value));
+        /// <inheritdoc cref="PowerRatio.FromDecibelMilliwatts(double)" />
+        public static PowerRatio DecibelMilliwatts<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => PowerRatio.FromDecibelMilliwatts(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="PowerRatio.FromDecibelWatts(OasysUnits.QuantityValue)" />
-        public static PowerRatio DecibelWatts<T>(this T value) =>
-            PowerRatio.FromDecibelWatts(Convert.ToDouble(value));
+        /// <inheritdoc cref="PowerRatio.FromDecibelWatts(double)" />
+        public static PowerRatio DecibelWatts<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => PowerRatio.FromDecibelWatts(Convert.ToDouble(value));
 
     }
 }

@@ -19,6 +19,10 @@
 
 using System;
 
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
+
 #nullable enable
 
 namespace OasysUnits.NumberExtensions.NumberToTemperature
@@ -28,45 +32,85 @@ namespace OasysUnits.NumberExtensions.NumberToTemperature
     /// </summary>
     public static class NumberToTemperatureExtensions
     {
-        /// <inheritdoc cref="Temperature.FromDegreesCelsius(OasysUnits.QuantityValue)" />
-        public static Temperature DegreesCelsius<T>(this T value) =>
-            Temperature.FromDegreesCelsius(Convert.ToDouble(value));
+        /// <inheritdoc cref="Temperature.FromDegreesCelsius(double)" />
+        public static Temperature DegreesCelsius<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Temperature.FromDegreesCelsius(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Temperature.FromDegreesDelisle(OasysUnits.QuantityValue)" />
-        public static Temperature DegreesDelisle<T>(this T value) =>
-            Temperature.FromDegreesDelisle(Convert.ToDouble(value));
+        /// <inheritdoc cref="Temperature.FromDegreesDelisle(double)" />
+        public static Temperature DegreesDelisle<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Temperature.FromDegreesDelisle(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Temperature.FromDegreesFahrenheit(OasysUnits.QuantityValue)" />
-        public static Temperature DegreesFahrenheit<T>(this T value) =>
-            Temperature.FromDegreesFahrenheit(Convert.ToDouble(value));
+        /// <inheritdoc cref="Temperature.FromDegreesFahrenheit(double)" />
+        public static Temperature DegreesFahrenheit<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Temperature.FromDegreesFahrenheit(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Temperature.FromDegreesNewton(OasysUnits.QuantityValue)" />
-        public static Temperature DegreesNewton<T>(this T value) =>
-            Temperature.FromDegreesNewton(Convert.ToDouble(value));
+        /// <inheritdoc cref="Temperature.FromDegreesNewton(double)" />
+        public static Temperature DegreesNewton<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Temperature.FromDegreesNewton(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Temperature.FromDegreesRankine(OasysUnits.QuantityValue)" />
-        public static Temperature DegreesRankine<T>(this T value) =>
-            Temperature.FromDegreesRankine(Convert.ToDouble(value));
+        /// <inheritdoc cref="Temperature.FromDegreesRankine(double)" />
+        public static Temperature DegreesRankine<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Temperature.FromDegreesRankine(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Temperature.FromDegreesReaumur(OasysUnits.QuantityValue)" />
-        public static Temperature DegreesReaumur<T>(this T value) =>
-            Temperature.FromDegreesReaumur(Convert.ToDouble(value));
+        /// <inheritdoc cref="Temperature.FromDegreesReaumur(double)" />
+        public static Temperature DegreesReaumur<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Temperature.FromDegreesReaumur(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Temperature.FromDegreesRoemer(OasysUnits.QuantityValue)" />
-        public static Temperature DegreesRoemer<T>(this T value) =>
-            Temperature.FromDegreesRoemer(Convert.ToDouble(value));
+        /// <inheritdoc cref="Temperature.FromDegreesRoemer(double)" />
+        public static Temperature DegreesRoemer<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Temperature.FromDegreesRoemer(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Temperature.FromKelvins(OasysUnits.QuantityValue)" />
-        public static Temperature Kelvins<T>(this T value) =>
-            Temperature.FromKelvins(Convert.ToDouble(value));
+        /// <inheritdoc cref="Temperature.FromKelvins(double)" />
+        public static Temperature Kelvins<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Temperature.FromKelvins(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Temperature.FromMillidegreesCelsius(OasysUnits.QuantityValue)" />
-        public static Temperature MillidegreesCelsius<T>(this T value) =>
-            Temperature.FromMillidegreesCelsius(Convert.ToDouble(value));
+        /// <inheritdoc cref="Temperature.FromMillidegreesCelsius(double)" />
+        public static Temperature MillidegreesCelsius<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Temperature.FromMillidegreesCelsius(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Temperature.FromSolarTemperatures(OasysUnits.QuantityValue)" />
-        public static Temperature SolarTemperatures<T>(this T value) =>
-            Temperature.FromSolarTemperatures(Convert.ToDouble(value));
+        /// <inheritdoc cref="Temperature.FromSolarTemperatures(double)" />
+        public static Temperature SolarTemperatures<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Temperature.FromSolarTemperatures(Convert.ToDouble(value));
 
     }
 }

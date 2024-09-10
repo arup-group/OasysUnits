@@ -103,16 +103,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void Ctor_WithInfinityValue_ThrowsArgumentException()
+        public void Ctor_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new TemperatureChangeRate(double.PositiveInfinity, TemperatureChangeRateUnit.DegreeCelsiusPerSecond));
-            Assert.Throws<ArgumentException>(() => new TemperatureChangeRate(double.NegativeInfinity, TemperatureChangeRateUnit.DegreeCelsiusPerSecond));
+            var exception1 = Record.Exception(() => new TemperatureChangeRate(double.PositiveInfinity, TemperatureChangeRateUnit.DegreeCelsiusPerSecond));
+            var exception2 = Record.Exception(() => new TemperatureChangeRate(double.NegativeInfinity, TemperatureChangeRateUnit.DegreeCelsiusPerSecond));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void Ctor_WithNaNValue_ThrowsArgumentException()
+        public void Ctor_WithNaNValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new TemperatureChangeRate(double.NaN, TemperatureChangeRateUnit.DegreeCelsiusPerSecond));
+            var exception = Record.Exception(() => new TemperatureChangeRate(double.NaN, TemperatureChangeRateUnit.DegreeCelsiusPerSecond));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -212,16 +217,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void FromDegreesCelsiusPerSecond_WithInfinityValue_ThrowsArgumentException()
+        public void FromDegreesCelsiusPerSecond_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => TemperatureChangeRate.FromDegreesCelsiusPerSecond(double.PositiveInfinity));
-            Assert.Throws<ArgumentException>(() => TemperatureChangeRate.FromDegreesCelsiusPerSecond(double.NegativeInfinity));
+            var exception1 = Record.Exception(() => TemperatureChangeRate.FromDegreesCelsiusPerSecond(double.PositiveInfinity));
+            var exception2 = Record.Exception(() => TemperatureChangeRate.FromDegreesCelsiusPerSecond(double.NegativeInfinity));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void FromDegreesCelsiusPerSecond_WithNanValue_ThrowsArgumentException()
+        public void FromDegreesCelsiusPerSecond_WithNanValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => TemperatureChangeRate.FromDegreesCelsiusPerSecond(double.NaN));
+            var exception = Record.Exception(() => TemperatureChangeRate.FromDegreesCelsiusPerSecond(double.NaN));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -675,6 +685,8 @@ namespace OasysUnits.Tests
             var v = TemperatureChangeRate.FromDegreesCelsiusPerSecond(1);
             Assert.True(v.Equals(TemperatureChangeRate.FromDegreesCelsiusPerSecond(1), DegreesCelsiusPerSecondTolerance, ComparisonType.Relative));
             Assert.False(v.Equals(TemperatureChangeRate.Zero, DegreesCelsiusPerSecondTolerance, ComparisonType.Relative));
+            Assert.True(TemperatureChangeRate.FromDegreesCelsiusPerSecond(100).Equals(TemperatureChangeRate.FromDegreesCelsiusPerSecond(120), 0.3, ComparisonType.Relative));
+            Assert.False(TemperatureChangeRate.FromDegreesCelsiusPerSecond(100).Equals(TemperatureChangeRate.FromDegreesCelsiusPerSecond(120), 0.1, ComparisonType.Relative));
         }
 
         [Fact]

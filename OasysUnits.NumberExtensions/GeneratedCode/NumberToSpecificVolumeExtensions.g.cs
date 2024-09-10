@@ -19,6 +19,10 @@
 
 using System;
 
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
+
 #nullable enable
 
 namespace OasysUnits.NumberExtensions.NumberToSpecificVolume
@@ -28,17 +32,29 @@ namespace OasysUnits.NumberExtensions.NumberToSpecificVolume
     /// </summary>
     public static class NumberToSpecificVolumeExtensions
     {
-        /// <inheritdoc cref="SpecificVolume.FromCubicFeetPerPound(OasysUnits.QuantityValue)" />
-        public static SpecificVolume CubicFeetPerPound<T>(this T value) =>
-            SpecificVolume.FromCubicFeetPerPound(Convert.ToDouble(value));
+        /// <inheritdoc cref="SpecificVolume.FromCubicFeetPerPound(double)" />
+        public static SpecificVolume CubicFeetPerPound<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => SpecificVolume.FromCubicFeetPerPound(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="SpecificVolume.FromCubicMetersPerKilogram(OasysUnits.QuantityValue)" />
-        public static SpecificVolume CubicMetersPerKilogram<T>(this T value) =>
-            SpecificVolume.FromCubicMetersPerKilogram(Convert.ToDouble(value));
+        /// <inheritdoc cref="SpecificVolume.FromCubicMetersPerKilogram(double)" />
+        public static SpecificVolume CubicMetersPerKilogram<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => SpecificVolume.FromCubicMetersPerKilogram(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="SpecificVolume.FromMillicubicMetersPerKilogram(OasysUnits.QuantityValue)" />
-        public static SpecificVolume MillicubicMetersPerKilogram<T>(this T value) =>
-            SpecificVolume.FromMillicubicMetersPerKilogram(Convert.ToDouble(value));
+        /// <inheritdoc cref="SpecificVolume.FromMillicubicMetersPerKilogram(double)" />
+        public static SpecificVolume MillicubicMetersPerKilogram<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => SpecificVolume.FromMillicubicMetersPerKilogram(Convert.ToDouble(value));
 
     }
 }

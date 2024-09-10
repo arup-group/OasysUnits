@@ -19,6 +19,10 @@
 
 using System;
 
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
+
 #nullable enable
 
 namespace OasysUnits.NumberExtensions.NumberToLinearDensity
@@ -28,61 +32,149 @@ namespace OasysUnits.NumberExtensions.NumberToLinearDensity
     /// </summary>
     public static class NumberToLinearDensityExtensions
     {
-        /// <inheritdoc cref="LinearDensity.FromGramsPerCentimeter(OasysUnits.QuantityValue)" />
-        public static LinearDensity GramsPerCentimeter<T>(this T value) =>
-            LinearDensity.FromGramsPerCentimeter(Convert.ToDouble(value));
+        /// <inheritdoc cref="LinearDensity.FromGramsPerCentimeter(double)" />
+        public static LinearDensity GramsPerCentimeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => LinearDensity.FromGramsPerCentimeter(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="LinearDensity.FromGramsPerMeter(OasysUnits.QuantityValue)" />
-        public static LinearDensity GramsPerMeter<T>(this T value) =>
-            LinearDensity.FromGramsPerMeter(Convert.ToDouble(value));
+        /// <inheritdoc cref="LinearDensity.FromGramsPerFoot(double)" />
+        public static LinearDensity GramsPerFoot<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => LinearDensity.FromGramsPerFoot(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="LinearDensity.FromGramsPerMillimeter(OasysUnits.QuantityValue)" />
-        public static LinearDensity GramsPerMillimeter<T>(this T value) =>
-            LinearDensity.FromGramsPerMillimeter(Convert.ToDouble(value));
+        /// <inheritdoc cref="LinearDensity.FromGramsPerMeter(double)" />
+        public static LinearDensity GramsPerMeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => LinearDensity.FromGramsPerMeter(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="LinearDensity.FromKilogramsPerCentimeter(OasysUnits.QuantityValue)" />
-        public static LinearDensity KilogramsPerCentimeter<T>(this T value) =>
-            LinearDensity.FromKilogramsPerCentimeter(Convert.ToDouble(value));
+        /// <inheritdoc cref="LinearDensity.FromGramsPerMillimeter(double)" />
+        public static LinearDensity GramsPerMillimeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => LinearDensity.FromGramsPerMillimeter(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="LinearDensity.FromKilogramsPerMeter(OasysUnits.QuantityValue)" />
-        public static LinearDensity KilogramsPerMeter<T>(this T value) =>
-            LinearDensity.FromKilogramsPerMeter(Convert.ToDouble(value));
+        /// <inheritdoc cref="LinearDensity.FromKilogramsPerCentimeter(double)" />
+        public static LinearDensity KilogramsPerCentimeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => LinearDensity.FromKilogramsPerCentimeter(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="LinearDensity.FromKilogramsPerMillimeter(OasysUnits.QuantityValue)" />
-        public static LinearDensity KilogramsPerMillimeter<T>(this T value) =>
-            LinearDensity.FromKilogramsPerMillimeter(Convert.ToDouble(value));
+        /// <inheritdoc cref="LinearDensity.FromKilogramsPerFoot(double)" />
+        public static LinearDensity KilogramsPerFoot<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => LinearDensity.FromKilogramsPerFoot(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="LinearDensity.FromMicrogramsPerCentimeter(OasysUnits.QuantityValue)" />
-        public static LinearDensity MicrogramsPerCentimeter<T>(this T value) =>
-            LinearDensity.FromMicrogramsPerCentimeter(Convert.ToDouble(value));
+        /// <inheritdoc cref="LinearDensity.FromKilogramsPerMeter(double)" />
+        public static LinearDensity KilogramsPerMeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => LinearDensity.FromKilogramsPerMeter(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="LinearDensity.FromMicrogramsPerMeter(OasysUnits.QuantityValue)" />
-        public static LinearDensity MicrogramsPerMeter<T>(this T value) =>
-            LinearDensity.FromMicrogramsPerMeter(Convert.ToDouble(value));
+        /// <inheritdoc cref="LinearDensity.FromKilogramsPerMillimeter(double)" />
+        public static LinearDensity KilogramsPerMillimeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => LinearDensity.FromKilogramsPerMillimeter(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="LinearDensity.FromMicrogramsPerMillimeter(OasysUnits.QuantityValue)" />
-        public static LinearDensity MicrogramsPerMillimeter<T>(this T value) =>
-            LinearDensity.FromMicrogramsPerMillimeter(Convert.ToDouble(value));
+        /// <inheritdoc cref="LinearDensity.FromMicrogramsPerCentimeter(double)" />
+        public static LinearDensity MicrogramsPerCentimeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => LinearDensity.FromMicrogramsPerCentimeter(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="LinearDensity.FromMilligramsPerCentimeter(OasysUnits.QuantityValue)" />
-        public static LinearDensity MilligramsPerCentimeter<T>(this T value) =>
-            LinearDensity.FromMilligramsPerCentimeter(Convert.ToDouble(value));
+        /// <inheritdoc cref="LinearDensity.FromMicrogramsPerFoot(double)" />
+        public static LinearDensity MicrogramsPerFoot<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => LinearDensity.FromMicrogramsPerFoot(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="LinearDensity.FromMilligramsPerMeter(OasysUnits.QuantityValue)" />
-        public static LinearDensity MilligramsPerMeter<T>(this T value) =>
-            LinearDensity.FromMilligramsPerMeter(Convert.ToDouble(value));
+        /// <inheritdoc cref="LinearDensity.FromMicrogramsPerMeter(double)" />
+        public static LinearDensity MicrogramsPerMeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => LinearDensity.FromMicrogramsPerMeter(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="LinearDensity.FromMilligramsPerMillimeter(OasysUnits.QuantityValue)" />
-        public static LinearDensity MilligramsPerMillimeter<T>(this T value) =>
-            LinearDensity.FromMilligramsPerMillimeter(Convert.ToDouble(value));
+        /// <inheritdoc cref="LinearDensity.FromMicrogramsPerMillimeter(double)" />
+        public static LinearDensity MicrogramsPerMillimeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => LinearDensity.FromMicrogramsPerMillimeter(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="LinearDensity.FromPoundsPerFoot(OasysUnits.QuantityValue)" />
-        public static LinearDensity PoundsPerFoot<T>(this T value) =>
-            LinearDensity.FromPoundsPerFoot(Convert.ToDouble(value));
+        /// <inheritdoc cref="LinearDensity.FromMilligramsPerCentimeter(double)" />
+        public static LinearDensity MilligramsPerCentimeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => LinearDensity.FromMilligramsPerCentimeter(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="LinearDensity.FromPoundsPerInch(OasysUnits.QuantityValue)" />
-        public static LinearDensity PoundsPerInch<T>(this T value) =>
-            LinearDensity.FromPoundsPerInch(Convert.ToDouble(value));
+        /// <inheritdoc cref="LinearDensity.FromMilligramsPerFoot(double)" />
+        public static LinearDensity MilligramsPerFoot<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => LinearDensity.FromMilligramsPerFoot(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="LinearDensity.FromMilligramsPerMeter(double)" />
+        public static LinearDensity MilligramsPerMeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => LinearDensity.FromMilligramsPerMeter(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="LinearDensity.FromMilligramsPerMillimeter(double)" />
+        public static LinearDensity MilligramsPerMillimeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => LinearDensity.FromMilligramsPerMillimeter(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="LinearDensity.FromPoundsPerFoot(double)" />
+        public static LinearDensity PoundsPerFoot<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => LinearDensity.FromPoundsPerFoot(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="LinearDensity.FromPoundsPerInch(double)" />
+        public static LinearDensity PoundsPerInch<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => LinearDensity.FromPoundsPerInch(Convert.ToDouble(value));
 
     }
 }

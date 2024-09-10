@@ -99,16 +99,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void Ctor_WithInfinityValue_ThrowsArgumentException()
+        public void Ctor_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new KinematicViscosity(double.PositiveInfinity, KinematicViscosityUnit.SquareMeterPerSecond));
-            Assert.Throws<ArgumentException>(() => new KinematicViscosity(double.NegativeInfinity, KinematicViscosityUnit.SquareMeterPerSecond));
+            var exception1 = Record.Exception(() => new KinematicViscosity(double.PositiveInfinity, KinematicViscosityUnit.SquareMeterPerSecond));
+            var exception2 = Record.Exception(() => new KinematicViscosity(double.NegativeInfinity, KinematicViscosityUnit.SquareMeterPerSecond));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void Ctor_WithNaNValue_ThrowsArgumentException()
+        public void Ctor_WithNaNValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new KinematicViscosity(double.NaN, KinematicViscosityUnit.SquareMeterPerSecond));
+            var exception = Record.Exception(() => new KinematicViscosity(double.NaN, KinematicViscosityUnit.SquareMeterPerSecond));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -203,16 +208,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void FromSquareMetersPerSecond_WithInfinityValue_ThrowsArgumentException()
+        public void FromSquareMetersPerSecond_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => KinematicViscosity.FromSquareMetersPerSecond(double.PositiveInfinity));
-            Assert.Throws<ArgumentException>(() => KinematicViscosity.FromSquareMetersPerSecond(double.NegativeInfinity));
+            var exception1 = Record.Exception(() => KinematicViscosity.FromSquareMetersPerSecond(double.PositiveInfinity));
+            var exception2 = Record.Exception(() => KinematicViscosity.FromSquareMetersPerSecond(double.NegativeInfinity));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void FromSquareMetersPerSecond_WithNanValue_ThrowsArgumentException()
+        public void FromSquareMetersPerSecond_WithNanValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => KinematicViscosity.FromSquareMetersPerSecond(double.NaN));
+            var exception = Record.Exception(() => KinematicViscosity.FromSquareMetersPerSecond(double.NaN));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -832,6 +842,8 @@ namespace OasysUnits.Tests
             var v = KinematicViscosity.FromSquareMetersPerSecond(1);
             Assert.True(v.Equals(KinematicViscosity.FromSquareMetersPerSecond(1), SquareMetersPerSecondTolerance, ComparisonType.Relative));
             Assert.False(v.Equals(KinematicViscosity.Zero, SquareMetersPerSecondTolerance, ComparisonType.Relative));
+            Assert.True(KinematicViscosity.FromSquareMetersPerSecond(100).Equals(KinematicViscosity.FromSquareMetersPerSecond(120), 0.3, ComparisonType.Relative));
+            Assert.False(KinematicViscosity.FromSquareMetersPerSecond(100).Equals(KinematicViscosity.FromSquareMetersPerSecond(120), 0.1, ComparisonType.Relative));
         }
 
         [Fact]

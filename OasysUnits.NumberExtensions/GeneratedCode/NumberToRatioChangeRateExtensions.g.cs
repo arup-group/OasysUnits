@@ -19,6 +19,10 @@
 
 using System;
 
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
+
 #nullable enable
 
 namespace OasysUnits.NumberExtensions.NumberToRatioChangeRate
@@ -28,13 +32,21 @@ namespace OasysUnits.NumberExtensions.NumberToRatioChangeRate
     /// </summary>
     public static class NumberToRatioChangeRateExtensions
     {
-        /// <inheritdoc cref="RatioChangeRate.FromDecimalFractionsPerSecond(OasysUnits.QuantityValue)" />
-        public static RatioChangeRate DecimalFractionsPerSecond<T>(this T value) =>
-            RatioChangeRate.FromDecimalFractionsPerSecond(Convert.ToDouble(value));
+        /// <inheritdoc cref="RatioChangeRate.FromDecimalFractionsPerSecond(double)" />
+        public static RatioChangeRate DecimalFractionsPerSecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => RatioChangeRate.FromDecimalFractionsPerSecond(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="RatioChangeRate.FromPercentsPerSecond(OasysUnits.QuantityValue)" />
-        public static RatioChangeRate PercentsPerSecond<T>(this T value) =>
-            RatioChangeRate.FromPercentsPerSecond(Convert.ToDouble(value));
+        /// <inheritdoc cref="RatioChangeRate.FromPercentsPerSecond(double)" />
+        public static RatioChangeRate PercentsPerSecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => RatioChangeRate.FromPercentsPerSecond(Convert.ToDouble(value));
 
     }
 }

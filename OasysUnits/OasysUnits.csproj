@@ -1,8 +1,8 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <!-- NuGet properties -->
   <PropertyGroup>
     <PackageId>OasysUnits</PackageId>
-    <Version>1.1.1</Version>
+    <Version>1.2.0</Version>
     <Authors>Andreas Gullberg Larsen, Oasys</Authors>
     <Title>OasysUnits</Title>
     <Description>Get all the common units of measurement and the conversions between them. It is light-weight and thoroughly tested.</Description>
@@ -15,12 +15,13 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageTags>unit units quantity quantities measurement si metric imperial abbreviation abbreviations convert conversion parse immutable</PackageTags>
-    <PackageReleaseNotes>This is a release of UnitsNet 4.145.0 with additional support for Oasys units.</PackageReleaseNotes>
+    <PackageReleaseNotes>This is a release of UnitsNet 6.0.0-pre012 with additional support for Oasys units.</PackageReleaseNotes>
+    <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
 
   <!-- Assembly and msbuild properties -->
   <PropertyGroup>
-    <AssemblyVersion>1.1.1.0</AssemblyVersion> <!-- Should reflect major part of Version -->
+    <AssemblyVersion>1.2.0.0</AssemblyVersion> <!-- Should reflect major part of Version -->
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
     <RootNamespace>OasysUnits</RootNamespace>
@@ -55,6 +56,10 @@
   <ItemGroup>
     <None Include="..\Docs\Images\OasysUnits-32.png" Pack="true" PackagePath="/" />
     <None Include="../README.md" Pack="true" PackagePath="/" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="GeneratedCode\Resources\*.restext" />
   </ItemGroup>
 
 </Project>

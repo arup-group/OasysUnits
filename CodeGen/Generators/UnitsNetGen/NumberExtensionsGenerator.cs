@@ -25,6 +25,10 @@ namespace CodeGen.Generators.OasysUnitsGen
 $@"
 using System;
 
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
+
 #nullable enable
 
 namespace OasysUnits.NumberExtensions.NumberTo{_quantityName}
@@ -41,12 +45,16 @@ namespace OasysUnits.NumberExtensions.NumberTo{_quantityName}
                     continue;
 
                 Writer.WL(2, $@"
-/// <inheritdoc cref=""{_quantityName}.From{unit.PluralName}(OasysUnits.QuantityValue)"" />");
+/// <inheritdoc cref=""{_quantityName}.From{unit.PluralName}(double)"" />");
 
                 Writer.WLIfText(2, GetObsoleteAttributeOrNull(unit.ObsoleteText));
 
-                Writer.WL(2, $@"public static {_quantityName} {unit.PluralName}<T>(this T value) =>
-            {_quantityName}.From{unit.PluralName}(Convert.ToDouble(value));
+                Writer.WL(2, $@"public static {_quantityName} {unit.PluralName}<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => {_quantityName}.From{unit.PluralName}(Convert.ToDouble(value));
 ");
             }
 

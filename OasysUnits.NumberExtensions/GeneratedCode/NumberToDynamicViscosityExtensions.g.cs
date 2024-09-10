@@ -19,6 +19,10 @@
 
 using System;
 
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
+
 #nullable enable
 
 namespace OasysUnits.NumberExtensions.NumberToDynamicViscosity
@@ -28,45 +32,85 @@ namespace OasysUnits.NumberExtensions.NumberToDynamicViscosity
     /// </summary>
     public static class NumberToDynamicViscosityExtensions
     {
-        /// <inheritdoc cref="DynamicViscosity.FromCentipoise(OasysUnits.QuantityValue)" />
-        public static DynamicViscosity Centipoise<T>(this T value) =>
-            DynamicViscosity.FromCentipoise(Convert.ToDouble(value));
+        /// <inheritdoc cref="DynamicViscosity.FromCentipoise(double)" />
+        public static DynamicViscosity Centipoise<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => DynamicViscosity.FromCentipoise(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="DynamicViscosity.FromMicropascalSeconds(OasysUnits.QuantityValue)" />
-        public static DynamicViscosity MicropascalSeconds<T>(this T value) =>
-            DynamicViscosity.FromMicropascalSeconds(Convert.ToDouble(value));
+        /// <inheritdoc cref="DynamicViscosity.FromMicropascalSeconds(double)" />
+        public static DynamicViscosity MicropascalSeconds<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => DynamicViscosity.FromMicropascalSeconds(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="DynamicViscosity.FromMillipascalSeconds(OasysUnits.QuantityValue)" />
-        public static DynamicViscosity MillipascalSeconds<T>(this T value) =>
-            DynamicViscosity.FromMillipascalSeconds(Convert.ToDouble(value));
+        /// <inheritdoc cref="DynamicViscosity.FromMillipascalSeconds(double)" />
+        public static DynamicViscosity MillipascalSeconds<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => DynamicViscosity.FromMillipascalSeconds(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="DynamicViscosity.FromNewtonSecondsPerMeterSquared(OasysUnits.QuantityValue)" />
-        public static DynamicViscosity NewtonSecondsPerMeterSquared<T>(this T value) =>
-            DynamicViscosity.FromNewtonSecondsPerMeterSquared(Convert.ToDouble(value));
+        /// <inheritdoc cref="DynamicViscosity.FromNewtonSecondsPerMeterSquared(double)" />
+        public static DynamicViscosity NewtonSecondsPerMeterSquared<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => DynamicViscosity.FromNewtonSecondsPerMeterSquared(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="DynamicViscosity.FromPascalSeconds(OasysUnits.QuantityValue)" />
-        public static DynamicViscosity PascalSeconds<T>(this T value) =>
-            DynamicViscosity.FromPascalSeconds(Convert.ToDouble(value));
+        /// <inheritdoc cref="DynamicViscosity.FromPascalSeconds(double)" />
+        public static DynamicViscosity PascalSeconds<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => DynamicViscosity.FromPascalSeconds(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="DynamicViscosity.FromPoise(OasysUnits.QuantityValue)" />
-        public static DynamicViscosity Poise<T>(this T value) =>
-            DynamicViscosity.FromPoise(Convert.ToDouble(value));
+        /// <inheritdoc cref="DynamicViscosity.FromPoise(double)" />
+        public static DynamicViscosity Poise<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => DynamicViscosity.FromPoise(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="DynamicViscosity.FromPoundsForceSecondPerSquareFoot(OasysUnits.QuantityValue)" />
-        public static DynamicViscosity PoundsForceSecondPerSquareFoot<T>(this T value) =>
-            DynamicViscosity.FromPoundsForceSecondPerSquareFoot(Convert.ToDouble(value));
+        /// <inheritdoc cref="DynamicViscosity.FromPoundsForceSecondPerSquareFoot(double)" />
+        public static DynamicViscosity PoundsForceSecondPerSquareFoot<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => DynamicViscosity.FromPoundsForceSecondPerSquareFoot(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="DynamicViscosity.FromPoundsForceSecondPerSquareInch(OasysUnits.QuantityValue)" />
-        public static DynamicViscosity PoundsForceSecondPerSquareInch<T>(this T value) =>
-            DynamicViscosity.FromPoundsForceSecondPerSquareInch(Convert.ToDouble(value));
+        /// <inheritdoc cref="DynamicViscosity.FromPoundsForceSecondPerSquareInch(double)" />
+        public static DynamicViscosity PoundsForceSecondPerSquareInch<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => DynamicViscosity.FromPoundsForceSecondPerSquareInch(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="DynamicViscosity.FromPoundsPerFootSecond(OasysUnits.QuantityValue)" />
-        public static DynamicViscosity PoundsPerFootSecond<T>(this T value) =>
-            DynamicViscosity.FromPoundsPerFootSecond(Convert.ToDouble(value));
+        /// <inheritdoc cref="DynamicViscosity.FromPoundsPerFootSecond(double)" />
+        public static DynamicViscosity PoundsPerFootSecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => DynamicViscosity.FromPoundsPerFootSecond(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="DynamicViscosity.FromReyns(OasysUnits.QuantityValue)" />
-        public static DynamicViscosity Reyns<T>(this T value) =>
-            DynamicViscosity.FromReyns(Convert.ToDouble(value));
+        /// <inheritdoc cref="DynamicViscosity.FromReyns(double)" />
+        public static DynamicViscosity Reyns<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => DynamicViscosity.FromReyns(Convert.ToDouble(value));
 
     }
 }

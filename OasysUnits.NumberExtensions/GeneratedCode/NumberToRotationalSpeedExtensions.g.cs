@@ -19,6 +19,10 @@
 
 using System;
 
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
+
 #nullable enable
 
 namespace OasysUnits.NumberExtensions.NumberToRotationalSpeed
@@ -28,57 +32,109 @@ namespace OasysUnits.NumberExtensions.NumberToRotationalSpeed
     /// </summary>
     public static class NumberToRotationalSpeedExtensions
     {
-        /// <inheritdoc cref="RotationalSpeed.FromCentiradiansPerSecond(OasysUnits.QuantityValue)" />
-        public static RotationalSpeed CentiradiansPerSecond<T>(this T value) =>
-            RotationalSpeed.FromCentiradiansPerSecond(Convert.ToDouble(value));
+        /// <inheritdoc cref="RotationalSpeed.FromCentiradiansPerSecond(double)" />
+        public static RotationalSpeed CentiradiansPerSecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => RotationalSpeed.FromCentiradiansPerSecond(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="RotationalSpeed.FromDeciradiansPerSecond(OasysUnits.QuantityValue)" />
-        public static RotationalSpeed DeciradiansPerSecond<T>(this T value) =>
-            RotationalSpeed.FromDeciradiansPerSecond(Convert.ToDouble(value));
+        /// <inheritdoc cref="RotationalSpeed.FromDeciradiansPerSecond(double)" />
+        public static RotationalSpeed DeciradiansPerSecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => RotationalSpeed.FromDeciradiansPerSecond(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="RotationalSpeed.FromDegreesPerMinute(OasysUnits.QuantityValue)" />
-        public static RotationalSpeed DegreesPerMinute<T>(this T value) =>
-            RotationalSpeed.FromDegreesPerMinute(Convert.ToDouble(value));
+        /// <inheritdoc cref="RotationalSpeed.FromDegreesPerMinute(double)" />
+        public static RotationalSpeed DegreesPerMinute<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => RotationalSpeed.FromDegreesPerMinute(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="RotationalSpeed.FromDegreesPerSecond(OasysUnits.QuantityValue)" />
-        public static RotationalSpeed DegreesPerSecond<T>(this T value) =>
-            RotationalSpeed.FromDegreesPerSecond(Convert.ToDouble(value));
+        /// <inheritdoc cref="RotationalSpeed.FromDegreesPerSecond(double)" />
+        public static RotationalSpeed DegreesPerSecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => RotationalSpeed.FromDegreesPerSecond(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="RotationalSpeed.FromMicrodegreesPerSecond(OasysUnits.QuantityValue)" />
-        public static RotationalSpeed MicrodegreesPerSecond<T>(this T value) =>
-            RotationalSpeed.FromMicrodegreesPerSecond(Convert.ToDouble(value));
+        /// <inheritdoc cref="RotationalSpeed.FromMicrodegreesPerSecond(double)" />
+        public static RotationalSpeed MicrodegreesPerSecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => RotationalSpeed.FromMicrodegreesPerSecond(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="RotationalSpeed.FromMicroradiansPerSecond(OasysUnits.QuantityValue)" />
-        public static RotationalSpeed MicroradiansPerSecond<T>(this T value) =>
-            RotationalSpeed.FromMicroradiansPerSecond(Convert.ToDouble(value));
+        /// <inheritdoc cref="RotationalSpeed.FromMicroradiansPerSecond(double)" />
+        public static RotationalSpeed MicroradiansPerSecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => RotationalSpeed.FromMicroradiansPerSecond(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="RotationalSpeed.FromMillidegreesPerSecond(OasysUnits.QuantityValue)" />
-        public static RotationalSpeed MillidegreesPerSecond<T>(this T value) =>
-            RotationalSpeed.FromMillidegreesPerSecond(Convert.ToDouble(value));
+        /// <inheritdoc cref="RotationalSpeed.FromMillidegreesPerSecond(double)" />
+        public static RotationalSpeed MillidegreesPerSecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => RotationalSpeed.FromMillidegreesPerSecond(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="RotationalSpeed.FromMilliradiansPerSecond(OasysUnits.QuantityValue)" />
-        public static RotationalSpeed MilliradiansPerSecond<T>(this T value) =>
-            RotationalSpeed.FromMilliradiansPerSecond(Convert.ToDouble(value));
+        /// <inheritdoc cref="RotationalSpeed.FromMilliradiansPerSecond(double)" />
+        public static RotationalSpeed MilliradiansPerSecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => RotationalSpeed.FromMilliradiansPerSecond(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="RotationalSpeed.FromNanodegreesPerSecond(OasysUnits.QuantityValue)" />
-        public static RotationalSpeed NanodegreesPerSecond<T>(this T value) =>
-            RotationalSpeed.FromNanodegreesPerSecond(Convert.ToDouble(value));
+        /// <inheritdoc cref="RotationalSpeed.FromNanodegreesPerSecond(double)" />
+        public static RotationalSpeed NanodegreesPerSecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => RotationalSpeed.FromNanodegreesPerSecond(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="RotationalSpeed.FromNanoradiansPerSecond(OasysUnits.QuantityValue)" />
-        public static RotationalSpeed NanoradiansPerSecond<T>(this T value) =>
-            RotationalSpeed.FromNanoradiansPerSecond(Convert.ToDouble(value));
+        /// <inheritdoc cref="RotationalSpeed.FromNanoradiansPerSecond(double)" />
+        public static RotationalSpeed NanoradiansPerSecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => RotationalSpeed.FromNanoradiansPerSecond(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="RotationalSpeed.FromRadiansPerSecond(OasysUnits.QuantityValue)" />
-        public static RotationalSpeed RadiansPerSecond<T>(this T value) =>
-            RotationalSpeed.FromRadiansPerSecond(Convert.ToDouble(value));
+        /// <inheritdoc cref="RotationalSpeed.FromRadiansPerSecond(double)" />
+        public static RotationalSpeed RadiansPerSecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => RotationalSpeed.FromRadiansPerSecond(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="RotationalSpeed.FromRevolutionsPerMinute(OasysUnits.QuantityValue)" />
-        public static RotationalSpeed RevolutionsPerMinute<T>(this T value) =>
-            RotationalSpeed.FromRevolutionsPerMinute(Convert.ToDouble(value));
+        /// <inheritdoc cref="RotationalSpeed.FromRevolutionsPerMinute(double)" />
+        public static RotationalSpeed RevolutionsPerMinute<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => RotationalSpeed.FromRevolutionsPerMinute(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="RotationalSpeed.FromRevolutionsPerSecond(OasysUnits.QuantityValue)" />
-        public static RotationalSpeed RevolutionsPerSecond<T>(this T value) =>
-            RotationalSpeed.FromRevolutionsPerSecond(Convert.ToDouble(value));
+        /// <inheritdoc cref="RotationalSpeed.FromRevolutionsPerSecond(double)" />
+        public static RotationalSpeed RevolutionsPerSecond<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => RotationalSpeed.FromRevolutionsPerSecond(Convert.ToDouble(value));
 
     }
 }

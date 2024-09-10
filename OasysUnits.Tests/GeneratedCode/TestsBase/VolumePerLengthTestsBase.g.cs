@@ -99,16 +99,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void Ctor_WithInfinityValue_ThrowsArgumentException()
+        public void Ctor_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new VolumePerLength(double.PositiveInfinity, VolumePerLengthUnit.CubicMeterPerMeter));
-            Assert.Throws<ArgumentException>(() => new VolumePerLength(double.NegativeInfinity, VolumePerLengthUnit.CubicMeterPerMeter));
+            var exception1 = Record.Exception(() => new VolumePerLength(double.PositiveInfinity, VolumePerLengthUnit.CubicMeterPerMeter));
+            var exception2 = Record.Exception(() => new VolumePerLength(double.NegativeInfinity, VolumePerLengthUnit.CubicMeterPerMeter));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void Ctor_WithNaNValue_ThrowsArgumentException()
+        public void Ctor_WithNaNValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new VolumePerLength(double.NaN, VolumePerLengthUnit.CubicMeterPerMeter));
+            var exception = Record.Exception(() => new VolumePerLength(double.NaN, VolumePerLengthUnit.CubicMeterPerMeter));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -203,16 +208,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void FromCubicMetersPerMeter_WithInfinityValue_ThrowsArgumentException()
+        public void FromCubicMetersPerMeter_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => VolumePerLength.FromCubicMetersPerMeter(double.PositiveInfinity));
-            Assert.Throws<ArgumentException>(() => VolumePerLength.FromCubicMetersPerMeter(double.NegativeInfinity));
+            var exception1 = Record.Exception(() => VolumePerLength.FromCubicMetersPerMeter(double.PositiveInfinity));
+            var exception2 = Record.Exception(() => VolumePerLength.FromCubicMetersPerMeter(double.NegativeInfinity));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void FromCubicMetersPerMeter_WithNanValue_ThrowsArgumentException()
+        public void FromCubicMetersPerMeter_WithNanValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => VolumePerLength.FromCubicMetersPerMeter(double.NaN));
+            var exception = Record.Exception(() => VolumePerLength.FromCubicMetersPerMeter(double.NaN));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -640,6 +650,8 @@ namespace OasysUnits.Tests
             var v = VolumePerLength.FromCubicMetersPerMeter(1);
             Assert.True(v.Equals(VolumePerLength.FromCubicMetersPerMeter(1), CubicMetersPerMeterTolerance, ComparisonType.Relative));
             Assert.False(v.Equals(VolumePerLength.Zero, CubicMetersPerMeterTolerance, ComparisonType.Relative));
+            Assert.True(VolumePerLength.FromCubicMetersPerMeter(100).Equals(VolumePerLength.FromCubicMetersPerMeter(120), 0.3, ComparisonType.Relative));
+            Assert.False(VolumePerLength.FromCubicMetersPerMeter(100).Equals(VolumePerLength.FromCubicMetersPerMeter(120), 0.1, ComparisonType.Relative));
         }
 
         [Fact]

@@ -19,6 +19,10 @@
 
 using System;
 
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
+
 #nullable enable
 
 namespace OasysUnits.NumberExtensions.NumberToElectricCurrentDensity
@@ -28,17 +32,29 @@ namespace OasysUnits.NumberExtensions.NumberToElectricCurrentDensity
     /// </summary>
     public static class NumberToElectricCurrentDensityExtensions
     {
-        /// <inheritdoc cref="ElectricCurrentDensity.FromAmperesPerSquareFoot(OasysUnits.QuantityValue)" />
-        public static ElectricCurrentDensity AmperesPerSquareFoot<T>(this T value) =>
-            ElectricCurrentDensity.FromAmperesPerSquareFoot(Convert.ToDouble(value));
+        /// <inheritdoc cref="ElectricCurrentDensity.FromAmperesPerSquareFoot(double)" />
+        public static ElectricCurrentDensity AmperesPerSquareFoot<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ElectricCurrentDensity.FromAmperesPerSquareFoot(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="ElectricCurrentDensity.FromAmperesPerSquareInch(OasysUnits.QuantityValue)" />
-        public static ElectricCurrentDensity AmperesPerSquareInch<T>(this T value) =>
-            ElectricCurrentDensity.FromAmperesPerSquareInch(Convert.ToDouble(value));
+        /// <inheritdoc cref="ElectricCurrentDensity.FromAmperesPerSquareInch(double)" />
+        public static ElectricCurrentDensity AmperesPerSquareInch<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ElectricCurrentDensity.FromAmperesPerSquareInch(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="ElectricCurrentDensity.FromAmperesPerSquareMeter(OasysUnits.QuantityValue)" />
-        public static ElectricCurrentDensity AmperesPerSquareMeter<T>(this T value) =>
-            ElectricCurrentDensity.FromAmperesPerSquareMeter(Convert.ToDouble(value));
+        /// <inheritdoc cref="ElectricCurrentDensity.FromAmperesPerSquareMeter(double)" />
+        public static ElectricCurrentDensity AmperesPerSquareMeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ElectricCurrentDensity.FromAmperesPerSquareMeter(Convert.ToDouble(value));
 
     }
 }

@@ -18,6 +18,7 @@
 // Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
 
 using System;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
@@ -36,8 +37,9 @@ namespace OasysUnits
     ///     
     /// </summary>
     [DataContract]
+    [DebuggerTypeProxy(typeof(QuantityDisplay))]
     public readonly partial struct AxialStiffness :
-        IArithmeticQuantity<AxialStiffness, AxialStiffnessUnit, double>,
+        IArithmeticQuantity<AxialStiffness, AxialStiffnessUnit>,
         IComparable,
         IComparable<AxialStiffness>,
         IConvertible,
@@ -47,13 +49,13 @@ namespace OasysUnits
         /// <summary>
         ///     The numeric value this quantity was constructed with.
         /// </summary>
-        [DataMember(Name = "Value", Order = 0)]
+        [DataMember(Name = "Value", Order = 1)]
         private readonly double _value;
 
         /// <summary>
         ///     The unit this quantity was constructed with.
         /// </summary>
-        [DataMember(Name = "Unit", Order = 1)]
+        [DataMember(Name = "Unit", Order = 2)]
         private readonly AxialStiffnessUnit? _unit;
 
         static AxialStiffness()
@@ -65,21 +67,21 @@ namespace OasysUnits
             Info = new QuantityInfo<AxialStiffnessUnit>("AxialStiffness",
                 new UnitInfo<AxialStiffnessUnit>[]
                 {
-                    new UnitInfo<AxialStiffnessUnit>(AxialStiffnessUnit.Decanewton, "Decanewtons", BaseUnits.Undefined),
-                    new UnitInfo<AxialStiffnessUnit>(AxialStiffnessUnit.Dyn, "Dyne", new BaseUnits(length: LengthUnit.Centimeter, mass: MassUnit.Gram, time: DurationUnit.Second)),
-                    new UnitInfo<AxialStiffnessUnit>(AxialStiffnessUnit.KilogramForce, "KilogramsForce", BaseUnits.Undefined),
-                    new UnitInfo<AxialStiffnessUnit>(AxialStiffnessUnit.Kilonewton, "Kilonewtons", BaseUnits.Undefined),
-                    new UnitInfo<AxialStiffnessUnit>(AxialStiffnessUnit.KiloPond, "KiloPonds", BaseUnits.Undefined),
-                    new UnitInfo<AxialStiffnessUnit>(AxialStiffnessUnit.KilopoundForce, "KilopoundsForce", BaseUnits.Undefined),
-                    new UnitInfo<AxialStiffnessUnit>(AxialStiffnessUnit.Meganewton, "Meganewtons", BaseUnits.Undefined),
-                    new UnitInfo<AxialStiffnessUnit>(AxialStiffnessUnit.Micronewton, "Micronewtons", BaseUnits.Undefined),
-                    new UnitInfo<AxialStiffnessUnit>(AxialStiffnessUnit.Millinewton, "Millinewtons", BaseUnits.Undefined),
-                    new UnitInfo<AxialStiffnessUnit>(AxialStiffnessUnit.Newton, "Newtons", new BaseUnits(length: LengthUnit.Meter, mass: MassUnit.Kilogram, time: DurationUnit.Second)),
-                    new UnitInfo<AxialStiffnessUnit>(AxialStiffnessUnit.OunceForce, "OunceForce", BaseUnits.Undefined),
-                    new UnitInfo<AxialStiffnessUnit>(AxialStiffnessUnit.Poundal, "Poundals", new BaseUnits(length: LengthUnit.Foot, mass: MassUnit.Pound, time: DurationUnit.Second)),
-                    new UnitInfo<AxialStiffnessUnit>(AxialStiffnessUnit.PoundForce, "PoundsForce", BaseUnits.Undefined),
-                    new UnitInfo<AxialStiffnessUnit>(AxialStiffnessUnit.ShortTonForce, "ShortTonsForce", BaseUnits.Undefined),
-                    new UnitInfo<AxialStiffnessUnit>(AxialStiffnessUnit.TonneForce, "TonnesForce", BaseUnits.Undefined),
+                    new UnitInfo<AxialStiffnessUnit>(AxialStiffnessUnit.Decanewton, "Decanewtons", BaseUnits.Undefined, "AxialStiffness"),
+                    new UnitInfo<AxialStiffnessUnit>(AxialStiffnessUnit.Dyn, "Dyne", new BaseUnits(length: LengthUnit.Centimeter, mass: MassUnit.Gram, time: DurationUnit.Second), "AxialStiffness"),
+                    new UnitInfo<AxialStiffnessUnit>(AxialStiffnessUnit.KilogramForce, "KilogramsForce", BaseUnits.Undefined, "AxialStiffness"),
+                    new UnitInfo<AxialStiffnessUnit>(AxialStiffnessUnit.Kilonewton, "Kilonewtons", BaseUnits.Undefined, "AxialStiffness"),
+                    new UnitInfo<AxialStiffnessUnit>(AxialStiffnessUnit.KiloPond, "KiloPonds", BaseUnits.Undefined, "AxialStiffness"),
+                    new UnitInfo<AxialStiffnessUnit>(AxialStiffnessUnit.KilopoundForce, "KilopoundsForce", BaseUnits.Undefined, "AxialStiffness"),
+                    new UnitInfo<AxialStiffnessUnit>(AxialStiffnessUnit.Meganewton, "Meganewtons", BaseUnits.Undefined, "AxialStiffness"),
+                    new UnitInfo<AxialStiffnessUnit>(AxialStiffnessUnit.Micronewton, "Micronewtons", BaseUnits.Undefined, "AxialStiffness"),
+                    new UnitInfo<AxialStiffnessUnit>(AxialStiffnessUnit.Millinewton, "Millinewtons", BaseUnits.Undefined, "AxialStiffness"),
+                    new UnitInfo<AxialStiffnessUnit>(AxialStiffnessUnit.Newton, "Newtons", new BaseUnits(length: LengthUnit.Meter, mass: MassUnit.Kilogram, time: DurationUnit.Second), "AxialStiffness"),
+                    new UnitInfo<AxialStiffnessUnit>(AxialStiffnessUnit.OunceForce, "OunceForce", BaseUnits.Undefined, "AxialStiffness"),
+                    new UnitInfo<AxialStiffnessUnit>(AxialStiffnessUnit.Poundal, "Poundals", new BaseUnits(length: LengthUnit.Foot, mass: MassUnit.Pound, time: DurationUnit.Second), "AxialStiffness"),
+                    new UnitInfo<AxialStiffnessUnit>(AxialStiffnessUnit.PoundForce, "PoundsForce", BaseUnits.Undefined, "AxialStiffness"),
+                    new UnitInfo<AxialStiffnessUnit>(AxialStiffnessUnit.ShortTonForce, "ShortTonsForce", BaseUnits.Undefined, "AxialStiffness"),
+                    new UnitInfo<AxialStiffnessUnit>(AxialStiffnessUnit.TonneForce, "TonnesForce", BaseUnits.Undefined, "AxialStiffness"),
                 },
                 BaseUnit, Zero, BaseDimensions);
 
@@ -92,10 +94,9 @@ namespace OasysUnits
         /// </summary>
         /// <param name="value">The numeric value to construct this quantity with.</param>
         /// <param name="unit">The unit representation to construct this quantity with.</param>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
         public AxialStiffness(double value, AxialStiffnessUnit unit)
         {
-            _value = Guard.EnsureValidNumber(value, nameof(value));
+            _value = value;
             _unit = unit;
         }
 
@@ -114,7 +115,7 @@ namespace OasysUnits
             var unitInfos = Info.GetUnitInfosFor(unitSystem.BaseUnits);
             var firstUnitInfo = unitInfos.FirstOrDefault();
 
-            _value = Guard.EnsureValidNumber(value, nameof(value));
+            _value = value;
             _unit = firstUnitInfo?.Value ?? throw new ArgumentException("No units were found for the given UnitSystem.", nameof(unitSystem));
         }
 
@@ -152,7 +153,7 @@ namespace OasysUnits
         public static AxialStiffness AdditiveIdentity => Zero;
 
         #endregion
- 
+
         #region Properties
 
         /// <summary>
@@ -161,7 +162,7 @@ namespace OasysUnits
         public double Value => _value;
 
         /// <inheritdoc />
-        QuantityValue IQuantity.Value => _value;
+        double IQuantity.Value => _value;
 
         Enum IQuantity.Unit => Unit;
 
@@ -304,25 +305,6 @@ namespace OasysUnits
             unitConverter.SetConversionFunction<AxialStiffness>(AxialStiffnessUnit.Newton, AxialStiffnessUnit.TonneForce, quantity => quantity.ToUnit(AxialStiffnessUnit.TonneForce));
         }
 
-        internal static void MapGeneratedLocalizations(UnitAbbreviationsCache unitAbbreviationsCache)
-        {
-            unitAbbreviationsCache.PerformAbbreviationMapping(AxialStiffnessUnit.Decanewton, new CultureInfo("en-US"), false, true, new string[]{"daN"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(AxialStiffnessUnit.Dyn, new CultureInfo("en-US"), false, true, new string[]{"dyn"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(AxialStiffnessUnit.KilogramForce, new CultureInfo("en-US"), false, true, new string[]{"kgf"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(AxialStiffnessUnit.Kilonewton, new CultureInfo("en-US"), false, true, new string[]{"kN"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(AxialStiffnessUnit.KiloPond, new CultureInfo("en-US"), false, true, new string[]{"kp"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(AxialStiffnessUnit.KilopoundForce, new CultureInfo("en-US"), false, true, new string[]{"kipf", "kip", "k"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(AxialStiffnessUnit.Meganewton, new CultureInfo("en-US"), false, true, new string[]{"MN"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(AxialStiffnessUnit.Micronewton, new CultureInfo("en-US"), false, true, new string[]{"µN"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(AxialStiffnessUnit.Millinewton, new CultureInfo("en-US"), false, true, new string[]{"mN"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(AxialStiffnessUnit.Newton, new CultureInfo("en-US"), false, true, new string[]{"N"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(AxialStiffnessUnit.OunceForce, new CultureInfo("en-US"), false, true, new string[]{"ozf"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(AxialStiffnessUnit.Poundal, new CultureInfo("en-US"), false, true, new string[]{"pdl"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(AxialStiffnessUnit.PoundForce, new CultureInfo("en-US"), false, true, new string[]{"lbf"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(AxialStiffnessUnit.ShortTonForce, new CultureInfo("en-US"), false, true, new string[]{"tf (short)", "t (US)f", "short tons-force"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(AxialStiffnessUnit.TonneForce, new CultureInfo("en-US"), false, true, new string[]{"tf", "Ton"});
-        }
-
         /// <summary>
         ///     Get unit abbreviation string.
         /// </summary>
@@ -351,150 +333,120 @@ namespace OasysUnits
         /// <summary>
         ///     Creates a <see cref="AxialStiffness"/> from <see cref="AxialStiffnessUnit.Decanewton"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static AxialStiffness FromDecanewtons(QuantityValue decanewtons)
+        public static AxialStiffness FromDecanewtons(double value)
         {
-            double value = (double) decanewtons;
             return new AxialStiffness(value, AxialStiffnessUnit.Decanewton);
         }
 
         /// <summary>
         ///     Creates a <see cref="AxialStiffness"/> from <see cref="AxialStiffnessUnit.Dyn"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static AxialStiffness FromDyne(QuantityValue dyne)
+        public static AxialStiffness FromDyne(double value)
         {
-            double value = (double) dyne;
             return new AxialStiffness(value, AxialStiffnessUnit.Dyn);
         }
 
         /// <summary>
         ///     Creates a <see cref="AxialStiffness"/> from <see cref="AxialStiffnessUnit.KilogramForce"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static AxialStiffness FromKilogramsForce(QuantityValue kilogramsforce)
+        public static AxialStiffness FromKilogramsForce(double value)
         {
-            double value = (double) kilogramsforce;
             return new AxialStiffness(value, AxialStiffnessUnit.KilogramForce);
         }
 
         /// <summary>
         ///     Creates a <see cref="AxialStiffness"/> from <see cref="AxialStiffnessUnit.Kilonewton"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static AxialStiffness FromKilonewtons(QuantityValue kilonewtons)
+        public static AxialStiffness FromKilonewtons(double value)
         {
-            double value = (double) kilonewtons;
             return new AxialStiffness(value, AxialStiffnessUnit.Kilonewton);
         }
 
         /// <summary>
         ///     Creates a <see cref="AxialStiffness"/> from <see cref="AxialStiffnessUnit.KiloPond"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static AxialStiffness FromKiloPonds(QuantityValue kiloponds)
+        public static AxialStiffness FromKiloPonds(double value)
         {
-            double value = (double) kiloponds;
             return new AxialStiffness(value, AxialStiffnessUnit.KiloPond);
         }
 
         /// <summary>
         ///     Creates a <see cref="AxialStiffness"/> from <see cref="AxialStiffnessUnit.KilopoundForce"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static AxialStiffness FromKilopoundsForce(QuantityValue kilopoundsforce)
+        public static AxialStiffness FromKilopoundsForce(double value)
         {
-            double value = (double) kilopoundsforce;
             return new AxialStiffness(value, AxialStiffnessUnit.KilopoundForce);
         }
 
         /// <summary>
         ///     Creates a <see cref="AxialStiffness"/> from <see cref="AxialStiffnessUnit.Meganewton"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static AxialStiffness FromMeganewtons(QuantityValue meganewtons)
+        public static AxialStiffness FromMeganewtons(double value)
         {
-            double value = (double) meganewtons;
             return new AxialStiffness(value, AxialStiffnessUnit.Meganewton);
         }
 
         /// <summary>
         ///     Creates a <see cref="AxialStiffness"/> from <see cref="AxialStiffnessUnit.Micronewton"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static AxialStiffness FromMicronewtons(QuantityValue micronewtons)
+        public static AxialStiffness FromMicronewtons(double value)
         {
-            double value = (double) micronewtons;
             return new AxialStiffness(value, AxialStiffnessUnit.Micronewton);
         }
 
         /// <summary>
         ///     Creates a <see cref="AxialStiffness"/> from <see cref="AxialStiffnessUnit.Millinewton"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static AxialStiffness FromMillinewtons(QuantityValue millinewtons)
+        public static AxialStiffness FromMillinewtons(double value)
         {
-            double value = (double) millinewtons;
             return new AxialStiffness(value, AxialStiffnessUnit.Millinewton);
         }
 
         /// <summary>
         ///     Creates a <see cref="AxialStiffness"/> from <see cref="AxialStiffnessUnit.Newton"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static AxialStiffness FromNewtons(QuantityValue newtons)
+        public static AxialStiffness FromNewtons(double value)
         {
-            double value = (double) newtons;
             return new AxialStiffness(value, AxialStiffnessUnit.Newton);
         }
 
         /// <summary>
         ///     Creates a <see cref="AxialStiffness"/> from <see cref="AxialStiffnessUnit.OunceForce"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static AxialStiffness FromOunceForce(QuantityValue ounceforce)
+        public static AxialStiffness FromOunceForce(double value)
         {
-            double value = (double) ounceforce;
             return new AxialStiffness(value, AxialStiffnessUnit.OunceForce);
         }
 
         /// <summary>
         ///     Creates a <see cref="AxialStiffness"/> from <see cref="AxialStiffnessUnit.Poundal"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static AxialStiffness FromPoundals(QuantityValue poundals)
+        public static AxialStiffness FromPoundals(double value)
         {
-            double value = (double) poundals;
             return new AxialStiffness(value, AxialStiffnessUnit.Poundal);
         }
 
         /// <summary>
         ///     Creates a <see cref="AxialStiffness"/> from <see cref="AxialStiffnessUnit.PoundForce"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static AxialStiffness FromPoundsForce(QuantityValue poundsforce)
+        public static AxialStiffness FromPoundsForce(double value)
         {
-            double value = (double) poundsforce;
             return new AxialStiffness(value, AxialStiffnessUnit.PoundForce);
         }
 
         /// <summary>
         ///     Creates a <see cref="AxialStiffness"/> from <see cref="AxialStiffnessUnit.ShortTonForce"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static AxialStiffness FromShortTonsForce(QuantityValue shorttonsforce)
+        public static AxialStiffness FromShortTonsForce(double value)
         {
-            double value = (double) shorttonsforce;
             return new AxialStiffness(value, AxialStiffnessUnit.ShortTonForce);
         }
 
         /// <summary>
         ///     Creates a <see cref="AxialStiffness"/> from <see cref="AxialStiffnessUnit.TonneForce"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static AxialStiffness FromTonnesForce(QuantityValue tonnesforce)
+        public static AxialStiffness FromTonnesForce(double value)
         {
-            double value = (double) tonnesforce;
             return new AxialStiffness(value, AxialStiffnessUnit.TonneForce);
         }
 
@@ -504,9 +456,9 @@ namespace OasysUnits
         /// <param name="value">Value to convert from.</param>
         /// <param name="fromUnit">Unit to convert from.</param>
         /// <returns>AxialStiffness unit value.</returns>
-        public static AxialStiffness From(QuantityValue value, AxialStiffnessUnit fromUnit)
+        public static AxialStiffness From(double value, AxialStiffnessUnit fromUnit)
         {
-            return new AxialStiffness((double)value, fromUnit);
+            return new AxialStiffness(value, fromUnit);
         }
 
         #endregion
@@ -518,7 +470,7 @@ namespace OasysUnits
         /// </summary>
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <example>
-        ///     Length.Parse("5.5 m", new CultureInfo("en-US"));
+        ///     Length.Parse("5.5 m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <exception cref="ArgumentNullException">The value of 'str' cannot be null. </exception>
         /// <exception cref="ArgumentException">
@@ -545,7 +497,7 @@ namespace OasysUnits
         /// </summary>
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <example>
-        ///     Length.Parse("5.5 m", new CultureInfo("en-US"));
+        ///     Length.Parse("5.5 m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <exception cref="ArgumentNullException">The value of 'str' cannot be null. </exception>
         /// <exception cref="ArgumentException">
@@ -577,7 +529,7 @@ namespace OasysUnits
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <param name="result">Resulting unit quantity if successful.</param>
         /// <example>
-        ///     Length.Parse("5.5 m", new CultureInfo("en-US"));
+        ///     Length.Parse("5.5 m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         public static bool TryParse(string? str, out AxialStiffness result)
         {
@@ -591,7 +543,7 @@ namespace OasysUnits
         /// <param name="result">Resulting unit quantity if successful.</param>
         /// <returns>True if successful, otherwise false.</returns>
         /// <example>
-        ///     Length.Parse("5.5 m", new CultureInfo("en-US"));
+        ///     Length.Parse("5.5 m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <param name="provider">Format to use when parsing number and unit. Defaults to <see cref="CultureInfo.CurrentCulture" /> if null.</param>
         public static bool TryParse(string? str, IFormatProvider? provider, out AxialStiffness result)
@@ -608,7 +560,7 @@ namespace OasysUnits
         /// </summary>
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <example>
-        ///     Length.ParseUnit("m", new CultureInfo("en-US"));
+        ///     Length.ParseUnit("m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <exception cref="ArgumentNullException">The value of 'str' cannot be null. </exception>
         /// <exception cref="OasysUnitsException">Error parsing string.</exception>
@@ -623,7 +575,7 @@ namespace OasysUnits
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <param name="provider">Format to use when parsing number and unit. Defaults to <see cref="CultureInfo.CurrentCulture" /> if null.</param>
         /// <example>
-        ///     Length.ParseUnit("m", new CultureInfo("en-US"));
+        ///     Length.ParseUnit("m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <exception cref="ArgumentNullException">The value of 'str' cannot be null. </exception>
         /// <exception cref="OasysUnitsException">Error parsing string.</exception>
@@ -645,7 +597,7 @@ namespace OasysUnits
         /// <param name="unit">The parsed unit if successful.</param>
         /// <returns>True if successful, otherwise false.</returns>
         /// <example>
-        ///     Length.TryParseUnit("m", new CultureInfo("en-US"));
+        ///     Length.TryParseUnit("m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <param name="provider">Format to use when parsing number and unit. Defaults to <see cref="CultureInfo.CurrentCulture" /> if null.</param>
         public static bool TryParseUnit(string str, IFormatProvider? provider, out AxialStiffnessUnit unit)
@@ -732,16 +684,14 @@ namespace OasysUnits
         #pragma warning disable CS0809
 
         /// <summary>Indicates strict equality of two <see cref="AxialStiffness"/> quantities, where both <see cref="Value" /> and <see cref="Unit" /> are exactly equal.</summary>
-        /// <remarks>Consider using <see cref="Equals(AxialStiffness, double, ComparisonType)"/> to check equality across different units and to specify a floating-point number error tolerance.</remarks>
-        [Obsolete("For null checks, use `x is null` syntax to not invoke overloads. For quantity comparisons, use Equals(AxialStiffness, double, ComparisonType) to check equality across different units and to specify a floating-point number error tolerance.")]
+        [Obsolete("For null checks, use `x is null` syntax to not invoke overloads. For equality checks, use Equals(AxialStiffness other, AxialStiffness tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public static bool operator ==(AxialStiffness left, AxialStiffness right)
         {
             return left.Equals(right);
         }
 
         /// <summary>Indicates strict inequality of two <see cref="AxialStiffness"/> quantities, where both <see cref="Value" /> and <see cref="Unit" /> are exactly equal.</summary>
-        /// <remarks>Consider using <see cref="Equals(AxialStiffness, double, ComparisonType)"/> to check equality across different units and to specify a floating-point number error tolerance.</remarks>
-        [Obsolete("For null checks, use `x is not null` syntax to not invoke overloads. For quantity comparisons, use Equals(AxialStiffness, double, ComparisonType) to check equality across different units and to specify a floating-point number error tolerance.")]
+        [Obsolete("For null checks, use `x is null` syntax to not invoke overloads. For equality checks, use Equals(AxialStiffness other, AxialStiffness tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public static bool operator !=(AxialStiffness left, AxialStiffness right)
         {
             return !(left == right);
@@ -749,8 +699,7 @@ namespace OasysUnits
 
         /// <inheritdoc />
         /// <summary>Indicates strict equality of two <see cref="AxialStiffness"/> quantities, where both <see cref="Value" /> and <see cref="Unit" /> are exactly equal.</summary>
-        /// <remarks>Consider using <see cref="Equals(AxialStiffness, double, ComparisonType)"/> to check equality across different units and to specify a floating-point number error tolerance.</remarks>
-        [Obsolete("Consider using Equals(AxialStiffness, double, ComparisonType) to check equality across different units and to specify a floating-point number error tolerance.")]
+        [Obsolete("Use Equals(AxialStiffness other, AxialStiffness tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public override bool Equals(object? obj)
         {
             if (obj is null || !(obj is AxialStiffness otherQuantity))
@@ -761,8 +710,7 @@ namespace OasysUnits
 
         /// <inheritdoc />
         /// <summary>Indicates strict equality of two <see cref="AxialStiffness"/> quantities, where both <see cref="Value" /> and <see cref="Unit" /> are exactly equal.</summary>
-        /// <remarks>Consider using <see cref="Equals(AxialStiffness, double, ComparisonType)"/> to check equality across different units and to specify a floating-point number error tolerance.</remarks>
-        [Obsolete("Consider using Equals(AxialStiffness, double, ComparisonType) to check equality across different units and to specify a floating-point number error tolerance.")]
+        [Obsolete("Use Equals(AxialStiffness other, AxialStiffness tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public bool Equals(AxialStiffness other)
         {
             return new { Value, Unit }.Equals(new { other.Value, other.Unit });
@@ -846,15 +794,37 @@ namespace OasysUnits
         /// <param name="tolerance">The absolute or relative tolerance value. Must be greater than or equal to 0.</param>
         /// <param name="comparisonType">The comparison type: either relative or absolute.</param>
         /// <returns>True if the absolute difference between the two values is not greater than the specified relative or absolute tolerance.</returns>
+        [Obsolete("Use Equals(AxialStiffness other, AxialStiffness tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public bool Equals(AxialStiffness other, double tolerance, ComparisonType comparisonType)
         {
             if (tolerance < 0)
-                throw new ArgumentOutOfRangeException("tolerance", "Tolerance must be greater than or equal to 0.");
+                throw new ArgumentOutOfRangeException(nameof(tolerance), "Tolerance must be greater than or equal to 0.");
 
-            double thisValue = this.Value;
-            double otherValueInThisUnits = other.As(this.Unit);
+            return OasysUnits.Comparison.Equals(
+                referenceValue: this.Value,
+                otherValue: other.As(this.Unit),
+                tolerance: tolerance,
+                comparisonType: comparisonType);
+        }
 
-            return OasysUnits.Comparison.Equals(thisValue, otherValueInThisUnits, tolerance, comparisonType);
+        /// <inheritdoc />
+        public bool Equals(IQuantity? other, IQuantity tolerance)
+        {
+            return other is AxialStiffness otherTyped
+                   && (tolerance is AxialStiffness toleranceTyped
+                       ? true
+                       : throw new ArgumentException($"Tolerance quantity ({tolerance.QuantityInfo.Name}) did not match the other quantities of type 'AxialStiffness'.", nameof(tolerance)))
+                   && Equals(otherTyped, toleranceTyped);
+        }
+
+        /// <inheritdoc />
+        public bool Equals(AxialStiffness other, AxialStiffness tolerance)
+        {
+            return OasysUnits.Comparison.Equals(
+                referenceValue: this.Value,
+                otherValue: other.As(this.Unit),
+                tolerance: tolerance.As(this.Unit),
+                comparisonType: ComparisonType.Absolute);
         }
 
         /// <summary>
@@ -899,15 +869,6 @@ namespace OasysUnits
 
         /// <inheritdoc />
         double IQuantity.As(Enum unit)
-        {
-            if (!(unit is AxialStiffnessUnit typedUnit))
-                throw new ArgumentException($"The given unit is of type {unit.GetType()}. Only {typeof(AxialStiffnessUnit)} is supported.", nameof(unit));
-
-            return (double)As(typedUnit);
-        }
-
-        /// <inheritdoc />
-        double IValueQuantity<double>.As(Enum unit)
         {
             if (!(unit is AxialStiffnessUnit typedUnit))
                 throw new ArgumentException($"The given unit is of type {unit.GetType()}. Only {typeof(AxialStiffnessUnit)} is supported.", nameof(unit));
@@ -1049,18 +1010,6 @@ namespace OasysUnits
 
         /// <inheritdoc />
         IQuantity<AxialStiffnessUnit> IQuantity<AxialStiffnessUnit>.ToUnit(UnitSystem unitSystem) => ToUnit(unitSystem);
-
-        /// <inheritdoc />
-        IValueQuantity<double> IValueQuantity<double>.ToUnit(Enum unit)
-        {
-            if (unit is not AxialStiffnessUnit typedUnit)
-                throw new ArgumentException($"The given unit is of type {unit.GetType()}. Only {typeof(AxialStiffnessUnit)} is supported.", nameof(unit));
-
-            return ToUnit(typedUnit);
-        }
-
-        /// <inheritdoc />
-        IValueQuantity<double> IValueQuantity<double>.ToUnit(UnitSystem unitSystem) => ToUnit(unitSystem);
 
         #endregion
 

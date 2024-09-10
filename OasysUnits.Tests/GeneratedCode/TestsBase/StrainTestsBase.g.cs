@@ -79,16 +79,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void Ctor_WithInfinityValue_ThrowsArgumentException()
+        public void Ctor_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new Strain(double.PositiveInfinity, StrainUnit.Ratio));
-            Assert.Throws<ArgumentException>(() => new Strain(double.NegativeInfinity, StrainUnit.Ratio));
+            var exception1 = Record.Exception(() => new Strain(double.PositiveInfinity, StrainUnit.Ratio));
+            var exception2 = Record.Exception(() => new Strain(double.NegativeInfinity, StrainUnit.Ratio));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void Ctor_WithNaNValue_ThrowsArgumentException()
+        public void Ctor_WithNaNValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new Strain(double.NaN, StrainUnit.Ratio));
+            var exception = Record.Exception(() => new Strain(double.NaN, StrainUnit.Ratio));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -158,16 +163,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void FromRatio_WithInfinityValue_ThrowsArgumentException()
+        public void FromRatio_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => Strain.FromRatio(double.PositiveInfinity));
-            Assert.Throws<ArgumentException>(() => Strain.FromRatio(double.NegativeInfinity));
+            var exception1 = Record.Exception(() => Strain.FromRatio(double.PositiveInfinity));
+            var exception2 = Record.Exception(() => Strain.FromRatio(double.NegativeInfinity));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void FromRatio_WithNanValue_ThrowsArgumentException()
+        public void FromRatio_WithNanValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => Strain.FromRatio(double.NaN));
+            var exception = Record.Exception(() => Strain.FromRatio(double.NaN));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -465,6 +475,8 @@ namespace OasysUnits.Tests
             var v = Strain.FromRatio(1);
             Assert.True(v.Equals(Strain.FromRatio(1), RatioTolerance, ComparisonType.Relative));
             Assert.False(v.Equals(Strain.Zero, RatioTolerance, ComparisonType.Relative));
+            Assert.True(Strain.FromRatio(100).Equals(Strain.FromRatio(120), 0.3, ComparisonType.Relative));
+            Assert.False(Strain.FromRatio(100).Equals(Strain.FromRatio(120), 0.1, ComparisonType.Relative));
         }
 
         [Fact]

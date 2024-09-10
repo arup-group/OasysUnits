@@ -163,16 +163,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void Ctor_WithInfinityValue_ThrowsArgumentException()
+        public void Ctor_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new Torque(double.PositiveInfinity, TorqueUnit.NewtonMeter));
-            Assert.Throws<ArgumentException>(() => new Torque(double.NegativeInfinity, TorqueUnit.NewtonMeter));
+            var exception1 = Record.Exception(() => new Torque(double.PositiveInfinity, TorqueUnit.NewtonMeter));
+            var exception2 = Record.Exception(() => new Torque(double.NegativeInfinity, TorqueUnit.NewtonMeter));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void Ctor_WithNaNValue_ThrowsArgumentException()
+        public void Ctor_WithNaNValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new Torque(double.NaN, TorqueUnit.NewtonMeter));
+            var exception = Record.Exception(() => new Torque(double.NaN, TorqueUnit.NewtonMeter));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -347,16 +352,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void FromNewtonMeters_WithInfinityValue_ThrowsArgumentException()
+        public void FromNewtonMeters_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => Torque.FromNewtonMeters(double.PositiveInfinity));
-            Assert.Throws<ArgumentException>(() => Torque.FromNewtonMeters(double.NegativeInfinity));
+            var exception1 = Record.Exception(() => Torque.FromNewtonMeters(double.PositiveInfinity));
+            var exception2 = Record.Exception(() => Torque.FromNewtonMeters(double.NegativeInfinity));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void FromNewtonMeters_WithNanValue_ThrowsArgumentException()
+        public void FromNewtonMeters_WithNanValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => Torque.FromNewtonMeters(double.NaN));
+            var exception = Record.Exception(() => Torque.FromNewtonMeters(double.NaN));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -1272,6 +1282,8 @@ namespace OasysUnits.Tests
             var v = Torque.FromNewtonMeters(1);
             Assert.True(v.Equals(Torque.FromNewtonMeters(1), NewtonMetersTolerance, ComparisonType.Relative));
             Assert.False(v.Equals(Torque.Zero, NewtonMetersTolerance, ComparisonType.Relative));
+            Assert.True(Torque.FromNewtonMeters(100).Equals(Torque.FromNewtonMeters(120), 0.3, ComparisonType.Relative));
+            Assert.False(Torque.FromNewtonMeters(100).Equals(Torque.FromNewtonMeters(120), 0.1, ComparisonType.Relative));
         }
 
         [Fact]

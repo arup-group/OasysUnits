@@ -19,6 +19,10 @@
 
 using System;
 
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
+
 #nullable enable
 
 namespace OasysUnits.NumberExtensions.NumberToElectricField
@@ -28,9 +32,13 @@ namespace OasysUnits.NumberExtensions.NumberToElectricField
     /// </summary>
     public static class NumberToElectricFieldExtensions
     {
-        /// <inheritdoc cref="ElectricField.FromVoltsPerMeter(OasysUnits.QuantityValue)" />
-        public static ElectricField VoltsPerMeter<T>(this T value) =>
-            ElectricField.FromVoltsPerMeter(Convert.ToDouble(value));
+        /// <inheritdoc cref="ElectricField.FromVoltsPerMeter(double)" />
+        public static ElectricField VoltsPerMeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ElectricField.FromVoltsPerMeter(Convert.ToDouble(value));
 
     }
 }

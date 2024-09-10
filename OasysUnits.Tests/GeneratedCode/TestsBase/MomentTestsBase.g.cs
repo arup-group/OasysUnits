@@ -151,16 +151,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void Ctor_WithInfinityValue_ThrowsArgumentException()
+        public void Ctor_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new Moment(double.PositiveInfinity, MomentUnit.NewtonMeter));
-            Assert.Throws<ArgumentException>(() => new Moment(double.NegativeInfinity, MomentUnit.NewtonMeter));
+            var exception1 = Record.Exception(() => new Moment(double.PositiveInfinity, MomentUnit.NewtonMeter));
+            var exception2 = Record.Exception(() => new Moment(double.NegativeInfinity, MomentUnit.NewtonMeter));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void Ctor_WithNaNValue_ThrowsArgumentException()
+        public void Ctor_WithNaNValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new Moment(double.NaN, MomentUnit.NewtonMeter));
+            var exception = Record.Exception(() => new Moment(double.NaN, MomentUnit.NewtonMeter));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -320,16 +325,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void FromNewtonMeters_WithInfinityValue_ThrowsArgumentException()
+        public void FromNewtonMeters_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => Moment.FromNewtonMeters(double.PositiveInfinity));
-            Assert.Throws<ArgumentException>(() => Moment.FromNewtonMeters(double.NegativeInfinity));
+            var exception1 = Record.Exception(() => Moment.FromNewtonMeters(double.PositiveInfinity));
+            var exception2 = Record.Exception(() => Moment.FromNewtonMeters(double.NegativeInfinity));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void FromNewtonMeters_WithNanValue_ThrowsArgumentException()
+        public void FromNewtonMeters_WithNanValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => Moment.FromNewtonMeters(double.NaN));
+            var exception = Record.Exception(() => Moment.FromNewtonMeters(double.NaN));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -1095,6 +1105,8 @@ namespace OasysUnits.Tests
             var v = Moment.FromNewtonMeters(1);
             Assert.True(v.Equals(Moment.FromNewtonMeters(1), NewtonMetersTolerance, ComparisonType.Relative));
             Assert.False(v.Equals(Moment.Zero, NewtonMetersTolerance, ComparisonType.Relative));
+            Assert.True(Moment.FromNewtonMeters(100).Equals(Moment.FromNewtonMeters(120), 0.3, ComparisonType.Relative));
+            Assert.False(Moment.FromNewtonMeters(100).Equals(Moment.FromNewtonMeters(120), 0.1, ComparisonType.Relative));
         }
 
         [Fact]

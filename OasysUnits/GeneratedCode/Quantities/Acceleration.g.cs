@@ -18,9 +18,13 @@
 // Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
 
 using System;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
 using System.Runtime.Serialization;
 using OasysUnits.InternalHelpers;
 using OasysUnits.Units;
@@ -36,8 +40,16 @@ namespace OasysUnits
     ///     Acceleration, in physics, is the rate at which the velocity of an object changes over time. An object's acceleration is the net result of any and all forces acting on the object, as described by Newton's Second Law. The SI unit for acceleration is the Meter per second squared (m/s²). Accelerations are vector quantities (they have magnitude and direction) and add according to the parallelogram law. As a vector, the calculated net force is equal to the product of the object's mass (a scalar quantity) and the acceleration.
     /// </summary>
     [DataContract]
+    [DebuggerTypeProxy(typeof(QuantityDisplay))]
     public readonly partial struct Acceleration :
-        IArithmeticQuantity<Acceleration, AccelerationUnit, double>,
+        IArithmeticQuantity<Acceleration, AccelerationUnit>,
+#if NET7_0_OR_GREATER
+        IDivisionOperators<Acceleration, Jerk, Duration>,
+        IMultiplyOperators<Acceleration, Mass, Force>,
+        IDivisionOperators<Acceleration, Duration, Jerk>,
+        IMultiplyOperators<Acceleration, Density, SpecificWeight>,
+        IMultiplyOperators<Acceleration, Duration, Speed>,
+#endif
         IComparable,
         IComparable<Acceleration>,
         IConvertible,
@@ -47,13 +59,13 @@ namespace OasysUnits
         /// <summary>
         ///     The numeric value this quantity was constructed with.
         /// </summary>
-        [DataMember(Name = "Value", Order = 0)]
+        [DataMember(Name = "Value", Order = 1)]
         private readonly double _value;
 
         /// <summary>
         ///     The unit this quantity was constructed with.
         /// </summary>
-        [DataMember(Name = "Unit", Order = 1)]
+        [DataMember(Name = "Unit", Order = 2)]
         private readonly AccelerationUnit? _unit;
 
         static Acceleration()
@@ -65,20 +77,20 @@ namespace OasysUnits
             Info = new QuantityInfo<AccelerationUnit>("Acceleration",
                 new UnitInfo<AccelerationUnit>[]
                 {
-                    new UnitInfo<AccelerationUnit>(AccelerationUnit.CentimeterPerSecondSquared, "CentimetersPerSecondSquared", BaseUnits.Undefined),
-                    new UnitInfo<AccelerationUnit>(AccelerationUnit.DecimeterPerSecondSquared, "DecimetersPerSecondSquared", BaseUnits.Undefined),
-                    new UnitInfo<AccelerationUnit>(AccelerationUnit.FootPerSecondSquared, "FeetPerSecondSquared", new BaseUnits(length: LengthUnit.Foot, time: DurationUnit.Second)),
-                    new UnitInfo<AccelerationUnit>(AccelerationUnit.InchPerSecondSquared, "InchesPerSecondSquared", new BaseUnits(length: LengthUnit.Inch, time: DurationUnit.Second)),
-                    new UnitInfo<AccelerationUnit>(AccelerationUnit.KilometerPerSecondSquared, "KilometersPerSecondSquared", BaseUnits.Undefined),
-                    new UnitInfo<AccelerationUnit>(AccelerationUnit.KnotPerHour, "KnotsPerHour", new BaseUnits(length: LengthUnit.NauticalMile, time: DurationUnit.Hour)),
-                    new UnitInfo<AccelerationUnit>(AccelerationUnit.KnotPerMinute, "KnotsPerMinute", new BaseUnits(length: LengthUnit.NauticalMile, time: DurationUnit.Minute)),
-                    new UnitInfo<AccelerationUnit>(AccelerationUnit.KnotPerSecond, "KnotsPerSecond", new BaseUnits(length: LengthUnit.NauticalMile, time: DurationUnit.Second)),
-                    new UnitInfo<AccelerationUnit>(AccelerationUnit.MeterPerSecondSquared, "MetersPerSecondSquared", new BaseUnits(length: LengthUnit.Meter, time: DurationUnit.Second)),
-                    new UnitInfo<AccelerationUnit>(AccelerationUnit.MicrometerPerSecondSquared, "MicrometersPerSecondSquared", BaseUnits.Undefined),
-                    new UnitInfo<AccelerationUnit>(AccelerationUnit.MillimeterPerSecondSquared, "MillimetersPerSecondSquared", BaseUnits.Undefined),
-                    new UnitInfo<AccelerationUnit>(AccelerationUnit.MillistandardGravity, "MillistandardGravity", BaseUnits.Undefined),
-                    new UnitInfo<AccelerationUnit>(AccelerationUnit.NanometerPerSecondSquared, "NanometersPerSecondSquared", BaseUnits.Undefined),
-                    new UnitInfo<AccelerationUnit>(AccelerationUnit.StandardGravity, "StandardGravity", new BaseUnits(length: LengthUnit.Meter, time: DurationUnit.Second)),
+                    new UnitInfo<AccelerationUnit>(AccelerationUnit.CentimeterPerSecondSquared, "CentimetersPerSecondSquared", BaseUnits.Undefined, "Acceleration"),
+                    new UnitInfo<AccelerationUnit>(AccelerationUnit.DecimeterPerSecondSquared, "DecimetersPerSecondSquared", BaseUnits.Undefined, "Acceleration"),
+                    new UnitInfo<AccelerationUnit>(AccelerationUnit.FootPerSecondSquared, "FeetPerSecondSquared", new BaseUnits(length: LengthUnit.Foot, time: DurationUnit.Second), "Acceleration"),
+                    new UnitInfo<AccelerationUnit>(AccelerationUnit.InchPerSecondSquared, "InchesPerSecondSquared", new BaseUnits(length: LengthUnit.Inch, time: DurationUnit.Second), "Acceleration"),
+                    new UnitInfo<AccelerationUnit>(AccelerationUnit.KilometerPerSecondSquared, "KilometersPerSecondSquared", BaseUnits.Undefined, "Acceleration"),
+                    new UnitInfo<AccelerationUnit>(AccelerationUnit.KnotPerHour, "KnotsPerHour", new BaseUnits(length: LengthUnit.NauticalMile, time: DurationUnit.Hour), "Acceleration"),
+                    new UnitInfo<AccelerationUnit>(AccelerationUnit.KnotPerMinute, "KnotsPerMinute", new BaseUnits(length: LengthUnit.NauticalMile, time: DurationUnit.Minute), "Acceleration"),
+                    new UnitInfo<AccelerationUnit>(AccelerationUnit.KnotPerSecond, "KnotsPerSecond", new BaseUnits(length: LengthUnit.NauticalMile, time: DurationUnit.Second), "Acceleration"),
+                    new UnitInfo<AccelerationUnit>(AccelerationUnit.MeterPerSecondSquared, "MetersPerSecondSquared", new BaseUnits(length: LengthUnit.Meter, time: DurationUnit.Second), "Acceleration"),
+                    new UnitInfo<AccelerationUnit>(AccelerationUnit.MicrometerPerSecondSquared, "MicrometersPerSecondSquared", BaseUnits.Undefined, "Acceleration"),
+                    new UnitInfo<AccelerationUnit>(AccelerationUnit.MillimeterPerSecondSquared, "MillimetersPerSecondSquared", BaseUnits.Undefined, "Acceleration"),
+                    new UnitInfo<AccelerationUnit>(AccelerationUnit.MillistandardGravity, "MillistandardGravity", BaseUnits.Undefined, "Acceleration"),
+                    new UnitInfo<AccelerationUnit>(AccelerationUnit.NanometerPerSecondSquared, "NanometersPerSecondSquared", BaseUnits.Undefined, "Acceleration"),
+                    new UnitInfo<AccelerationUnit>(AccelerationUnit.StandardGravity, "StandardGravity", new BaseUnits(length: LengthUnit.Meter, time: DurationUnit.Second), "Acceleration"),
                 },
                 BaseUnit, Zero, BaseDimensions);
 
@@ -91,10 +103,9 @@ namespace OasysUnits
         /// </summary>
         /// <param name="value">The numeric value to construct this quantity with.</param>
         /// <param name="unit">The unit representation to construct this quantity with.</param>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
         public Acceleration(double value, AccelerationUnit unit)
         {
-            _value = Guard.EnsureValidNumber(value, nameof(value));
+            _value = value;
             _unit = unit;
         }
 
@@ -113,7 +124,7 @@ namespace OasysUnits
             var unitInfos = Info.GetUnitInfosFor(unitSystem.BaseUnits);
             var firstUnitInfo = unitInfos.FirstOrDefault();
 
-            _value = Guard.EnsureValidNumber(value, nameof(value));
+            _value = value;
             _unit = firstUnitInfo?.Value ?? throw new ArgumentException("No units were found for the given UnitSystem.", nameof(unitSystem));
         }
 
@@ -151,7 +162,7 @@ namespace OasysUnits
         public static Acceleration AdditiveIdentity => Zero;
 
         #endregion
- 
+
         #region Properties
 
         /// <summary>
@@ -160,7 +171,7 @@ namespace OasysUnits
         public double Value => _value;
 
         /// <inheritdoc />
-        QuantityValue IQuantity.Value => _value;
+        double IQuantity.Value => _value;
 
         Enum IQuantity.Unit => Unit;
 
@@ -296,38 +307,6 @@ namespace OasysUnits
             unitConverter.SetConversionFunction<Acceleration>(AccelerationUnit.MeterPerSecondSquared, AccelerationUnit.StandardGravity, quantity => quantity.ToUnit(AccelerationUnit.StandardGravity));
         }
 
-        internal static void MapGeneratedLocalizations(UnitAbbreviationsCache unitAbbreviationsCache)
-        {
-            unitAbbreviationsCache.PerformAbbreviationMapping(AccelerationUnit.CentimeterPerSecondSquared, new CultureInfo("en-US"), false, true, new string[]{"cm/s²"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(AccelerationUnit.CentimeterPerSecondSquared, new CultureInfo("ru-RU"), false, true, new string[]{"см/с²"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(AccelerationUnit.DecimeterPerSecondSquared, new CultureInfo("en-US"), false, true, new string[]{"dm/s²"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(AccelerationUnit.DecimeterPerSecondSquared, new CultureInfo("ru-RU"), false, true, new string[]{"дм/с²"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(AccelerationUnit.FootPerSecondSquared, new CultureInfo("en-US"), false, true, new string[]{"ft/s²"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(AccelerationUnit.FootPerSecondSquared, new CultureInfo("ru-RU"), false, true, new string[]{"фут/с²"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(AccelerationUnit.InchPerSecondSquared, new CultureInfo("en-US"), false, true, new string[]{"in/s²"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(AccelerationUnit.InchPerSecondSquared, new CultureInfo("ru-RU"), false, true, new string[]{"дюйм/с²"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(AccelerationUnit.KilometerPerSecondSquared, new CultureInfo("en-US"), false, true, new string[]{"km/s²"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(AccelerationUnit.KilometerPerSecondSquared, new CultureInfo("ru-RU"), false, true, new string[]{"км/с²"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(AccelerationUnit.KnotPerHour, new CultureInfo("en-US"), false, true, new string[]{"kn/h"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(AccelerationUnit.KnotPerHour, new CultureInfo("ru-RU"), false, true, new string[]{"узел/час"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(AccelerationUnit.KnotPerMinute, new CultureInfo("en-US"), false, true, new string[]{"kn/min"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(AccelerationUnit.KnotPerMinute, new CultureInfo("ru-RU"), false, true, new string[]{"узел/мин"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(AccelerationUnit.KnotPerSecond, new CultureInfo("en-US"), false, true, new string[]{"kn/s"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(AccelerationUnit.KnotPerSecond, new CultureInfo("ru-RU"), false, true, new string[]{"узел/с"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(AccelerationUnit.MeterPerSecondSquared, new CultureInfo("en-US"), false, true, new string[]{"m/s²"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(AccelerationUnit.MeterPerSecondSquared, new CultureInfo("ru-RU"), false, true, new string[]{"м/с²"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(AccelerationUnit.MicrometerPerSecondSquared, new CultureInfo("en-US"), false, true, new string[]{"µm/s²"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(AccelerationUnit.MicrometerPerSecondSquared, new CultureInfo("ru-RU"), false, true, new string[]{"мкм/с²"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(AccelerationUnit.MillimeterPerSecondSquared, new CultureInfo("en-US"), false, true, new string[]{"mm/s²"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(AccelerationUnit.MillimeterPerSecondSquared, new CultureInfo("ru-RU"), false, true, new string[]{"мм/с²"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(AccelerationUnit.MillistandardGravity, new CultureInfo("en-US"), false, true, new string[]{"mg"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(AccelerationUnit.MillistandardGravity, new CultureInfo("ru-RU"), false, true, new string[]{"мg"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(AccelerationUnit.NanometerPerSecondSquared, new CultureInfo("en-US"), false, true, new string[]{"nm/s²"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(AccelerationUnit.NanometerPerSecondSquared, new CultureInfo("ru-RU"), false, true, new string[]{"нм/с²"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(AccelerationUnit.StandardGravity, new CultureInfo("en-US"), false, true, new string[]{"g"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(AccelerationUnit.StandardGravity, new CultureInfo("ru-RU"), false, true, new string[]{"g"});
-        }
-
         /// <summary>
         ///     Get unit abbreviation string.
         /// </summary>
@@ -356,140 +335,112 @@ namespace OasysUnits
         /// <summary>
         ///     Creates a <see cref="Acceleration"/> from <see cref="AccelerationUnit.CentimeterPerSecondSquared"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Acceleration FromCentimetersPerSecondSquared(QuantityValue centimeterspersecondsquared)
+        public static Acceleration FromCentimetersPerSecondSquared(double value)
         {
-            double value = (double) centimeterspersecondsquared;
             return new Acceleration(value, AccelerationUnit.CentimeterPerSecondSquared);
         }
 
         /// <summary>
         ///     Creates a <see cref="Acceleration"/> from <see cref="AccelerationUnit.DecimeterPerSecondSquared"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Acceleration FromDecimetersPerSecondSquared(QuantityValue decimeterspersecondsquared)
+        public static Acceleration FromDecimetersPerSecondSquared(double value)
         {
-            double value = (double) decimeterspersecondsquared;
             return new Acceleration(value, AccelerationUnit.DecimeterPerSecondSquared);
         }
 
         /// <summary>
         ///     Creates a <see cref="Acceleration"/> from <see cref="AccelerationUnit.FootPerSecondSquared"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Acceleration FromFeetPerSecondSquared(QuantityValue feetpersecondsquared)
+        public static Acceleration FromFeetPerSecondSquared(double value)
         {
-            double value = (double) feetpersecondsquared;
             return new Acceleration(value, AccelerationUnit.FootPerSecondSquared);
         }
 
         /// <summary>
         ///     Creates a <see cref="Acceleration"/> from <see cref="AccelerationUnit.InchPerSecondSquared"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Acceleration FromInchesPerSecondSquared(QuantityValue inchespersecondsquared)
+        public static Acceleration FromInchesPerSecondSquared(double value)
         {
-            double value = (double) inchespersecondsquared;
             return new Acceleration(value, AccelerationUnit.InchPerSecondSquared);
         }
 
         /// <summary>
         ///     Creates a <see cref="Acceleration"/> from <see cref="AccelerationUnit.KilometerPerSecondSquared"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Acceleration FromKilometersPerSecondSquared(QuantityValue kilometerspersecondsquared)
+        public static Acceleration FromKilometersPerSecondSquared(double value)
         {
-            double value = (double) kilometerspersecondsquared;
             return new Acceleration(value, AccelerationUnit.KilometerPerSecondSquared);
         }
 
         /// <summary>
         ///     Creates a <see cref="Acceleration"/> from <see cref="AccelerationUnit.KnotPerHour"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Acceleration FromKnotsPerHour(QuantityValue knotsperhour)
+        public static Acceleration FromKnotsPerHour(double value)
         {
-            double value = (double) knotsperhour;
             return new Acceleration(value, AccelerationUnit.KnotPerHour);
         }
 
         /// <summary>
         ///     Creates a <see cref="Acceleration"/> from <see cref="AccelerationUnit.KnotPerMinute"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Acceleration FromKnotsPerMinute(QuantityValue knotsperminute)
+        public static Acceleration FromKnotsPerMinute(double value)
         {
-            double value = (double) knotsperminute;
             return new Acceleration(value, AccelerationUnit.KnotPerMinute);
         }
 
         /// <summary>
         ///     Creates a <see cref="Acceleration"/> from <see cref="AccelerationUnit.KnotPerSecond"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Acceleration FromKnotsPerSecond(QuantityValue knotspersecond)
+        public static Acceleration FromKnotsPerSecond(double value)
         {
-            double value = (double) knotspersecond;
             return new Acceleration(value, AccelerationUnit.KnotPerSecond);
         }
 
         /// <summary>
         ///     Creates a <see cref="Acceleration"/> from <see cref="AccelerationUnit.MeterPerSecondSquared"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Acceleration FromMetersPerSecondSquared(QuantityValue meterspersecondsquared)
+        public static Acceleration FromMetersPerSecondSquared(double value)
         {
-            double value = (double) meterspersecondsquared;
             return new Acceleration(value, AccelerationUnit.MeterPerSecondSquared);
         }
 
         /// <summary>
         ///     Creates a <see cref="Acceleration"/> from <see cref="AccelerationUnit.MicrometerPerSecondSquared"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Acceleration FromMicrometersPerSecondSquared(QuantityValue micrometerspersecondsquared)
+        public static Acceleration FromMicrometersPerSecondSquared(double value)
         {
-            double value = (double) micrometerspersecondsquared;
             return new Acceleration(value, AccelerationUnit.MicrometerPerSecondSquared);
         }
 
         /// <summary>
         ///     Creates a <see cref="Acceleration"/> from <see cref="AccelerationUnit.MillimeterPerSecondSquared"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Acceleration FromMillimetersPerSecondSquared(QuantityValue millimeterspersecondsquared)
+        public static Acceleration FromMillimetersPerSecondSquared(double value)
         {
-            double value = (double) millimeterspersecondsquared;
             return new Acceleration(value, AccelerationUnit.MillimeterPerSecondSquared);
         }
 
         /// <summary>
         ///     Creates a <see cref="Acceleration"/> from <see cref="AccelerationUnit.MillistandardGravity"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Acceleration FromMillistandardGravity(QuantityValue millistandardgravity)
+        public static Acceleration FromMillistandardGravity(double value)
         {
-            double value = (double) millistandardgravity;
             return new Acceleration(value, AccelerationUnit.MillistandardGravity);
         }
 
         /// <summary>
         ///     Creates a <see cref="Acceleration"/> from <see cref="AccelerationUnit.NanometerPerSecondSquared"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Acceleration FromNanometersPerSecondSquared(QuantityValue nanometerspersecondsquared)
+        public static Acceleration FromNanometersPerSecondSquared(double value)
         {
-            double value = (double) nanometerspersecondsquared;
             return new Acceleration(value, AccelerationUnit.NanometerPerSecondSquared);
         }
 
         /// <summary>
         ///     Creates a <see cref="Acceleration"/> from <see cref="AccelerationUnit.StandardGravity"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Acceleration FromStandardGravity(QuantityValue standardgravity)
+        public static Acceleration FromStandardGravity(double value)
         {
-            double value = (double) standardgravity;
             return new Acceleration(value, AccelerationUnit.StandardGravity);
         }
 
@@ -499,9 +450,9 @@ namespace OasysUnits
         /// <param name="value">Value to convert from.</param>
         /// <param name="fromUnit">Unit to convert from.</param>
         /// <returns>Acceleration unit value.</returns>
-        public static Acceleration From(QuantityValue value, AccelerationUnit fromUnit)
+        public static Acceleration From(double value, AccelerationUnit fromUnit)
         {
-            return new Acceleration((double)value, fromUnit);
+            return new Acceleration(value, fromUnit);
         }
 
         #endregion
@@ -513,7 +464,7 @@ namespace OasysUnits
         /// </summary>
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <example>
-        ///     Length.Parse("5.5 m", new CultureInfo("en-US"));
+        ///     Length.Parse("5.5 m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <exception cref="ArgumentNullException">The value of 'str' cannot be null. </exception>
         /// <exception cref="ArgumentException">
@@ -540,7 +491,7 @@ namespace OasysUnits
         /// </summary>
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <example>
-        ///     Length.Parse("5.5 m", new CultureInfo("en-US"));
+        ///     Length.Parse("5.5 m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <exception cref="ArgumentNullException">The value of 'str' cannot be null. </exception>
         /// <exception cref="ArgumentException">
@@ -572,7 +523,7 @@ namespace OasysUnits
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <param name="result">Resulting unit quantity if successful.</param>
         /// <example>
-        ///     Length.Parse("5.5 m", new CultureInfo("en-US"));
+        ///     Length.Parse("5.5 m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         public static bool TryParse(string? str, out Acceleration result)
         {
@@ -586,7 +537,7 @@ namespace OasysUnits
         /// <param name="result">Resulting unit quantity if successful.</param>
         /// <returns>True if successful, otherwise false.</returns>
         /// <example>
-        ///     Length.Parse("5.5 m", new CultureInfo("en-US"));
+        ///     Length.Parse("5.5 m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <param name="provider">Format to use when parsing number and unit. Defaults to <see cref="CultureInfo.CurrentCulture" /> if null.</param>
         public static bool TryParse(string? str, IFormatProvider? provider, out Acceleration result)
@@ -603,7 +554,7 @@ namespace OasysUnits
         /// </summary>
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <example>
-        ///     Length.ParseUnit("m", new CultureInfo("en-US"));
+        ///     Length.ParseUnit("m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <exception cref="ArgumentNullException">The value of 'str' cannot be null. </exception>
         /// <exception cref="OasysUnitsException">Error parsing string.</exception>
@@ -618,7 +569,7 @@ namespace OasysUnits
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <param name="provider">Format to use when parsing number and unit. Defaults to <see cref="CultureInfo.CurrentCulture" /> if null.</param>
         /// <example>
-        ///     Length.ParseUnit("m", new CultureInfo("en-US"));
+        ///     Length.ParseUnit("m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <exception cref="ArgumentNullException">The value of 'str' cannot be null. </exception>
         /// <exception cref="OasysUnitsException">Error parsing string.</exception>
@@ -640,7 +591,7 @@ namespace OasysUnits
         /// <param name="unit">The parsed unit if successful.</param>
         /// <returns>True if successful, otherwise false.</returns>
         /// <example>
-        ///     Length.TryParseUnit("m", new CultureInfo("en-US"));
+        ///     Length.TryParseUnit("m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <param name="provider">Format to use when parsing number and unit. Defaults to <see cref="CultureInfo.CurrentCulture" /> if null.</param>
         public static bool TryParseUnit(string str, IFormatProvider? provider, out AccelerationUnit unit)
@@ -696,6 +647,40 @@ namespace OasysUnits
 
         #endregion
 
+        #region Relational Operators
+
+        /// <summary>Get <see cref="Duration"/> from <see cref="Acceleration"/> / <see cref="Jerk"/>.</summary>
+        public static Duration operator /(Acceleration acceleration, Jerk jerk)
+        {
+            return Duration.FromSeconds(acceleration.MetersPerSecondSquared / jerk.MetersPerSecondCubed);
+        }
+
+        /// <summary>Get <see cref="Force"/> from <see cref="Acceleration"/> * <see cref="Mass"/>.</summary>
+        public static Force operator *(Acceleration acceleration, Mass mass)
+        {
+            return Force.FromNewtons(acceleration.MetersPerSecondSquared * mass.Kilograms);
+        }
+
+        /// <summary>Get <see cref="Jerk"/> from <see cref="Acceleration"/> / <see cref="Duration"/>.</summary>
+        public static Jerk operator /(Acceleration acceleration, Duration duration)
+        {
+            return Jerk.FromMetersPerSecondCubed(acceleration.MetersPerSecondSquared / duration.Seconds);
+        }
+
+        /// <summary>Get <see cref="SpecificWeight"/> from <see cref="Acceleration"/> * <see cref="Density"/>.</summary>
+        public static SpecificWeight operator *(Acceleration acceleration, Density density)
+        {
+            return SpecificWeight.FromNewtonsPerCubicMeter(acceleration.MetersPerSecondSquared * density.KilogramsPerCubicMeter);
+        }
+
+        /// <summary>Get <see cref="Speed"/> from <see cref="Acceleration"/> * <see cref="Duration"/>.</summary>
+        public static Speed operator *(Acceleration acceleration, Duration duration)
+        {
+            return Speed.FromMetersPerSecond(acceleration.MetersPerSecondSquared * duration.Seconds);
+        }
+
+        #endregion
+
         #region Equality / IComparable
 
         /// <summary>Returns true if less or equal to.</summary>
@@ -727,16 +712,14 @@ namespace OasysUnits
         #pragma warning disable CS0809
 
         /// <summary>Indicates strict equality of two <see cref="Acceleration"/> quantities, where both <see cref="Value" /> and <see cref="Unit" /> are exactly equal.</summary>
-        /// <remarks>Consider using <see cref="Equals(Acceleration, double, ComparisonType)"/> to check equality across different units and to specify a floating-point number error tolerance.</remarks>
-        [Obsolete("For null checks, use `x is null` syntax to not invoke overloads. For quantity comparisons, use Equals(Acceleration, double, ComparisonType) to check equality across different units and to specify a floating-point number error tolerance.")]
+        [Obsolete("For null checks, use `x is null` syntax to not invoke overloads. For equality checks, use Equals(Acceleration other, Acceleration tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public static bool operator ==(Acceleration left, Acceleration right)
         {
             return left.Equals(right);
         }
 
         /// <summary>Indicates strict inequality of two <see cref="Acceleration"/> quantities, where both <see cref="Value" /> and <see cref="Unit" /> are exactly equal.</summary>
-        /// <remarks>Consider using <see cref="Equals(Acceleration, double, ComparisonType)"/> to check equality across different units and to specify a floating-point number error tolerance.</remarks>
-        [Obsolete("For null checks, use `x is not null` syntax to not invoke overloads. For quantity comparisons, use Equals(Acceleration, double, ComparisonType) to check equality across different units and to specify a floating-point number error tolerance.")]
+        [Obsolete("For null checks, use `x is null` syntax to not invoke overloads. For equality checks, use Equals(Acceleration other, Acceleration tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public static bool operator !=(Acceleration left, Acceleration right)
         {
             return !(left == right);
@@ -744,8 +727,7 @@ namespace OasysUnits
 
         /// <inheritdoc />
         /// <summary>Indicates strict equality of two <see cref="Acceleration"/> quantities, where both <see cref="Value" /> and <see cref="Unit" /> are exactly equal.</summary>
-        /// <remarks>Consider using <see cref="Equals(Acceleration, double, ComparisonType)"/> to check equality across different units and to specify a floating-point number error tolerance.</remarks>
-        [Obsolete("Consider using Equals(Acceleration, double, ComparisonType) to check equality across different units and to specify a floating-point number error tolerance.")]
+        [Obsolete("Use Equals(Acceleration other, Acceleration tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public override bool Equals(object? obj)
         {
             if (obj is null || !(obj is Acceleration otherQuantity))
@@ -756,8 +738,7 @@ namespace OasysUnits
 
         /// <inheritdoc />
         /// <summary>Indicates strict equality of two <see cref="Acceleration"/> quantities, where both <see cref="Value" /> and <see cref="Unit" /> are exactly equal.</summary>
-        /// <remarks>Consider using <see cref="Equals(Acceleration, double, ComparisonType)"/> to check equality across different units and to specify a floating-point number error tolerance.</remarks>
-        [Obsolete("Consider using Equals(Acceleration, double, ComparisonType) to check equality across different units and to specify a floating-point number error tolerance.")]
+        [Obsolete("Use Equals(Acceleration other, Acceleration tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public bool Equals(Acceleration other)
         {
             return new { Value, Unit }.Equals(new { other.Value, other.Unit });
@@ -841,15 +822,37 @@ namespace OasysUnits
         /// <param name="tolerance">The absolute or relative tolerance value. Must be greater than or equal to 0.</param>
         /// <param name="comparisonType">The comparison type: either relative or absolute.</param>
         /// <returns>True if the absolute difference between the two values is not greater than the specified relative or absolute tolerance.</returns>
+        [Obsolete("Use Equals(Acceleration other, Acceleration tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public bool Equals(Acceleration other, double tolerance, ComparisonType comparisonType)
         {
             if (tolerance < 0)
-                throw new ArgumentOutOfRangeException("tolerance", "Tolerance must be greater than or equal to 0.");
+                throw new ArgumentOutOfRangeException(nameof(tolerance), "Tolerance must be greater than or equal to 0.");
 
-            double thisValue = this.Value;
-            double otherValueInThisUnits = other.As(this.Unit);
+            return OasysUnits.Comparison.Equals(
+                referenceValue: this.Value,
+                otherValue: other.As(this.Unit),
+                tolerance: tolerance,
+                comparisonType: comparisonType);
+        }
 
-            return OasysUnits.Comparison.Equals(thisValue, otherValueInThisUnits, tolerance, comparisonType);
+        /// <inheritdoc />
+        public bool Equals(IQuantity? other, IQuantity tolerance)
+        {
+            return other is Acceleration otherTyped
+                   && (tolerance is Acceleration toleranceTyped
+                       ? true
+                       : throw new ArgumentException($"Tolerance quantity ({tolerance.QuantityInfo.Name}) did not match the other quantities of type 'Acceleration'.", nameof(tolerance)))
+                   && Equals(otherTyped, toleranceTyped);
+        }
+
+        /// <inheritdoc />
+        public bool Equals(Acceleration other, Acceleration tolerance)
+        {
+            return OasysUnits.Comparison.Equals(
+                referenceValue: this.Value,
+                otherValue: other.As(this.Unit),
+                tolerance: tolerance.As(this.Unit),
+                comparisonType: ComparisonType.Absolute);
         }
 
         /// <summary>
@@ -894,15 +897,6 @@ namespace OasysUnits
 
         /// <inheritdoc />
         double IQuantity.As(Enum unit)
-        {
-            if (!(unit is AccelerationUnit typedUnit))
-                throw new ArgumentException($"The given unit is of type {unit.GetType()}. Only {typeof(AccelerationUnit)} is supported.", nameof(unit));
-
-            return (double)As(typedUnit);
-        }
-
-        /// <inheritdoc />
-        double IValueQuantity<double>.As(Enum unit)
         {
             if (!(unit is AccelerationUnit typedUnit))
                 throw new ArgumentException($"The given unit is of type {unit.GetType()}. Only {typeof(AccelerationUnit)} is supported.", nameof(unit));
@@ -1042,18 +1036,6 @@ namespace OasysUnits
 
         /// <inheritdoc />
         IQuantity<AccelerationUnit> IQuantity<AccelerationUnit>.ToUnit(UnitSystem unitSystem) => ToUnit(unitSystem);
-
-        /// <inheritdoc />
-        IValueQuantity<double> IValueQuantity<double>.ToUnit(Enum unit)
-        {
-            if (unit is not AccelerationUnit typedUnit)
-                throw new ArgumentException($"The given unit is of type {unit.GetType()}. Only {typeof(AccelerationUnit)} is supported.", nameof(unit));
-
-            return ToUnit(typedUnit);
-        }
-
-        /// <inheritdoc />
-        IValueQuantity<double> IValueQuantity<double>.ToUnit(UnitSystem unitSystem) => ToUnit(unitSystem);
 
         #endregion
 

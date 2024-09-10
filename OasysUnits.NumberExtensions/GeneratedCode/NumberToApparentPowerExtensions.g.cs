@@ -19,6 +19,10 @@
 
 using System;
 
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
+
 #nullable enable
 
 namespace OasysUnits.NumberExtensions.NumberToApparentPower
@@ -28,29 +32,53 @@ namespace OasysUnits.NumberExtensions.NumberToApparentPower
     /// </summary>
     public static class NumberToApparentPowerExtensions
     {
-        /// <inheritdoc cref="ApparentPower.FromGigavoltamperes(OasysUnits.QuantityValue)" />
-        public static ApparentPower Gigavoltamperes<T>(this T value) =>
-            ApparentPower.FromGigavoltamperes(Convert.ToDouble(value));
+        /// <inheritdoc cref="ApparentPower.FromGigavoltamperes(double)" />
+        public static ApparentPower Gigavoltamperes<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ApparentPower.FromGigavoltamperes(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="ApparentPower.FromKilovoltamperes(OasysUnits.QuantityValue)" />
-        public static ApparentPower Kilovoltamperes<T>(this T value) =>
-            ApparentPower.FromKilovoltamperes(Convert.ToDouble(value));
+        /// <inheritdoc cref="ApparentPower.FromKilovoltamperes(double)" />
+        public static ApparentPower Kilovoltamperes<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ApparentPower.FromKilovoltamperes(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="ApparentPower.FromMegavoltamperes(OasysUnits.QuantityValue)" />
-        public static ApparentPower Megavoltamperes<T>(this T value) =>
-            ApparentPower.FromMegavoltamperes(Convert.ToDouble(value));
+        /// <inheritdoc cref="ApparentPower.FromMegavoltamperes(double)" />
+        public static ApparentPower Megavoltamperes<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ApparentPower.FromMegavoltamperes(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="ApparentPower.FromMicrovoltamperes(OasysUnits.QuantityValue)" />
-        public static ApparentPower Microvoltamperes<T>(this T value) =>
-            ApparentPower.FromMicrovoltamperes(Convert.ToDouble(value));
+        /// <inheritdoc cref="ApparentPower.FromMicrovoltamperes(double)" />
+        public static ApparentPower Microvoltamperes<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ApparentPower.FromMicrovoltamperes(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="ApparentPower.FromMillivoltamperes(OasysUnits.QuantityValue)" />
-        public static ApparentPower Millivoltamperes<T>(this T value) =>
-            ApparentPower.FromMillivoltamperes(Convert.ToDouble(value));
+        /// <inheritdoc cref="ApparentPower.FromMillivoltamperes(double)" />
+        public static ApparentPower Millivoltamperes<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ApparentPower.FromMillivoltamperes(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="ApparentPower.FromVoltamperes(OasysUnits.QuantityValue)" />
-        public static ApparentPower Voltamperes<T>(this T value) =>
-            ApparentPower.FromVoltamperes(Convert.ToDouble(value));
+        /// <inheritdoc cref="ApparentPower.FromVoltamperes(double)" />
+        public static ApparentPower Voltamperes<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ApparentPower.FromVoltamperes(Convert.ToDouble(value));
 
     }
 }

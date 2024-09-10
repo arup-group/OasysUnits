@@ -2,6 +2,7 @@
 // Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
 
 using System;
+using System.Globalization;
 using OasysUnits.Units;
 using Xunit;
 
@@ -20,7 +21,8 @@ namespace OasysUnits.Tests
         protected override double DtpPicasInOneMeter => 236.22047244;
         protected override double DtpPointsInOneMeter => 2834.6456693;
 
-        protected override double FeetInOneMeter => 3.28084;
+        protected override double FemtometersInOneMeter => 1E+15;
+        protected override double FeetInOneMeter => 3.28083989501;
 
         protected override double HectometersInOneMeter => 1E-2;
 
@@ -49,6 +51,7 @@ namespace OasysUnits.Tests
 
         protected override double FathomsInOneMeter => 0.546806649;
 
+        protected override double PicometersInOneMeter => 1E+12;
         protected override double PrinterPicasInOneMeter => 237.10630158;
         protected override double PrinterPointsInOneMeter => 2845.2755906;
 
@@ -63,6 +66,8 @@ namespace OasysUnits.Tests
         protected override double KilolightYearsInOneMeter => 1.0570008340247000000000000E-19;
 
         protected override double KiloparsecsInOneMeter => 3.2407790389471100000000000E-20;
+
+        protected override double KiloyardsInOneMeter => 1.0936132983E-3;
 
         protected override double LightYearsInOneMeter => 1.0570008340247000000000000E-16;
 
@@ -83,6 +88,9 @@ namespace OasysUnits.Tests
         protected override double DataMilesInOneMeter => 0.000546807;
 
         protected override double MegametersInOneMeter => 1e-6;
+        protected override double GigametersInOneMeter => 1e-9;
+
+        protected override double KilofeetInOneMeter => 3.28083989501e-3;
 
         [ Fact]
         public void AreaTimesLengthEqualsVolume()
@@ -127,6 +135,20 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
+        public void LengthDividedByAreaEqualsReciprocalLength()
+        {
+            ReciprocalLength reciprocalLength = Length.FromMeters(20) / Area.FromSquareMeters(2);
+            Assert.Equal(ReciprocalLength.FromInverseMeters(10), reciprocalLength);
+        }
+
+        [Fact]
+        public void LengthDividedByVolumeEqualsReciprocalArea()
+        {
+            ReciprocalArea reciprocalArea = Length.FromMeters(20) / Volume.FromCubicMeters(2);
+            Assert.Equal(ReciprocalArea.FromInverseSquareMeters(10), reciprocalArea);
+        }
+
+        [Fact]
         public void LengthTimesSpeedEqualsKinematicViscosity()
         {
             KinematicViscosity kinematicViscosity = Length.FromMeters(20) * Speed.FromMetersPerSecond(2);
@@ -144,7 +166,7 @@ namespace OasysUnits.Tests
         public void ToStringReturnsCorrectNumberAndUnitWithDefaultUnitWhichIsMeter()
         {
             var meter = Length.FromMeters(5);
-            string meterString = meter.ToString();
+            string meterString = meter.ToString(CultureInfo.InvariantCulture);
             Assert.Equal("5 m", meterString);
         }
 
@@ -152,7 +174,7 @@ namespace OasysUnits.Tests
         public void ToStringReturnsCorrectNumberAndUnitWithCentimeterAsDefualtUnit()
         {
             var value = Length.From(2, LengthUnit.Centimeter);
-            string valueString = value.ToString();
+            string valueString = value.ToString(CultureInfo.InvariantCulture);
             Assert.Equal("2 cm", valueString);
         }
 

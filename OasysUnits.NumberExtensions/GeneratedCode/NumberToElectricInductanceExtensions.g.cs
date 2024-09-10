@@ -19,6 +19,10 @@
 
 using System;
 
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
+
 #nullable enable
 
 namespace OasysUnits.NumberExtensions.NumberToElectricInductance
@@ -28,25 +32,45 @@ namespace OasysUnits.NumberExtensions.NumberToElectricInductance
     /// </summary>
     public static class NumberToElectricInductanceExtensions
     {
-        /// <inheritdoc cref="ElectricInductance.FromHenries(OasysUnits.QuantityValue)" />
-        public static ElectricInductance Henries<T>(this T value) =>
-            ElectricInductance.FromHenries(Convert.ToDouble(value));
+        /// <inheritdoc cref="ElectricInductance.FromHenries(double)" />
+        public static ElectricInductance Henries<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ElectricInductance.FromHenries(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="ElectricInductance.FromMicrohenries(OasysUnits.QuantityValue)" />
-        public static ElectricInductance Microhenries<T>(this T value) =>
-            ElectricInductance.FromMicrohenries(Convert.ToDouble(value));
+        /// <inheritdoc cref="ElectricInductance.FromMicrohenries(double)" />
+        public static ElectricInductance Microhenries<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ElectricInductance.FromMicrohenries(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="ElectricInductance.FromMillihenries(OasysUnits.QuantityValue)" />
-        public static ElectricInductance Millihenries<T>(this T value) =>
-            ElectricInductance.FromMillihenries(Convert.ToDouble(value));
+        /// <inheritdoc cref="ElectricInductance.FromMillihenries(double)" />
+        public static ElectricInductance Millihenries<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ElectricInductance.FromMillihenries(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="ElectricInductance.FromNanohenries(OasysUnits.QuantityValue)" />
-        public static ElectricInductance Nanohenries<T>(this T value) =>
-            ElectricInductance.FromNanohenries(Convert.ToDouble(value));
+        /// <inheritdoc cref="ElectricInductance.FromNanohenries(double)" />
+        public static ElectricInductance Nanohenries<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ElectricInductance.FromNanohenries(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="ElectricInductance.FromPicohenries(OasysUnits.QuantityValue)" />
-        public static ElectricInductance Picohenries<T>(this T value) =>
-            ElectricInductance.FromPicohenries(Convert.ToDouble(value));
+        /// <inheritdoc cref="ElectricInductance.FromPicohenries(double)" />
+        public static ElectricInductance Picohenries<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ElectricInductance.FromPicohenries(Convert.ToDouble(value));
 
     }
 }

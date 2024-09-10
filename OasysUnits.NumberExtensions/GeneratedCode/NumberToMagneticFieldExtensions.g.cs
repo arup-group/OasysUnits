@@ -19,6 +19,10 @@
 
 using System;
 
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
+
 #nullable enable
 
 namespace OasysUnits.NumberExtensions.NumberToMagneticField
@@ -28,29 +32,53 @@ namespace OasysUnits.NumberExtensions.NumberToMagneticField
     /// </summary>
     public static class NumberToMagneticFieldExtensions
     {
-        /// <inheritdoc cref="MagneticField.FromGausses(OasysUnits.QuantityValue)" />
-        public static MagneticField Gausses<T>(this T value) =>
-            MagneticField.FromGausses(Convert.ToDouble(value));
+        /// <inheritdoc cref="MagneticField.FromGausses(double)" />
+        public static MagneticField Gausses<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MagneticField.FromGausses(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MagneticField.FromMicroteslas(OasysUnits.QuantityValue)" />
-        public static MagneticField Microteslas<T>(this T value) =>
-            MagneticField.FromMicroteslas(Convert.ToDouble(value));
+        /// <inheritdoc cref="MagneticField.FromMicroteslas(double)" />
+        public static MagneticField Microteslas<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MagneticField.FromMicroteslas(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MagneticField.FromMilligausses(OasysUnits.QuantityValue)" />
-        public static MagneticField Milligausses<T>(this T value) =>
-            MagneticField.FromMilligausses(Convert.ToDouble(value));
+        /// <inheritdoc cref="MagneticField.FromMilligausses(double)" />
+        public static MagneticField Milligausses<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MagneticField.FromMilligausses(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MagneticField.FromMilliteslas(OasysUnits.QuantityValue)" />
-        public static MagneticField Milliteslas<T>(this T value) =>
-            MagneticField.FromMilliteslas(Convert.ToDouble(value));
+        /// <inheritdoc cref="MagneticField.FromMilliteslas(double)" />
+        public static MagneticField Milliteslas<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MagneticField.FromMilliteslas(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MagneticField.FromNanoteslas(OasysUnits.QuantityValue)" />
-        public static MagneticField Nanoteslas<T>(this T value) =>
-            MagneticField.FromNanoteslas(Convert.ToDouble(value));
+        /// <inheritdoc cref="MagneticField.FromNanoteslas(double)" />
+        public static MagneticField Nanoteslas<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MagneticField.FromNanoteslas(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MagneticField.FromTeslas(OasysUnits.QuantityValue)" />
-        public static MagneticField Teslas<T>(this T value) =>
-            MagneticField.FromTeslas(Convert.ToDouble(value));
+        /// <inheritdoc cref="MagneticField.FromTeslas(double)" />
+        public static MagneticField Teslas<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MagneticField.FromTeslas(Convert.ToDouble(value));
 
     }
 }

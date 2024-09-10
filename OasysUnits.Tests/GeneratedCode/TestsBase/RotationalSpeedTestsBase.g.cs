@@ -115,16 +115,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void Ctor_WithInfinityValue_ThrowsArgumentException()
+        public void Ctor_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new RotationalSpeed(double.PositiveInfinity, RotationalSpeedUnit.RadianPerSecond));
-            Assert.Throws<ArgumentException>(() => new RotationalSpeed(double.NegativeInfinity, RotationalSpeedUnit.RadianPerSecond));
+            var exception1 = Record.Exception(() => new RotationalSpeed(double.PositiveInfinity, RotationalSpeedUnit.RadianPerSecond));
+            var exception2 = Record.Exception(() => new RotationalSpeed(double.NegativeInfinity, RotationalSpeedUnit.RadianPerSecond));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void Ctor_WithNaNValue_ThrowsArgumentException()
+        public void Ctor_WithNaNValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new RotationalSpeed(double.NaN, RotationalSpeedUnit.RadianPerSecond));
+            var exception = Record.Exception(() => new RotationalSpeed(double.NaN, RotationalSpeedUnit.RadianPerSecond));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -239,16 +244,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void FromRadiansPerSecond_WithInfinityValue_ThrowsArgumentException()
+        public void FromRadiansPerSecond_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => RotationalSpeed.FromRadiansPerSecond(double.PositiveInfinity));
-            Assert.Throws<ArgumentException>(() => RotationalSpeed.FromRadiansPerSecond(double.NegativeInfinity));
+            var exception1 = Record.Exception(() => RotationalSpeed.FromRadiansPerSecond(double.PositiveInfinity));
+            var exception2 = Record.Exception(() => RotationalSpeed.FromRadiansPerSecond(double.NegativeInfinity));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void FromRadiansPerSecond_WithNanValue_ThrowsArgumentException()
+        public void FromRadiansPerSecond_WithNanValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => RotationalSpeed.FromRadiansPerSecond(double.NaN));
+            var exception = Record.Exception(() => RotationalSpeed.FromRadiansPerSecond(double.NaN));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -1212,6 +1222,8 @@ namespace OasysUnits.Tests
             var v = RotationalSpeed.FromRadiansPerSecond(1);
             Assert.True(v.Equals(RotationalSpeed.FromRadiansPerSecond(1), RadiansPerSecondTolerance, ComparisonType.Relative));
             Assert.False(v.Equals(RotationalSpeed.Zero, RadiansPerSecondTolerance, ComparisonType.Relative));
+            Assert.True(RotationalSpeed.FromRadiansPerSecond(100).Equals(RotationalSpeed.FromRadiansPerSecond(120), 0.3, ComparisonType.Relative));
+            Assert.False(RotationalSpeed.FromRadiansPerSecond(100).Equals(RotationalSpeed.FromRadiansPerSecond(120), 0.1, ComparisonType.Relative));
         }
 
         [Fact]

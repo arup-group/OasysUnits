@@ -17,7 +17,7 @@ namespace CodeGen.Helpers.UnitEnumValueAllocation
     ///     Allocates unique enum values per quantity and persists the mapping to a JSON file to ensure the values do not
     ///     change when adding new units.
     ///     <br/><br/>
-    ///     Updating transitive OasysUnits dependency cause wrong unit · Issue #1068 · angularsen/UnitsNet
+    ///     Updating transitive OasysUnits dependency cause wrong unit · Issue #1068 · angularsen/OasysUnits
     ///     https://github.com/angularsen/UnitsNet/issues/1068
     /// </summary>
     internal class UnitEnumValueAllocator

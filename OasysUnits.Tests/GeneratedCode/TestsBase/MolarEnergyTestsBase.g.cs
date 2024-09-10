@@ -75,16 +75,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void Ctor_WithInfinityValue_ThrowsArgumentException()
+        public void Ctor_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new MolarEnergy(double.PositiveInfinity, MolarEnergyUnit.JoulePerMole));
-            Assert.Throws<ArgumentException>(() => new MolarEnergy(double.NegativeInfinity, MolarEnergyUnit.JoulePerMole));
+            var exception1 = Record.Exception(() => new MolarEnergy(double.PositiveInfinity, MolarEnergyUnit.JoulePerMole));
+            var exception2 = Record.Exception(() => new MolarEnergy(double.NegativeInfinity, MolarEnergyUnit.JoulePerMole));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void Ctor_WithNaNValue_ThrowsArgumentException()
+        public void Ctor_WithNaNValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new MolarEnergy(double.NaN, MolarEnergyUnit.JoulePerMole));
+            var exception = Record.Exception(() => new MolarEnergy(double.NaN, MolarEnergyUnit.JoulePerMole));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -149,16 +154,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void FromJoulesPerMole_WithInfinityValue_ThrowsArgumentException()
+        public void FromJoulesPerMole_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => MolarEnergy.FromJoulesPerMole(double.PositiveInfinity));
-            Assert.Throws<ArgumentException>(() => MolarEnergy.FromJoulesPerMole(double.NegativeInfinity));
+            var exception1 = Record.Exception(() => MolarEnergy.FromJoulesPerMole(double.PositiveInfinity));
+            var exception2 = Record.Exception(() => MolarEnergy.FromJoulesPerMole(double.NegativeInfinity));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void FromJoulesPerMole_WithNanValue_ThrowsArgumentException()
+        public void FromJoulesPerMole_WithNanValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => MolarEnergy.FromJoulesPerMole(double.NaN));
+            var exception = Record.Exception(() => MolarEnergy.FromJoulesPerMole(double.NaN));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -430,6 +440,8 @@ namespace OasysUnits.Tests
             var v = MolarEnergy.FromJoulesPerMole(1);
             Assert.True(v.Equals(MolarEnergy.FromJoulesPerMole(1), JoulesPerMoleTolerance, ComparisonType.Relative));
             Assert.False(v.Equals(MolarEnergy.Zero, JoulesPerMoleTolerance, ComparisonType.Relative));
+            Assert.True(MolarEnergy.FromJoulesPerMole(100).Equals(MolarEnergy.FromJoulesPerMole(120), 0.3, ComparisonType.Relative));
+            Assert.False(MolarEnergy.FromJoulesPerMole(100).Equals(MolarEnergy.FromJoulesPerMole(120), 0.1, ComparisonType.Relative));
         }
 
         [Fact]

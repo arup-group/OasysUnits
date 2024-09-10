@@ -99,16 +99,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void Ctor_WithInfinityValue_ThrowsArgumentException()
+        public void Ctor_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new MolarFlow(double.PositiveInfinity, MolarFlowUnit.MolePerSecond));
-            Assert.Throws<ArgumentException>(() => new MolarFlow(double.NegativeInfinity, MolarFlowUnit.MolePerSecond));
+            var exception1 = Record.Exception(() => new MolarFlow(double.PositiveInfinity, MolarFlowUnit.MolePerSecond));
+            var exception2 = Record.Exception(() => new MolarFlow(double.NegativeInfinity, MolarFlowUnit.MolePerSecond));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void Ctor_WithNaNValue_ThrowsArgumentException()
+        public void Ctor_WithNaNValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new MolarFlow(double.NaN, MolarFlowUnit.MolePerSecond));
+            var exception = Record.Exception(() => new MolarFlow(double.NaN, MolarFlowUnit.MolePerSecond));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -203,16 +208,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void FromMolesPerSecond_WithInfinityValue_ThrowsArgumentException()
+        public void FromMolesPerSecond_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => MolarFlow.FromMolesPerSecond(double.PositiveInfinity));
-            Assert.Throws<ArgumentException>(() => MolarFlow.FromMolesPerSecond(double.NegativeInfinity));
+            var exception1 = Record.Exception(() => MolarFlow.FromMolesPerSecond(double.PositiveInfinity));
+            var exception2 = Record.Exception(() => MolarFlow.FromMolesPerSecond(double.NegativeInfinity));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void FromMolesPerSecond_WithNanValue_ThrowsArgumentException()
+        public void FromMolesPerSecond_WithNanValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => MolarFlow.FromMolesPerSecond(double.NaN));
+            var exception = Record.Exception(() => MolarFlow.FromMolesPerSecond(double.NaN));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -640,6 +650,8 @@ namespace OasysUnits.Tests
             var v = MolarFlow.FromMolesPerSecond(1);
             Assert.True(v.Equals(MolarFlow.FromMolesPerSecond(1), MolesPerSecondTolerance, ComparisonType.Relative));
             Assert.False(v.Equals(MolarFlow.Zero, MolesPerSecondTolerance, ComparisonType.Relative));
+            Assert.True(MolarFlow.FromMolesPerSecond(100).Equals(MolarFlow.FromMolesPerSecond(120), 0.3, ComparisonType.Relative));
+            Assert.False(MolarFlow.FromMolesPerSecond(100).Equals(MolarFlow.FromMolesPerSecond(120), 0.1, ComparisonType.Relative));
         }
 
         [Fact]

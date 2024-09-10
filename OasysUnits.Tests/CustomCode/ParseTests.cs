@@ -27,7 +27,7 @@ namespace OasysUnits.Tests
         [InlineData("500,005 m", 500005)]
         public void ParseLengthToMetersUsEnglish(string s, double expected)
         {
-            CultureInfo usEnglish = new CultureInfo("en-US");
+            CultureInfo usEnglish = CultureInfo.GetCultureInfo("en-US");
             double actual = Length.Parse(s, usEnglish).Meters;
             Assert.Equal(expected, actual);
         }
@@ -39,10 +39,10 @@ namespace OasysUnits.Tests
         [InlineData("1 kg", typeof(FormatException))] // Wrong measurement type.
         [InlineData("1ft monkey 1in", typeof(FormatException))] // Invalid separator between two valid measurements.
         [InlineData("1ft 1invalid", typeof(FormatException))] // Valid
-        public void ParseLength_InvalidString_USEnglish_ThrowsException(string s, Type expectedExceptionType)
+        public void ParseLength_InvalidString_USEnglish_ThrowsException(string? s, Type expectedExceptionType)
         {
-            var usEnglish = new CultureInfo("en-US");
-            Assert.Throws(expectedExceptionType, () => Length.Parse(s, usEnglish));
+            var usEnglish = CultureInfo.GetCultureInfo("en-US");
+            Assert.Throws(expectedExceptionType, () => Length.Parse(s!, usEnglish));
         }
 
         /// <exception cref="OasysUnitsException">Error parsing string.</exception>
@@ -50,7 +50,7 @@ namespace OasysUnits.Tests
         [InlineData("5.5 m", 5.5)]
         [InlineData("500 005 m", 500005)]
         // quantity doesn't match number format
-        public void ParseWithCultureUsingSpaceAsThousandSeparators(string s, double expected)
+        public void ParseWithCultureUsingSpaceAsThousandSeparators(string? s, double expected)
         {
             var numberFormat = (NumberFormatInfo) CultureInfo.InvariantCulture.NumberFormat.Clone();
             numberFormat.NumberGroupSeparator = " ";
@@ -58,7 +58,7 @@ namespace OasysUnits.Tests
             numberFormat.NumberDecimalSeparator = ".";
             numberFormat.CurrencyDecimalSeparator = ".";
 
-            double actual = Length.Parse(s, numberFormat).Meters;
+            double actual = Length.Parse(s!, numberFormat).Meters;
             Assert.Equal(expected, actual);
         }
 
@@ -96,8 +96,8 @@ namespace OasysUnits.Tests
         [Fact]
         public void ParseMultiWordAbbreviations()
         {
-            Assert.Equal(Mass.FromShortTons(333), Mass.Parse("333 short tn"));
-            Assert.Equal(Mass.FromLongTons(333), Mass.Parse("333 long tn"));
+            Assert.Equal(Mass.FromShortTons(333), Mass.Parse("333 short tn", CultureInfo.InvariantCulture));
+            Assert.Equal(Mass.FromLongTons(333), Mass.Parse("333 long tn", CultureInfo.InvariantCulture));
         }
 
         [Theory]
@@ -117,7 +117,7 @@ namespace OasysUnits.Tests
         [InlineData("m", LengthUnit.Meter)]
         public void ParseLengthUnitUsEnglish(string s, LengthUnit expected)
         {
-            CultureInfo usEnglish = new CultureInfo("en-US");
+            CultureInfo usEnglish = CultureInfo.GetCultureInfo("en-US");
             LengthUnit actual = Length.ParseUnit(s, usEnglish);
             Assert.Equal(expected, actual);
         }
@@ -125,10 +125,10 @@ namespace OasysUnits.Tests
         [Theory]
         [InlineData("kg", typeof(UnitNotFoundException))]
         [InlineData(null, typeof(ArgumentNullException))]
-        public void ParseLengthUnitUsEnglish_ThrowsExceptionOnInvalidString(string s, Type expectedExceptionType)
+        public void ParseLengthUnitUsEnglish_ThrowsExceptionOnInvalidString(string? s, Type expectedExceptionType)
         {
-            var usEnglish = new CultureInfo("en-US");
-            Assert.Throws(expectedExceptionType, () => Length.ParseUnit(s, usEnglish));
+            var usEnglish = CultureInfo.GetCultureInfo("en-US");
+            Assert.Throws(expectedExceptionType, () => Length.ParseUnit(s!, usEnglish));
         }
 
         [Theory]
@@ -137,9 +137,9 @@ namespace OasysUnits.Tests
         [InlineData("2 kg", false)]
         [InlineData(null, false)]
         [InlineData("foo", false)]
-        public void TryParseLengthUnitUsEnglish(string s, bool expected)
+        public void TryParseLengthUnitUsEnglish(string? s, bool expected)
         {
-            CultureInfo usEnglish = new CultureInfo("en-US");
+            CultureInfo usEnglish = CultureInfo.GetCultureInfo("en-US");
             bool actual = Length.TryParse(s, usEnglish, out Length _);
             Assert.Equal(expected, actual);
         }
@@ -153,7 +153,7 @@ namespace OasysUnits.Tests
         [InlineData("1 кг", "ru-RU", 1, MassUnit.Kilogram)]
         public void ParseMassWithPrefixUnits_GivenCulture_ReturnsQuantityWithSameUnitAndValue(string str, string cultureName, double expectedValue, Enum expectedUnit)
         {
-            var actual = Mass.Parse(str, new CultureInfo(cultureName));
+            var actual = Mass.Parse(str, CultureInfo.GetCultureInfo(cultureName));
 
             Assert.Equal(expectedUnit, actual.Unit);
             Assert.Equal(expectedValue, actual.Value);
@@ -168,7 +168,7 @@ namespace OasysUnits.Tests
         [InlineData("1 км", "ru-RU", 1, LengthUnit.Kilometer)]
         public void ParseLengthWithPrefixUnits_GivenCulture_ReturnsQuantityWithSameUnitAndValue(string str, string cultureName, double expectedValue, Enum expectedUnit)
         {
-            var actual = Length.Parse(str, new CultureInfo(cultureName));
+            var actual = Length.Parse(str, CultureInfo.GetCultureInfo(cultureName));
 
             Assert.Equal(expectedUnit, actual.Unit);
             Assert.Equal(expectedValue, actual.Value);
@@ -183,7 +183,7 @@ namespace OasysUnits.Tests
         [InlineData("1 кН", "ru-RU", 1, ForceUnit.Kilonewton)]
         public void ParseForceWithPrefixUnits_GivenCulture_ReturnsQuantityWithSameUnitAndValue(string str, string cultureName, double expectedValue, Enum expectedUnit)
         {
-            var actual = Force.Parse(str, new CultureInfo(cultureName));
+            var actual = Force.Parse(str, CultureInfo.GetCultureInfo(cultureName));
 
             Assert.Equal(expectedUnit, actual.Unit);
             Assert.Equal(expectedValue, actual.Value);
@@ -202,9 +202,9 @@ namespace OasysUnits.Tests
         [InlineData("1 MB", "ru-RU", 1, InformationUnit.Megabyte)]
         [InlineData("1 MiB", "en-US", 1, InformationUnit.Mebibyte)]
         [InlineData("1 MiB", "ru-RU", 1, InformationUnit.Mebibyte)]
-        public void ParseInformationWithPrefixUnits_GivenCulture_ReturnsQuantityWithSameUnitAndValue(string str, string cultureName, decimal expectedValue, Enum expectedUnit)
+        public void ParseInformationWithPrefixUnits_GivenCulture_ReturnsQuantityWithSameUnitAndValue(string str, string cultureName, double expectedValue, Enum expectedUnit)
         {
-            var actual = Information.Parse(str, new CultureInfo(cultureName));
+            var actual = Information.Parse(str, CultureInfo.GetCultureInfo(cultureName));
 
             Assert.Equal(expectedUnit, actual.Unit);
             Assert.Equal(expectedValue, actual.Value);

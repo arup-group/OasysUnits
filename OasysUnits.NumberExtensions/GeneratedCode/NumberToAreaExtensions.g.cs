@@ -19,6 +19,10 @@
 
 using System;
 
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
+
 #nullable enable
 
 namespace OasysUnits.NumberExtensions.NumberToArea
@@ -28,61 +32,117 @@ namespace OasysUnits.NumberExtensions.NumberToArea
     /// </summary>
     public static class NumberToAreaExtensions
     {
-        /// <inheritdoc cref="Area.FromAcres(OasysUnits.QuantityValue)" />
-        public static Area Acres<T>(this T value) =>
-            Area.FromAcres(Convert.ToDouble(value));
+        /// <inheritdoc cref="Area.FromAcres(double)" />
+        public static Area Acres<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Area.FromAcres(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Area.FromHectares(OasysUnits.QuantityValue)" />
-        public static Area Hectares<T>(this T value) =>
-            Area.FromHectares(Convert.ToDouble(value));
+        /// <inheritdoc cref="Area.FromHectares(double)" />
+        public static Area Hectares<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Area.FromHectares(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Area.FromSquareCentimeters(OasysUnits.QuantityValue)" />
-        public static Area SquareCentimeters<T>(this T value) =>
-            Area.FromSquareCentimeters(Convert.ToDouble(value));
+        /// <inheritdoc cref="Area.FromSquareCentimeters(double)" />
+        public static Area SquareCentimeters<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Area.FromSquareCentimeters(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Area.FromSquareDecimeters(OasysUnits.QuantityValue)" />
-        public static Area SquareDecimeters<T>(this T value) =>
-            Area.FromSquareDecimeters(Convert.ToDouble(value));
+        /// <inheritdoc cref="Area.FromSquareDecimeters(double)" />
+        public static Area SquareDecimeters<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Area.FromSquareDecimeters(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Area.FromSquareFeet(OasysUnits.QuantityValue)" />
-        public static Area SquareFeet<T>(this T value) =>
-            Area.FromSquareFeet(Convert.ToDouble(value));
+        /// <inheritdoc cref="Area.FromSquareFeet(double)" />
+        public static Area SquareFeet<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Area.FromSquareFeet(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Area.FromSquareInches(OasysUnits.QuantityValue)" />
-        public static Area SquareInches<T>(this T value) =>
-            Area.FromSquareInches(Convert.ToDouble(value));
+        /// <inheritdoc cref="Area.FromSquareInches(double)" />
+        public static Area SquareInches<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Area.FromSquareInches(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Area.FromSquareKilometers(OasysUnits.QuantityValue)" />
-        public static Area SquareKilometers<T>(this T value) =>
-            Area.FromSquareKilometers(Convert.ToDouble(value));
+        /// <inheritdoc cref="Area.FromSquareKilometers(double)" />
+        public static Area SquareKilometers<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Area.FromSquareKilometers(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Area.FromSquareMeters(OasysUnits.QuantityValue)" />
-        public static Area SquareMeters<T>(this T value) =>
-            Area.FromSquareMeters(Convert.ToDouble(value));
+        /// <inheritdoc cref="Area.FromSquareMeters(double)" />
+        public static Area SquareMeters<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Area.FromSquareMeters(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Area.FromSquareMicrometers(OasysUnits.QuantityValue)" />
-        public static Area SquareMicrometers<T>(this T value) =>
-            Area.FromSquareMicrometers(Convert.ToDouble(value));
+        /// <inheritdoc cref="Area.FromSquareMicrometers(double)" />
+        public static Area SquareMicrometers<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Area.FromSquareMicrometers(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Area.FromSquareMiles(OasysUnits.QuantityValue)" />
-        public static Area SquareMiles<T>(this T value) =>
-            Area.FromSquareMiles(Convert.ToDouble(value));
+        /// <inheritdoc cref="Area.FromSquareMiles(double)" />
+        public static Area SquareMiles<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Area.FromSquareMiles(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Area.FromSquareMillimeters(OasysUnits.QuantityValue)" />
-        public static Area SquareMillimeters<T>(this T value) =>
-            Area.FromSquareMillimeters(Convert.ToDouble(value));
+        /// <inheritdoc cref="Area.FromSquareMillimeters(double)" />
+        public static Area SquareMillimeters<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Area.FromSquareMillimeters(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Area.FromSquareNauticalMiles(OasysUnits.QuantityValue)" />
-        public static Area SquareNauticalMiles<T>(this T value) =>
-            Area.FromSquareNauticalMiles(Convert.ToDouble(value));
+        /// <inheritdoc cref="Area.FromSquareNauticalMiles(double)" />
+        public static Area SquareNauticalMiles<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Area.FromSquareNauticalMiles(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Area.FromSquareYards(OasysUnits.QuantityValue)" />
-        public static Area SquareYards<T>(this T value) =>
-            Area.FromSquareYards(Convert.ToDouble(value));
+        /// <inheritdoc cref="Area.FromSquareYards(double)" />
+        public static Area SquareYards<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Area.FromSquareYards(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Area.FromUsSurveySquareFeet(OasysUnits.QuantityValue)" />
-        public static Area UsSurveySquareFeet<T>(this T value) =>
-            Area.FromUsSurveySquareFeet(Convert.ToDouble(value));
+        /// <inheritdoc cref="Area.FromUsSurveySquareFeet(double)" />
+        public static Area UsSurveySquareFeet<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Area.FromUsSurveySquareFeet(Convert.ToDouble(value));
 
     }
 }

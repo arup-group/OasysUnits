@@ -107,16 +107,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void Ctor_WithInfinityValue_ThrowsArgumentException()
+        public void Ctor_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new ElectricCharge(double.PositiveInfinity, ElectricChargeUnit.Coulomb));
-            Assert.Throws<ArgumentException>(() => new ElectricCharge(double.NegativeInfinity, ElectricChargeUnit.Coulomb));
+            var exception1 = Record.Exception(() => new ElectricCharge(double.PositiveInfinity, ElectricChargeUnit.Coulomb));
+            var exception2 = Record.Exception(() => new ElectricCharge(double.NegativeInfinity, ElectricChargeUnit.Coulomb));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void Ctor_WithNaNValue_ThrowsArgumentException()
+        public void Ctor_WithNaNValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new ElectricCharge(double.NaN, ElectricChargeUnit.Coulomb));
+            var exception = Record.Exception(() => new ElectricCharge(double.NaN, ElectricChargeUnit.Coulomb));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -221,16 +226,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void FromCoulombs_WithInfinityValue_ThrowsArgumentException()
+        public void FromCoulombs_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => ElectricCharge.FromCoulombs(double.PositiveInfinity));
-            Assert.Throws<ArgumentException>(() => ElectricCharge.FromCoulombs(double.NegativeInfinity));
+            var exception1 = Record.Exception(() => ElectricCharge.FromCoulombs(double.PositiveInfinity));
+            var exception2 = Record.Exception(() => ElectricCharge.FromCoulombs(double.NegativeInfinity));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void FromCoulombs_WithNanValue_ThrowsArgumentException()
+        public void FromCoulombs_WithNanValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => ElectricCharge.FromCoulombs(double.NaN));
+            var exception = Record.Exception(() => ElectricCharge.FromCoulombs(double.NaN));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -740,6 +750,8 @@ namespace OasysUnits.Tests
             var v = ElectricCharge.FromCoulombs(1);
             Assert.True(v.Equals(ElectricCharge.FromCoulombs(1), CoulombsTolerance, ComparisonType.Relative));
             Assert.False(v.Equals(ElectricCharge.Zero, CoulombsTolerance, ComparisonType.Relative));
+            Assert.True(ElectricCharge.FromCoulombs(100).Equals(ElectricCharge.FromCoulombs(120), 0.3, ComparisonType.Relative));
+            Assert.False(ElectricCharge.FromCoulombs(100).Equals(ElectricCharge.FromCoulombs(120), 0.1, ComparisonType.Relative));
         }
 
         [Fact]

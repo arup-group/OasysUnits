@@ -18,9 +18,13 @@
 // Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
 
 using System;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
 using System.Runtime.Serialization;
 using OasysUnits.InternalHelpers;
 using OasysUnits.Units;
@@ -36,8 +40,27 @@ namespace OasysUnits
     ///     In physics, mass (from Greek μᾶζα "barley cake, lump [of dough]") is a property of a physical system or body, giving rise to the phenomena of the body's resistance to being accelerated by a force and the strength of its mutual gravitational attraction with other bodies. Instruments such as mass balances or scales use those phenomena to measure mass. The SI unit of mass is the kilogram (kg).
     /// </summary>
     [DataContract]
+    [DebuggerTypeProxy(typeof(QuantityDisplay))]
     public readonly partial struct Mass :
-        IArithmeticQuantity<Mass, MassUnit, double>,
+        IArithmeticQuantity<Mass, MassUnit>,
+#if NET7_0_OR_GREATER
+        IDivisionOperators<Mass, MolarMass, AmountOfSubstance>,
+        IDivisionOperators<Mass, AreaDensity, Area>,
+        IDivisionOperators<Mass, Area, AreaDensity>,
+        IDivisionOperators<Mass, Volume, Density>,
+        IDivisionOperators<Mass, MassFlow, Duration>,
+        IMultiplyOperators<Mass, SpecificEnergy, Energy>,
+        IMultiplyOperators<Mass, SpecificEntropy, Entropy>,
+        IMultiplyOperators<Mass, Acceleration, Force>,
+        IDivisionOperators<Mass, LinearDensity, Length>,
+        IDivisionOperators<Mass, Length, LinearDensity>,
+        IMultiplyOperators<Mass, MassFraction, Mass>,
+        IDivisionOperators<Mass, MassFraction, Mass>,
+        IDivisionOperators<Mass, Duration, MassFlow>,
+        IDivisionOperators<Mass, AmountOfSubstance, MolarMass>,
+        IMultiplyOperators<Mass, SpecificVolume, Volume>,
+        IDivisionOperators<Mass, Density, Volume>,
+#endif
         IComparable,
         IComparable<Mass>,
         IConvertible,
@@ -47,13 +70,13 @@ namespace OasysUnits
         /// <summary>
         ///     The numeric value this quantity was constructed with.
         /// </summary>
-        [DataMember(Name = "Value", Order = 0)]
+        [DataMember(Name = "Value", Order = 1)]
         private readonly double _value;
 
         /// <summary>
         ///     The unit this quantity was constructed with.
         /// </summary>
-        [DataMember(Name = "Unit", Order = 1)]
+        [DataMember(Name = "Unit", Order = 2)]
         private readonly MassUnit? _unit;
 
         static Mass()
@@ -65,33 +88,33 @@ namespace OasysUnits
             Info = new QuantityInfo<MassUnit>("Mass",
                 new UnitInfo<MassUnit>[]
                 {
-                    new UnitInfo<MassUnit>(MassUnit.Centigram, "Centigrams", BaseUnits.Undefined),
-                    new UnitInfo<MassUnit>(MassUnit.Decagram, "Decagrams", BaseUnits.Undefined),
-                    new UnitInfo<MassUnit>(MassUnit.Decigram, "Decigrams", BaseUnits.Undefined),
-                    new UnitInfo<MassUnit>(MassUnit.EarthMass, "EarthMasses", new BaseUnits(mass: MassUnit.EarthMass)),
-                    new UnitInfo<MassUnit>(MassUnit.Femtogram, "Femtograms", BaseUnits.Undefined),
-                    new UnitInfo<MassUnit>(MassUnit.Grain, "Grains", new BaseUnits(mass: MassUnit.Grain)),
-                    new UnitInfo<MassUnit>(MassUnit.Gram, "Grams", new BaseUnits(mass: MassUnit.Gram)),
-                    new UnitInfo<MassUnit>(MassUnit.Hectogram, "Hectograms", BaseUnits.Undefined),
-                    new UnitInfo<MassUnit>(MassUnit.Kilogram, "Kilograms", BaseUnits.Undefined),
-                    new UnitInfo<MassUnit>(MassUnit.Kilopound, "Kilopounds", BaseUnits.Undefined),
-                    new UnitInfo<MassUnit>(MassUnit.Kilotonne, "Kilotonnes", BaseUnits.Undefined),
-                    new UnitInfo<MassUnit>(MassUnit.LongHundredweight, "LongHundredweight", new BaseUnits(mass: MassUnit.LongHundredweight)),
-                    new UnitInfo<MassUnit>(MassUnit.LongTon, "LongTons", new BaseUnits(mass: MassUnit.LongTon)),
-                    new UnitInfo<MassUnit>(MassUnit.Megapound, "Megapounds", BaseUnits.Undefined),
-                    new UnitInfo<MassUnit>(MassUnit.Megatonne, "Megatonnes", BaseUnits.Undefined),
-                    new UnitInfo<MassUnit>(MassUnit.Microgram, "Micrograms", BaseUnits.Undefined),
-                    new UnitInfo<MassUnit>(MassUnit.Milligram, "Milligrams", BaseUnits.Undefined),
-                    new UnitInfo<MassUnit>(MassUnit.Nanogram, "Nanograms", BaseUnits.Undefined),
-                    new UnitInfo<MassUnit>(MassUnit.Ounce, "Ounces", new BaseUnits(mass: MassUnit.Ounce)),
-                    new UnitInfo<MassUnit>(MassUnit.Picogram, "Picograms", BaseUnits.Undefined),
-                    new UnitInfo<MassUnit>(MassUnit.Pound, "Pounds", new BaseUnits(mass: MassUnit.Pound)),
-                    new UnitInfo<MassUnit>(MassUnit.ShortHundredweight, "ShortHundredweight", new BaseUnits(mass: MassUnit.ShortHundredweight)),
-                    new UnitInfo<MassUnit>(MassUnit.ShortTon, "ShortTons", new BaseUnits(mass: MassUnit.ShortTon)),
-                    new UnitInfo<MassUnit>(MassUnit.Slug, "Slugs", new BaseUnits(mass: MassUnit.Slug)),
-                    new UnitInfo<MassUnit>(MassUnit.SolarMass, "SolarMasses", new BaseUnits(mass: MassUnit.SolarMass)),
-                    new UnitInfo<MassUnit>(MassUnit.Stone, "Stone", new BaseUnits(mass: MassUnit.Stone)),
-                    new UnitInfo<MassUnit>(MassUnit.Tonne, "Tonnes", new BaseUnits(mass: MassUnit.Tonne)),
+                    new UnitInfo<MassUnit>(MassUnit.Centigram, "Centigrams", BaseUnits.Undefined, "Mass"),
+                    new UnitInfo<MassUnit>(MassUnit.Decagram, "Decagrams", BaseUnits.Undefined, "Mass"),
+                    new UnitInfo<MassUnit>(MassUnit.Decigram, "Decigrams", BaseUnits.Undefined, "Mass"),
+                    new UnitInfo<MassUnit>(MassUnit.EarthMass, "EarthMasses", new BaseUnits(mass: MassUnit.EarthMass), "Mass"),
+                    new UnitInfo<MassUnit>(MassUnit.Femtogram, "Femtograms", BaseUnits.Undefined, "Mass"),
+                    new UnitInfo<MassUnit>(MassUnit.Grain, "Grains", new BaseUnits(mass: MassUnit.Grain), "Mass"),
+                    new UnitInfo<MassUnit>(MassUnit.Gram, "Grams", new BaseUnits(mass: MassUnit.Gram), "Mass"),
+                    new UnitInfo<MassUnit>(MassUnit.Hectogram, "Hectograms", BaseUnits.Undefined, "Mass"),
+                    new UnitInfo<MassUnit>(MassUnit.Kilogram, "Kilograms", BaseUnits.Undefined, "Mass"),
+                    new UnitInfo<MassUnit>(MassUnit.Kilopound, "Kilopounds", BaseUnits.Undefined, "Mass"),
+                    new UnitInfo<MassUnit>(MassUnit.Kilotonne, "Kilotonnes", BaseUnits.Undefined, "Mass"),
+                    new UnitInfo<MassUnit>(MassUnit.LongHundredweight, "LongHundredweight", new BaseUnits(mass: MassUnit.LongHundredweight), "Mass"),
+                    new UnitInfo<MassUnit>(MassUnit.LongTon, "LongTons", new BaseUnits(mass: MassUnit.LongTon), "Mass"),
+                    new UnitInfo<MassUnit>(MassUnit.Megapound, "Megapounds", BaseUnits.Undefined, "Mass"),
+                    new UnitInfo<MassUnit>(MassUnit.Megatonne, "Megatonnes", BaseUnits.Undefined, "Mass"),
+                    new UnitInfo<MassUnit>(MassUnit.Microgram, "Micrograms", BaseUnits.Undefined, "Mass"),
+                    new UnitInfo<MassUnit>(MassUnit.Milligram, "Milligrams", BaseUnits.Undefined, "Mass"),
+                    new UnitInfo<MassUnit>(MassUnit.Nanogram, "Nanograms", BaseUnits.Undefined, "Mass"),
+                    new UnitInfo<MassUnit>(MassUnit.Ounce, "Ounces", new BaseUnits(mass: MassUnit.Ounce), "Mass"),
+                    new UnitInfo<MassUnit>(MassUnit.Picogram, "Picograms", BaseUnits.Undefined, "Mass"),
+                    new UnitInfo<MassUnit>(MassUnit.Pound, "Pounds", new BaseUnits(mass: MassUnit.Pound), "Mass"),
+                    new UnitInfo<MassUnit>(MassUnit.ShortHundredweight, "ShortHundredweight", new BaseUnits(mass: MassUnit.ShortHundredweight), "Mass"),
+                    new UnitInfo<MassUnit>(MassUnit.ShortTon, "ShortTons", new BaseUnits(mass: MassUnit.ShortTon), "Mass"),
+                    new UnitInfo<MassUnit>(MassUnit.Slug, "Slugs", new BaseUnits(mass: MassUnit.Slug), "Mass"),
+                    new UnitInfo<MassUnit>(MassUnit.SolarMass, "SolarMasses", new BaseUnits(mass: MassUnit.SolarMass), "Mass"),
+                    new UnitInfo<MassUnit>(MassUnit.Stone, "Stone", new BaseUnits(mass: MassUnit.Stone), "Mass"),
+                    new UnitInfo<MassUnit>(MassUnit.Tonne, "Tonnes", new BaseUnits(mass: MassUnit.Tonne), "Mass"),
                 },
                 BaseUnit, Zero, BaseDimensions);
 
@@ -104,10 +127,9 @@ namespace OasysUnits
         /// </summary>
         /// <param name="value">The numeric value to construct this quantity with.</param>
         /// <param name="unit">The unit representation to construct this quantity with.</param>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
         public Mass(double value, MassUnit unit)
         {
-            _value = Guard.EnsureValidNumber(value, nameof(value));
+            _value = value;
             _unit = unit;
         }
 
@@ -126,7 +148,7 @@ namespace OasysUnits
             var unitInfos = Info.GetUnitInfosFor(unitSystem.BaseUnits);
             var firstUnitInfo = unitInfos.FirstOrDefault();
 
-            _value = Guard.EnsureValidNumber(value, nameof(value));
+            _value = value;
             _unit = firstUnitInfo?.Value ?? throw new ArgumentException("No units were found for the given UnitSystem.", nameof(unitSystem));
         }
 
@@ -164,7 +186,7 @@ namespace OasysUnits
         public static Mass AdditiveIdentity => Zero;
 
         #endregion
- 
+
         #region Properties
 
         /// <summary>
@@ -173,7 +195,7 @@ namespace OasysUnits
         public double Value => _value;
 
         /// <inheritdoc />
-        QuantityValue IQuantity.Value => _value;
+        double IQuantity.Value => _value;
 
         Enum IQuantity.Unit => Unit;
 
@@ -400,76 +422,6 @@ namespace OasysUnits
             unitConverter.SetConversionFunction<Mass>(MassUnit.Kilogram, MassUnit.Tonne, quantity => quantity.ToUnit(MassUnit.Tonne));
         }
 
-        internal static void MapGeneratedLocalizations(UnitAbbreviationsCache unitAbbreviationsCache)
-        {
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Centigram, new CultureInfo("en-US"), false, true, new string[]{"cg"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Centigram, new CultureInfo("ru-RU"), false, true, new string[]{"сг"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Centigram, new CultureInfo("zh-CN"), false, true, new string[]{"厘克"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Decagram, new CultureInfo("en-US"), false, true, new string[]{"dag"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Decagram, new CultureInfo("ru-RU"), false, true, new string[]{"даг"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Decagram, new CultureInfo("zh-CN"), false, true, new string[]{"十克"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Decigram, new CultureInfo("en-US"), false, true, new string[]{"dg"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Decigram, new CultureInfo("ru-RU"), false, true, new string[]{"дг"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Decigram, new CultureInfo("zh-CN"), false, true, new string[]{"分克"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.EarthMass, new CultureInfo("en-US"), false, true, new string[]{"em"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Femtogram, new CultureInfo("en-US"), false, true, new string[]{"fg"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Femtogram, new CultureInfo("ru-RU"), false, true, new string[]{"фг"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Femtogram, new CultureInfo("zh-CN"), false, true, new string[]{"飞克"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Grain, new CultureInfo("en-US"), false, true, new string[]{"gr"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Gram, new CultureInfo("en-US"), false, true, new string[]{"g"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Gram, new CultureInfo("ru-RU"), false, true, new string[]{"г"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Gram, new CultureInfo("zh-CN"), false, true, new string[]{"克"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Hectogram, new CultureInfo("en-US"), false, true, new string[]{"hg"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Hectogram, new CultureInfo("ru-RU"), false, true, new string[]{"гг"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Hectogram, new CultureInfo("zh-CN"), false, true, new string[]{"百克"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Kilogram, new CultureInfo("en-US"), false, true, new string[]{"kg"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Kilogram, new CultureInfo("ru-RU"), false, true, new string[]{"кг"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Kilogram, new CultureInfo("zh-CN"), false, true, new string[]{"千克"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Kilopound, new CultureInfo("en-US"), false, true, new string[]{"klb", "klbs", "klbm"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Kilopound, new CultureInfo("ru-RU"), false, true, new string[]{"кфунт"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Kilopound, new CultureInfo("zh-CN"), false, true, new string[]{"千磅"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Kilotonne, new CultureInfo("en-US"), false, true, new string[]{"kt"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Kilotonne, new CultureInfo("ru-RU"), false, true, new string[]{"кт"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Kilotonne, new CultureInfo("zh-CN"), false, true, new string[]{"千吨"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.LongHundredweight, new CultureInfo("en-US"), false, true, new string[]{"cwt"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.LongTon, new CultureInfo("en-US"), false, true, new string[]{"long tn"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.LongTon, new CultureInfo("ru-RU"), false, true, new string[]{"тонна большая"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.LongTon, new CultureInfo("zh-CN"), false, true, new string[]{"长吨"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Megapound, new CultureInfo("en-US"), false, true, new string[]{"Mlb", "Mlbs", "Mlbm"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Megapound, new CultureInfo("ru-RU"), false, true, new string[]{"Мфунт"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Megapound, new CultureInfo("zh-CN"), false, true, new string[]{"兆磅"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Megatonne, new CultureInfo("en-US"), false, true, new string[]{"Mt"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Megatonne, new CultureInfo("ru-RU"), false, true, new string[]{"Мт"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Megatonne, new CultureInfo("zh-CN"), false, true, new string[]{"兆吨"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Microgram, new CultureInfo("en-US"), false, true, new string[]{"µg"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Microgram, new CultureInfo("ru-RU"), false, true, new string[]{"мкг"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Microgram, new CultureInfo("zh-CN"), false, true, new string[]{"微克"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Milligram, new CultureInfo("en-US"), false, true, new string[]{"mg"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Milligram, new CultureInfo("ru-RU"), false, true, new string[]{"мг"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Milligram, new CultureInfo("zh-CN"), false, true, new string[]{"毫克"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Nanogram, new CultureInfo("en-US"), false, true, new string[]{"ng"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Nanogram, new CultureInfo("ru-RU"), false, true, new string[]{"нг"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Nanogram, new CultureInfo("zh-CN"), false, true, new string[]{"纳克"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Ounce, new CultureInfo("en-US"), false, true, new string[]{"oz"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Ounce, new CultureInfo("zh-CN"), false, true, new string[]{"盎司"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Picogram, new CultureInfo("en-US"), false, true, new string[]{"pg"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Picogram, new CultureInfo("ru-RU"), false, true, new string[]{"пг"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Picogram, new CultureInfo("zh-CN"), false, true, new string[]{"皮克"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Pound, new CultureInfo("en-US"), false, true, new string[]{"lb", "lbs", "lbm"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Pound, new CultureInfo("ru-RU"), false, true, new string[]{"фунт"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Pound, new CultureInfo("zh-CN"), false, true, new string[]{"磅"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.ShortHundredweight, new CultureInfo("en-US"), false, true, new string[]{"cwt"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.ShortTon, new CultureInfo("en-US"), false, true, new string[]{"t (short)", "short tn", "ST"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.ShortTon, new CultureInfo("ru-RU"), false, true, new string[]{"тонна малая"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.ShortTon, new CultureInfo("zh-CN"), false, true, new string[]{"短吨"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Slug, new CultureInfo("en-US"), false, true, new string[]{"slug"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.SolarMass, new CultureInfo("en-US"), false, true, new string[]{"M☉", "M⊙"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Stone, new CultureInfo("en-US"), false, true, new string[]{"st"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Tonne, new CultureInfo("en-US"), false, true, new string[]{"t"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Tonne, new CultureInfo("ru-RU"), false, true, new string[]{"т"});
-            unitAbbreviationsCache.PerformAbbreviationMapping(MassUnit.Tonne, new CultureInfo("zh-CN"), false, true, new string[]{"吨"});
-        }
-
         /// <summary>
         ///     Get unit abbreviation string.
         /// </summary>
@@ -498,270 +450,216 @@ namespace OasysUnits
         /// <summary>
         ///     Creates a <see cref="Mass"/> from <see cref="MassUnit.Centigram"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Mass FromCentigrams(QuantityValue centigrams)
+        public static Mass FromCentigrams(double value)
         {
-            double value = (double) centigrams;
             return new Mass(value, MassUnit.Centigram);
         }
 
         /// <summary>
         ///     Creates a <see cref="Mass"/> from <see cref="MassUnit.Decagram"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Mass FromDecagrams(QuantityValue decagrams)
+        public static Mass FromDecagrams(double value)
         {
-            double value = (double) decagrams;
             return new Mass(value, MassUnit.Decagram);
         }
 
         /// <summary>
         ///     Creates a <see cref="Mass"/> from <see cref="MassUnit.Decigram"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Mass FromDecigrams(QuantityValue decigrams)
+        public static Mass FromDecigrams(double value)
         {
-            double value = (double) decigrams;
             return new Mass(value, MassUnit.Decigram);
         }
 
         /// <summary>
         ///     Creates a <see cref="Mass"/> from <see cref="MassUnit.EarthMass"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Mass FromEarthMasses(QuantityValue earthmasses)
+        public static Mass FromEarthMasses(double value)
         {
-            double value = (double) earthmasses;
             return new Mass(value, MassUnit.EarthMass);
         }
 
         /// <summary>
         ///     Creates a <see cref="Mass"/> from <see cref="MassUnit.Femtogram"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Mass FromFemtograms(QuantityValue femtograms)
+        public static Mass FromFemtograms(double value)
         {
-            double value = (double) femtograms;
             return new Mass(value, MassUnit.Femtogram);
         }
 
         /// <summary>
         ///     Creates a <see cref="Mass"/> from <see cref="MassUnit.Grain"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Mass FromGrains(QuantityValue grains)
+        public static Mass FromGrains(double value)
         {
-            double value = (double) grains;
             return new Mass(value, MassUnit.Grain);
         }
 
         /// <summary>
         ///     Creates a <see cref="Mass"/> from <see cref="MassUnit.Gram"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Mass FromGrams(QuantityValue grams)
+        public static Mass FromGrams(double value)
         {
-            double value = (double) grams;
             return new Mass(value, MassUnit.Gram);
         }
 
         /// <summary>
         ///     Creates a <see cref="Mass"/> from <see cref="MassUnit.Hectogram"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Mass FromHectograms(QuantityValue hectograms)
+        public static Mass FromHectograms(double value)
         {
-            double value = (double) hectograms;
             return new Mass(value, MassUnit.Hectogram);
         }
 
         /// <summary>
         ///     Creates a <see cref="Mass"/> from <see cref="MassUnit.Kilogram"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Mass FromKilograms(QuantityValue kilograms)
+        public static Mass FromKilograms(double value)
         {
-            double value = (double) kilograms;
             return new Mass(value, MassUnit.Kilogram);
         }
 
         /// <summary>
         ///     Creates a <see cref="Mass"/> from <see cref="MassUnit.Kilopound"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Mass FromKilopounds(QuantityValue kilopounds)
+        public static Mass FromKilopounds(double value)
         {
-            double value = (double) kilopounds;
             return new Mass(value, MassUnit.Kilopound);
         }
 
         /// <summary>
         ///     Creates a <see cref="Mass"/> from <see cref="MassUnit.Kilotonne"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Mass FromKilotonnes(QuantityValue kilotonnes)
+        public static Mass FromKilotonnes(double value)
         {
-            double value = (double) kilotonnes;
             return new Mass(value, MassUnit.Kilotonne);
         }
 
         /// <summary>
         ///     Creates a <see cref="Mass"/> from <see cref="MassUnit.LongHundredweight"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Mass FromLongHundredweight(QuantityValue longhundredweight)
+        public static Mass FromLongHundredweight(double value)
         {
-            double value = (double) longhundredweight;
             return new Mass(value, MassUnit.LongHundredweight);
         }
 
         /// <summary>
         ///     Creates a <see cref="Mass"/> from <see cref="MassUnit.LongTon"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Mass FromLongTons(QuantityValue longtons)
+        public static Mass FromLongTons(double value)
         {
-            double value = (double) longtons;
             return new Mass(value, MassUnit.LongTon);
         }
 
         /// <summary>
         ///     Creates a <see cref="Mass"/> from <see cref="MassUnit.Megapound"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Mass FromMegapounds(QuantityValue megapounds)
+        public static Mass FromMegapounds(double value)
         {
-            double value = (double) megapounds;
             return new Mass(value, MassUnit.Megapound);
         }
 
         /// <summary>
         ///     Creates a <see cref="Mass"/> from <see cref="MassUnit.Megatonne"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Mass FromMegatonnes(QuantityValue megatonnes)
+        public static Mass FromMegatonnes(double value)
         {
-            double value = (double) megatonnes;
             return new Mass(value, MassUnit.Megatonne);
         }
 
         /// <summary>
         ///     Creates a <see cref="Mass"/> from <see cref="MassUnit.Microgram"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Mass FromMicrograms(QuantityValue micrograms)
+        public static Mass FromMicrograms(double value)
         {
-            double value = (double) micrograms;
             return new Mass(value, MassUnit.Microgram);
         }
 
         /// <summary>
         ///     Creates a <see cref="Mass"/> from <see cref="MassUnit.Milligram"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Mass FromMilligrams(QuantityValue milligrams)
+        public static Mass FromMilligrams(double value)
         {
-            double value = (double) milligrams;
             return new Mass(value, MassUnit.Milligram);
         }
 
         /// <summary>
         ///     Creates a <see cref="Mass"/> from <see cref="MassUnit.Nanogram"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Mass FromNanograms(QuantityValue nanograms)
+        public static Mass FromNanograms(double value)
         {
-            double value = (double) nanograms;
             return new Mass(value, MassUnit.Nanogram);
         }
 
         /// <summary>
         ///     Creates a <see cref="Mass"/> from <see cref="MassUnit.Ounce"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Mass FromOunces(QuantityValue ounces)
+        public static Mass FromOunces(double value)
         {
-            double value = (double) ounces;
             return new Mass(value, MassUnit.Ounce);
         }
 
         /// <summary>
         ///     Creates a <see cref="Mass"/> from <see cref="MassUnit.Picogram"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Mass FromPicograms(QuantityValue picograms)
+        public static Mass FromPicograms(double value)
         {
-            double value = (double) picograms;
             return new Mass(value, MassUnit.Picogram);
         }
 
         /// <summary>
         ///     Creates a <see cref="Mass"/> from <see cref="MassUnit.Pound"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Mass FromPounds(QuantityValue pounds)
+        public static Mass FromPounds(double value)
         {
-            double value = (double) pounds;
             return new Mass(value, MassUnit.Pound);
         }
 
         /// <summary>
         ///     Creates a <see cref="Mass"/> from <see cref="MassUnit.ShortHundredweight"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Mass FromShortHundredweight(QuantityValue shorthundredweight)
+        public static Mass FromShortHundredweight(double value)
         {
-            double value = (double) shorthundredweight;
             return new Mass(value, MassUnit.ShortHundredweight);
         }
 
         /// <summary>
         ///     Creates a <see cref="Mass"/> from <see cref="MassUnit.ShortTon"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Mass FromShortTons(QuantityValue shorttons)
+        public static Mass FromShortTons(double value)
         {
-            double value = (double) shorttons;
             return new Mass(value, MassUnit.ShortTon);
         }
 
         /// <summary>
         ///     Creates a <see cref="Mass"/> from <see cref="MassUnit.Slug"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Mass FromSlugs(QuantityValue slugs)
+        public static Mass FromSlugs(double value)
         {
-            double value = (double) slugs;
             return new Mass(value, MassUnit.Slug);
         }
 
         /// <summary>
         ///     Creates a <see cref="Mass"/> from <see cref="MassUnit.SolarMass"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Mass FromSolarMasses(QuantityValue solarmasses)
+        public static Mass FromSolarMasses(double value)
         {
-            double value = (double) solarmasses;
             return new Mass(value, MassUnit.SolarMass);
         }
 
         /// <summary>
         ///     Creates a <see cref="Mass"/> from <see cref="MassUnit.Stone"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Mass FromStone(QuantityValue stone)
+        public static Mass FromStone(double value)
         {
-            double value = (double) stone;
             return new Mass(value, MassUnit.Stone);
         }
 
         /// <summary>
         ///     Creates a <see cref="Mass"/> from <see cref="MassUnit.Tonne"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">If value is NaN or Infinity.</exception>
-        public static Mass FromTonnes(QuantityValue tonnes)
+        public static Mass FromTonnes(double value)
         {
-            double value = (double) tonnes;
             return new Mass(value, MassUnit.Tonne);
         }
 
@@ -771,9 +669,9 @@ namespace OasysUnits
         /// <param name="value">Value to convert from.</param>
         /// <param name="fromUnit">Unit to convert from.</param>
         /// <returns>Mass unit value.</returns>
-        public static Mass From(QuantityValue value, MassUnit fromUnit)
+        public static Mass From(double value, MassUnit fromUnit)
         {
-            return new Mass((double)value, fromUnit);
+            return new Mass(value, fromUnit);
         }
 
         #endregion
@@ -785,7 +683,7 @@ namespace OasysUnits
         /// </summary>
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <example>
-        ///     Length.Parse("5.5 m", new CultureInfo("en-US"));
+        ///     Length.Parse("5.5 m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <exception cref="ArgumentNullException">The value of 'str' cannot be null. </exception>
         /// <exception cref="ArgumentException">
@@ -812,7 +710,7 @@ namespace OasysUnits
         /// </summary>
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <example>
-        ///     Length.Parse("5.5 m", new CultureInfo("en-US"));
+        ///     Length.Parse("5.5 m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <exception cref="ArgumentNullException">The value of 'str' cannot be null. </exception>
         /// <exception cref="ArgumentException">
@@ -844,7 +742,7 @@ namespace OasysUnits
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <param name="result">Resulting unit quantity if successful.</param>
         /// <example>
-        ///     Length.Parse("5.5 m", new CultureInfo("en-US"));
+        ///     Length.Parse("5.5 m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         public static bool TryParse(string? str, out Mass result)
         {
@@ -858,7 +756,7 @@ namespace OasysUnits
         /// <param name="result">Resulting unit quantity if successful.</param>
         /// <returns>True if successful, otherwise false.</returns>
         /// <example>
-        ///     Length.Parse("5.5 m", new CultureInfo("en-US"));
+        ///     Length.Parse("5.5 m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <param name="provider">Format to use when parsing number and unit. Defaults to <see cref="CultureInfo.CurrentCulture" /> if null.</param>
         public static bool TryParse(string? str, IFormatProvider? provider, out Mass result)
@@ -875,7 +773,7 @@ namespace OasysUnits
         /// </summary>
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <example>
-        ///     Length.ParseUnit("m", new CultureInfo("en-US"));
+        ///     Length.ParseUnit("m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <exception cref="ArgumentNullException">The value of 'str' cannot be null. </exception>
         /// <exception cref="OasysUnitsException">Error parsing string.</exception>
@@ -890,7 +788,7 @@ namespace OasysUnits
         /// <param name="str">String to parse. Typically in the form: {number} {unit}</param>
         /// <param name="provider">Format to use when parsing number and unit. Defaults to <see cref="CultureInfo.CurrentCulture" /> if null.</param>
         /// <example>
-        ///     Length.ParseUnit("m", new CultureInfo("en-US"));
+        ///     Length.ParseUnit("m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <exception cref="ArgumentNullException">The value of 'str' cannot be null. </exception>
         /// <exception cref="OasysUnitsException">Error parsing string.</exception>
@@ -912,7 +810,7 @@ namespace OasysUnits
         /// <param name="unit">The parsed unit if successful.</param>
         /// <returns>True if successful, otherwise false.</returns>
         /// <example>
-        ///     Length.TryParseUnit("m", new CultureInfo("en-US"));
+        ///     Length.TryParseUnit("m", CultureInfo.GetCultureInfo("en-US"));
         /// </example>
         /// <param name="provider">Format to use when parsing number and unit. Defaults to <see cref="CultureInfo.CurrentCulture" /> if null.</param>
         public static bool TryParseUnit(string str, IFormatProvider? provider, out MassUnit unit)
@@ -968,6 +866,106 @@ namespace OasysUnits
 
         #endregion
 
+        #region Relational Operators
+
+        /// <summary>Get <see cref="AmountOfSubstance"/> from <see cref="Mass"/> / <see cref="MolarMass"/>.</summary>
+        public static AmountOfSubstance operator /(Mass mass, MolarMass molarMass)
+        {
+            return AmountOfSubstance.FromMoles(mass.Grams / molarMass.GramsPerMole);
+        }
+
+        /// <summary>Get <see cref="Area"/> from <see cref="Mass"/> / <see cref="AreaDensity"/>.</summary>
+        public static Area operator /(Mass mass, AreaDensity areaDensity)
+        {
+            return Area.FromSquareMeters(mass.Kilograms / areaDensity.KilogramsPerSquareMeter);
+        }
+
+        /// <summary>Get <see cref="AreaDensity"/> from <see cref="Mass"/> / <see cref="Area"/>.</summary>
+        public static AreaDensity operator /(Mass mass, Area area)
+        {
+            return AreaDensity.FromKilogramsPerSquareMeter(mass.Kilograms / area.SquareMeters);
+        }
+
+        /// <summary>Get <see cref="Density"/> from <see cref="Mass"/> / <see cref="Volume"/>.</summary>
+        public static Density operator /(Mass mass, Volume volume)
+        {
+            return Density.FromKilogramsPerCubicMeter(mass.Kilograms / volume.CubicMeters);
+        }
+
+        /// <summary>Get <see cref="Duration"/> from <see cref="Mass"/> / <see cref="MassFlow"/>.</summary>
+        public static Duration operator /(Mass mass, MassFlow massFlow)
+        {
+            return Duration.FromSeconds(mass.Kilograms / massFlow.KilogramsPerSecond);
+        }
+
+        /// <summary>Get <see cref="Energy"/> from <see cref="Mass"/> * <see cref="SpecificEnergy"/>.</summary>
+        public static Energy operator *(Mass mass, SpecificEnergy specificEnergy)
+        {
+            return Energy.FromJoules(mass.Kilograms * specificEnergy.JoulesPerKilogram);
+        }
+
+        /// <summary>Get <see cref="Entropy"/> from <see cref="Mass"/> * <see cref="SpecificEntropy"/>.</summary>
+        public static Entropy operator *(Mass mass, SpecificEntropy specificEntropy)
+        {
+            return Entropy.FromJoulesPerKelvin(mass.Kilograms * specificEntropy.JoulesPerKilogramKelvin);
+        }
+
+        /// <summary>Get <see cref="Force"/> from <see cref="Mass"/> * <see cref="Acceleration"/>.</summary>
+        public static Force operator *(Mass mass, Acceleration acceleration)
+        {
+            return Force.FromNewtons(mass.Kilograms * acceleration.MetersPerSecondSquared);
+        }
+
+        /// <summary>Get <see cref="Length"/> from <see cref="Mass"/> / <see cref="LinearDensity"/>.</summary>
+        public static Length operator /(Mass mass, LinearDensity linearDensity)
+        {
+            return Length.FromMeters(mass.Kilograms / linearDensity.KilogramsPerMeter);
+        }
+
+        /// <summary>Get <see cref="LinearDensity"/> from <see cref="Mass"/> / <see cref="Length"/>.</summary>
+        public static LinearDensity operator /(Mass mass, Length length)
+        {
+            return LinearDensity.FromKilogramsPerMeter(mass.Kilograms / length.Meters);
+        }
+
+        /// <summary>Get <see cref="Mass"/> from <see cref="Mass"/> * <see cref="MassFraction"/>.</summary>
+        public static Mass operator *(Mass mass, MassFraction massFraction)
+        {
+            return Mass.FromKilograms(mass.Kilograms * massFraction.DecimalFractions);
+        }
+
+        /// <summary>Get <see cref="Mass"/> from <see cref="Mass"/> / <see cref="MassFraction"/>.</summary>
+        public static Mass operator /(Mass mass, MassFraction massFraction)
+        {
+            return Mass.FromKilograms(mass.Kilograms / massFraction.DecimalFractions);
+        }
+
+        /// <summary>Get <see cref="MassFlow"/> from <see cref="Mass"/> / <see cref="Duration"/>.</summary>
+        public static MassFlow operator /(Mass mass, Duration duration)
+        {
+            return MassFlow.FromKilogramsPerSecond(mass.Kilograms / duration.Seconds);
+        }
+
+        /// <summary>Get <see cref="MolarMass"/> from <see cref="Mass"/> / <see cref="AmountOfSubstance"/>.</summary>
+        public static MolarMass operator /(Mass mass, AmountOfSubstance amountOfSubstance)
+        {
+            return MolarMass.FromGramsPerMole(mass.Grams / amountOfSubstance.Moles);
+        }
+
+        /// <summary>Get <see cref="Volume"/> from <see cref="Mass"/> * <see cref="SpecificVolume"/>.</summary>
+        public static Volume operator *(Mass mass, SpecificVolume specificVolume)
+        {
+            return Volume.FromCubicMeters(mass.Kilograms * specificVolume.CubicMetersPerKilogram);
+        }
+
+        /// <summary>Get <see cref="Volume"/> from <see cref="Mass"/> / <see cref="Density"/>.</summary>
+        public static Volume operator /(Mass mass, Density density)
+        {
+            return Volume.FromCubicMeters(mass.Kilograms / density.KilogramsPerCubicMeter);
+        }
+
+        #endregion
+
         #region Equality / IComparable
 
         /// <summary>Returns true if less or equal to.</summary>
@@ -999,16 +997,14 @@ namespace OasysUnits
         #pragma warning disable CS0809
 
         /// <summary>Indicates strict equality of two <see cref="Mass"/> quantities, where both <see cref="Value" /> and <see cref="Unit" /> are exactly equal.</summary>
-        /// <remarks>Consider using <see cref="Equals(Mass, double, ComparisonType)"/> to check equality across different units and to specify a floating-point number error tolerance.</remarks>
-        [Obsolete("For null checks, use `x is null` syntax to not invoke overloads. For quantity comparisons, use Equals(Mass, double, ComparisonType) to check equality across different units and to specify a floating-point number error tolerance.")]
+        [Obsolete("For null checks, use `x is null` syntax to not invoke overloads. For equality checks, use Equals(Mass other, Mass tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public static bool operator ==(Mass left, Mass right)
         {
             return left.Equals(right);
         }
 
         /// <summary>Indicates strict inequality of two <see cref="Mass"/> quantities, where both <see cref="Value" /> and <see cref="Unit" /> are exactly equal.</summary>
-        /// <remarks>Consider using <see cref="Equals(Mass, double, ComparisonType)"/> to check equality across different units and to specify a floating-point number error tolerance.</remarks>
-        [Obsolete("For null checks, use `x is not null` syntax to not invoke overloads. For quantity comparisons, use Equals(Mass, double, ComparisonType) to check equality across different units and to specify a floating-point number error tolerance.")]
+        [Obsolete("For null checks, use `x is null` syntax to not invoke overloads. For equality checks, use Equals(Mass other, Mass tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public static bool operator !=(Mass left, Mass right)
         {
             return !(left == right);
@@ -1016,8 +1012,7 @@ namespace OasysUnits
 
         /// <inheritdoc />
         /// <summary>Indicates strict equality of two <see cref="Mass"/> quantities, where both <see cref="Value" /> and <see cref="Unit" /> are exactly equal.</summary>
-        /// <remarks>Consider using <see cref="Equals(Mass, double, ComparisonType)"/> to check equality across different units and to specify a floating-point number error tolerance.</remarks>
-        [Obsolete("Consider using Equals(Mass, double, ComparisonType) to check equality across different units and to specify a floating-point number error tolerance.")]
+        [Obsolete("Use Equals(Mass other, Mass tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public override bool Equals(object? obj)
         {
             if (obj is null || !(obj is Mass otherQuantity))
@@ -1028,8 +1023,7 @@ namespace OasysUnits
 
         /// <inheritdoc />
         /// <summary>Indicates strict equality of two <see cref="Mass"/> quantities, where both <see cref="Value" /> and <see cref="Unit" /> are exactly equal.</summary>
-        /// <remarks>Consider using <see cref="Equals(Mass, double, ComparisonType)"/> to check equality across different units and to specify a floating-point number error tolerance.</remarks>
-        [Obsolete("Consider using Equals(Mass, double, ComparisonType) to check equality across different units and to specify a floating-point number error tolerance.")]
+        [Obsolete("Use Equals(Mass other, Mass tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public bool Equals(Mass other)
         {
             return new { Value, Unit }.Equals(new { other.Value, other.Unit });
@@ -1113,15 +1107,37 @@ namespace OasysUnits
         /// <param name="tolerance">The absolute or relative tolerance value. Must be greater than or equal to 0.</param>
         /// <param name="comparisonType">The comparison type: either relative or absolute.</param>
         /// <returns>True if the absolute difference between the two values is not greater than the specified relative or absolute tolerance.</returns>
+        [Obsolete("Use Equals(Mass other, Mass tolerance) instead, to check equality across units and to specify the max tolerance for rounding errors due to floating-point arithmetic when converting between units.")]
         public bool Equals(Mass other, double tolerance, ComparisonType comparisonType)
         {
             if (tolerance < 0)
-                throw new ArgumentOutOfRangeException("tolerance", "Tolerance must be greater than or equal to 0.");
+                throw new ArgumentOutOfRangeException(nameof(tolerance), "Tolerance must be greater than or equal to 0.");
 
-            double thisValue = this.Value;
-            double otherValueInThisUnits = other.As(this.Unit);
+            return OasysUnits.Comparison.Equals(
+                referenceValue: this.Value,
+                otherValue: other.As(this.Unit),
+                tolerance: tolerance,
+                comparisonType: comparisonType);
+        }
 
-            return OasysUnits.Comparison.Equals(thisValue, otherValueInThisUnits, tolerance, comparisonType);
+        /// <inheritdoc />
+        public bool Equals(IQuantity? other, IQuantity tolerance)
+        {
+            return other is Mass otherTyped
+                   && (tolerance is Mass toleranceTyped
+                       ? true
+                       : throw new ArgumentException($"Tolerance quantity ({tolerance.QuantityInfo.Name}) did not match the other quantities of type 'Mass'.", nameof(tolerance)))
+                   && Equals(otherTyped, toleranceTyped);
+        }
+
+        /// <inheritdoc />
+        public bool Equals(Mass other, Mass tolerance)
+        {
+            return OasysUnits.Comparison.Equals(
+                referenceValue: this.Value,
+                otherValue: other.As(this.Unit),
+                tolerance: tolerance.As(this.Unit),
+                comparisonType: ComparisonType.Absolute);
         }
 
         /// <summary>
@@ -1166,15 +1182,6 @@ namespace OasysUnits
 
         /// <inheritdoc />
         double IQuantity.As(Enum unit)
-        {
-            if (!(unit is MassUnit typedUnit))
-                throw new ArgumentException($"The given unit is of type {unit.GetType()}. Only {typeof(MassUnit)} is supported.", nameof(unit));
-
-            return (double)As(typedUnit);
-        }
-
-        /// <inheritdoc />
-        double IValueQuantity<double>.As(Enum unit)
         {
             if (!(unit is MassUnit typedUnit))
                 throw new ArgumentException($"The given unit is of type {unit.GetType()}. Only {typeof(MassUnit)} is supported.", nameof(unit));
@@ -1340,18 +1347,6 @@ namespace OasysUnits
 
         /// <inheritdoc />
         IQuantity<MassUnit> IQuantity<MassUnit>.ToUnit(UnitSystem unitSystem) => ToUnit(unitSystem);
-
-        /// <inheritdoc />
-        IValueQuantity<double> IValueQuantity<double>.ToUnit(Enum unit)
-        {
-            if (unit is not MassUnit typedUnit)
-                throw new ArgumentException($"The given unit is of type {unit.GetType()}. Only {typeof(MassUnit)} is supported.", nameof(unit));
-
-            return ToUnit(typedUnit);
-        }
-
-        /// <inheritdoc />
-        IValueQuantity<double> IValueQuantity<double>.ToUnit(UnitSystem unitSystem) => ToUnit(unitSystem);
 
         #endregion
 

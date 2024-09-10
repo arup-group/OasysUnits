@@ -19,6 +19,10 @@
 
 using System;
 
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
+
 #nullable enable
 
 namespace OasysUnits.NumberExtensions.NumberToCompressibility
@@ -28,33 +32,61 @@ namespace OasysUnits.NumberExtensions.NumberToCompressibility
     /// </summary>
     public static class NumberToCompressibilityExtensions
     {
-        /// <inheritdoc cref="Compressibility.FromInverseAtmospheres(OasysUnits.QuantityValue)" />
-        public static Compressibility InverseAtmospheres<T>(this T value) =>
-            Compressibility.FromInverseAtmospheres(Convert.ToDouble(value));
+        /// <inheritdoc cref="Compressibility.FromInverseAtmospheres(double)" />
+        public static Compressibility InverseAtmospheres<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Compressibility.FromInverseAtmospheres(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Compressibility.FromInverseBars(OasysUnits.QuantityValue)" />
-        public static Compressibility InverseBars<T>(this T value) =>
-            Compressibility.FromInverseBars(Convert.ToDouble(value));
+        /// <inheritdoc cref="Compressibility.FromInverseBars(double)" />
+        public static Compressibility InverseBars<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Compressibility.FromInverseBars(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Compressibility.FromInverseKilopascals(OasysUnits.QuantityValue)" />
-        public static Compressibility InverseKilopascals<T>(this T value) =>
-            Compressibility.FromInverseKilopascals(Convert.ToDouble(value));
+        /// <inheritdoc cref="Compressibility.FromInverseKilopascals(double)" />
+        public static Compressibility InverseKilopascals<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Compressibility.FromInverseKilopascals(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Compressibility.FromInverseMegapascals(OasysUnits.QuantityValue)" />
-        public static Compressibility InverseMegapascals<T>(this T value) =>
-            Compressibility.FromInverseMegapascals(Convert.ToDouble(value));
+        /// <inheritdoc cref="Compressibility.FromInverseMegapascals(double)" />
+        public static Compressibility InverseMegapascals<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Compressibility.FromInverseMegapascals(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Compressibility.FromInverseMillibars(OasysUnits.QuantityValue)" />
-        public static Compressibility InverseMillibars<T>(this T value) =>
-            Compressibility.FromInverseMillibars(Convert.ToDouble(value));
+        /// <inheritdoc cref="Compressibility.FromInverseMillibars(double)" />
+        public static Compressibility InverseMillibars<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Compressibility.FromInverseMillibars(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Compressibility.FromInversePascals(OasysUnits.QuantityValue)" />
-        public static Compressibility InversePascals<T>(this T value) =>
-            Compressibility.FromInversePascals(Convert.ToDouble(value));
+        /// <inheritdoc cref="Compressibility.FromInversePascals(double)" />
+        public static Compressibility InversePascals<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Compressibility.FromInversePascals(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Compressibility.FromInversePoundsForcePerSquareInch(OasysUnits.QuantityValue)" />
-        public static Compressibility InversePoundsForcePerSquareInch<T>(this T value) =>
-            Compressibility.FromInversePoundsForcePerSquareInch(Convert.ToDouble(value));
+        /// <inheritdoc cref="Compressibility.FromInversePoundsForcePerSquareInch(double)" />
+        public static Compressibility InversePoundsForcePerSquareInch<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Compressibility.FromInversePoundsForcePerSquareInch(Convert.ToDouble(value));
 
     }
 }

@@ -19,6 +19,10 @@
 
 using System;
 
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
+
 #nullable enable
 
 namespace OasysUnits.NumberExtensions.NumberToBendingStiffness
@@ -28,29 +32,53 @@ namespace OasysUnits.NumberExtensions.NumberToBendingStiffness
     /// </summary>
     public static class NumberToBendingStiffnessExtensions
     {
-        /// <inheritdoc cref="BendingStiffness.FromKilonewtonSquareMeters(OasysUnits.QuantityValue)" />
-        public static BendingStiffness KilonewtonSquareMeters<T>(this T value) =>
-            BendingStiffness.FromKilonewtonSquareMeters(Convert.ToDouble(value));
+        /// <inheritdoc cref="BendingStiffness.FromKilonewtonSquareMeters(double)" />
+        public static BendingStiffness KilonewtonSquareMeters<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => BendingStiffness.FromKilonewtonSquareMeters(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="BendingStiffness.FromKilonewtonSquareMillimeters(OasysUnits.QuantityValue)" />
-        public static BendingStiffness KilonewtonSquareMillimeters<T>(this T value) =>
-            BendingStiffness.FromKilonewtonSquareMillimeters(Convert.ToDouble(value));
+        /// <inheritdoc cref="BendingStiffness.FromKilonewtonSquareMillimeters(double)" />
+        public static BendingStiffness KilonewtonSquareMillimeters<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => BendingStiffness.FromKilonewtonSquareMillimeters(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="BendingStiffness.FromNewtonSquareMeters(OasysUnits.QuantityValue)" />
-        public static BendingStiffness NewtonSquareMeters<T>(this T value) =>
-            BendingStiffness.FromNewtonSquareMeters(Convert.ToDouble(value));
+        /// <inheritdoc cref="BendingStiffness.FromNewtonSquareMeters(double)" />
+        public static BendingStiffness NewtonSquareMeters<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => BendingStiffness.FromNewtonSquareMeters(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="BendingStiffness.FromNewtonSquareMillimeters(OasysUnits.QuantityValue)" />
-        public static BendingStiffness NewtonSquareMillimeters<T>(this T value) =>
-            BendingStiffness.FromNewtonSquareMillimeters(Convert.ToDouble(value));
+        /// <inheritdoc cref="BendingStiffness.FromNewtonSquareMillimeters(double)" />
+        public static BendingStiffness NewtonSquareMillimeters<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => BendingStiffness.FromNewtonSquareMillimeters(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="BendingStiffness.FromPoundsForceSquareFeet(OasysUnits.QuantityValue)" />
-        public static BendingStiffness PoundsForceSquareFeet<T>(this T value) =>
-            BendingStiffness.FromPoundsForceSquareFeet(Convert.ToDouble(value));
+        /// <inheritdoc cref="BendingStiffness.FromPoundsForceSquareFeet(double)" />
+        public static BendingStiffness PoundsForceSquareFeet<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => BendingStiffness.FromPoundsForceSquareFeet(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="BendingStiffness.FromPoundsForceSquareInches(OasysUnits.QuantityValue)" />
-        public static BendingStiffness PoundsForceSquareInches<T>(this T value) =>
-            BendingStiffness.FromPoundsForceSquareInches(Convert.ToDouble(value));
+        /// <inheritdoc cref="BendingStiffness.FromPoundsForceSquareInches(double)" />
+        public static BendingStiffness PoundsForceSquareInches<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => BendingStiffness.FromPoundsForceSquareInches(Convert.ToDouble(value));
 
     }
 }

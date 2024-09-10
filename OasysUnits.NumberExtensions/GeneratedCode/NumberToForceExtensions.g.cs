@@ -19,6 +19,10 @@
 
 using System;
 
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
+
 #nullable enable
 
 namespace OasysUnits.NumberExtensions.NumberToForce
@@ -28,65 +32,125 @@ namespace OasysUnits.NumberExtensions.NumberToForce
     /// </summary>
     public static class NumberToForceExtensions
     {
-        /// <inheritdoc cref="Force.FromDecanewtons(OasysUnits.QuantityValue)" />
-        public static Force Decanewtons<T>(this T value) =>
-            Force.FromDecanewtons(Convert.ToDouble(value));
+        /// <inheritdoc cref="Force.FromDecanewtons(double)" />
+        public static Force Decanewtons<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Force.FromDecanewtons(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Force.FromDyne(OasysUnits.QuantityValue)" />
-        public static Force Dyne<T>(this T value) =>
-            Force.FromDyne(Convert.ToDouble(value));
+        /// <inheritdoc cref="Force.FromDyne(double)" />
+        public static Force Dyne<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Force.FromDyne(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Force.FromKilogramsForce(OasysUnits.QuantityValue)" />
-        public static Force KilogramsForce<T>(this T value) =>
-            Force.FromKilogramsForce(Convert.ToDouble(value));
+        /// <inheritdoc cref="Force.FromKilogramsForce(double)" />
+        public static Force KilogramsForce<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Force.FromKilogramsForce(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Force.FromKilonewtons(OasysUnits.QuantityValue)" />
-        public static Force Kilonewtons<T>(this T value) =>
-            Force.FromKilonewtons(Convert.ToDouble(value));
+        /// <inheritdoc cref="Force.FromKilonewtons(double)" />
+        public static Force Kilonewtons<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Force.FromKilonewtons(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Force.FromKiloPonds(OasysUnits.QuantityValue)" />
-        public static Force KiloPonds<T>(this T value) =>
-            Force.FromKiloPonds(Convert.ToDouble(value));
+        /// <inheritdoc cref="Force.FromKiloPonds(double)" />
+        public static Force KiloPonds<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Force.FromKiloPonds(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Force.FromKilopoundsForce(OasysUnits.QuantityValue)" />
-        public static Force KilopoundsForce<T>(this T value) =>
-            Force.FromKilopoundsForce(Convert.ToDouble(value));
+        /// <inheritdoc cref="Force.FromKilopoundsForce(double)" />
+        public static Force KilopoundsForce<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Force.FromKilopoundsForce(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Force.FromMeganewtons(OasysUnits.QuantityValue)" />
-        public static Force Meganewtons<T>(this T value) =>
-            Force.FromMeganewtons(Convert.ToDouble(value));
+        /// <inheritdoc cref="Force.FromMeganewtons(double)" />
+        public static Force Meganewtons<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Force.FromMeganewtons(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Force.FromMicronewtons(OasysUnits.QuantityValue)" />
-        public static Force Micronewtons<T>(this T value) =>
-            Force.FromMicronewtons(Convert.ToDouble(value));
+        /// <inheritdoc cref="Force.FromMicronewtons(double)" />
+        public static Force Micronewtons<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Force.FromMicronewtons(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Force.FromMillinewtons(OasysUnits.QuantityValue)" />
-        public static Force Millinewtons<T>(this T value) =>
-            Force.FromMillinewtons(Convert.ToDouble(value));
+        /// <inheritdoc cref="Force.FromMillinewtons(double)" />
+        public static Force Millinewtons<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Force.FromMillinewtons(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Force.FromNewtons(OasysUnits.QuantityValue)" />
-        public static Force Newtons<T>(this T value) =>
-            Force.FromNewtons(Convert.ToDouble(value));
+        /// <inheritdoc cref="Force.FromNewtons(double)" />
+        public static Force Newtons<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Force.FromNewtons(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Force.FromOunceForce(OasysUnits.QuantityValue)" />
-        public static Force OunceForce<T>(this T value) =>
-            Force.FromOunceForce(Convert.ToDouble(value));
+        /// <inheritdoc cref="Force.FromOunceForce(double)" />
+        public static Force OunceForce<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Force.FromOunceForce(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Force.FromPoundals(OasysUnits.QuantityValue)" />
-        public static Force Poundals<T>(this T value) =>
-            Force.FromPoundals(Convert.ToDouble(value));
+        /// <inheritdoc cref="Force.FromPoundals(double)" />
+        public static Force Poundals<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Force.FromPoundals(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Force.FromPoundsForce(OasysUnits.QuantityValue)" />
-        public static Force PoundsForce<T>(this T value) =>
-            Force.FromPoundsForce(Convert.ToDouble(value));
+        /// <inheritdoc cref="Force.FromPoundsForce(double)" />
+        public static Force PoundsForce<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Force.FromPoundsForce(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Force.FromShortTonsForce(OasysUnits.QuantityValue)" />
-        public static Force ShortTonsForce<T>(this T value) =>
-            Force.FromShortTonsForce(Convert.ToDouble(value));
+        /// <inheritdoc cref="Force.FromShortTonsForce(double)" />
+        public static Force ShortTonsForce<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Force.FromShortTonsForce(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Force.FromTonnesForce(OasysUnits.QuantityValue)" />
-        public static Force TonnesForce<T>(this T value) =>
-            Force.FromTonnesForce(Convert.ToDouble(value));
+        /// <inheritdoc cref="Force.FromTonnesForce(double)" />
+        public static Force TonnesForce<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Force.FromTonnesForce(Convert.ToDouble(value));
 
     }
 }

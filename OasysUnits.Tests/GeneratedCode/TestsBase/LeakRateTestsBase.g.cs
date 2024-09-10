@@ -75,16 +75,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void Ctor_WithInfinityValue_ThrowsArgumentException()
+        public void Ctor_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new LeakRate(double.PositiveInfinity, LeakRateUnit.PascalCubicMeterPerSecond));
-            Assert.Throws<ArgumentException>(() => new LeakRate(double.NegativeInfinity, LeakRateUnit.PascalCubicMeterPerSecond));
+            var exception1 = Record.Exception(() => new LeakRate(double.PositiveInfinity, LeakRateUnit.PascalCubicMeterPerSecond));
+            var exception2 = Record.Exception(() => new LeakRate(double.NegativeInfinity, LeakRateUnit.PascalCubicMeterPerSecond));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void Ctor_WithNaNValue_ThrowsArgumentException()
+        public void Ctor_WithNaNValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new LeakRate(double.NaN, LeakRateUnit.PascalCubicMeterPerSecond));
+            var exception = Record.Exception(() => new LeakRate(double.NaN, LeakRateUnit.PascalCubicMeterPerSecond));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -149,16 +154,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void FromPascalCubicMetersPerSecond_WithInfinityValue_ThrowsArgumentException()
+        public void FromPascalCubicMetersPerSecond_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => LeakRate.FromPascalCubicMetersPerSecond(double.PositiveInfinity));
-            Assert.Throws<ArgumentException>(() => LeakRate.FromPascalCubicMetersPerSecond(double.NegativeInfinity));
+            var exception1 = Record.Exception(() => LeakRate.FromPascalCubicMetersPerSecond(double.PositiveInfinity));
+            var exception2 = Record.Exception(() => LeakRate.FromPascalCubicMetersPerSecond(double.NegativeInfinity));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void FromPascalCubicMetersPerSecond_WithNanValue_ThrowsArgumentException()
+        public void FromPascalCubicMetersPerSecond_WithNanValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => LeakRate.FromPascalCubicMetersPerSecond(double.NaN));
+            var exception = Record.Exception(() => LeakRate.FromPascalCubicMetersPerSecond(double.NaN));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -430,6 +440,8 @@ namespace OasysUnits.Tests
             var v = LeakRate.FromPascalCubicMetersPerSecond(1);
             Assert.True(v.Equals(LeakRate.FromPascalCubicMetersPerSecond(1), PascalCubicMetersPerSecondTolerance, ComparisonType.Relative));
             Assert.False(v.Equals(LeakRate.Zero, PascalCubicMetersPerSecondTolerance, ComparisonType.Relative));
+            Assert.True(LeakRate.FromPascalCubicMetersPerSecond(100).Equals(LeakRate.FromPascalCubicMetersPerSecond(120), 0.3, ComparisonType.Relative));
+            Assert.False(LeakRate.FromPascalCubicMetersPerSecond(100).Equals(LeakRate.FromPascalCubicMetersPerSecond(120), 0.1, ComparisonType.Relative));
         }
 
         [Fact]

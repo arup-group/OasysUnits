@@ -19,6 +19,10 @@
 
 using System;
 
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
+
 #nullable enable
 
 namespace OasysUnits.NumberExtensions.NumberToScalar
@@ -28,9 +32,13 @@ namespace OasysUnits.NumberExtensions.NumberToScalar
     /// </summary>
     public static class NumberToScalarExtensions
     {
-        /// <inheritdoc cref="Scalar.FromAmount(OasysUnits.QuantityValue)" />
-        public static Scalar Amount<T>(this T value) =>
-            Scalar.FromAmount(Convert.ToDouble(value));
+        /// <inheritdoc cref="Scalar.FromAmount(double)" />
+        public static Scalar Amount<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Scalar.FromAmount(Convert.ToDouble(value));
 
     }
 }

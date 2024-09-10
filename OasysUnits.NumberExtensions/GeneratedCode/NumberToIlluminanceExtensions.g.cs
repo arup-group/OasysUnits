@@ -19,6 +19,10 @@
 
 using System;
 
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
+
 #nullable enable
 
 namespace OasysUnits.NumberExtensions.NumberToIlluminance
@@ -28,21 +32,37 @@ namespace OasysUnits.NumberExtensions.NumberToIlluminance
     /// </summary>
     public static class NumberToIlluminanceExtensions
     {
-        /// <inheritdoc cref="Illuminance.FromKilolux(OasysUnits.QuantityValue)" />
-        public static Illuminance Kilolux<T>(this T value) =>
-            Illuminance.FromKilolux(Convert.ToDouble(value));
+        /// <inheritdoc cref="Illuminance.FromKilolux(double)" />
+        public static Illuminance Kilolux<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Illuminance.FromKilolux(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Illuminance.FromLux(OasysUnits.QuantityValue)" />
-        public static Illuminance Lux<T>(this T value) =>
-            Illuminance.FromLux(Convert.ToDouble(value));
+        /// <inheritdoc cref="Illuminance.FromLux(double)" />
+        public static Illuminance Lux<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Illuminance.FromLux(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Illuminance.FromMegalux(OasysUnits.QuantityValue)" />
-        public static Illuminance Megalux<T>(this T value) =>
-            Illuminance.FromMegalux(Convert.ToDouble(value));
+        /// <inheritdoc cref="Illuminance.FromMegalux(double)" />
+        public static Illuminance Megalux<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Illuminance.FromMegalux(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Illuminance.FromMillilux(OasysUnits.QuantityValue)" />
-        public static Illuminance Millilux<T>(this T value) =>
-            Illuminance.FromMillilux(Convert.ToDouble(value));
+        /// <inheritdoc cref="Illuminance.FromMillilux(double)" />
+        public static Illuminance Millilux<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Illuminance.FromMillilux(Convert.ToDouble(value));
 
     }
 }

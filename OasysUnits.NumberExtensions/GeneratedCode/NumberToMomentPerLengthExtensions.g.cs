@@ -19,6 +19,10 @@
 
 using System;
 
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
+
 #nullable enable
 
 namespace OasysUnits.NumberExtensions.NumberToMomentPerLength
@@ -28,141 +32,261 @@ namespace OasysUnits.NumberExtensions.NumberToMomentPerLength
     /// </summary>
     public static class NumberToMomentPerLengthExtensions
     {
-        /// <inheritdoc cref="MomentPerLength.FromKilogramForceCentimetersPerCentimeter(OasysUnits.QuantityValue)" />
-        public static MomentPerLength KilogramForceCentimetersPerCentimeter<T>(this T value) =>
-            MomentPerLength.FromKilogramForceCentimetersPerCentimeter(Convert.ToDouble(value));
+        /// <inheritdoc cref="MomentPerLength.FromKilogramForceCentimetersPerCentimeter(double)" />
+        public static MomentPerLength KilogramForceCentimetersPerCentimeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MomentPerLength.FromKilogramForceCentimetersPerCentimeter(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MomentPerLength.FromKilogramForceMetersPerCentimeter(OasysUnits.QuantityValue)" />
-        public static MomentPerLength KilogramForceMetersPerCentimeter<T>(this T value) =>
-            MomentPerLength.FromKilogramForceMetersPerCentimeter(Convert.ToDouble(value));
+        /// <inheritdoc cref="MomentPerLength.FromKilogramForceMetersPerCentimeter(double)" />
+        public static MomentPerLength KilogramForceMetersPerCentimeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MomentPerLength.FromKilogramForceMetersPerCentimeter(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MomentPerLength.FromKilogramForceMetersPerMeter(OasysUnits.QuantityValue)" />
-        public static MomentPerLength KilogramForceMetersPerMeter<T>(this T value) =>
-            MomentPerLength.FromKilogramForceMetersPerMeter(Convert.ToDouble(value));
+        /// <inheritdoc cref="MomentPerLength.FromKilogramForceMetersPerMeter(double)" />
+        public static MomentPerLength KilogramForceMetersPerMeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MomentPerLength.FromKilogramForceMetersPerMeter(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MomentPerLength.FromKilogramForceMetersPerMillimeter(OasysUnits.QuantityValue)" />
-        public static MomentPerLength KilogramForceMetersPerMillimeter<T>(this T value) =>
-            MomentPerLength.FromKilogramForceMetersPerMillimeter(Convert.ToDouble(value));
+        /// <inheritdoc cref="MomentPerLength.FromKilogramForceMetersPerMillimeter(double)" />
+        public static MomentPerLength KilogramForceMetersPerMillimeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MomentPerLength.FromKilogramForceMetersPerMillimeter(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MomentPerLength.FromKilogramForceMillimetersPerMillimeter(OasysUnits.QuantityValue)" />
-        public static MomentPerLength KilogramForceMillimetersPerMillimeter<T>(this T value) =>
-            MomentPerLength.FromKilogramForceMillimetersPerMillimeter(Convert.ToDouble(value));
+        /// <inheritdoc cref="MomentPerLength.FromKilogramForceMillimetersPerMillimeter(double)" />
+        public static MomentPerLength KilogramForceMillimetersPerMillimeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MomentPerLength.FromKilogramForceMillimetersPerMillimeter(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MomentPerLength.FromKilonewtonCentimetersPerCentimeter(OasysUnits.QuantityValue)" />
-        public static MomentPerLength KilonewtonCentimetersPerCentimeter<T>(this T value) =>
-            MomentPerLength.FromKilonewtonCentimetersPerCentimeter(Convert.ToDouble(value));
+        /// <inheritdoc cref="MomentPerLength.FromKilonewtonCentimetersPerCentimeter(double)" />
+        public static MomentPerLength KilonewtonCentimetersPerCentimeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MomentPerLength.FromKilonewtonCentimetersPerCentimeter(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MomentPerLength.FromKilonewtonMetersPerCentimeter(OasysUnits.QuantityValue)" />
-        public static MomentPerLength KilonewtonMetersPerCentimeter<T>(this T value) =>
-            MomentPerLength.FromKilonewtonMetersPerCentimeter(Convert.ToDouble(value));
+        /// <inheritdoc cref="MomentPerLength.FromKilonewtonMetersPerCentimeter(double)" />
+        public static MomentPerLength KilonewtonMetersPerCentimeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MomentPerLength.FromKilonewtonMetersPerCentimeter(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MomentPerLength.FromKilonewtonMetersPerMeter(OasysUnits.QuantityValue)" />
-        public static MomentPerLength KilonewtonMetersPerMeter<T>(this T value) =>
-            MomentPerLength.FromKilonewtonMetersPerMeter(Convert.ToDouble(value));
+        /// <inheritdoc cref="MomentPerLength.FromKilonewtonMetersPerMeter(double)" />
+        public static MomentPerLength KilonewtonMetersPerMeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MomentPerLength.FromKilonewtonMetersPerMeter(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MomentPerLength.FromKilonewtonMetersPerMillimeter(OasysUnits.QuantityValue)" />
-        public static MomentPerLength KilonewtonMetersPerMillimeter<T>(this T value) =>
-            MomentPerLength.FromKilonewtonMetersPerMillimeter(Convert.ToDouble(value));
+        /// <inheritdoc cref="MomentPerLength.FromKilonewtonMetersPerMillimeter(double)" />
+        public static MomentPerLength KilonewtonMetersPerMillimeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MomentPerLength.FromKilonewtonMetersPerMillimeter(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MomentPerLength.FromKilonewtonMillimetersPerMillimeter(OasysUnits.QuantityValue)" />
-        public static MomentPerLength KilonewtonMillimetersPerMillimeter<T>(this T value) =>
-            MomentPerLength.FromKilonewtonMillimetersPerMillimeter(Convert.ToDouble(value));
+        /// <inheritdoc cref="MomentPerLength.FromKilonewtonMillimetersPerMillimeter(double)" />
+        public static MomentPerLength KilonewtonMillimetersPerMillimeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MomentPerLength.FromKilonewtonMillimetersPerMillimeter(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MomentPerLength.FromKilopoundForceFeetPerFoot(OasysUnits.QuantityValue)" />
-        public static MomentPerLength KilopoundForceFeetPerFoot<T>(this T value) =>
-            MomentPerLength.FromKilopoundForceFeetPerFoot(Convert.ToDouble(value));
+        /// <inheritdoc cref="MomentPerLength.FromKilopoundForceFeetPerFoot(double)" />
+        public static MomentPerLength KilopoundForceFeetPerFoot<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MomentPerLength.FromKilopoundForceFeetPerFoot(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MomentPerLength.FromKilopoundForceFeetPerInch(OasysUnits.QuantityValue)" />
-        public static MomentPerLength KilopoundForceFeetPerInch<T>(this T value) =>
-            MomentPerLength.FromKilopoundForceFeetPerInch(Convert.ToDouble(value));
+        /// <inheritdoc cref="MomentPerLength.FromKilopoundForceFeetPerInch(double)" />
+        public static MomentPerLength KilopoundForceFeetPerInch<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MomentPerLength.FromKilopoundForceFeetPerInch(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MomentPerLength.FromKilopoundForceInchesPerFoot(OasysUnits.QuantityValue)" />
-        public static MomentPerLength KilopoundForceInchesPerFoot<T>(this T value) =>
-            MomentPerLength.FromKilopoundForceInchesPerFoot(Convert.ToDouble(value));
+        /// <inheritdoc cref="MomentPerLength.FromKilopoundForceInchesPerInch(double)" />
+        public static MomentPerLength KilopoundForceInchesPerInch<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MomentPerLength.FromKilopoundForceInchesPerInch(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MomentPerLength.FromKilopoundForceInchesPerInch(OasysUnits.QuantityValue)" />
-        public static MomentPerLength KilopoundForceInchesPerInch<T>(this T value) =>
-            MomentPerLength.FromKilopoundForceInchesPerInch(Convert.ToDouble(value));
+        /// <inheritdoc cref="MomentPerLength.FromMeganewtonCentimetersPerCentimeter(double)" />
+        public static MomentPerLength MeganewtonCentimetersPerCentimeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MomentPerLength.FromMeganewtonCentimetersPerCentimeter(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MomentPerLength.FromMeganewtonCentimetersPerCentimeter(OasysUnits.QuantityValue)" />
-        public static MomentPerLength MeganewtonCentimetersPerCentimeter<T>(this T value) =>
-            MomentPerLength.FromMeganewtonCentimetersPerCentimeter(Convert.ToDouble(value));
+        /// <inheritdoc cref="MomentPerLength.FromMeganewtonMetersPerCentimeter(double)" />
+        public static MomentPerLength MeganewtonMetersPerCentimeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MomentPerLength.FromMeganewtonMetersPerCentimeter(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MomentPerLength.FromMeganewtonMetersPerCentimeter(OasysUnits.QuantityValue)" />
-        public static MomentPerLength MeganewtonMetersPerCentimeter<T>(this T value) =>
-            MomentPerLength.FromMeganewtonMetersPerCentimeter(Convert.ToDouble(value));
+        /// <inheritdoc cref="MomentPerLength.FromMeganewtonMetersPerMeter(double)" />
+        public static MomentPerLength MeganewtonMetersPerMeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MomentPerLength.FromMeganewtonMetersPerMeter(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MomentPerLength.FromMeganewtonMetersPerMeter(OasysUnits.QuantityValue)" />
-        public static MomentPerLength MeganewtonMetersPerMeter<T>(this T value) =>
-            MomentPerLength.FromMeganewtonMetersPerMeter(Convert.ToDouble(value));
+        /// <inheritdoc cref="MomentPerLength.FromMeganewtonMetersPerMillimeter(double)" />
+        public static MomentPerLength MeganewtonMetersPerMillimeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MomentPerLength.FromMeganewtonMetersPerMillimeter(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MomentPerLength.FromMeganewtonMetersPerMillimeter(OasysUnits.QuantityValue)" />
-        public static MomentPerLength MeganewtonMetersPerMillimeter<T>(this T value) =>
-            MomentPerLength.FromMeganewtonMetersPerMillimeter(Convert.ToDouble(value));
+        /// <inheritdoc cref="MomentPerLength.FromMeganewtonMillimetersPerMillimeter(double)" />
+        public static MomentPerLength MeganewtonMillimetersPerMillimeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MomentPerLength.FromMeganewtonMillimetersPerMillimeter(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MomentPerLength.FromMeganewtonMillimetersPerMillimeter(OasysUnits.QuantityValue)" />
-        public static MomentPerLength MeganewtonMillimetersPerMillimeter<T>(this T value) =>
-            MomentPerLength.FromMeganewtonMillimetersPerMillimeter(Convert.ToDouble(value));
+        /// <inheritdoc cref="MomentPerLength.FromNewtonCentimetersPerCentimeter(double)" />
+        public static MomentPerLength NewtonCentimetersPerCentimeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MomentPerLength.FromNewtonCentimetersPerCentimeter(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MomentPerLength.FromNewtonCentimetersPerCentimeter(OasysUnits.QuantityValue)" />
-        public static MomentPerLength NewtonCentimetersPerCentimeter<T>(this T value) =>
-            MomentPerLength.FromNewtonCentimetersPerCentimeter(Convert.ToDouble(value));
+        /// <inheritdoc cref="MomentPerLength.FromNewtonMetersPerCentimeter(double)" />
+        public static MomentPerLength NewtonMetersPerCentimeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MomentPerLength.FromNewtonMetersPerCentimeter(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MomentPerLength.FromNewtonMetersPerCentimeter(OasysUnits.QuantityValue)" />
-        public static MomentPerLength NewtonMetersPerCentimeter<T>(this T value) =>
-            MomentPerLength.FromNewtonMetersPerCentimeter(Convert.ToDouble(value));
+        /// <inheritdoc cref="MomentPerLength.FromNewtonMetersPerMeter(double)" />
+        public static MomentPerLength NewtonMetersPerMeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MomentPerLength.FromNewtonMetersPerMeter(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MomentPerLength.FromNewtonMetersPerMeter(OasysUnits.QuantityValue)" />
-        public static MomentPerLength NewtonMetersPerMeter<T>(this T value) =>
-            MomentPerLength.FromNewtonMetersPerMeter(Convert.ToDouble(value));
+        /// <inheritdoc cref="MomentPerLength.FromNewtonMetersPerMillimeter(double)" />
+        public static MomentPerLength NewtonMetersPerMillimeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MomentPerLength.FromNewtonMetersPerMillimeter(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MomentPerLength.FromNewtonMetersPerMillimeter(OasysUnits.QuantityValue)" />
-        public static MomentPerLength NewtonMetersPerMillimeter<T>(this T value) =>
-            MomentPerLength.FromNewtonMetersPerMillimeter(Convert.ToDouble(value));
+        /// <inheritdoc cref="MomentPerLength.FromNewtonMillimetersPerMillimeter(double)" />
+        public static MomentPerLength NewtonMillimetersPerMillimeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MomentPerLength.FromNewtonMillimetersPerMillimeter(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MomentPerLength.FromNewtonMillimetersPerMillimeter(OasysUnits.QuantityValue)" />
-        public static MomentPerLength NewtonMillimetersPerMillimeter<T>(this T value) =>
-            MomentPerLength.FromNewtonMillimetersPerMillimeter(Convert.ToDouble(value));
+        /// <inheritdoc cref="MomentPerLength.FromPoundForceFeetPerFoot(double)" />
+        public static MomentPerLength PoundForceFeetPerFoot<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MomentPerLength.FromPoundForceFeetPerFoot(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MomentPerLength.FromPoundForceFeetPerFoot(OasysUnits.QuantityValue)" />
-        public static MomentPerLength PoundForceFeetPerFoot<T>(this T value) =>
-            MomentPerLength.FromPoundForceFeetPerFoot(Convert.ToDouble(value));
+        /// <inheritdoc cref="MomentPerLength.FromPoundForceFeetPerInch(double)" />
+        public static MomentPerLength PoundForceFeetPerInch<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MomentPerLength.FromPoundForceFeetPerInch(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MomentPerLength.FromPoundForceFeetPerInch(OasysUnits.QuantityValue)" />
-        public static MomentPerLength PoundForceFeetPerInch<T>(this T value) =>
-            MomentPerLength.FromPoundForceFeetPerInch(Convert.ToDouble(value));
+        /// <inheritdoc cref="MomentPerLength.FromPoundForceFeetPerYard(double)" />
+        public static MomentPerLength PoundForceFeetPerYard<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MomentPerLength.FromPoundForceFeetPerYard(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MomentPerLength.FromPoundForceFeetPerYard(OasysUnits.QuantityValue)" />
-        public static MomentPerLength PoundForceFeetPerYard<T>(this T value) =>
-            MomentPerLength.FromPoundForceFeetPerYard(Convert.ToDouble(value));
+        /// <inheritdoc cref="MomentPerLength.FromPoundForceInchesPerInch(double)" />
+        public static MomentPerLength PoundForceInchesPerInch<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MomentPerLength.FromPoundForceInchesPerInch(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MomentPerLength.FromPoundForceInchesPerFoot(OasysUnits.QuantityValue)" />
-        public static MomentPerLength PoundForceInchesPerFoot<T>(this T value) =>
-            MomentPerLength.FromPoundForceInchesPerFoot(Convert.ToDouble(value));
+        /// <inheritdoc cref="MomentPerLength.FromTonneForceCentimetersPerCentimeter(double)" />
+        public static MomentPerLength TonneForceCentimetersPerCentimeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MomentPerLength.FromTonneForceCentimetersPerCentimeter(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MomentPerLength.FromPoundForceInchesPerInch(OasysUnits.QuantityValue)" />
-        public static MomentPerLength PoundForceInchesPerInch<T>(this T value) =>
-            MomentPerLength.FromPoundForceInchesPerInch(Convert.ToDouble(value));
+        /// <inheritdoc cref="MomentPerLength.FromTonneForceMetersPerCentimeter(double)" />
+        public static MomentPerLength TonneForceMetersPerCentimeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MomentPerLength.FromTonneForceMetersPerCentimeter(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MomentPerLength.FromTonneForceCentimetersPerCentimeter(OasysUnits.QuantityValue)" />
-        public static MomentPerLength TonneForceCentimetersPerCentimeter<T>(this T value) =>
-            MomentPerLength.FromTonneForceCentimetersPerCentimeter(Convert.ToDouble(value));
+        /// <inheritdoc cref="MomentPerLength.FromTonneForceMetersPerMeter(double)" />
+        public static MomentPerLength TonneForceMetersPerMeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MomentPerLength.FromTonneForceMetersPerMeter(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MomentPerLength.FromTonneForceMetersPerCentimeter(OasysUnits.QuantityValue)" />
-        public static MomentPerLength TonneForceMetersPerCentimeter<T>(this T value) =>
-            MomentPerLength.FromTonneForceMetersPerCentimeter(Convert.ToDouble(value));
+        /// <inheritdoc cref="MomentPerLength.FromTonneForceMetersPerMillimeter(double)" />
+        public static MomentPerLength TonneForceMetersPerMillimeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MomentPerLength.FromTonneForceMetersPerMillimeter(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MomentPerLength.FromTonneForceMetersPerMeter(OasysUnits.QuantityValue)" />
-        public static MomentPerLength TonneForceMetersPerMeter<T>(this T value) =>
-            MomentPerLength.FromTonneForceMetersPerMeter(Convert.ToDouble(value));
-
-        /// <inheritdoc cref="MomentPerLength.FromTonneForceMetersPerMillimeter(OasysUnits.QuantityValue)" />
-        public static MomentPerLength TonneForceMetersPerMillimeter<T>(this T value) =>
-            MomentPerLength.FromTonneForceMetersPerMillimeter(Convert.ToDouble(value));
-
-        /// <inheritdoc cref="MomentPerLength.FromTonneForceMillimetersPerMillimeter(OasysUnits.QuantityValue)" />
-        public static MomentPerLength TonneForceMillimetersPerMillimeter<T>(this T value) =>
-            MomentPerLength.FromTonneForceMillimetersPerMillimeter(Convert.ToDouble(value));
+        /// <inheritdoc cref="MomentPerLength.FromTonneForceMillimetersPerMillimeter(double)" />
+        public static MomentPerLength TonneForceMillimetersPerMillimeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MomentPerLength.FromTonneForceMillimetersPerMillimeter(Convert.ToDouble(value));
 
     }
 }

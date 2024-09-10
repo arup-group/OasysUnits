@@ -19,6 +19,10 @@
 
 using System;
 
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
+
 #nullable enable
 
 namespace OasysUnits.NumberExtensions.NumberToMolarEntropy
@@ -28,17 +32,29 @@ namespace OasysUnits.NumberExtensions.NumberToMolarEntropy
     /// </summary>
     public static class NumberToMolarEntropyExtensions
     {
-        /// <inheritdoc cref="MolarEntropy.FromJoulesPerMoleKelvin(OasysUnits.QuantityValue)" />
-        public static MolarEntropy JoulesPerMoleKelvin<T>(this T value) =>
-            MolarEntropy.FromJoulesPerMoleKelvin(Convert.ToDouble(value));
+        /// <inheritdoc cref="MolarEntropy.FromJoulesPerMoleKelvin(double)" />
+        public static MolarEntropy JoulesPerMoleKelvin<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MolarEntropy.FromJoulesPerMoleKelvin(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MolarEntropy.FromKilojoulesPerMoleKelvin(OasysUnits.QuantityValue)" />
-        public static MolarEntropy KilojoulesPerMoleKelvin<T>(this T value) =>
-            MolarEntropy.FromKilojoulesPerMoleKelvin(Convert.ToDouble(value));
+        /// <inheritdoc cref="MolarEntropy.FromKilojoulesPerMoleKelvin(double)" />
+        public static MolarEntropy KilojoulesPerMoleKelvin<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MolarEntropy.FromKilojoulesPerMoleKelvin(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="MolarEntropy.FromMegajoulesPerMoleKelvin(OasysUnits.QuantityValue)" />
-        public static MolarEntropy MegajoulesPerMoleKelvin<T>(this T value) =>
-            MolarEntropy.FromMegajoulesPerMoleKelvin(Convert.ToDouble(value));
+        /// <inheritdoc cref="MolarEntropy.FromMegajoulesPerMoleKelvin(double)" />
+        public static MolarEntropy MegajoulesPerMoleKelvin<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MolarEntropy.FromMegajoulesPerMoleKelvin(Convert.ToDouble(value));
 
     }
 }

@@ -19,6 +19,10 @@
 
 using System;
 
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
+
 #nullable enable
 
 namespace OasysUnits.NumberExtensions.NumberToApparentEnergy
@@ -28,17 +32,29 @@ namespace OasysUnits.NumberExtensions.NumberToApparentEnergy
     /// </summary>
     public static class NumberToApparentEnergyExtensions
     {
-        /// <inheritdoc cref="ApparentEnergy.FromKilovoltampereHours(OasysUnits.QuantityValue)" />
-        public static ApparentEnergy KilovoltampereHours<T>(this T value) =>
-            ApparentEnergy.FromKilovoltampereHours(Convert.ToDouble(value));
+        /// <inheritdoc cref="ApparentEnergy.FromKilovoltampereHours(double)" />
+        public static ApparentEnergy KilovoltampereHours<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ApparentEnergy.FromKilovoltampereHours(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="ApparentEnergy.FromMegavoltampereHours(OasysUnits.QuantityValue)" />
-        public static ApparentEnergy MegavoltampereHours<T>(this T value) =>
-            ApparentEnergy.FromMegavoltampereHours(Convert.ToDouble(value));
+        /// <inheritdoc cref="ApparentEnergy.FromMegavoltampereHours(double)" />
+        public static ApparentEnergy MegavoltampereHours<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ApparentEnergy.FromMegavoltampereHours(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="ApparentEnergy.FromVoltampereHours(OasysUnits.QuantityValue)" />
-        public static ApparentEnergy VoltampereHours<T>(this T value) =>
-            ApparentEnergy.FromVoltampereHours(Convert.ToDouble(value));
+        /// <inheritdoc cref="ApparentEnergy.FromVoltampereHours(double)" />
+        public static ApparentEnergy VoltampereHours<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ApparentEnergy.FromVoltampereHours(Convert.ToDouble(value));
 
     }
 }

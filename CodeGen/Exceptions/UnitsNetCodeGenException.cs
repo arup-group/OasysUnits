@@ -2,20 +2,11 @@
 // Copyright 2013 Andreas Gullberg Larsen (andreas.larsen84@gmail.com). Maintained at https://github.com/angularsen/UnitsNet.
 
 using System;
-using System.Runtime.Serialization;
 
 namespace CodeGen.Exceptions
 {
     internal class OasysUnitsCodeGenException : Exception
     {
-        public OasysUnitsCodeGenException()
-        {
-        }
-
-        protected OasysUnitsCodeGenException(SerializationInfo info, StreamingContext context) : base(info, context)
-        {
-        }
-
         public OasysUnitsCodeGenException(string message) : base(message)
         {
         }

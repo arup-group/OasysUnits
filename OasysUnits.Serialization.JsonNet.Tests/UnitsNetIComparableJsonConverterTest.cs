@@ -13,7 +13,7 @@ namespace OasysUnits.Serialization.JsonNet.Tests
 {
     public sealed class OasysUnitsIComparableJsonConverterTest
     {
-        private OasysUnitsIComparableJsonConverter _sut;
+        private readonly OasysUnitsIComparableJsonConverter _sut;
 
         public OasysUnitsIComparableJsonConverterTest()
         {
@@ -119,7 +119,7 @@ namespace OasysUnits.Serialization.JsonNet.Tests
 
             Assert.NotNull(result);
             Assert.IsType<Power>(result);
-            Assert.Equal(120M, ((Power)result).Watts);
+            Assert.Equal(120, ((Power)result).Watts);
         }
     }
 }

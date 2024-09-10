@@ -19,6 +19,10 @@
 
 using System;
 
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
+
 #nullable enable
 
 namespace OasysUnits.NumberExtensions.NumberToVitaminA
@@ -28,9 +32,13 @@ namespace OasysUnits.NumberExtensions.NumberToVitaminA
     /// </summary>
     public static class NumberToVitaminAExtensions
     {
-        /// <inheritdoc cref="VitaminA.FromInternationalUnits(OasysUnits.QuantityValue)" />
-        public static VitaminA InternationalUnits<T>(this T value) =>
-            VitaminA.FromInternationalUnits(Convert.ToDouble(value));
+        /// <inheritdoc cref="VitaminA.FromInternationalUnits(double)" />
+        public static VitaminA InternationalUnits<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => VitaminA.FromInternationalUnits(Convert.ToDouble(value));
 
     }
 }

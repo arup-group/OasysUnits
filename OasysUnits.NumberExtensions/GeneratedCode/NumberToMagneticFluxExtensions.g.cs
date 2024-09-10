@@ -19,6 +19,10 @@
 
 using System;
 
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
+
 #nullable enable
 
 namespace OasysUnits.NumberExtensions.NumberToMagneticFlux
@@ -28,9 +32,13 @@ namespace OasysUnits.NumberExtensions.NumberToMagneticFlux
     /// </summary>
     public static class NumberToMagneticFluxExtensions
     {
-        /// <inheritdoc cref="MagneticFlux.FromWebers(OasysUnits.QuantityValue)" />
-        public static MagneticFlux Webers<T>(this T value) =>
-            MagneticFlux.FromWebers(Convert.ToDouble(value));
+        /// <inheritdoc cref="MagneticFlux.FromWebers(double)" />
+        public static MagneticFlux Webers<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => MagneticFlux.FromWebers(Convert.ToDouble(value));
 
     }
 }

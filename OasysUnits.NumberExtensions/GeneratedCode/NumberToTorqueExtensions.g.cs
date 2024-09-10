@@ -19,6 +19,10 @@
 
 using System;
 
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
+
 #nullable enable
 
 namespace OasysUnits.NumberExtensions.NumberToTorque
@@ -28,105 +32,205 @@ namespace OasysUnits.NumberExtensions.NumberToTorque
     /// </summary>
     public static class NumberToTorqueExtensions
     {
-        /// <inheritdoc cref="Torque.FromGramForceCentimeters(OasysUnits.QuantityValue)" />
-        public static Torque GramForceCentimeters<T>(this T value) =>
-            Torque.FromGramForceCentimeters(Convert.ToDouble(value));
+        /// <inheritdoc cref="Torque.FromGramForceCentimeters(double)" />
+        public static Torque GramForceCentimeters<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Torque.FromGramForceCentimeters(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Torque.FromGramForceMeters(OasysUnits.QuantityValue)" />
-        public static Torque GramForceMeters<T>(this T value) =>
-            Torque.FromGramForceMeters(Convert.ToDouble(value));
+        /// <inheritdoc cref="Torque.FromGramForceMeters(double)" />
+        public static Torque GramForceMeters<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Torque.FromGramForceMeters(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Torque.FromGramForceMillimeters(OasysUnits.QuantityValue)" />
-        public static Torque GramForceMillimeters<T>(this T value) =>
-            Torque.FromGramForceMillimeters(Convert.ToDouble(value));
+        /// <inheritdoc cref="Torque.FromGramForceMillimeters(double)" />
+        public static Torque GramForceMillimeters<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Torque.FromGramForceMillimeters(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Torque.FromKilogramForceCentimeters(OasysUnits.QuantityValue)" />
-        public static Torque KilogramForceCentimeters<T>(this T value) =>
-            Torque.FromKilogramForceCentimeters(Convert.ToDouble(value));
+        /// <inheritdoc cref="Torque.FromKilogramForceCentimeters(double)" />
+        public static Torque KilogramForceCentimeters<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Torque.FromKilogramForceCentimeters(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Torque.FromKilogramForceMeters(OasysUnits.QuantityValue)" />
-        public static Torque KilogramForceMeters<T>(this T value) =>
-            Torque.FromKilogramForceMeters(Convert.ToDouble(value));
+        /// <inheritdoc cref="Torque.FromKilogramForceMeters(double)" />
+        public static Torque KilogramForceMeters<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Torque.FromKilogramForceMeters(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Torque.FromKilogramForceMillimeters(OasysUnits.QuantityValue)" />
-        public static Torque KilogramForceMillimeters<T>(this T value) =>
-            Torque.FromKilogramForceMillimeters(Convert.ToDouble(value));
+        /// <inheritdoc cref="Torque.FromKilogramForceMillimeters(double)" />
+        public static Torque KilogramForceMillimeters<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Torque.FromKilogramForceMillimeters(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Torque.FromKilonewtonCentimeters(OasysUnits.QuantityValue)" />
-        public static Torque KilonewtonCentimeters<T>(this T value) =>
-            Torque.FromKilonewtonCentimeters(Convert.ToDouble(value));
+        /// <inheritdoc cref="Torque.FromKilonewtonCentimeters(double)" />
+        public static Torque KilonewtonCentimeters<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Torque.FromKilonewtonCentimeters(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Torque.FromKilonewtonMeters(OasysUnits.QuantityValue)" />
-        public static Torque KilonewtonMeters<T>(this T value) =>
-            Torque.FromKilonewtonMeters(Convert.ToDouble(value));
+        /// <inheritdoc cref="Torque.FromKilonewtonMeters(double)" />
+        public static Torque KilonewtonMeters<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Torque.FromKilonewtonMeters(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Torque.FromKilonewtonMillimeters(OasysUnits.QuantityValue)" />
-        public static Torque KilonewtonMillimeters<T>(this T value) =>
-            Torque.FromKilonewtonMillimeters(Convert.ToDouble(value));
+        /// <inheritdoc cref="Torque.FromKilonewtonMillimeters(double)" />
+        public static Torque KilonewtonMillimeters<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Torque.FromKilonewtonMillimeters(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Torque.FromKilopoundForceFeet(OasysUnits.QuantityValue)" />
-        public static Torque KilopoundForceFeet<T>(this T value) =>
-            Torque.FromKilopoundForceFeet(Convert.ToDouble(value));
+        /// <inheritdoc cref="Torque.FromKilopoundForceFeet(double)" />
+        public static Torque KilopoundForceFeet<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Torque.FromKilopoundForceFeet(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Torque.FromKilopoundForceInches(OasysUnits.QuantityValue)" />
-        public static Torque KilopoundForceInches<T>(this T value) =>
-            Torque.FromKilopoundForceInches(Convert.ToDouble(value));
+        /// <inheritdoc cref="Torque.FromKilopoundForceInches(double)" />
+        public static Torque KilopoundForceInches<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Torque.FromKilopoundForceInches(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Torque.FromMeganewtonCentimeters(OasysUnits.QuantityValue)" />
-        public static Torque MeganewtonCentimeters<T>(this T value) =>
-            Torque.FromMeganewtonCentimeters(Convert.ToDouble(value));
+        /// <inheritdoc cref="Torque.FromMeganewtonCentimeters(double)" />
+        public static Torque MeganewtonCentimeters<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Torque.FromMeganewtonCentimeters(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Torque.FromMeganewtonMeters(OasysUnits.QuantityValue)" />
-        public static Torque MeganewtonMeters<T>(this T value) =>
-            Torque.FromMeganewtonMeters(Convert.ToDouble(value));
+        /// <inheritdoc cref="Torque.FromMeganewtonMeters(double)" />
+        public static Torque MeganewtonMeters<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Torque.FromMeganewtonMeters(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Torque.FromMeganewtonMillimeters(OasysUnits.QuantityValue)" />
-        public static Torque MeganewtonMillimeters<T>(this T value) =>
-            Torque.FromMeganewtonMillimeters(Convert.ToDouble(value));
+        /// <inheritdoc cref="Torque.FromMeganewtonMillimeters(double)" />
+        public static Torque MeganewtonMillimeters<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Torque.FromMeganewtonMillimeters(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Torque.FromMegapoundForceFeet(OasysUnits.QuantityValue)" />
-        public static Torque MegapoundForceFeet<T>(this T value) =>
-            Torque.FromMegapoundForceFeet(Convert.ToDouble(value));
+        /// <inheritdoc cref="Torque.FromMegapoundForceFeet(double)" />
+        public static Torque MegapoundForceFeet<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Torque.FromMegapoundForceFeet(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Torque.FromMegapoundForceInches(OasysUnits.QuantityValue)" />
-        public static Torque MegapoundForceInches<T>(this T value) =>
-            Torque.FromMegapoundForceInches(Convert.ToDouble(value));
+        /// <inheritdoc cref="Torque.FromMegapoundForceInches(double)" />
+        public static Torque MegapoundForceInches<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Torque.FromMegapoundForceInches(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Torque.FromNewtonCentimeters(OasysUnits.QuantityValue)" />
-        public static Torque NewtonCentimeters<T>(this T value) =>
-            Torque.FromNewtonCentimeters(Convert.ToDouble(value));
+        /// <inheritdoc cref="Torque.FromNewtonCentimeters(double)" />
+        public static Torque NewtonCentimeters<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Torque.FromNewtonCentimeters(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Torque.FromNewtonMeters(OasysUnits.QuantityValue)" />
-        public static Torque NewtonMeters<T>(this T value) =>
-            Torque.FromNewtonMeters(Convert.ToDouble(value));
+        /// <inheritdoc cref="Torque.FromNewtonMeters(double)" />
+        public static Torque NewtonMeters<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Torque.FromNewtonMeters(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Torque.FromNewtonMillimeters(OasysUnits.QuantityValue)" />
-        public static Torque NewtonMillimeters<T>(this T value) =>
-            Torque.FromNewtonMillimeters(Convert.ToDouble(value));
+        /// <inheritdoc cref="Torque.FromNewtonMillimeters(double)" />
+        public static Torque NewtonMillimeters<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Torque.FromNewtonMillimeters(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Torque.FromPoundalFeet(OasysUnits.QuantityValue)" />
-        public static Torque PoundalFeet<T>(this T value) =>
-            Torque.FromPoundalFeet(Convert.ToDouble(value));
+        /// <inheritdoc cref="Torque.FromPoundalFeet(double)" />
+        public static Torque PoundalFeet<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Torque.FromPoundalFeet(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Torque.FromPoundForceFeet(OasysUnits.QuantityValue)" />
-        public static Torque PoundForceFeet<T>(this T value) =>
-            Torque.FromPoundForceFeet(Convert.ToDouble(value));
+        /// <inheritdoc cref="Torque.FromPoundForceFeet(double)" />
+        public static Torque PoundForceFeet<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Torque.FromPoundForceFeet(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Torque.FromPoundForceInches(OasysUnits.QuantityValue)" />
-        public static Torque PoundForceInches<T>(this T value) =>
-            Torque.FromPoundForceInches(Convert.ToDouble(value));
+        /// <inheritdoc cref="Torque.FromPoundForceInches(double)" />
+        public static Torque PoundForceInches<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Torque.FromPoundForceInches(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Torque.FromTonneForceCentimeters(OasysUnits.QuantityValue)" />
-        public static Torque TonneForceCentimeters<T>(this T value) =>
-            Torque.FromTonneForceCentimeters(Convert.ToDouble(value));
+        /// <inheritdoc cref="Torque.FromTonneForceCentimeters(double)" />
+        public static Torque TonneForceCentimeters<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Torque.FromTonneForceCentimeters(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Torque.FromTonneForceMeters(OasysUnits.QuantityValue)" />
-        public static Torque TonneForceMeters<T>(this T value) =>
-            Torque.FromTonneForceMeters(Convert.ToDouble(value));
+        /// <inheritdoc cref="Torque.FromTonneForceMeters(double)" />
+        public static Torque TonneForceMeters<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Torque.FromTonneForceMeters(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Torque.FromTonneForceMillimeters(OasysUnits.QuantityValue)" />
-        public static Torque TonneForceMillimeters<T>(this T value) =>
-            Torque.FromTonneForceMillimeters(Convert.ToDouble(value));
+        /// <inheritdoc cref="Torque.FromTonneForceMillimeters(double)" />
+        public static Torque TonneForceMillimeters<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Torque.FromTonneForceMillimeters(Convert.ToDouble(value));
 
     }
 }

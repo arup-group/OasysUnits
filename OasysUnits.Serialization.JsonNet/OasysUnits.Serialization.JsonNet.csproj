@@ -1,8 +1,8 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <!-- NuGet properties -->
   <PropertyGroup>
     <PackageId>OasysUnits.Serialization.JsonNet</PackageId>
-    <Version>1.1.1</Version>
+    <Version>1.2.0</Version>
     <Authors>Andreas Gullberg Larsen, Oasys</Authors>
     <Title>OasysUnits Serialization with Json.NET</Title>
     <Description>A helper library for serializing and deserializing types in OasysUnits using Json.NET.</Description>
@@ -15,7 +15,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageTags>unit units measurement json Json.NET Newtonsoft serialize deserialize serialization deserialization</PackageTags>
-    <PackageReleaseNotes>This is a release of UnitsNet.Serialization.JsonNet 4.6.0 with additional support for Oasys units.</PackageReleaseNotes>
+    <PackageReleaseNotes>This is a release of UnitsNet.Serialization.JsonNet 12.0.3 with additional support for Oasys units.</PackageReleaseNotes>
   </PropertyGroup>
 
   <!-- Assembly and msbuild properties -->

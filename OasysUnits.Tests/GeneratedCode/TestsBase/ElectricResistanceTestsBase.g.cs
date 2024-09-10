@@ -91,16 +91,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void Ctor_WithInfinityValue_ThrowsArgumentException()
+        public void Ctor_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new ElectricResistance(double.PositiveInfinity, ElectricResistanceUnit.Ohm));
-            Assert.Throws<ArgumentException>(() => new ElectricResistance(double.NegativeInfinity, ElectricResistanceUnit.Ohm));
+            var exception1 = Record.Exception(() => new ElectricResistance(double.PositiveInfinity, ElectricResistanceUnit.Ohm));
+            var exception2 = Record.Exception(() => new ElectricResistance(double.NegativeInfinity, ElectricResistanceUnit.Ohm));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void Ctor_WithNaNValue_ThrowsArgumentException()
+        public void Ctor_WithNaNValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new ElectricResistance(double.NaN, ElectricResistanceUnit.Ohm));
+            var exception = Record.Exception(() => new ElectricResistance(double.NaN, ElectricResistanceUnit.Ohm));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -185,16 +190,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void FromOhms_WithInfinityValue_ThrowsArgumentException()
+        public void FromOhms_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => ElectricResistance.FromOhms(double.PositiveInfinity));
-            Assert.Throws<ArgumentException>(() => ElectricResistance.FromOhms(double.NegativeInfinity));
+            var exception1 = Record.Exception(() => ElectricResistance.FromOhms(double.PositiveInfinity));
+            var exception2 = Record.Exception(() => ElectricResistance.FromOhms(double.NegativeInfinity));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void FromOhms_WithNanValue_ThrowsArgumentException()
+        public void FromOhms_WithNanValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => ElectricResistance.FromOhms(double.NaN));
+            var exception = Record.Exception(() => ElectricResistance.FromOhms(double.NaN));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -548,6 +558,8 @@ namespace OasysUnits.Tests
             var v = ElectricResistance.FromOhms(1);
             Assert.True(v.Equals(ElectricResistance.FromOhms(1), OhmsTolerance, ComparisonType.Relative));
             Assert.False(v.Equals(ElectricResistance.Zero, OhmsTolerance, ComparisonType.Relative));
+            Assert.True(ElectricResistance.FromOhms(100).Equals(ElectricResistance.FromOhms(120), 0.3, ComparisonType.Relative));
+            Assert.False(ElectricResistance.FromOhms(100).Equals(ElectricResistance.FromOhms(120), 0.1, ComparisonType.Relative));
         }
 
         [Fact]

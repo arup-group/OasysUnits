@@ -33,6 +33,8 @@ namespace OasysUnits.Tests
 
         protected override double JulianYearsInOneSecond => 3.16880878140289e-08;
 
+        protected override double SolsInOneSecond => 1.126440159375963e-5;
+
         [Fact]
         public static void ToTimeSpanShouldThrowExceptionOnValuesLargerThanTimeSpanMax()
         {
@@ -192,7 +194,7 @@ namespace OasysUnits.Tests
         [InlineData("1000 мсек", 1, "ru-RU")]
         public void DurationFromStringUsingMultipleAbbreviationsParsedCorrectly(string textValue, double expectedSeconds, string? culture = null)
         {
-            var cultureInfo = culture == null ? null : new CultureInfo(culture);
+            var cultureInfo = culture == null ? CultureInfo.InvariantCulture : CultureInfo.GetCultureInfo(culture);
 
             AssertEx.EqualTolerance(expectedSeconds, Duration.Parse(textValue, cultureInfo).Seconds, SecondsTolerance);
         }

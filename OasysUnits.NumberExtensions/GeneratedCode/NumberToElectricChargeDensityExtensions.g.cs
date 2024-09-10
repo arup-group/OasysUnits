@@ -19,6 +19,10 @@
 
 using System;
 
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
+
 #nullable enable
 
 namespace OasysUnits.NumberExtensions.NumberToElectricChargeDensity
@@ -28,9 +32,13 @@ namespace OasysUnits.NumberExtensions.NumberToElectricChargeDensity
     /// </summary>
     public static class NumberToElectricChargeDensityExtensions
     {
-        /// <inheritdoc cref="ElectricChargeDensity.FromCoulombsPerCubicMeter(OasysUnits.QuantityValue)" />
-        public static ElectricChargeDensity CoulombsPerCubicMeter<T>(this T value) =>
-            ElectricChargeDensity.FromCoulombsPerCubicMeter(Convert.ToDouble(value));
+        /// <inheritdoc cref="ElectricChargeDensity.FromCoulombsPerCubicMeter(double)" />
+        public static ElectricChargeDensity CoulombsPerCubicMeter<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ElectricChargeDensity.FromCoulombsPerCubicMeter(Convert.ToDouble(value));
 
     }
 }

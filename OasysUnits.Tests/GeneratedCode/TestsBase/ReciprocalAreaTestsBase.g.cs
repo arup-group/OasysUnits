@@ -107,16 +107,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void Ctor_WithInfinityValue_ThrowsArgumentException()
+        public void Ctor_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new ReciprocalArea(double.PositiveInfinity, ReciprocalAreaUnit.InverseSquareMeter));
-            Assert.Throws<ArgumentException>(() => new ReciprocalArea(double.NegativeInfinity, ReciprocalAreaUnit.InverseSquareMeter));
+            var exception1 = Record.Exception(() => new ReciprocalArea(double.PositiveInfinity, ReciprocalAreaUnit.InverseSquareMeter));
+            var exception2 = Record.Exception(() => new ReciprocalArea(double.NegativeInfinity, ReciprocalAreaUnit.InverseSquareMeter));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void Ctor_WithNaNValue_ThrowsArgumentException()
+        public void Ctor_WithNaNValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new ReciprocalArea(double.NaN, ReciprocalAreaUnit.InverseSquareMeter));
+            var exception = Record.Exception(() => new ReciprocalArea(double.NaN, ReciprocalAreaUnit.InverseSquareMeter));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -221,16 +226,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void FromInverseSquareMeters_WithInfinityValue_ThrowsArgumentException()
+        public void FromInverseSquareMeters_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => ReciprocalArea.FromInverseSquareMeters(double.PositiveInfinity));
-            Assert.Throws<ArgumentException>(() => ReciprocalArea.FromInverseSquareMeters(double.NegativeInfinity));
+            var exception1 = Record.Exception(() => ReciprocalArea.FromInverseSquareMeters(double.PositiveInfinity));
+            var exception2 = Record.Exception(() => ReciprocalArea.FromInverseSquareMeters(double.NegativeInfinity));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void FromInverseSquareMeters_WithNanValue_ThrowsArgumentException()
+        public void FromInverseSquareMeters_WithNanValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => ReciprocalArea.FromInverseSquareMeters(double.NaN));
+            var exception = Record.Exception(() => ReciprocalArea.FromInverseSquareMeters(double.NaN));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -710,6 +720,8 @@ namespace OasysUnits.Tests
             var v = ReciprocalArea.FromInverseSquareMeters(1);
             Assert.True(v.Equals(ReciprocalArea.FromInverseSquareMeters(1), InverseSquareMetersTolerance, ComparisonType.Relative));
             Assert.False(v.Equals(ReciprocalArea.Zero, InverseSquareMetersTolerance, ComparisonType.Relative));
+            Assert.True(ReciprocalArea.FromInverseSquareMeters(100).Equals(ReciprocalArea.FromInverseSquareMeters(120), 0.3, ComparisonType.Relative));
+            Assert.False(ReciprocalArea.FromInverseSquareMeters(100).Equals(ReciprocalArea.FromInverseSquareMeters(120), 0.1, ComparisonType.Relative));
         }
 
         [Fact]

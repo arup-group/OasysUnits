@@ -67,16 +67,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void Ctor_WithInfinityValue_ThrowsArgumentException()
+        public void Ctor_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new LuminousFlux(double.PositiveInfinity, LuminousFluxUnit.Lumen));
-            Assert.Throws<ArgumentException>(() => new LuminousFlux(double.NegativeInfinity, LuminousFluxUnit.Lumen));
+            var exception1 = Record.Exception(() => new LuminousFlux(double.PositiveInfinity, LuminousFluxUnit.Lumen));
+            var exception2 = Record.Exception(() => new LuminousFlux(double.NegativeInfinity, LuminousFluxUnit.Lumen));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void Ctor_WithNaNValue_ThrowsArgumentException()
+        public void Ctor_WithNaNValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new LuminousFlux(double.NaN, LuminousFluxUnit.Lumen));
+            var exception = Record.Exception(() => new LuminousFlux(double.NaN, LuminousFluxUnit.Lumen));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -131,16 +136,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void FromLumens_WithInfinityValue_ThrowsArgumentException()
+        public void FromLumens_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => LuminousFlux.FromLumens(double.PositiveInfinity));
-            Assert.Throws<ArgumentException>(() => LuminousFlux.FromLumens(double.NegativeInfinity));
+            var exception1 = Record.Exception(() => LuminousFlux.FromLumens(double.PositiveInfinity));
+            var exception2 = Record.Exception(() => LuminousFlux.FromLumens(double.NegativeInfinity));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void FromLumens_WithNanValue_ThrowsArgumentException()
+        public void FromLumens_WithNanValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => LuminousFlux.FromLumens(double.NaN));
+            var exception = Record.Exception(() => LuminousFlux.FromLumens(double.NaN));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -359,6 +369,8 @@ namespace OasysUnits.Tests
             var v = LuminousFlux.FromLumens(1);
             Assert.True(v.Equals(LuminousFlux.FromLumens(1), LumensTolerance, ComparisonType.Relative));
             Assert.False(v.Equals(LuminousFlux.Zero, LumensTolerance, ComparisonType.Relative));
+            Assert.True(LuminousFlux.FromLumens(100).Equals(LuminousFlux.FromLumens(120), 0.3, ComparisonType.Relative));
+            Assert.False(LuminousFlux.FromLumens(100).Equals(LuminousFlux.FromLumens(120), 0.1, ComparisonType.Relative));
         }
 
         [Fact]

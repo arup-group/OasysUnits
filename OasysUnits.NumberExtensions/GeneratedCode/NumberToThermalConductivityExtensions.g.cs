@@ -19,6 +19,10 @@
 
 using System;
 
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
+
 #nullable enable
 
 namespace OasysUnits.NumberExtensions.NumberToThermalConductivity
@@ -28,13 +32,21 @@ namespace OasysUnits.NumberExtensions.NumberToThermalConductivity
     /// </summary>
     public static class NumberToThermalConductivityExtensions
     {
-        /// <inheritdoc cref="ThermalConductivity.FromBtusPerHourFootFahrenheit(OasysUnits.QuantityValue)" />
-        public static ThermalConductivity BtusPerHourFootFahrenheit<T>(this T value) =>
-            ThermalConductivity.FromBtusPerHourFootFahrenheit(Convert.ToDouble(value));
+        /// <inheritdoc cref="ThermalConductivity.FromBtusPerHourFootFahrenheit(double)" />
+        public static ThermalConductivity BtusPerHourFootFahrenheit<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ThermalConductivity.FromBtusPerHourFootFahrenheit(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="ThermalConductivity.FromWattsPerMeterKelvin(OasysUnits.QuantityValue)" />
-        public static ThermalConductivity WattsPerMeterKelvin<T>(this T value) =>
-            ThermalConductivity.FromWattsPerMeterKelvin(Convert.ToDouble(value));
+        /// <inheritdoc cref="ThermalConductivity.FromWattsPerMeterKelvin(double)" />
+        public static ThermalConductivity WattsPerMeterKelvin<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => ThermalConductivity.FromWattsPerMeterKelvin(Convert.ToDouble(value));
 
     }
 }

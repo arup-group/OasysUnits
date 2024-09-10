@@ -19,6 +19,10 @@
 
 using System;
 
+#if NET7_0_OR_GREATER
+using System.Numerics;
+#endif
+
 #nullable enable
 
 namespace OasysUnits.NumberExtensions.NumberToDuration
@@ -28,49 +32,101 @@ namespace OasysUnits.NumberExtensions.NumberToDuration
     /// </summary>
     public static class NumberToDurationExtensions
     {
-        /// <inheritdoc cref="Duration.FromDays(OasysUnits.QuantityValue)" />
-        public static Duration Days<T>(this T value) =>
-            Duration.FromDays(Convert.ToDouble(value));
+        /// <inheritdoc cref="Duration.FromDays(double)" />
+        public static Duration Days<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Duration.FromDays(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Duration.FromHours(OasysUnits.QuantityValue)" />
-        public static Duration Hours<T>(this T value) =>
-            Duration.FromHours(Convert.ToDouble(value));
+        /// <inheritdoc cref="Duration.FromHours(double)" />
+        public static Duration Hours<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Duration.FromHours(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Duration.FromJulianYears(OasysUnits.QuantityValue)" />
-        public static Duration JulianYears<T>(this T value) =>
-            Duration.FromJulianYears(Convert.ToDouble(value));
+        /// <inheritdoc cref="Duration.FromJulianYears(double)" />
+        public static Duration JulianYears<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Duration.FromJulianYears(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Duration.FromMicroseconds(OasysUnits.QuantityValue)" />
-        public static Duration Microseconds<T>(this T value) =>
-            Duration.FromMicroseconds(Convert.ToDouble(value));
+        /// <inheritdoc cref="Duration.FromMicroseconds(double)" />
+        public static Duration Microseconds<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Duration.FromMicroseconds(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Duration.FromMilliseconds(OasysUnits.QuantityValue)" />
-        public static Duration Milliseconds<T>(this T value) =>
-            Duration.FromMilliseconds(Convert.ToDouble(value));
+        /// <inheritdoc cref="Duration.FromMilliseconds(double)" />
+        public static Duration Milliseconds<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Duration.FromMilliseconds(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Duration.FromMinutes(OasysUnits.QuantityValue)" />
-        public static Duration Minutes<T>(this T value) =>
-            Duration.FromMinutes(Convert.ToDouble(value));
+        /// <inheritdoc cref="Duration.FromMinutes(double)" />
+        public static Duration Minutes<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Duration.FromMinutes(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Duration.FromMonths30(OasysUnits.QuantityValue)" />
-        public static Duration Months30<T>(this T value) =>
-            Duration.FromMonths30(Convert.ToDouble(value));
+        /// <inheritdoc cref="Duration.FromMonths30(double)" />
+        public static Duration Months30<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Duration.FromMonths30(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Duration.FromNanoseconds(OasysUnits.QuantityValue)" />
-        public static Duration Nanoseconds<T>(this T value) =>
-            Duration.FromNanoseconds(Convert.ToDouble(value));
+        /// <inheritdoc cref="Duration.FromNanoseconds(double)" />
+        public static Duration Nanoseconds<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Duration.FromNanoseconds(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Duration.FromSeconds(OasysUnits.QuantityValue)" />
-        public static Duration Seconds<T>(this T value) =>
-            Duration.FromSeconds(Convert.ToDouble(value));
+        /// <inheritdoc cref="Duration.FromSeconds(double)" />
+        public static Duration Seconds<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Duration.FromSeconds(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Duration.FromWeeks(OasysUnits.QuantityValue)" />
-        public static Duration Weeks<T>(this T value) =>
-            Duration.FromWeeks(Convert.ToDouble(value));
+        /// <inheritdoc cref="Duration.FromSols(double)" />
+        public static Duration Sols<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Duration.FromSols(Convert.ToDouble(value));
 
-        /// <inheritdoc cref="Duration.FromYears365(OasysUnits.QuantityValue)" />
-        public static Duration Years365<T>(this T value) =>
-            Duration.FromYears365(Convert.ToDouble(value));
+        /// <inheritdoc cref="Duration.FromWeeks(double)" />
+        public static Duration Weeks<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Duration.FromWeeks(Convert.ToDouble(value));
+
+        /// <inheritdoc cref="Duration.FromYears365(double)" />
+        public static Duration Years365<T>(this T value)
+            where T : notnull
+#if NET7_0_OR_GREATER
+            , INumber<T>
+#endif
+            => Duration.FromYears365(Convert.ToDouble(value));
 
     }
 }

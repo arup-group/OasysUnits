@@ -25,9 +25,12 @@ namespace OasysUnits.Units
 
     public enum CoefficientOfThermalExpansionUnit
     {
-        InverseDegreeCelsius = 1,
-        InverseDegreeFahrenheit = 2,
-        InverseKelvin = 3,
+        PerDegreeCelsius = 9,
+        PerDegreeFahrenheit = 11,
+        PerKelvin = 13,
+        PpmPerDegreeCelsius = 6,
+        PpmPerDegreeFahrenheit = 4,
+        PpmPerKelvin = 7,
     }
 
     #pragma warning restore 1591

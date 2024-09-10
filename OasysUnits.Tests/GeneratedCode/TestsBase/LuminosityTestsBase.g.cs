@@ -119,16 +119,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void Ctor_WithInfinityValue_ThrowsArgumentException()
+        public void Ctor_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new Luminosity(double.PositiveInfinity, LuminosityUnit.Watt));
-            Assert.Throws<ArgumentException>(() => new Luminosity(double.NegativeInfinity, LuminosityUnit.Watt));
+            var exception1 = Record.Exception(() => new Luminosity(double.PositiveInfinity, LuminosityUnit.Watt));
+            var exception2 = Record.Exception(() => new Luminosity(double.NegativeInfinity, LuminosityUnit.Watt));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void Ctor_WithNaNValue_ThrowsArgumentException()
+        public void Ctor_WithNaNValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => new Luminosity(double.NaN, LuminosityUnit.Watt));
+            var exception = Record.Exception(() => new Luminosity(double.NaN, LuminosityUnit.Watt));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -248,16 +253,21 @@ namespace OasysUnits.Tests
         }
 
         [Fact]
-        public void FromWatts_WithInfinityValue_ThrowsArgumentException()
+        public void FromWatts_WithInfinityValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => Luminosity.FromWatts(double.PositiveInfinity));
-            Assert.Throws<ArgumentException>(() => Luminosity.FromWatts(double.NegativeInfinity));
+            var exception1 = Record.Exception(() => Luminosity.FromWatts(double.PositiveInfinity));
+            var exception2 = Record.Exception(() => Luminosity.FromWatts(double.NegativeInfinity));
+
+            Assert.Null(exception1);
+            Assert.Null(exception2);
         }
 
         [Fact]
-        public void FromWatts_WithNanValue_ThrowsArgumentException()
+        public void FromWatts_WithNanValue_DoNotThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => Luminosity.FromWatts(double.NaN));
+            var exception = Record.Exception(() => Luminosity.FromWatts(double.NaN));
+
+            Assert.Null(exception);
         }
 
         [Fact]
@@ -771,6 +781,8 @@ namespace OasysUnits.Tests
             var v = Luminosity.FromWatts(1);
             Assert.True(v.Equals(Luminosity.FromWatts(1), WattsTolerance, ComparisonType.Relative));
             Assert.False(v.Equals(Luminosity.Zero, WattsTolerance, ComparisonType.Relative));
+            Assert.True(Luminosity.FromWatts(100).Equals(Luminosity.FromWatts(120), 0.3, ComparisonType.Relative));
+            Assert.False(Luminosity.FromWatts(100).Equals(Luminosity.FromWatts(120), 0.1, ComparisonType.Relative));
         }
 
         [Fact]

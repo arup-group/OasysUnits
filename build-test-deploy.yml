@@ -104,8 +104,6 @@ steps:
     workingDirectory: '$(System.DefaultWorkingDirectory)'
     ignoreLASTEXITCODE: true
     
-- task: PowerShell@3
-  displayName: 'Signing Dlls'
 - template: install-azure-sign-tool.yml
 - powershell: |
       AzureSignTool sign `
@@ -120,10 +118,11 @@ steps:
         $(Build.SourcesDirectory).\Artifacts\OasysUnits\net48\OasysUnits.dll `
         $(Build.SourcesDirectory).\Artifacts\OasysUnits\net6.0\OasysUnits.dll `
         $(Build.SourcesDirectory).\Artifacts\OasysUnits\netstandard2.0\OasysUnits.dll `
-        $(Build.SourcesDirectory).\Artifacts\OasysUnits.Serialization.JsonNet\netstandard2.0\OasysUnits.Serialization.JsonNet.dll 
-         env:
-          AZURE_CLIENT_ID: $(AZURE_CLIENT_ID)
-          AZURE_CLIENT_SECRET : $(AZURE_CLIENT_SECRET)
+        $(Build.SourcesDirectory).\Artifacts\OasysUnits.Serialization.JsonNet\netstandard2.0\OasysUnits.Serialization.JsonNet.dll
+  displayName: Sign files before adding to installer
+  env:
+   AZURE_CLIENT_ID: $(AZURE_CLIENT_ID)
+   AZURE_CLIENT_SECRET : $(AZURE_CLIENT_SECRET)
 
 - powershell: |
     cd OasysUnits

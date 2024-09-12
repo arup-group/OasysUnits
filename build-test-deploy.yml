@@ -105,6 +105,7 @@ steps:
     ignoreLASTEXITCODE: true
     
 - template: install-azure-sign-tool.yml
+  displayName: Sign files before adding to installer
 - powershell: |
       AzureSignTool sign `
         --description-url "https://oasys-software.com" `
@@ -119,11 +120,10 @@ steps:
         $(Build.SourcesDirectory).\Artifacts\OasysUnits\net6.0\OasysUnits.dll `
         $(Build.SourcesDirectory).\Artifacts\OasysUnits\netstandard2.0\OasysUnits.dll `
         $(Build.SourcesDirectory).\Artifacts\OasysUnits.Serialization.JsonNet\netstandard2.0\OasysUnits.Serialization.JsonNet.dll 
-        displayName: Sign files before adding to installer
-         env:
-          AZURE_CLIENT_ID: $(AZURE_CLIENT_ID)
-          AZURE_CLIENT_SECRET : $(AZURE_CLIENT_SECRET)
-
+        env:
+         AZURE_CLIENT_ID: $(AZURE_CLIENT_ID)
+         AZURE_CLIENT_SECRET : $(AZURE_CLIENT_SECRET)
+         
 - powershell: |
     cd OasysUnits
     & 'C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\MSBuild\Current\Bin\amd64\MSBuild.exe' OasysUnits.csproj /t:pack /p:IncludeSymbols=true /p:SymbolPackageFormat=snupkg /p:DebugType=portable /property:Configuration=Debug

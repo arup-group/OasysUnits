@@ -118,8 +118,8 @@ steps:
         $(Build.SourcesDirectory).\Artifacts\OasysUnits\net48\OasysUnits.dll `
         $(Build.SourcesDirectory).\Artifacts\OasysUnits\net6.0\OasysUnits.dll `
         $(Build.SourcesDirectory).\Artifacts\OasysUnits\netstandard2.0\OasysUnits.dll `
-        $(Build.SourcesDirectory).\Artifacts\OasysUnits.Serialization.JsonNet\netstandard2.0\OasysUnits.Serialization.JsonNet.dll
-      displayName: Sign files before adding to installer
+        $(Build.SourcesDirectory).\Artifacts\OasysUnits.Serialization.JsonNet\netstandard2.0\OasysUnits.Serialization.JsonNet.dll 
+        displayName: Sign files before adding to installer
          env:
           AZURE_CLIENT_ID: $(AZURE_CLIENT_ID)
           AZURE_CLIENT_SECRET : $(AZURE_CLIENT_SECRET)

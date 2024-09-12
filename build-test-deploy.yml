@@ -104,7 +104,7 @@ steps:
     workingDirectory: '$(System.DefaultWorkingDirectory)'
     ignoreLASTEXITCODE: true
     
-- template: build-templates/install-azure-sign-tool.yml
+- template: install-azure-sign-tool.yml
 - powershell: |
       AzureSignTool sign `
         --description-url "https://oasys-software.com" `

@@ -125,24 +125,12 @@ steps:
   env:
    AZURE_CLIENT_ID: $(AZURE_CLIENT_ID)
    AZURE_CLIENT_SECRET : $(AZURE_CLIENT_SECRET)
-
-- powershell: |
-    cd OasysUnits
-    & 'C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\MSBuild\Current\Bin\amd64\MSBuild.exe' OasysUnits.csproj /t:pack /p:IncludeSymbols=true /p:SymbolPackageFormat=snupkg /p:DebugType=portable /property:Configuration=Debug /p:NoBuild=true
-  condition: and(succeeded(),  ne(variables.TAG_EXISTS, 'true'))
-  displayName: Package OasysUnits NuGet
-
-- powershell: |
-    cd OasysUnits.NumberExtensions
-    & 'C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\MSBuild\Current\Bin\amd64\MSBuild.exe' OasysUnits.NumberExtensions.csproj /t:pack /p:IncludeSymbols=true /p:SymbolPackageFormat=snupkg /p:DebugType=portable /property:Configuration=Debug /p:NoBuild=true
-  condition: and(succeeded(), ne(variables.TAG_EXISTS, 'true'))
-  displayName: Package OasysUnits.NumberExtensions NuGet
-
-- powershell: |
-    cd OasysUnits.Serialization.JsonNet
-    & 'C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\MSBuild\Current\Bin\amd64\MSBuild.exe' OasysUnits.Serialization.JsonNet.csproj /t:pack /p:IncludeSymbols=true /p:SymbolPackageFormat=snupkg /p:DebugType=portable /property:Configuration=Debug /p:NoBuild=true
-  condition: and(succeeded(), ne(variables.TAG_EXISTS, 'true'))
-  displayName: Package OasysUnits.Serialization.JsonNet NuGet
+   
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'pack'
+    projects: 'OasysUnits.csproj'
+    arguments: '--configuration $(configuration) --output $(Build.ArtifactStagingDirectory)'
 
 - task: GitHubRelease@1
   inputs:

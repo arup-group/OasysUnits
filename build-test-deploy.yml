@@ -115,11 +115,11 @@ steps:
         --azure-key-vault-certificate "OasysCodeSigning" `
         --timestamp-rfc3161 "http://timestamp.digicert.com" `
         --verbose `
-        # $(Build.SourcesDirectory).\Artifacts\OasysUnits\net48\OasysUnits.dll `
-        # $(Build.SourcesDirectory).\Artifacts\OasysUnits\net48\OasysUnits.dll `
+        $(Build.SourcesDirectory).\Artifacts\OasysUnits\net48\OasysUnits.dll `
+        $(Build.SourcesDirectory).\Artifacts\OasysUnits\net48\OasysUnits.dll `
         $(Build.SourcesDirectory).\Artifacts\OasysUnits\net6.0\OasysUnits.dll `
         $(Build.SourcesDirectory).\Artifacts\OasysUnits\netstandard2.0\OasysUnits.dll `
-         $(Build.SourcesDirectory).\Artifacts\OasysUnits.NumberExtensions\netstandard2.0\OasysUnits.NumberExtensions.dll `
+        $(Build.SourcesDirectory).\Artifacts\OasysUnits.NumberExtensions\netstandard2.0\OasysUnits.NumberExtensions.dll `
         $(Build.SourcesDirectory).\Artifacts\OasysUnits.Serialization.JsonNet\netstandard2.0\OasysUnits.Serialization.JsonNet.dll
   displayName: Sign files before adding to installer
   env:
@@ -164,3 +164,4 @@ steps:
     addChangeLog: false
   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'), ne(variables.TAG_EXISTS, 'true'))
   displayName: 'Publishing assets to Github'
+

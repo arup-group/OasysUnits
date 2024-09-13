@@ -137,7 +137,7 @@ steps:
   displayName: Pack
   inputs:
    command: 'pack'
-   packagesToPack: '**/OasysUnits.csproj'
+   packagesToPack: 'OasysUnits/OasysUnits.csproj'
    configuration: 'Release'
 
 - task: GitHubRelease@1

@@ -130,7 +130,8 @@ steps:
   displayName: Build
   inputs:
     command: 'build'
-    projects: $(Build.SourcesDirectory)\OasysUnits.csproj
+    projects: '**/*.csproj' 
+    workingDirectory: 'OasysUnits'
     arguments: '--configuration Release'
  
 - task: DotNetCoreCLI@2

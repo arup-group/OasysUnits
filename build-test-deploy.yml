@@ -128,19 +128,19 @@ steps:
 - powershell: |
     cd OasysUnits
     & 'C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\MSBuild\Current\Bin\amd64\MSBuild.exe' OasysUnits.csproj /t:pack /p:NoBuild=true /p:IncludeSymbols=true /p:SymbolPackageFormat=snupkg /p:DebugType=portable /property:Configuration=Debug
-  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'), ne(variables.TAG_EXISTS, 'true'))
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main') || ne(variables['Build.Reason'], 'Manual'), ne(variables.TAG_EXISTS, 'true'))
   displayName: Package OasysUnits NuGet
 
 - powershell: |
     cd OasysUnits.NumberExtensions
     & 'C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\MSBuild\Current\Bin\amd64\MSBuild.exe' OasysUnits.NumberExtensions.csproj /t:pack /p:NoBuild=true /p:IncludeSymbols=true /p:SymbolPackageFormat=snupkg /p:DebugType=portable /property:Configuration=Debug
-  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'), ne(variables.TAG_EXISTS, 'true'))
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main') || || ne(variables['Build.Reason'], 'Manual'), ne(variables.TAG_EXISTS, 'true'))
   displayName: Package OasysUnits.NumberExtensions NuGet
 
 - powershell: |
     cd OasysUnits.Serialization.JsonNet
     & 'C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\MSBuild\Current\Bin\amd64\MSBuild.exe' OasysUnits.Serialization.JsonNet.csproj /t:pack /p:NoBuild=true /p:IncludeSymbols=true /p:SymbolPackageFormat=snupkg /p:DebugType=portable /property:Configuration=Debug
-  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'), ne(variables.TAG_EXISTS, 'true'))
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main') || || ne(variables['Build.Reason'], 'Manual'), ne(variables.TAG_EXISTS, 'true'))
   displayName: Package OasysUnits.Serialization.JsonNet NuGet
 
 - task: GitHubRelease@1

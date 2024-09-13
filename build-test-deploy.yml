@@ -130,13 +130,14 @@ steps:
   displayName: Build
   inputs:
     command: 'build'
-    projects: '**/OasysUnits/OasysUnits.csproj'
+    projects: '**/OasysUnits.sln'
     arguments: '--configuration Release'
  
 - task: DotNetCoreCLI@2
   displayName: Pack
   inputs:
    command: 'pack'
+   packagesToPack: '**/OasysUnits.csproj'
    configuration: 'Release'
 
 - task: GitHubRelease@1

@@ -131,7 +131,6 @@ steps:
   inputs:
     command: 'build'
     projects: '**/*.csproj' 
-    workingDirectory: 'OasysUnits/OasysUnits'
     arguments: '--configuration Release'
  
 - task: DotNetCoreCLI@2

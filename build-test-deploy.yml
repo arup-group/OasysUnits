@@ -110,6 +110,7 @@ steps:
     command: 'build'
     projects: '**/OasysUnits.sln'
     arguments: '--configuration Release'
+    workingDirectory: '$(System.DefaultWorkingDirectory)'
     
 - template: install-azure-sign-tool.yml
 - powershell: |
@@ -139,6 +140,7 @@ steps:
    command: 'pack'
    packagesToPack: 'OasysUnits/OasysUnits.csproj'
    configuration: 'Release'
+   workingDirectory: '$(System.DefaultWorkingDirectory)'
 
 - task: GitHubRelease@1
   inputs:

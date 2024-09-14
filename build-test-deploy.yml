@@ -103,6 +103,13 @@ steps:
     errorActionPreference: 'continue'
     workingDirectory: '$(System.DefaultWorkingDirectory)'
     ignoreLASTEXITCODE: true
+       
+- task: DotNetCoreCLI@2
+  displayName: Build
+  inputs:
+    command: 'build'
+    projects: '**/OasysUnits.sln'
+    arguments: '--configuration Release'
     
 - template: install-azure-sign-tool.yml
 - powershell: |
@@ -125,13 +132,6 @@ steps:
   env:
    AZURE_CLIENT_ID: $(AZURE_CLIENT_ID)
    AZURE_CLIENT_SECRET : $(AZURE_CLIENT_SECRET)
-   
-- task: DotNetCoreCLI@2
-  displayName: Build
-  inputs:
-    command: 'build'
-    projects: '**/OasysUnits.sln'
-    arguments: '--configuration Release'
  
 - task: DotNetCoreCLI@2
   displayName: Pack
@@ -158,5 +158,5 @@ steps:
     isDraft: true
     isPreRelease: true
     addChangeLog: false
-  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'), ne(variables.TAG_EXISTS, 'true'))
+  condition: and(succeeded(), ne(variables.TAG_EXISTS, 'true'))
   displayName: 'Publishing assets to Github'

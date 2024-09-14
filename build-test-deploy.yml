@@ -140,7 +140,7 @@ steps:
    command: 'pack'
    packagesToPack: 'OasysUnits/OasysUnits.csproj'
    configuration: 'Release'
-   workingDirectory: '$(System.DefaultWorkingDirectory)'
+   outputDir: '$(Build.ArtifactStagingDirectory)
 
 - task: GitHubRelease@1
   inputs:

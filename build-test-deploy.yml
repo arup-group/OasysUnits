@@ -139,6 +139,7 @@ steps:
   inputs:
    command: 'pack'
    packagesToPack: 'OasysUnits/OasysUnits.csproj'
+   nobuild: true
    configuration: 'Release'
    outputDir: '$(Build.SourcesDirectory)'
 

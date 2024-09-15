@@ -130,8 +130,7 @@ steps:
    command: 'pack'
    packagesToPack: 'OasysUnits/OasysUnits.csproj'
    nobuild: true
-   includesymbols: true
-   buildProperties: "SymbolPackageFormat=snupkg"
+   arguments: '/p:IncludeSymbols=true /p:SymbolPackageFormat=snupkg /p:DebugType=portable'
    configuration: 'Release'
    outputDir: '$(Build.SourcesDirectory)'
   condition: and(succeeded(), ne(variables.TAG_EXISTS, 'true')) 
@@ -142,8 +141,7 @@ steps:
    command: 'pack'
    packagesToPack: 'OasysUnits.NumberExtensions/OasysUnits.NumberExtensions.csproj'
    nobuild: true
-   includesymbols: true
-   buildProperties: "SymbolPackageFormat=snupkg"
+   arguments: '/p:IncludeSymbols=true /p:SymbolPackageFormat=snupkg /p:DebugType=portable'
    configuration: 'Release'
    outputDir: '$(Build.SourcesDirectory)'
   condition: and(succeeded(), ne(variables.TAG_EXISTS, 'true'))
@@ -154,8 +152,7 @@ steps:
    command: 'pack'
    packagesToPack: 'OasysUnits.Serialization.JsonNet/OasysUnits.Serialization.JsonNet.csproj'
    nobuild: true
-   includesymbols: true
-   buildProperties: "SymbolPackageFormat=snupkg"
+   arguments: '/p:IncludeSymbols=true /p:SymbolPackageFormat=snupkg /p:DebugType=portable'
    configuration: 'Release'
    outputDir: '$(Build.SourcesDirectory)'
   condition: and(succeeded(), ne(variables.TAG_EXISTS, 'true'))

@@ -115,7 +115,7 @@ steps:
         --azure-key-vault-certificate "OasysCodeSigning" `
         --timestamp-rfc3161 "http://timestamp.digicert.com" `
         --verbose `
-        $(Build.SourcesDirectory).\Artifacts\OasysUnits\net48\OasysUnits.dll `OasysUnits.NumberExtensions.dll
+        $(Build.SourcesDirectory).\Artifacts\OasysUnits\net48\OasysUnits.dll `
         $(Build.SourcesDirectory).\Artifacts\OasysUnits\net6.0\OasysUnits.dll `
         $(Build.SourcesDirectory).\Artifacts\OasysUnits\netstandard2.0\OasysUnits.dll `
         $(Build.SourcesDirectory).\Artifacts\OasysUnits.Serialization.JsonNet\netstandard2.0\OasysUnits.Serialization.JsonNet.dll `

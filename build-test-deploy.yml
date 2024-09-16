@@ -115,7 +115,7 @@ steps:
         --azure-key-vault-certificate "OasysCodeSigning" `
         --timestamp-rfc3161 "http://timestamp.digicert.com" `
         --verbose `
-        $(Build.SourcesDirectory)\Artifacts\**\*.dll
+        $(Build.SourcesDirectory).\Artifacts\**\*.dll
   displayName: Sign files before adding to Nuget installer
   env:
    AZURE_CLIENT_ID: $(AZURE_CLIENT_ID)

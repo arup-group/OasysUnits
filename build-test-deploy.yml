@@ -104,6 +104,17 @@ steps:
     workingDirectory: '$(System.DefaultWorkingDirectory)'
     ignoreLASTEXITCODE: true
     
+- task: VSBuild@1
+  displayName: 'Building project to pack in Nuget'
+  inputs:
+    solution: 'OasysUnits.sln'
+    msbuildArgs: '/p:AppxBundlePlatforms="x64" /p:AppxPackageDir="$(build.artifactStagingDirectory)\AppxPackages" /p:AppxBundle=Always /p:UapAppxPackageBuildMode=StoreUpload /m /nr:false'
+    platform: 'Any CPU'
+    configuration: 'Debug'
+    clean: true
+  env:
+    MSBUILDDISABLENODEREUSE: 1    
+    
 - template: install-azure-sign-tool.yml
 - powershell: |
       AzureSignTool sign `
@@ -119,26 +130,26 @@ steps:
         $(Build.SourcesDirectory).\Artifacts\OasysUnits\net6.0\OasysUnits.dll `
         $(Build.SourcesDirectory).\Artifacts\OasysUnits\netstandard2.0\OasysUnits.dll `
         $(Build.SourcesDirectory).\Artifacts\OasysUnits.Serialization.JsonNet\netstandard2.0\OasysUnits.Serialization.JsonNet.dll
-  displayName: Sign files before adding to installer
+  displayName: Sign files before adding to Nuget installer
   env:
    AZURE_CLIENT_ID: $(AZURE_CLIENT_ID)
    AZURE_CLIENT_SECRET : $(AZURE_CLIENT_SECRET)
 
 - powershell: |
     cd OasysUnits
-    & 'C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\MSBuild\Current\Bin\amd64\MSBuild.exe' OasysUnits.csproj /t:pack /p:NoBuild=true /p:IncludeSymbols=true /p:SymbolPackageFormat=snupkg /p:DebugType=portable /property:Configuration=Release
+    & 'C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\MSBuild\Current\Bin\amd64\MSBuild.exe' OasysUnits.csproj /t:pack /p:NoBuild=true /p:IncludeSymbols=true /p:SymbolPackageFormat=snupkg /p:DebugType=portable /property:Configuration=Debug
   condition: and(succeeded(), ne(variables.TAG_EXISTS, 'true'))
   displayName: Package OasysUnits NuGet
 
 - powershell: |
     cd OasysUnits.NumberExtensions
-    & 'C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\MSBuild\Current\Bin\amd64\MSBuild.exe' OasysUnits.NumberExtensions.csproj /t:pack /p:NoBuild=true /p:IncludeSymbols=true /p:SymbolPackageFormat=snupkg /p:DebugType=portable /property:Configuration=Release
+    & 'C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\MSBuild\Current\Bin\amd64\MSBuild.exe' OasysUnits.NumberExtensions.csproj /t:pack /p:NoBuild=true /p:IncludeSymbols=true /p:SymbolPackageFormat=snupkg /p:DebugType=portable /property:Configuration=Debug
   condition: and(succeeded(), ne(variables.TAG_EXISTS, 'true'))
   displayName: Package OasysUnits.NumberExtensions NuGet
 
 - powershell: |
     cd OasysUnits.Serialization.JsonNet
-    & 'C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\MSBuild\Current\Bin\amd64\MSBuild.exe' OasysUnits.Serialization.JsonNet.csproj /t:pack /p:NoBuild=true /p:IncludeSymbols=true /p:SymbolPackageFormat=snupkg /p:DebugType=portable /property:Configuration=Release
+    & 'C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\MSBuild\Current\Bin\amd64\MSBuild.exe' OasysUnits.Serialization.JsonNet.csproj /t:pack /p:NoBuild=true /p:IncludeSymbols=true /p:SymbolPackageFormat=snupkg /p:DebugType=portable /property:Configuration=Debug
   condition: and(succeeded(), ne(variables.TAG_EXISTS, 'true'))
   displayName: Package OasysUnits.Serialization.JsonNet NuGet
 

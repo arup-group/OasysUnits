@@ -115,7 +115,23 @@ steps:
         --azure-key-vault-certificate "OasysCodeSigning" `
         --timestamp-rfc3161 "http://timestamp.digicert.com" `
         --verbose `
-        $(Build.SourcesDirectory).\Artifacts\**\*.dll
+        $(Build.SourcesDirectory).\Artifacts\OasysUnits\net48\OasysUnits.dll `
+        $(Build.SourcesDirectory).\Artifacts\OasysUnits\net48\fr-CA\OasysUnits.resources.dll `
+        $(Build.SourcesDirectory).\Artifacts\OasysUnits\net48\nb-NO\OasysUnits.resources.dll `
+        $(Build.SourcesDirectory).\Artifacts\OasysUnits\net48\ru-RU\OasysUnits.resources.dll `
+        $(Build.SourcesDirectory).\Artifacts\OasysUnits\net48\zh-CN\OasysUnits.resources.dll `
+        $(Build.SourcesDirectory).\Artifacts\OasysUnits\net6.0\OasysUnits.dll `
+        $(Build.SourcesDirectory).\Artifacts\OasysUnits\net6.0\fr-CA\OasysUnits.resources.dll `
+        $(Build.SourcesDirectory).\Artifacts\OasysUnits\net6.0\nb-NO\OasysUnits.resources.dll `
+        $(Build.SourcesDirectory).\Artifacts\OasysUnits\net6.0\ru-RU\OasysUnits.resources.dll `
+        $(Build.SourcesDirectory).\Artifacts\OasysUnits\net6.0\zh-CN\OasysUnits.resources.dll `
+        $(Build.SourcesDirectory).\Artifacts\OasysUnits\netstandard2.0\OasysUnits.dll `
+        $(Build.SourcesDirectory).\Artifacts\OasysUnits\netstandard2.0\fr-CA\OasysUnits.resources.dll `
+        $(Build.SourcesDirectory).\Artifacts\OasysUnits\netstandard2.0\nb-NO\OasysUnits.resources.dll `
+        $(Build.SourcesDirectory).\Artifacts\OasysUnits\netstandard2.0\ru-RU\OasysUnits.resources.dll `
+        $(Build.SourcesDirectory).\Artifacts\OasysUnits\netstandard2.0\zh-CN\OasysUnits.resources.dll `
+        $(Build.SourcesDirectory).\Artifacts\OasysUnits.Serialization.JsonNet\netstandard2.0\OasysUnits.Serialization.JsonNet.dll `
+        $(Build.SourcesDirectory).\Artifacts\OasysUnits.NumberExtensions\netstandard2.0\OasysUnits.NumberExtensions.dll
   displayName: Sign files before adding to Nuget installer
   env:
    AZURE_CLIENT_ID: $(AZURE_CLIENT_ID)

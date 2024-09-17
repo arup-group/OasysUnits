@@ -6,6 +6,8 @@
     <IsTestProject>true</IsTestProject>
     <NoWarn>CS0618</NoWarn>
     <Nullable>enable</Nullable>
+    <SignAssembly>True</SignAssembly>
+    <AssemblyOriginatorKeyFile>../OasysUnits.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <ItemGroup>

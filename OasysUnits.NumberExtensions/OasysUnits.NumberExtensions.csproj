@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <!-- NuGet properties -->
   <PropertyGroup>
     <PackageId>OasysUnits.NumberExtensions</PackageId>
@@ -23,6 +23,8 @@
     <Nullable>enable</Nullable>
     <RootNamespace>OasysUnits</RootNamespace>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <SignAssembly>True</SignAssembly>
+    <AssemblyOriginatorKeyFile>../OasysUnits.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <ItemGroup>

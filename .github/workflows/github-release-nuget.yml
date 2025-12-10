@@ -5,6 +5,10 @@ on:
   release:
     types: [published]
 
+# Default to minimal read-only permissions
+permissions:
+  contents: read
+
 jobs:
   pushNuGetPackage:
     runs-on: ubuntu-latest
